@@ -1,4 +1,59 @@
-/*
-!.gitignore
+*
 
-!.config/i3/config
+# * - any part (no subdirs)
+# /* - only in git root dir
+# ** - match subdirs
+# directories need to be added one at a time
+# /foo/ -> /foo/bar/ -> /foo/bar/baz/ -> ...
+
+!/.gitignore
+
+# Bash
+!/.bashrc
+
+# xsession
+!/.xsession
+
+!/.config/
+
+# git
+!/.config/git/
+!/.config/git/config
+
+# i3
+!/.config/i3/
+!/.config/i3/config
+
+# Polybar
+!/.config/polybar/
+!/.config/polybar/**
+
+# Picom
+!/.config/picom/
+!/.config/picom/**
+
+# Vim
+!/.vim/
+!/.vim/vimrc
+
+# Bin
+!/bin/
+!/bin/**
+
+# Xresources
+!/.config/xresources/
+!/.config/xresources/**
+
+# Screen layout
+!/.config/screenlayout/
+!/.config/screenlayout/**
+
+# qt5ct
+!/.config/qt5ct/
+!/.config/qt5ct/**
+
+# dunst
+!/.config/dunst/
+!/.config/dunst/**
+
+# OBS TODO

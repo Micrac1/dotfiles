@@ -1,0 +1,133 @@
+" so $VIM/vimrc
+so $VIMRUNTIME/defaults.vim
+set nocompatible
+set viminfofile=$HOME/.vim/viminfo
+
+if has('gui_running')
+	set belloff=all
+	set guioptions-=L
+	set guioptions-=T
+	set guioptions-=m
+	set guioptions-=r
+	let g:netrw_liststyle=3
+	" colorscheme slate
+	colorscheme default
+	set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
+endif
+
+set sessionoptions=blank,buffers,curdir,folds,help,tabpages,winpos,winsize,resize,terminal
+set splitbelow
+set splitright
+set number
+set relativenumber
+set ruler
+set wildmenu
+set showcmd
+set lazyredraw
+
+set tabstop=2
+set shiftwidth=2
+set expandtab
+syntax on
+set noundofile
+set noswapfile
+set nobackup
+set listchars=tab:\ \ \ ,trail:·
+set encoding=utf-8
+let mapleader=","
+
+" Hide matches
+nnoremap <leader>n :noh<CR>
+
+" Change marks
+nnoremap <Space><Space> /<++><CR>c4l
+nnoremap <leader>m i<++><Esc>l
+
+" Encoding
+nnoremap <leader>u :set encoding=latin1<CR>
+nnoremap <leader>U :set encoding=utf-8<CR>
+
+" Fonts (gui only)
+nnoremap <leader>fw :set guifont=Bitstream\ Vera\ Sans\ Mono\ 10<CR>
+nnoremap <leader>fe :set guifont=Bitstream\ Vera\ Sans\ Mono\ 12<CR>
+nnoremap <leader>fr :set guifont=Bitstream\ Vera\ Sans\ Mono\ 16<CR>
+
+" Formating
+nnoremap <leader>q i <right> <Esc>
+nnoremap <leader>w i <right><right> <Esc>
+
+" Configuring
+nnoremap <leader>r :so $MYVIMRC<CR>
+nnoremap <leader>E :tabnew $MYVIMRC<CR>
+
+" C++ helpers
+nnoremap <leader>inc a#include 
+nnoremap <leader>ifn a#ifndef <++><CR>#define <++><CR>#endif<Esc>?<++><CR>n<C-v>j3lc
+
+" Buffers
+nnoremap <leader>b :ls<CR>:b
+nnoremap <leader>d :ls<CR>:bd
+
+" Tabs
+nnoremap <C-Tab> :tabnext<CR>
+nnoremap <C-S-Tab> :tabprev<CR>
+
+nnoremap <M-1> 1gt
+nnoremap <M-2> 2gt
+nnoremap <M-3> 3gt
+nnoremap <M-4> 4gt
+nnoremap <M-5> 5gt
+nnoremap <M-6> 6gt
+nnoremap <M-7> 7gt
+nnoremap <M-8> 8gt
+nnoremap <M-9> 9gt
+
+inoremap <C-Tab> <Esc>:tabnext<CR>
+inoremap <C-S-Tab> <Esc>:tabprev<CR>
+
+" Auto bracketo (ctrl space works only in gvim)
+inoremap <C-Space> <right>
+inoremap <C-@> <right>
+
+inoremap " ""<left>
+inoremap "<esc> "<esc>
+inoremap "" ""
+
+inoremap ' ''<left>
+inoremap '<esc> '<esc>
+inoremap '' ''
+
+inoremap ( ()<left>
+inoremap (<esc> (<esc>
+inoremap () ()
+
+inoremap [ []<left>
+inoremap [<esc> [<esc>
+inoremap [] []
+
+inoremap { {}<left>
+inoremap {<esc> {<esc>
+inoremap {} {}
+
+inoremap < <><left>
+inoremap <<esc> <<esc>
+inoremap <<Space> < 
+inoremap <= <=
+inoremap << <<
+
+" Plugins
+call plug#begin('~/.vim/plugged')
+
+Plug 'habamax/vim-godot'
+Plug 'mattn/emmet-vim'
+Plug 'plasticboy/vim-markdown'
+Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+
+call plug#end()
+let g:Hexokinase_ftEnabled = []
+let g:Hexokinase_highlighters = [ 'sign_column', 'background', 'backgroundfull', 'foreground', 'foregroundfull' ]
+
+let g:Hexokinase_optInPatterns = [ 'full_hex', 'triple_hex', 'rgb', 'rgba', 'hsl', 'hsla', 'colour_names' ]
+
+let g:vim_markdown_folding_disabled=1

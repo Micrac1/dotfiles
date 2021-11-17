@@ -1,0 +1,443 @@
+# i3 config file (v4)
+
+# ----------
+#> Variables
+# ----------
+# for visibility
+set $i --no-startup-id
+
+set $lock_command `env\
+	XSECURELOCK_PASSWORD_PROMPT=disco\
+	XSECURELOCK_SAVER=saver_xscreensaver\
+	XSECURELOCK_DISCARD_FIRST_KEYPRESS=0\
+	xsecurelock`
+
+# Modifier key, win key
+set $mod Mod4
+
+# Border size
+set $border 2
+
+# Screenshot directory
+set $ssdir ~/Pictures/Screenshots
+
+# Applications
+set $terminal xfce4-terminal
+set $discord chromium --app='https://discord.com/channels/@me'
+#set $compositor_on "picom --experimental-backend & nvidia-settings -a CurrentMetaMode=\\"nvidia-auto-select +1280+0 {ForceFullCompositionPipeline=Off}\\""
+#set $compositor_off "killall picom ; nvidia-settings -a CurrentMetaMode=\\"nvidia-auto-select +1280+0 {ForceFullCompositionPipeline=Off}\\""
+set $compositor_on picom --experimental-backend
+set $compositor_off killall picom
+
+# Workspaces
+set $ws0 0
+set $ws1 1
+set $ws2 2
+set $ws3 3
+set $ws4 4
+set $ws5 5
+set $ws6 6
+set $ws7 7
+set $ws8 8
+set $ws9 9
+set $ws10 10
+
+#bindsym --whole-window button8 workspace $ws8
+#bindsym --whole-window button2 workspace $ws9
+
+## Xresources
+set_from_resource $color_black      color0  "#000000"
+set_from_resource $color_gray       color8  "#888888"
+set_from_resource $color_light_gray color7  "#aaaaaa"
+set_from_resource $color_white      color15 "#ffff00"
+
+set_from_resource $color_select     color12 "#00ff00"
+set_from_resource $color_red        color1  "#ff0000"
+
+# no xresources backup
+#client.focused          #00aaff           #00aaff           #333333           #00aaff           #00aaff
+#client.unfocused        #666666           #666666           #aaaaaa           #666666           #666666
+#client.focused_inactive #666666           #666666           #ffffff           #666666           #666666
+#client.urgent           #ff0000           #ff0000           #ffffff           #ff0000           #ff0000
+
+## Colors               title border      title bg          text              h/v indic.        window border
+client.focused          $color_select     $color_select     $color_black      $color_select     $color_select
+client.unfocused        $color_black      $color_black      $color_light_gray $color_black      $color_black
+client.focused_inactive $color_gray       $color_gray       $color_white      $color_gray       $color_gray
+client.urgent           $color_red        $color_red        $color_white      $color_red        $color_red
+
+client.placeholder      #000000           #000000           #000000           #000000           #000000
+client.background       $color_black
+
+# ----------
+#> i3 settings
+# ----------
+
+focus_follows_mouse no
+focus_wrapping no
+focus_on_window_activation smart
+force_display_urgency_hint 500 ms
+
+# Borders and title bars
+title_align center
+default_border pixel $border 
+default_floating_border pixel $border 
+hide_edge_borders none
+floating_modifier $mod
+popup_during_fullscreen smart
+show_marks yes
+
+gaps inner 10
+
+# Font for window titles.
+font pango:monospace 8
+#font pango:DejaVu Sans Mono 8
+
+# ----------
+#> Modes
+# ----------
+# Wallpapers
+#bindsym $mod+comma exec --no-startup-id `xsettingsd -c <(echo 'Net/ThemeName "Arc-Dark"') &`
+#bindsym $mod+period exec --no-startup-id `xsettingsd -c <(echo 'Net/ThemeName "Xresources"') &`
+
+# resize mode
+mode "resize" {
+	# resize windows with hjkl
+	bindsym h resize shrink width 10 px or 10 ppt
+	bindsym j resize grow height 10 px or 10 ppt
+	bindsym k resize shrink height 10 px or 10 ppt
+	bindsym l resize grow width 10 px or 10 ppt
+	
+	# same bindings, but for the arrow keys
+	bindsym Left resize shrink width 10 px or 10 ppt
+	bindsym Down resize grow height 10 px or 10 ppt
+	bindsym Up resize shrink height 10 px or 10 ppt
+	bindsym Right resize grow width 10 px or 10 ppt
+	
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	bindsym $mod+c mode "default"
+}
+
+set $open_mode "⌘Actions ➤Firefox  ➤Blender  ➤Terminal  \
+➤Calc  ➤Discord  ➤Launcher  ➤Godot  ➤Obs "
+mode $open_mode {
+	bindsym a mode $action_mode
+	bindsym s exec $i "steam"; mode "default"
+	bindsym t exec "$terminal"; mode "default"
+	bindsym e exec "thunar"; mode "default"
+	bindsym f exec "firefox"; mode "default"
+	bindsym b exec $i "blender"; mode "default"
+	bindsym c exec "qalculate-gtk"; mode "default"
+	bindsym g exec $i "godot"; mode "default"
+	bindsym d exec "$discord"; mode "default"
+	bindsym l exec "~/bin/gamelauncher.sh"; mode "default"
+	bindsym w exec "~/bin/wp.sh --gui"; mode "default"
+	bindsym o exec "obs --startreplaybuffer"; mode "default"
+	
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	bindsym $mod+o mode "default"
+	bindsym $mod+s mode "default"
+}
+
+set $action_mode " ➤Qrcode  ➤Image  ➤Text  ➤Meme  "
+mode $action_mode {
+	# qr from clipboard
+	bindsym q exec $i "xclip -sel clip -q -o | \
+		qrencode -o - --size=8 | feh - --auto-zoom --class floating -g 512x512"; mode "default"
+	# qr from primary (SHIFT)
+	bindsym Shift+q exec $i "xclip -sel primary -q -o | \
+		qrencode -o - --size=8 | feh - --auto-zoom --class floating -g 512x512"; mode "default"
+
+	# text from clipboard
+	bindsym t exec $i "xclip -sel clip -q -o | \
+		zenity --text-info --title Clipboard --width 512 --height 256"; mode "default"
+
+	# text from primary (SHIFT)
+	bindsym Shift+t exec $i "xclip -sel primary -q -o | \
+		zenity --text-info --title Clipboard --width 512 --height 256"; mode "default"
+
+	# show image from clipboard
+	bindsym i exec $i "xclip -sel clip -q -o -t image/png | \
+		feh - --auto-zoom --scale-down --class=floating -g 512x512"; mode "default"
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+
+set $border_mode "Default, None, Small, Medium, Large, THICC"
+mode $border_mode {
+	bindsym d [class=".*"] border pixel $border; mode "default"
+	bindsym n [class=".*"] border pixel 0; mode "default"
+	bindsym s [class=".*"] border pixel 2; mode "default"
+	bindsym m [class=".*"] border pixel 4; mode "default"
+	bindsym l [class=".*"] border pixel 8; mode "default"
+	bindsym t [class=".*"] border pixel 16; mode "default"
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	bindsym $mod+b mode "default"
+}
+
+# ----------
+#> Keybinds
+# ----------
+
+## Workspaces
+# Focus workspace
+bindsym $mod+grave workspace number $ws0
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# Move to workspace
+bindsym $mod+Shift+grave move container to workspace number $ws0; workspace number $ws0
+bindsym $mod+Shift+1 move container to workspace number $ws1 ; workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2 ; workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3 ; workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4 ; workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5 ; workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6 ; workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7 ; workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8 ; workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9 ; workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10; workspace number $ws10
+
+## Outputs
+# Focus outputs
+bindsym Control+$mod+h focus output left
+bindsym Control+$mod+l focus output right
+
+# Move workspaces to outputs
+bindsym Control+Shift+$mod+h move workspace to output left
+bindsym Control+Shift+$mod+l move workspace to output right
+
+## Modes
+bindsym $mod+o mode $open_mode
+bindsym $mod+s mode $open_mode
+bindsym $mod+c mode "resize"
+
+## Apps
+# Terminal
+bindsym $mod+Return exec "$terminal"
+
+# Compositor
+bindsym $mod+t exec $i "$compositor_on"
+bindsym $mod+Shift+t exec $i "$compositor_off"
+
+# Nvidia force composition pipeline
+bindsym $mod+g exec $i "nvidia-settings -a \
+  CurrentMetaMode='nvidia-auto-select +1280+0 {ForceFullCompositionPipeline=On}'"
+bindsym $mod+Shift+g exec $i "nvidia-settings -a \
+  CurrentMetaMode='nvidia-auto-select +1280+0 {ForceFullCompositionPipeline=Off}'"
+
+# dmenu
+bindsym $mod+r exec $i "dmenu_run -b -i"
+
+# gromitmpx
+bindsym $mod+b exec $i "gromit-mpx"
+
+# XKill
+bindsym --release $mod+x exec $i "xkill"
+bindsym --release Ctrl+Shift+$mod+x exec $i "xdotool getwindowfocus windowkill"
+
+# Quit / close
+bindsym $mod+q kill
+
+# reload/restart
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+
+## Focus window
+# change focus hjkl
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# change focus arrows
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# focus up/down
+bindsym $mod+a focus parent
+bindsym $mod+d focus child
+
+## Move window
+# move window hjkl
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# move window arrows
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+## Split
+bindsym $mod+semicolon split h
+bindsym $mod+v split v
+
+# Fullscreen mode
+bindsym $mod+f fullscreen toggle
+bindsym $mod+Shift+f fullscreen toggle global
+
+# Layout (stacked, tabbed, toggle split)
+bindsym $mod+w layout toggle tabbed stacking
+bindsym $mod+e layout toggle split
+
+## Floating windows
+# toggle tiling / floating
+bindsym $mod+Shift+z floating toggle; sticky disable
+bindsym --whole-window $mod+button2 floating toggle; sticky disable
+
+# change focus between tiling / floating windows
+bindsym $mod+z focus mode_toggle
+
+## Controls
+# Redirect sound to headphones
+#bindsym $mod+m exec "/usr/local/bin/switch-audio-port"
+
+# backlight
+# TODO
+
+# volume
+bindsym XF86AudioRaiseVolume exec $i "pactl set-sink-volume 0 +5%"
+bindsym XF86AudioLowerVolume exec $i "pactl set-sink-volume 0 -5%"
+
+# granular volume control
+bindsym Shift+XF86AudioRaiseVolume exec $i "pactl set-sink-volume 0 +1%"
+bindsym Shift+XF86AudioLowerVolume exec $i "pactl set-sink-volume 0 -1%"
+
+# mute
+bindsym XF86AudioMute exec $i "pactl set-sink-mute 0 toggle"
+bindsym Scroll_Lock exec $i "~/bin/mute.sh"
+
+# play/pause
+bindsym XF86AudioPlay exec $i "playerctl play-pause"
+bindsym XF86AudioStop exec $i "playerctl pause"
+bindsym XF86AudioPrev exec $i "playerctl previous"
+bindsym XF86AudioNext exec $i "playerctl next"
+
+## Swapping
+bindsym $mod+i unmark swapee; mark --replace swapee
+bindsym $mod+Shift+i swap container with mark swapee; [con_mark=swapee] focus; unmark swapee
+
+# Sticky toggle
+bindsym $mod+u sticky enable
+bindsym $mod+Shift+u sticky disable
+
+# Lock screen
+#bindsym Control+Mod1+l exec i3lock -c 333333ff
+bindsym Control+Mod1+l exec "$lock_command"
+
+## Mouse
+bindsym button3 floating toggle
+#bindsym button2 kill
+
+# Scratch pad
+bindsym $mod+y [class=.*] scratchpad show
+bindsym $mod+Shift+y; sticky enable; move scratchpad
+
+# Win tab
+bindsym $mod+Tab workspace back_and_forth
+bindsym $mod+Shift+Tab move container to workspace back_and_forth; workspace back_and_forth
+
+# Add empty space
+bindsym $mod+Shift+o exec --no-startup-id "i3-msg open"
+
+# Gaps add and subtract
+bindsym $mod+equal gaps inner all plus 10
+bindsym $mod+minus gaps inner all minus 10
+
+## Screenshotting
+# All screens
+bindsym Print exec $i \
+"scrot -z -p $ssdir/'Screenshot_%Y-%m-%d_%H-%M-%S.png' -e \
+'xclip -selection c -t image/png < $f' || notify-send 'Screenshot failed!'"
+
+# Selected application
+bindsym Shift+Print exec $i \
+"scrot -u -z -p $ssdir/'Screenshot_%Y-%m-%d_%H-%M-%S.png' -e \
+'xclip -selection c -t image/png < $f' || notify-send 'Screenshot failed!'"
+
+# Main monitor 1280,0,1920,1080
+set $ssgeo 1280,0,1920,1080
+bindsym $mod+Print exec $i \
+"scrot -a $ssgeo -z -p $ssdir/'Screenshot_%Y-%m-%d_%H-%M-%S.png' -e \
+'xclip -selection c -t image/png < $f' || notify-send 'Screenshot failed!'"
+
+# Select area
+bindsym --release Control+Shift+Print exec $i \
+"scrot -s -f -z -p $ssdir/'Screenshot_%Y-%m-%d_%H-%M-%S.png' -e \
+'xclip -selection c -t image/png < $f'"
+
+# ----------
+#> Window settings
+# ----------
+
+# Always show border
+for_window [all] border pixel $border
+
+# Assign windows to workspaces
+assign [instance="obs"] workspace number $ws9
+assign [instance="discord.com__app"] workspace number $ws0
+assign [instance="discord"] workspace number $ws0
+assign [class="net-minecraft-server-Main"] workspace number $ws8
+#assign [class="^(?!firefox$)"] output primary
+
+# Floating windows
+for_window [instance="Godot_Engine"] floating enable
+for_window [title="^Origin$"] floating enable
+for_window [instance="qalculate-gtk"] floating enable
+for_window [instance="gtk3-widget-factory"] floating enable
+for_window [instance="gtk4-widget-factory"] floating enable
+for_window [instance="pavucontrol"] floating enable
+for_window [instance="qt5ct"] floating enable
+for_window [instance="yad"] floating enable
+for_window [class="floating"] floating enable
+
+# ----------
+#> Start applications
+# ----------
+
+## i3 apps, i3 only, for session agonistic use .xsession
+
+# Assign workspaces to outputs
+workspace $ws0 output VGA1
+workspace $ws1 output primary
+workspace $ws2 output primary
+workspace $ws3 output primary
+workspace $ws4 output primary
+workspace $ws5 output primary
+workspace $ws8 output HDMI3
+workspace $ws9 output HDMI3
+
+# Polybar
+exec_always --no-startup-id "~/.config/polybar/launch_polybar.sh"
+
+# Alt tab
+exec_always --no-startup-id "alttab -s 0"
+
+# Welcome
+exec $terminal -e "sh -c '$HOME/bin/welcome.sh && $SHELL'"
+
+# Compositor
+exec --no-startup-id "$compositor_on"
+
+# Discord
+exec "$discord"
+
+#exec --no-startup-id i3-msg workspace number $ws9

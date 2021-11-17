@@ -1,0 +1,12 @@
+[user]
+	signkey = 5FA042908EC218453C2FB983AFB2F3948B880D55
+
+[alias]
+  s = status
+  l = log --oneline --graph --all --decorate
+
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f

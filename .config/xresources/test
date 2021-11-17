@@ -1,0 +1,40 @@
+!# Colors
+
+#define white #00FF00
+
+! special
+*.foreground:   white
+*.background:   #0000FF
+*.cursorColor:  #00aaff
+
+! black
+*.color0:       #333333
+*.color8:       #666666
+
+! red
+*.color1:       #ff3030
+*.color9:       #ff4060
+
+! green
+*.color2:       #66ff66
+*.color10:      #00ff00
+
+! yellow
+*.color3:       #eab030
+*.color11:      #ffc123
+
+! blue
+*.color4:       #5555ff
+*.color12:      #00aaff
+
+! magenta
+*.color5:       #ce5c00
+*.color13:      #f57900
+
+! cyan
+*.color6:       #22aaaa
+*.color14:      #44aaff
+
+! white
+*.color7:       #aaaaaa
+*.color15:      white
