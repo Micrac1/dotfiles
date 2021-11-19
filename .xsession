@@ -6,9 +6,6 @@ xrdb "${HOME}/.config/xresources/Xresources"
 # Gnome polkit
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
-# Background
-if [ -x "${HOME}/.fehbg" ]; then "${HOME}/.fehbg"; fi
-
 # ende
 if [ "${HOSTNAME}" = "ende" ]; then
   # Monitor layout
@@ -32,6 +29,9 @@ if [ "${HOSTNAME}" = "ende" ]; then
   # Graphics tablet setup
   "${HOME}/bin/tablet.sh"
 fi
+
+# Background
+if [ -x "${HOME}/.fehbg" ]; then "${HOME}/.fehbg"; fi
 
 # Numlock on
 /usr/bin/numlockx on
