@@ -33,6 +33,7 @@ set noundofile
 set noswapfile
 set nobackup
 set encoding=utf-8
+set completeopt=menu,menuone,preview
 let mapleader=","
 
 " Hide matches
