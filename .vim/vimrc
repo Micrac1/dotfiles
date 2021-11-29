@@ -32,7 +32,6 @@ syntax on
 set noundofile
 set noswapfile
 set nobackup
-set listchars=tab:\ \ \ ,trail:·
 set encoding=utf-8
 let mapleader=","
 
