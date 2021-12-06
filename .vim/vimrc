@@ -117,14 +117,17 @@ inoremap << <<
 
 " Plugins
 call plug#begin('~/.vim/plugged')
-
 Plug 'habamax/vim-godot'
 Plug 'mattn/emmet-vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-
 call plug#end()
+
+" vim-markdown
+let g:vim_markdown_new_list_item_indent = 0
+
+" Hexokinase
 let g:Hexokinase_ftEnabled = []
 let g:Hexokinase_highlighters = [ 'sign_column', 'background', 'backgroundfull', 'foreground', 'foregroundfull' ]
 
