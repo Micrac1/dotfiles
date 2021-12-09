@@ -35,6 +35,8 @@
 # Vim
 !/.vim/
 !/.vim/vimrc
+!/.vim/autoload/
+!/.vim/autoload/*
 
 # Bin
 !/bin/
