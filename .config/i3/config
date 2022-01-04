@@ -438,6 +438,6 @@ exec $terminal -e "sh -c '$HOME/bin/welcome.sh && $SHELL'"
 exec --no-startup-id "$compositor_on"
 
 # Discord
-exec "$discord"
+exec $i "$discord"
 
 #exec --no-startup-id i3-msg workspace number $ws9
