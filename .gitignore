@@ -56,9 +56,6 @@
 !/.config/dunst/
 !/.config/dunst/**
 
-!/outtest/
-!/outtest/**
-
 # vivaldi
 !/.config/vivaldi_custom/
 !/.config/vivaldi_custom/**
