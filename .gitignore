@@ -56,9 +56,11 @@
 !/.config/dunst/
 !/.config/dunst/**
 
+!/outtest/
+!/outtest/**
+
 # vivaldi
-!/.config/vivaldi/
-!/.config/vivaldi/custom_css/
-!/.config/vivaldi/custom_css/*
+!/.config/vivaldi_custom/
+!/.config/vivaldi_custom/**
 
 # OBS TODO
