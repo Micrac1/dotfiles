@@ -60,4 +60,8 @@
 !/.config/vivaldi_custom/
 !/.config/vivaldi_custom/**
 
+# tmux
+!/.config/tmux/
+!/.config/tmux/tmux.conf
+
 # OBS TODO
