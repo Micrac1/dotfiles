@@ -46,8 +46,15 @@ else
   _C_DBUS="${_COLOR}"
 fi
 
+# Login shell indicator
+if shopt -q login_shell; then
+  _LOGIN="\001\e[01;36m\002"
+else
+  _LOGIN="${_COLOR}"
+fi
+
 PS1=\
-"${_RES}${_COLOR}[\u"\
+"${_RES}${_COLOR}[${_LOGIN}\u"\
 '$(test "$?" -eq 0 && echo "\001\e[01;32m\002" || echo "\001\e[01;31m\002")'"@\
 ${_COLOR}\h ${_RES}\W${_COLOR}]${_RES}\
 ${_GIT_PS1}${_C_DBUS}${_PROMPT}${_RES} "
