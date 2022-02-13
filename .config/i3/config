@@ -10,7 +10,7 @@ set $lock_command `env\
 	XSECURELOCK_PASSWORD_PROMPT=disco\
 	XSECURELOCK_SAVER=saver_xscreensaver\
 	XSECURELOCK_DISCARD_FIRST_KEYPRESS=0\
-	xsecurelock`
+	xsecurelock || xflock4`
 
 # Modifier key, win key
 set $mod Mod4
@@ -341,7 +341,7 @@ bindsym $mod+Shift+u sticky disable
 
 # Lock screen
 #bindsym Control+Mod1+l exec i3lock -c 333333ff
-bindsym Control+Mod1+l exec "$lock_command"
+bindsym Control+Mod1+l exec $i "$lock_command"
 
 ## Mouse
 bindsym button3 floating toggle
@@ -424,20 +424,3 @@ workspace $ws4 output primary
 workspace $ws5 output primary
 workspace $ws8 output HDMI3
 workspace $ws9 output HDMI3
-
-# Polybar
-exec_always --no-startup-id "~/.config/polybar/launch_polybar.sh"
-
-# Alt tab
-exec_always --no-startup-id "alttab -s 0"
-
-# Welcome
-exec $terminal -e "sh -c '$HOME/bin/welcome.sh && $SHELL'"
-
-# Compositor
-exec --no-startup-id "$compositor_on"
-
-# Discord
-exec "$discord"
-
-#exec --no-startup-id i3-msg workspace number $ws9

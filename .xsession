@@ -28,6 +28,15 @@ if [ "${HOSTNAME}" = "ende" ]; then
 
   # Graphics tablet setup
   "${HOME}/bin/tablet.sh"
+
+  # Discord
+  "${HOME}/bin/discord.sh" &
+
+  # Polybar // TODO move to i3-only session
+  "${HOME}/.config/polybar/launch_polybar.sh" &
+
+  # Alt-Tab
+  /usr/bin/alttab -s 0 &
 fi
 
 # Background
@@ -41,3 +50,9 @@ if [ -x "${HOME}/.fehbg" ]; then "${HOME}/.fehbg"; fi
 
 # Xmodmap
 /usr/bin/xmodmap "${HOME}/.config/Xmodmap"
+
+# Picom
+/usr/bin/picom --experimental-backends &
+
+# Welcome
+"${HOME}/bin/welcome.sh && ${SHELL}" &
