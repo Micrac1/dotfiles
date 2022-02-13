@@ -46,7 +46,7 @@ if [ -x "${HOME}/.fehbg" ]; then "${HOME}/.fehbg"; fi
 /usr/bin/numlockx on
 
 # Keyboard layout
-/usr/bin/setxkbmap -option grp:alt_shift_toggle us,sk
+/usr/bin/setxkbmap -option grp:alt_shift_toggle "us,sk" -variant ",qwerty"
 
 # Xmodmap
 /usr/bin/xmodmap "${HOME}/.config/Xmodmap"

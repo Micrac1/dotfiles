@@ -1,0 +1,22 @@
+/*
+.toolbar-tabbar > .button-toolbar.toggle-trash {
+  display:none;
+}
+*/
+
+/*
+.button-toolbar.toggle-trash{
+  display:none;
+}
+*/
+.toolbar.toolbar-tabbar.sync-and-trash-container{
+  display:none;
+}
+
+.topmenu {
+  display:none;
+}
+.tab-strip{
+  height:30px;
+}
+
