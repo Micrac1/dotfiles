@@ -32,12 +32,12 @@ if [ "${HOSTNAME}" = "ende" ]; then
   # Discord
   "${HOME}/bin/discord.sh" &
 
-  # Polybar // TODO move to i3-only session
-  "${HOME}/.config/polybar/launch_polybar.sh" &
-
   # Alt-Tab
   /usr/bin/alttab -s 0 &
 fi
+
+# Polybar // TODO move to i3-only session
+"${HOME}/.config/polybar/launch_polybar.sh"
 
 # Background
 if [ -x "${HOME}/.fehbg" ]; then "${HOME}/.fehbg"; fi
