@@ -1,7 +1,7 @@
 # Autostart apps on all xsessions
 
 # XRDB
-xrdb "${HOME}/.config/xresources/Xresources"
+xrdb -merge "${HOME}/.config/xresources/Xresources"
 
 # Gnome polkit
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
