@@ -12,7 +12,7 @@ if [ -n "$1" ]; then
     ;;
   esac
 else
-  #chromium --app=https://discord.com/app
+  chromium --app=https://discord.com/app
   #discord
-  discord-canary
+  #discord-canary
 fi
