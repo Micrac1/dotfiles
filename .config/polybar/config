@@ -107,7 +107,7 @@ inherit = settings/clamp bar/primary
 
 # Secondary clamp
 [bar/secondary_clamp]
-inherit = settings/ende bar/secondary
+inherit = settings/clamp bar/secondary
 
 # -[MODULES]----------------------------
 
