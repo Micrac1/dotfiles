@@ -1,3 +1,18 @@
 #!/bin/bash
-#chromium --app=https://discord.com/app
-discord-canary
+if [ -n "$1" ]; then
+  case "$1" in
+    "web" | "-w")
+      chromium --app=https://discord.com/app
+    ;;
+  "canary" | "-c")
+    discord-canary
+    ;;
+  "discord" | "-d")
+    discord
+    ;;
+  esac
+else
+  chromium --app=https://discord.com/app
+  #discord
+  #discord-canary
+fi
