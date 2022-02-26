@@ -6,11 +6,15 @@
 # for visibility
 set $i --no-startup-id
 
-set $lock_command `env\
-	XSECURELOCK_PASSWORD_PROMPT=disco\
-	XSECURELOCK_SAVER=saver_xscreensaver\
-	XSECURELOCK_DISCARD_FIRST_KEYPRESS=0\
-	xsecurelock || xflock4`
+set $lock_command \
+  pgrep -U \\"${USER}\\" -- xss-lock \
+  && xset s activate \
+  || env \
+  XSECURELOCK_AUTH_BACKGROUND_COLOR=\\"#FF0000\\" \
+  XSECURELOCK_PASSWORD_PROMPT=disco \
+  XSECURELOCK_BLANK_DPMS_STATE=off \
+  XSECURELOCK_DISCARD_FIRST_KEYPRESS=0 \
+  xsecurelock
 
 # Modifier key, win key
 set $mod Mod4
