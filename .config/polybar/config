@@ -98,8 +98,16 @@ temperature/hwmon-path = "/sys/devices/platform/coretemp.0/hwmon/hwmon5/temp1_in
 
 # Settings ENDE
 [settings/ende]
-dummy = 
-temperature/hwmon-path = "/sys/devices/platform/coretemp.0/hwmon/hwmon6/temp1_input"
+dpi = 96
+temperature/hwmon-path = "/sys/devices/platform/coretemp.0/hwmon/hwmon1/temp1_input"
+
+# Primary ende
+[bar/primary_ende]
+inherit = settings/ende bar/primary
+
+# Secondary ende
+[bar/secondary_ende]
+inherit = settings/ende bar/secondary
 
 # Primary clamp
 [bar/primary_clamp]
