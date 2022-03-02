@@ -4,6 +4,12 @@
 [alias]
   s = status
   l = log --oneline --graph --all --decorate
+  a = add
+  c = commit
+  cm = commit -m
+  co = checkout
+  d = diff
+  dc = diff --cached
 
 [filter "lfs"]
 	process = git-lfs filter-process
