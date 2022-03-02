@@ -1,0 +1,5 @@
+clear Lock
+keycode 66 = Escape NoSymbol Escape
+
+keycode 108 = Pointer_Button2 Pointer_Button2
+keycode 105 = Pointer_Button3 Pointer_Button3

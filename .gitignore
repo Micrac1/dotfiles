@@ -16,6 +16,9 @@
 
 !/.config/
 
+# Xmodmap
+!/.config/Xmodmap
+
 # git
 !/.config/git/
 !/.config/git/config
