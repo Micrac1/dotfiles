@@ -317,6 +317,9 @@ bindsym $mod+z focus mode_toggle
 # Redirect sound to headphones
 #bindsym $mod+m exec "/usr/local/bin/switch-audio-port"
 
+# Power button
+bindsym XF86PowerOff exec $i "xfce4-session-logout"
+
 # backlight
 bindsym XF86MonBrightnessDown exec $i "brightnessctl -n1 set 5%-"
 bindsym Shift+XF86MonBrightnessDown exec $i "brightnessctl set 5%-"
