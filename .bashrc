@@ -71,7 +71,7 @@ alias t='xfce4-terminal &'
 alias cim="vim --cmd 'set clipboard=unnamed'"
 alias v='vim'
 alias cdprog='cd /media/blue/programming/'
-alias cdmc='cd /media/blue/mc_servers/Vanilla_1.17.1/'
+alias cdmc='cd /media/blue/mc_servers/Vanilla/'
 alias j='jrnl'
 alias clip='xclip -i -sel clipboard'
 alias s='pkgfile -v -b'
