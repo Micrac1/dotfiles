@@ -33,7 +33,7 @@ if [ "${HOSTNAME}" = "ende" ]; then
   "${HOME}/bin/discord.sh" &
 
   # Alt-Tab
-  /usr/bin/alttab -s 0 &
+  # /usr/bin/alttab -s 0 &
 fi
 
 # Polybar // TODO move to i3-only session
