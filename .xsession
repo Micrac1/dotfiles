@@ -36,8 +36,8 @@ if [ "${HOSTNAME}" = "ende" ]; then
   # /usr/bin/alttab -s 0 &
 fi
 
-# Polybar // TODO move to i3-only session
-"${HOME}/.config/polybar/launch_polybar.sh"
+# Polybar
+#"${HOME}/.config/polybar/launch_polybar.sh"
 
 # Background
 if [ -x "${HOME}/.fehbg" ]; then "${HOME}/.fehbg"; fi
