@@ -433,6 +433,6 @@ workspace $ws4 output primary
 workspace $ws5 output primary
 workspace $ws8 output HDMI3
 workspace $ws9 output HDMI3
-exec "${HOME}/.config/polybar/launch_polybar.sh"
+exec $i "${HOME}/.config/polybar/launch_polybar.sh"
 
 #bindsym Ctrl+n exec xdotool ~/sandbox/combo.sh
