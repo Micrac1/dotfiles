@@ -33,6 +33,10 @@ set timeout
 set timeoutlen=1000
 set ttimeout
 set ttimeoutlen=50
+set mouse=n
+set hidden
+
+filetype plugin indent on
 
 set tabstop=2
 set shiftwidth=2
