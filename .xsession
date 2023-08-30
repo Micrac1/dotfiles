@@ -71,7 +71,7 @@ xset s noexpose
   -- /bin/xsecurelock &
 
 # Picom
-/usr/bin/picom --experimental-backends &
+#/bin/picom &
 
 # Welcome
 "${HOME}/bin/welcome.sh && ${SHELL}" &

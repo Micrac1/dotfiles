@@ -30,7 +30,7 @@ set $terminal xfce4-terminal
 set $discord ~/bin/discord.sh
 #set $compositor_on "picom --experimental-backend & nvidia-settings -a CurrentMetaMode=\\"nvidia-auto-select +1280+0 {ForceFullCompositionPipeline=Off}\\""
 #set $compositor_off "killall picom ; nvidia-settings -a CurrentMetaMode=\\"nvidia-auto-select +1280+0 {ForceFullCompositionPipeline=Off}\\""
-set $compositor_on picom --experimental-backend
+set $compositor_on picom
 set $compositor_off killall picom
 #set $browser vivaldi-stable
 set $browser firefox
