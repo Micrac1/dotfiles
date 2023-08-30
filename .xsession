@@ -8,21 +8,6 @@ if [ "${HOSTNAME}" = "ende" ]; then
   # Monitor layout
   "${HOME}/.config/screenlayout/triple.sh"
 
-  # Udiskie automount
-  /bin/udiskie -a -n -t &
-
-  # Desktop notifications
-  /bin/dunst &
-
-  # NetworkManager applet
-  /bin/nm-applet &
-
-  # Volume applet
-  /bin/pasystray &
-
-  # Clipboard manager (add --no-icon to disable system tray)
-  /bin/parcellite &
-
   # Graphics tablet setup
   "${HOME}/bin/tablet.sh"
 
@@ -35,6 +20,21 @@ fi
 
 # Gnome polkit
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+
+# Volume applet
+/bin/pasystray &
+
+# Udiskie automount
+/bin/udiskie -a -n -t &
+
+# NetworkManager applet
+/bin/nm-applet &
+
+# Clipboard manager (add --no-icon to disable system tray)
+/bin/parcellite &
+
+# Desktop notifications
+/bin/dunst &
 
 # Polybar // TODO move to i3-only session
 "${HOME}/.config/polybar/launch_polybar.sh"
