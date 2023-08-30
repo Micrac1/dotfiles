@@ -57,11 +57,6 @@ modules-right = wlan eth pulseaudio xbacklight xkeyboard filesystem memory cpu t
 tray-padding = 2
 tray-background = ${colors.black}
 
-;wm-restack = bspwm
-;wm-restack = i3
-
-;override-redirect = true
-
 cursor-click = pointer
 
 # -[BAR SETTINGS]-----------------------
@@ -244,10 +239,6 @@ label-disconnected = "W"
 label-disconnected-foreground = ${colors.light_gray}
 label-disconnected-underline = ${self.label-connected-underline}
 format-disconnected = <label-disconnected>
-;format-disconnected = <label-disconnected>
-;format-disconnected-underline = ${self.format-connected-underline}
-;label-disconnected = %ifname% disconnected
-;label-disconnected-foreground = ${colors.foreground-alt}
 
 ramp-signal-0 = " "
 ramp-signal-1 = "░"
@@ -269,12 +260,7 @@ format-connected = <label-connected>
 label-connected = ↑%upspeed% ↓%downspeed%
 
 format-disconnected-prefix-foreground = ${colors.color10}
-;label-unmounted-foreground = ${colors.light_gray}
 format-disconnected = "E"
-;format-disconnected = <label-disconnected>
-;format-disconnected-underline = ${self.format-connected-underline}
-;label-disconnected = %ifname% disconnected
-;label-disconnected-foreground = ${colors.foreground-alt}
 
 # DATE
 [module/date]
@@ -360,7 +346,6 @@ format-discharging-underline = "${self.discharging-color}"
 label-charging = ${self.label-discharging}
 label-charging-underline = ${self.charging-color}
 label-charging-foreground = ${self.charging-color}
-#format-charging = %{T2}⚡%{T-}<label-charging>
 format0charging = ⚡<ramp-capacity>%{-u} %{+u}<label-discharging>
 format-charging-underline = ${self.charging-color}
 
