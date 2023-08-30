@@ -100,6 +100,12 @@ nnoremap <M-7> 7gt
 nnoremap <M-8> 8gt
 nnoremap <M-9> 9gt
 
+" Movement in insert mode
+inoremap <C-h> <left>
+inoremap <C-j> <down>
+inoremap <C-k> <up>
+inoremap <C-l> <right>
+
 " Matching pairs
 inoremap " ""<C-G>U<left>
 inoremap "<esc> "<esc>
