@@ -122,8 +122,8 @@ type = internal/fs
 interval = 25
 spacing = 1
 
-mount-0 = /
-mount-1 = /media/blue
+mount-0 = "/"
+mount-1 = "/media/blue"
 
 label-mounted = %free%
 label-mounted-underline = ${colors.color5}
