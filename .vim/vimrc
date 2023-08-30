@@ -56,13 +56,13 @@ nnoremap <leader>n :noh<CR>
 "nnoremap <leader>m i<++><Esc>l
 
 " Encoding
-nnoremap <leader>u :set encoding=latin1<CR>
-nnoremap <leader>U :set encoding=utf-8<CR>
+"nnoremap <leader>u :set encoding=latin1<CR>
+"nnoremap <leader>U :set encoding=utf-8<CR>
 
 " Fonts (gui only)
-nnoremap <leader>fw :set guifont=Bitstream\ Vera\ Sans\ Mono\ 10<CR>
-nnoremap <leader>fe :set guifont=Bitstream\ Vera\ Sans\ Mono\ 12<CR>
-nnoremap <leader>fr :set guifont=Bitstream\ Vera\ Sans\ Mono\ 16<CR>
+"nnoremap <leader>fw :set guifont=Bitstream\ Vera\ Sans\ Mono\ 10<CR>
+"nnoremap <leader>fe :set guifont=Bitstream\ Vera\ Sans\ Mono\ 12<CR>
+"nnoremap <leader>fr :set guifont=Bitstream\ Vera\ Sans\ Mono\ 16<CR>
 
 " Formating
 nnoremap <leader>q i <right> <Esc>
