@@ -145,6 +145,18 @@ inoremap <<Space> <
 inoremap <= <=
 inoremap << <<
 
+" TODO make it so this does not close them on other tabs
+function! CleanNoNameEmptyBuffers()
+    let buffers = filter(range(1, bufnr('$')), 'buflisted(v:val) 
+      \ && empty(bufname(v:val)) && empty(win_findbuf(v:val))
+      \ && (getbufline(v:val, 1, "$") == [""])')
+    if !empty(buffers)
+        exe 'bd '.join(buffers, ' ')
+    else
+        echo 'No buffer deleted'
+    endif
+endfunction
+
 " Plugins
 call plug#begin('~/.vim/plugged')
 Plug 'habamax/vim-godot'
