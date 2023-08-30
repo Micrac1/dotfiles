@@ -119,7 +119,7 @@ label-layout-underline = ${colors.color6}
 
 [module/filesystem]
 type = internal/fs
-interval = 25
+interval = 20
 spacing = 1
 
 mount-0 = "/"
