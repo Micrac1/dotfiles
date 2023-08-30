@@ -40,6 +40,7 @@ height = 18
 radius = 0.0
 fixed-center = true
 bottom = true
+cursor-click = pointer
 
 
 underline-size = 3
@@ -61,7 +62,6 @@ modules-right = wlan eth pulseaudio xbacklight xkeyboard filesystem memory cpu t
 tray-padding = 2
 tray-background = ${colors.black}
 
-cursor-click = pointer
 
 # -[BAR SETTINGS]-----------------------
 
