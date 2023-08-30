@@ -106,7 +106,7 @@ inherit = settings/clamp bar/secondary
 
 [module/xwindow]
 type = internal/xwindow
-label = " %title:0:70:...% "
+label = "%title:0:70:...%"
 format = <label>
 format-background = ${colors.black}
 
