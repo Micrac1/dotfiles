@@ -39,6 +39,8 @@ set shiftwidth=2
 " set softtabstop=2
 set expandtab
 syntax on
+set incsearch
+set hlsearch
 set noundofile
 set noswapfile
 set nobackup
