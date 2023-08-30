@@ -111,22 +111,11 @@ format = <label>
 
 [module/xkeyboard]
 type = internal/xkeyboard
-
-indicator-icon-default = some-icon
-indicator-icon-0 = scroll lock;S;S
-indicator-icon-1 = num lock;N;N
-indicator-icon-2 = caps lock;C;C
-
 format = <label-layout>
 
 label-layout = %layout%
 label-layout-underline = ${colors.color6}
 
-label-indicator-on = %icon%
-label-indicator-off = %icon%
-label-indicator-on-background = ${colors.primary}
-label-indicator-on-foreground = ${colors.black}
-label-indicator-on-underline = ${colors.black}
 
 [module/filesystem]
 type = internal/fs
