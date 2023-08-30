@@ -113,7 +113,7 @@ format = <label>
 type = internal/xkeyboard
 format = <label-layout>
 
-label-layout = %layout%
+label-layout = %{T2}%layout%%{T-}
 label-layout-underline = ${colors.color6}
 
 
