@@ -140,7 +140,7 @@ set $open_mode "⌘Actions ➤Firefox  ➤Blender  ➤Terminal  \
 mode $open_mode {
 	bindsym a mode $action_mode
 	bindsym s exec $i "steam"; mode "default"
-	bindsym t exec "$terminal"; mode "default"
+	bindsym t exec $i "$terminal"; mode "default"
 	bindsym e exec "thunar"; mode "default"
 	bindsym f exec "$browser"; mode "default"
 	bindsym Shift+f exec "firefox"; mode "default"
@@ -254,7 +254,7 @@ bindsym $mod+c mode "resize"
 
 ## Apps
 # Terminal
-bindsym $mod+Return exec "$terminal"
+bindsym $mod+Return exec $i "$terminal"
 
 # Compositor
 bindsym $mod+t exec $i "$compositor_on"
