@@ -162,7 +162,6 @@ label-unfocused-padding = ${self.label-focused-padding}
 # visible = Active workspace on unfocused monitor
 label-visible = %name%
 label-visible-padding = ${self.label-focused-padding}
-label-visible-background = ${colors.black}
 label-visible-underline = ${colors.gray}
 
 # urgent = Workspace with urgency hint set
