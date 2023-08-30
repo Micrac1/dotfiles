@@ -73,6 +73,9 @@ alias l="ls -lav --block-size=\"'1\" --ignore=.?*"
 alias t='xfce4-terminal &'
 alias cim="vim --cmd 'set clipboard=unnamed'"
 alias v='vim'
+alias vi='vim'
+alias nv='nvim'
+alias nvi='nvim'
 alias j='jrnl'
 alias clip='xclip -i -sel clipboard'
 alias s='pkgfile -v -b'
