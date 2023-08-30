@@ -41,6 +41,7 @@ radius = 0.0
 fixed-center = true
 bottom = true
 cursor-click = pointer
+cursor-scroll = pointer
 
 
 underline-size = 3
