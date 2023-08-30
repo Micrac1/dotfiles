@@ -29,6 +29,7 @@ primary = ${colors.color12}
 alert = ${colors.color1}
 
 [bar/default]
+enable-ipc = true
 monitor = ${env:POLYBAR_MONITOR}
 dpi = ${xrdb:Xft.dpi:}
 width = 100%
