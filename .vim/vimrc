@@ -52,6 +52,9 @@ set encoding=utf-8
 set completeopt=menu,menuone,preview
 let mapleader=" "
 
+map Q gq
+sunmap Q
+
 " Funny stuff
 nnoremap <silent> <esc> :silent noh<CR>
 nnoremap <leader> <Nop>
