@@ -70,8 +70,8 @@ nnoremap <leader>r :so $MYVIMRC<CR>
 nnoremap <leader>E :tabnew $MYVIMRC<CR>
 
 " C++ helpers
-nnoremap <leader>inc a#include 
-nnoremap <leader>ifn a#ifndef <++><CR>#define <++><CR>#endif<Esc>?<++><CR>n<C-v>j3lc
+"nnoremap <leader>inc a#include 
+"nnoremap <leader>ifn a#ifndef <++><CR>#define <++><CR>#endif<Esc>?<++><CR>n<C-v>j3lc
 
 " Window navigation
 nnoremap <C-h> <C-w>h
