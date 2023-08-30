@@ -108,7 +108,6 @@ inherit = settings/clamp bar/secondary
 type = internal/xwindow
 label = "%title:0:70:...%"
 format = <label>
-format-background = ${colors.black}
 
 [module/xkeyboard]
 type = internal/xkeyboard
