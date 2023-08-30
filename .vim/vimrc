@@ -50,6 +50,7 @@ let mapleader=" "
 
 " Funny stuff
 nnoremap <silent> <esc> :silent noh<CR>
+nnoremap <leader> <Nop>
 
 " Change marks
 "nnoremap <Space><Space> /<++><CR>c4l
