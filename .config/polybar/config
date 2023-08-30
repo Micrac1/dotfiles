@@ -286,30 +286,6 @@ bar-volume-empty = |
 bar-volume-empty-foreground = ${colors.gray}
 click-right = "pavucontrol"
 
-# ALSA
-[module/alsa]
-type = internal/alsa
-
-format-volume = <label-volume> <bar-volume>
-label-volume = VOL
-label-volume-foreground = ${colors.color10}
-
-format-muted-foreground = ${colors.light_gray}
-label-muted = xmuted
-
-bar-volume-width = 10
-bar-volume-foreground-0 = #55aa55
-bar-volume-foreground-1 = #55aa55
-bar-volume-foreground-2 = #55aa55
-bar-volume-foreground-3 = #55aa55
-bar-volume-foreground-4 = #55aa55
-bar-volume-foreground-5 = #f5a70a
-bar-volume-foreground-6 = #ff5555
-bar-volume-gradient = false
-bar-volume-indicator = |
-bar-volume-fill = ─
-bar-volume-empty = ─
-bar-volume-empty-foreground = ${colors.color10}
 
 # BATTERY
 [module/battery]
