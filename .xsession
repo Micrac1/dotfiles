@@ -15,7 +15,7 @@ if [ "${HOSTNAME}" = "ende" ]; then
   "${HOME}/bin/discord.sh" &
 
   # Alt-Tab
-  /bin/alttab -s 0 &
+  #/bin/alttab -s 0 &
 fi
 
 # Gnome polkit
