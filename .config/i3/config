@@ -337,9 +337,6 @@ bindsym $mod+z focus mode_toggle
 # Redirect sound to headphones
 #bindsym $mod+m exec "/usr/local/bin/switch-audio-port"
 
-# Power button
-bindsym XF86PowerOff exec $i "xfce4-session-logout"
-
 # backlight
 bindsym XF86MonBrightnessDown exec $i "brightnessctl -n1 set 5%-"
 bindsym Shift+XF86MonBrightnessDown exec $i "brightnessctl set 5%-"
@@ -374,6 +371,22 @@ bindsym $mod+Shift+u sticky disable
 # Lock screen
 #bindsym Control+Mod1+l exec i3lock -c 333333ff
 bindsym Control+Mod1+l exec $i "$lock_command"
+
+# Power button
+bindsym XF86PowerOff exec $i \
+"\
+yad --escape-ok --undecorated --sticky --close-on-unfocus --on-top --center --fixed --title='Power Menu' \
+  --button='Suspend!system-suspend: \
+    sh -c \\"kill -USR1 $YAD_PID; $lock_command && systemctl suspend\\"' \
+  --button='Hibernate!system-hibernate: \
+    sh -c \\"kill -USR1 $YAD_PID; $lock_command && systemctl hibernate\\"' \
+  --button='Log Out!system-log-out: \
+    sh -c \\"kill -USR1 $YAD_PID;                  i3-msg exit\\"' \
+  --button='Reboot!system-reboot: \
+    sh -c \\"kill -USR1 $YAD_PID;                  reboot\\"' \
+  --button='Shut Down!system-shutdown: \
+    sh -c \\"kill -USR1 $YAD_PID;                  shutdown now\\"' \
+"
 
 ## Mouse
 bindsym button3 floating toggle
