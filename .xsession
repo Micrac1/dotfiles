@@ -3,9 +3,6 @@
 # XRDB
 /bin/xrdb -merge "${HOME}/.config/xresources/Xresources"
 
-# Gnome polkit
-/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-
 # ende
 if [ "${HOSTNAME}" = "ende" ]; then
   # Monitor layout
@@ -35,6 +32,9 @@ if [ "${HOSTNAME}" = "ende" ]; then
   # Alt-Tab
   /bin/alttab -s 0 &
 fi
+
+# Gnome polkit
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
 # Polybar // TODO move to i3-only session
 "${HOME}/.config/polybar/launch_polybar.sh"
