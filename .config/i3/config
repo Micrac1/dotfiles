@@ -135,8 +135,8 @@ mode "resize" {
 	bindsym $mod+c mode "default"
 }
 
-set $open_mode "⌘Actions ➤Browser  ➤Blender  ➤Terminal  \
-➤Calc  ➤Discord  ➤Launcher  ➤Godot  ➤Obs "
+set $open_mode "⌘Actions ➤Firefox  ➤Blender  ➤Terminal  \
+➤Calc  ➤Discord  ➤Launcher  ➤Godot  ➤Obs  ➤XFinder "
 mode $open_mode {
 	bindsym a mode $action_mode
 	bindsym s exec $i "steam"; mode "default"
@@ -151,6 +151,7 @@ mode $open_mode {
 	bindsym l exec "~/bin/gamelauncher.sh"; mode "default"
 	bindsym w exec "~/bin/wp.sh --gui"; mode "default"
 	bindsym o exec "obs --startreplaybuffer"; mode "default"
+	bindsym x exec $i "xfce4-appfinder"; mode "default"
 	
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
