@@ -90,6 +90,9 @@ nnoremap <leader>e :enew<CR>
 nnoremap <leader><Tab> <C-^>
 
 " Tabs
+nnoremap <leader>tn :tabnew<CR>
+nnoremap <leader>tx :tabclose<CR>
+
 nnoremap <M-1> 1gt
 nnoremap <M-2> 2gt
 nnoremap <M-3> 3gt
