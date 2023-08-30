@@ -270,7 +270,7 @@ bindsym $mod+Shift+g exec $i "nvidia-settings -a \
 bindsym $mod+r exec $i "dmenu_run -b -i"
 
 # gromitmpx
-bindsym $mod+b exec $i "gromit-mpx"
+#bindsym $mod+b exec $i "gromit-mpx"
 
 # XKill
 bindsym --release $mod+x exec $i "xkill"
