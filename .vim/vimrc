@@ -76,6 +76,12 @@ nnoremap <leader>ifn a#ifndef <++><CR>#define <++><CR>#endif<Esc>?<++><CR>n<C-v>
 " Buffers
 nnoremap <leader>b :ls<CR>:b<Space>
 nnoremap <leader>d :ls<CR>:bd<Space>
+nnoremap <leader>n :bnext<CR>
+nnoremap <leader>p :bprev<CR>
+nnoremap <leader>x :bd<CR>
+nnoremap <leader>X :bd!<CR>
+nnoremap <leader>e :enew<CR>
+nnoremap <leader><Tab> <C-^>
 
 " Tabs
 nnoremap <M-1> 1gt
