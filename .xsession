@@ -63,6 +63,9 @@ if [ -x "${HOME}/.fehbg" ]; then "${HOME}/.fehbg"; fi
 # Keyboard layout
 /bin/setxkbmap -option keypad:pointerkeys -option grp:alt_shift_toggle "us,sk" -variant ",qwerty"
 
+# Key repeat delay
+/bin/xset r rate 300 25
+
 # Xmodmap
 /bin/xmodmap "${HOME}/.config/Xmodmap"
 
