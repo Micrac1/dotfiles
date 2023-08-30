@@ -101,27 +101,28 @@ inoremap <C-S-Tab> <Esc>:tabprev<CR>
 inoremap <C-Space> <right>
 inoremap <C-@> <right>
 
-inoremap " ""<left>
+" Matching pairs
+inoremap " ""<C-G>U<left>
 inoremap "<esc> "<esc>
 inoremap "" ""
 
-inoremap ' ''<left>
+inoremap ' ''<C-G>U<left>
 inoremap '<esc> '<esc>
 inoremap '' ''
 
-inoremap ( ()<left>
+inoremap ( ()<C-G>U<left>
 inoremap (<esc> (<esc>
 inoremap () ()
 
-inoremap [ []<left>
+inoremap [ []<C-G>U<left>
 inoremap [<esc> [<esc>
 inoremap [] []
 
-inoremap { {}<left>
+inoremap { {}<C-G>U<left>
 inoremap {<esc> {<esc>
 inoremap {} {}
 
-inoremap < <><left>
+inoremap < <><C-G>U<left>
 inoremap <<esc> <<esc>
 inoremap <<Space> < 
 inoremap <= <=
