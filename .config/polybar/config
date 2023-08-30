@@ -23,6 +23,8 @@ black = ${colors.color0}
 gray = ${colors.color8}
 light_gray = ${colors.color7}
 white = ${colors.color15}
+background = ${colors.color0}
+foreground = ${colors.color15}
 primary = ${colors.color12}
 alert = ${colors.color1}
 
@@ -35,8 +37,6 @@ radius = 0.0
 fixed-center = true
 bottom = true
 
-background = ${colors.black}
-foreground = ${colors.white}
 
 underline-size = 3
 overline-size = 3
