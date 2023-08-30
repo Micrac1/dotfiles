@@ -1,5 +1,5 @@
 " so $VIM/vimrc
-so $VIMRUNTIME/defaults.vim
+"so $VIMRUNTIME/defaults.vim
 set nocompatible
 set viminfofile=$HOME/.vim/viminfo
 
