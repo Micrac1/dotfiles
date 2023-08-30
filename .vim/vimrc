@@ -15,6 +15,8 @@ if has('gui_running')
 	set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
 endif
 
+" Tabline colors for tty
+hi TabLine cterm=reverse
 
 set sessionoptions=blank,buffers,curdir,folds,help,tabpages,winpos,winsize,resize,terminal
 set splitbelow
