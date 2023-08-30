@@ -18,6 +18,21 @@ if [ "${HOSTNAME}" = "ende" ]; then
   #/bin/alttab -s 0 &
 fi
 
+# clamp
+if [ "${HOSTNAME}" = "clamp" ]; then
+  # Natural touchpad scrolling
+  /bin/xinput set-prop "ELAN0662:00 04F3:30BC Touchpad" "libinput Natural Scrolling Enabled" 1
+
+  # Power manager
+  /bin/xfce4-power-manager &
+
+  # Touchpad gestures
+  /bin/pgrep -f -- "/bin/touchegg --client" || /bin/touchegg --client &
+
+  # Bluetooth manager
+  /bin/blueman-applet &
+fi
+
 # Gnome polkit
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
