@@ -18,10 +18,15 @@ PATH="${PATH}:${HOME}/bin"
 _RES='\[\e[0m\]'
 
 # GIT PROMPT SUPPORT
+GIT_PS1="1"
 if [ -f "/usr/share/git/completion/git-prompt.sh" ]; then
   . "/usr/share/git/completion/git-prompt.sh"
-  # ignore when we are in home dir or subdir
-  _GIT_PS1='$( [ "${PWD}" = "${PWD##/home/peter}" ] && __git_ps1 " (\001\e[01;33m\002%s'"${_RES}"')")'
+  # ignore when we are in home dir repo
+  _GIT_PS1='$( [ "${GIT_PS1}" = "1" ] \
+    && ! findmnt . 2>/dev/null >/dev/null \
+    && [ ! "${HOME}" = "$(git rev-parse --show-toplevel 2>/dev/null)" ] \
+    && __git_ps1 " (\001\e[01;33m\002%s'"${_RES}"')" \
+  )'
   export GIT_PS1_SHOWDIRTYSTATE=1
   export GIT_PS1_SHOWSTASHSTATE=1
   export GIT_PS1_SHOWUNTRACKEDFILES=1
