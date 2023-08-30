@@ -129,7 +129,7 @@ label-mounted = %free%
 label-mounted-underline = ${colors.color5}
 format-mounted = %{A3:thunar:}<label-mounted>%{A}
 
-label-unmounted = U
+label-unmounted = ""
 label-unmounted-foreground = ${colors.light_gray}
 label-unmounted-underline = ${self.label-mounted-underline}
 
