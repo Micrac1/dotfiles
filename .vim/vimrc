@@ -70,8 +70,8 @@ nnoremap <leader>inc a#include
 nnoremap <leader>ifn a#ifndef <++><CR>#define <++><CR>#endif<Esc>?<++><CR>n<C-v>j3lc
 
 " Buffers
-nnoremap <leader>b :ls<CR>:b
-nnoremap <leader>d :ls<CR>:bd
+nnoremap <leader>b :ls<CR>:b<Space>
+nnoremap <leader>d :ls<CR>:bd<Space>
 
 " Tabs
 nnoremap <C-Tab> :tabnext<CR>
