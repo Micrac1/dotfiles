@@ -65,10 +65,6 @@ nnoremap <leader> <Nop>
 "nnoremap <leader>fe :set guifont=Bitstream\ Vera\ Sans\ Mono\ 12<CR>
 "nnoremap <leader>fr :set guifont=Bitstream\ Vera\ Sans\ Mono\ 16<CR>
 
-" Formating
-nnoremap <leader>q i <right> <Esc>
-nnoremap <leader>w i <right><right> <Esc>
-
 " Configuring
 nnoremap <leader>r :so $MYVIMRC<CR>
 nnoremap <leader>E :tabnew $MYVIMRC<CR>
