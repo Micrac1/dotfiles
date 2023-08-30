@@ -1,7 +1,7 @@
 # Autostart apps on all xsessions
 
 # XRDB
-xrdb -merge "${HOME}/.config/xresources/Xresources"
+/bin/xrdb -merge "${HOME}/.config/xresources/Xresources"
 
 # Gnome polkit
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
@@ -12,19 +12,19 @@ if [ "${HOSTNAME}" = "ende" ]; then
   "${HOME}/.config/screenlayout/triple.sh"
 
   # Udiskie automount
-  udiskie -a -n -t &
+  /bin/udiskie -a -n -t &
 
   # Desktop notifications
-  /usr/bin/dunst &
+  /bin/dunst &
 
   # NetworkManager applet
-  /usr/bin/nm-applet &
+  /bin/nm-applet &
 
   # Volume applet
-  /usr/bin/pasystray &
+  /bin/pasystray &
 
   # Clipboard manager (add --no-icon to disable system tray)
-  /usr/bin/parcellite &
+  /bin/parcellite &
 
   # Graphics tablet setup
   "${HOME}/bin/tablet.sh"
@@ -33,7 +33,7 @@ if [ "${HOSTNAME}" = "ende" ]; then
   "${HOME}/bin/discord.sh" &
 
   # Alt-Tab
-  /usr/bin/alttab -s 0 &
+  /bin/alttab -s 0 &
 fi
 
 # Polybar // TODO move to i3-only session
@@ -43,20 +43,21 @@ fi
 if [ -x "${HOME}/.fehbg" ]; then "${HOME}/.fehbg"; fi
 
 # Numlock on
-/usr/bin/numlockx on
+/bin/numlockx on
 
 # Keyboard layout
-/usr/bin/setxkbmap -option keypad:pointerkeys -option grp:alt_shift_toggle "us,sk" -variant ",qwerty"
+/bin/setxkbmap -option keypad:pointerkeys -option grp:alt_shift_toggle "us,sk" -variant ",qwerty"
 
 # Xmodmap
-/usr/bin/xmodmap "${HOME}/.config/Xmodmap"
+/bin/xmodmap "${HOME}/.config/Xmodmap"
 
 # Automatic lockscreen after xset delay
 LOCK_TIMEOUT=295
 LOCK_DIM_DURATION=5
-xset s "${LOCK_TIMEOUT}" "${LOCK_DIM_DURATION}"
-xset s blank
-xset s noexpose
+
+/bin/xset s "${LOCK_TIMEOUT}" "${LOCK_DIM_DURATION}"
+/bin/xset s blank
+/bin/xset s noexpose
 /bin/env \
     XSECURELOCK_WAIT_TIME_MS=0 \
     XSECURELOCK_DIM_ALPHA=1 \
@@ -67,7 +68,7 @@ xset s noexpose
     XSECURELOCK_PASSWORD_PROMPT=disco \
     XSECURELOCK_BLANK_DPMS_STATE=off \
     XSECURELOCK_DISCARD_FIRST_KEYPRESS=0 \
-  xss-lock -l -n /usr/lib/xsecurelock/dimmer \
+  /bin/xss-lock -l -n /usr/lib/xsecurelock/dimmer \
   -- /bin/xsecurelock &
 
 # Picom
