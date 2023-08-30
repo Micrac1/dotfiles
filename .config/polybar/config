@@ -204,21 +204,25 @@ label = %{T2}%percentage_used:3%%{T-}%
 label-underline = ${colors.color6}
 format = <label>
 
-[module/wlan]
+[module/network]
 type = internal/network
-interface = wlan0
+interface = ""
+ping-interval = 15
 interval = 2.0
 
-label-connected = ↑%upspeed% ↓%downspeed%%{-u} %{+u}%essid%
+format-connected = %{A3:nm-connection-editor:}<label-connected><ramp-signal>%{A}
 label-connected-underline = ${colors.color3}
-format-connected = <label-connected> <ramp-signal>
 
-label-disconnected = "W"
+format-disconnected = %{A3:nm-connection-editor:}<label-disconnected>%{A}
+format-packetloss = %{A3:nm-connection-editor:}<animation-packetloss><label-connected><ramp-signal>${A}
+
 label-disconnected-foreground = ${colors.light_gray}
 label-disconnected-underline = ${self.label-connected-underline}
-format-disconnected = <label-disconnected>
+animation-packetloss-0 = "⚠"
+animation-packetloss-framerate = 0
 
-ramp-signal-0 = " "
+
+ramp-signal-0 = ""
 ramp-signal-1 = "░"
 ramp-signal-2 = "▒"
 ramp-signal-3 = "▓"
@@ -226,19 +230,20 @@ ramp-signal-4 = "█"
 ramp-signal-foreground = ${self.label-connected-underline}
 ramp-signal-underline = ${self.label-connected-underline}
 
+[module/wlan]
+inherit = module/network
+interface-type = wireless
+
+label-connected = "↑%upspeed% ↓%downspeed% %essid:0:15:...%"
+label-disconnected = "W"
+
 [module/eth]
-type = internal/network
-interface = enp3s0
-interval = 2.0
+inherit = module/network
+interface-type = wired
 
-format-connected-underline = ${colors.color3}
-format-connected-prefix =
-format-connected-prefix-foreground = ${colors.color10}
-format-connected = <label-connected>
-label-connected = ↑%upspeed% ↓%downspeed%
+label-connected = "↑%upspeed% ↓%downspeed%"
+label-disconnected = "E"
 
-format-disconnected-prefix-foreground = ${colors.color10}
-format-disconnected = "E"
 
 # DATE
 [module/date]
