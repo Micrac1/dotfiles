@@ -175,12 +175,7 @@ augroup END
 
 " Plugins
 call plug#begin('~/.vim/plugged')
-Plug 'habamax/vim-godot'
-Plug 'mattn/emmet-vim'
-Plug 'plasticboy/vim-markdown'
 Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
-Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
-Plug 'tikhomirov/vim-glsl'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 call plug#end()
 
