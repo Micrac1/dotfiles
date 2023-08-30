@@ -28,6 +28,7 @@ set wildmenu
 set wildoptions=pum " Vertical wild menu in cmdline
 set showcmd
 set lazyredraw
+set scrolloff=8
 
 set tabstop=2
 set shiftwidth=2
