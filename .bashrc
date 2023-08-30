@@ -77,6 +77,7 @@ alias j='jrnl'
 alias clip='xclip -i -sel clipboard'
 alias s='pkgfile -v -b'
 alias bel='echo -e -n "\007"'
+alias mv="mv -i"
 
 # pacman stuff
 alias pi='pacman -Qi'
