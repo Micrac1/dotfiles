@@ -46,14 +46,14 @@ set noswapfile
 set nobackup
 set encoding=utf-8
 set completeopt=menu,menuone,preview
-let mapleader=","
+let mapleader=" "
 
 " Hide matches
 nnoremap <leader>n :noh<CR>
 
 " Change marks
-nnoremap <Space><Space> /<++><CR>c4l
-nnoremap <leader>m i<++><Esc>l
+"nnoremap <Space><Space> /<++><CR>c4l
+"nnoremap <leader>m i<++><Esc>l
 
 " Encoding
 nnoremap <leader>u :set encoding=latin1<CR>
