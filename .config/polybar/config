@@ -57,8 +57,7 @@ font-1 = "Dejavu Sans Mono:pixelsize=10;2"
 
 modules-left = powermenu i3
 modules-center = xwindow
-modules-right = wlan eth pulseaudio xbacklight xkeyboard filesystem memory cpu temperature battery date
-;modules-right = filesystem xbacklight alsa pulseaudio xkeyboard memory cpu wlan eth battery temperature date powermenu
+modules-right = wlan eth pulseaudio backlight xkeyboard filesystem memory cpu temperature battery date
 
 tray-padding = 2
 tray-background = ${colors.black}
