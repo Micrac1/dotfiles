@@ -48,8 +48,8 @@ set encoding=utf-8
 set completeopt=menu,menuone,preview
 let mapleader=" "
 
-" Hide matches
-nnoremap <leader>n :noh<CR>
+" Funny stuff
+nnoremap <silent> <esc> :silent noh<CR>
 
 " Change marks
 "nnoremap <Space><Space> /<++><CR>c4l
