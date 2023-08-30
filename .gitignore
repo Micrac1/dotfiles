@@ -69,4 +69,8 @@
 !/.config/tmux/
 !/.config/tmux/tmux.conf
 
+# touchegg
+!/.config/touchegg/
+!/.config/touchegg/touchegg.conf
+
 # OBS TODO
