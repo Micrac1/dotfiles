@@ -24,6 +24,7 @@ set number
 set relativenumber
 set ruler
 set wildmenu
+set wildoptions=pum " Vertical wild menu in cmdline
 set showcmd
 set lazyredraw
 
