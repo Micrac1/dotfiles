@@ -346,7 +346,6 @@ format-spacing = 1
 label-open = " "
 label-close = " X"
 label-separator = |
-label-separator-foreground = ${colors.color10}
 
 menu-0-0 = reboot
 menu-0-0-exec = menu-open-1
