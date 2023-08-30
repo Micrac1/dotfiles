@@ -78,9 +78,6 @@ nnoremap <leader>b :ls<CR>:b<Space>
 nnoremap <leader>d :ls<CR>:bd<Space>
 
 " Tabs
-nnoremap <C-Tab> :tabnext<CR>
-nnoremap <C-S-Tab> :tabprev<CR>
-
 nnoremap <M-1> 1gt
 nnoremap <M-2> 2gt
 nnoremap <M-3> 3gt
@@ -90,9 +87,6 @@ nnoremap <M-6> 6gt
 nnoremap <M-7> 7gt
 nnoremap <M-8> 8gt
 nnoremap <M-9> 9gt
-
-inoremap <C-Tab> <Esc>:tabnext<CR>
-inoremap <C-S-Tab> <Esc>:tabprev<CR>
 
 " Auto bracketo (ctrl space works only in gvim)
 inoremap <C-Space> <right>
