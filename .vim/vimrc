@@ -88,10 +88,6 @@ nnoremap <M-7> 7gt
 nnoremap <M-8> 8gt
 nnoremap <M-9> 9gt
 
-" Auto bracketo (ctrl space works only in gvim)
-inoremap <C-Space> <right>
-inoremap <C-@> <right>
-
 " Matching pairs
 inoremap " ""<C-G>U<left>
 inoremap "<esc> "<esc>
