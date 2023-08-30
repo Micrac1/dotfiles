@@ -394,7 +394,7 @@ bindsym button3 floating toggle
 
 # Scratch pad
 bindsym $mod+y [class=.*] scratchpad show
-bindsym $mod+Shift+y; sticky enable; move scratchpad
+bindsym $mod+Shift+y sticky enable; move scratchpad
 
 # Win tab
 bindsym $mod+Tab workspace back_and_forth
