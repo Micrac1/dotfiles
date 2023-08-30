@@ -80,6 +80,7 @@ alias j='jrnl'
 alias clip='xclip -i -sel clipboard'
 alias s='pkgfile -v -b'
 alias bel='echo -e -n "\007"'
+alias c="cpupower-gui"
 alias mv="mv -i"
 
 # pacman stuff
