@@ -25,6 +25,9 @@ light_gray = ${colors.color7}
 white = ${colors.color15}
 background = ${colors.color0}
 foreground = ${colors.color15}
+background_alt = ${colors.color8}
+foreground_alt = ${colors.color7}
+
 primary = ${colors.color12}
 alert = ${colors.color1}
 
