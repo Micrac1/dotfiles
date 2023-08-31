@@ -58,6 +58,16 @@ set <A-j>=j
 set <A-k>=k
 set <A-l>=l
 
+set <A-1>=1
+set <A-2>=2
+set <A-3>=3
+set <A-4>=4
+set <A-5>=5
+set <A-6>=6
+set <A-7>=7
+set <A-8>=8
+set <A-9>=9
+
 map Q gq
 sunmap Q
 
@@ -112,15 +122,15 @@ nnoremap <leader><Tab> <C-^>
 nnoremap <leader>tn :tabnew<CR>
 nnoremap <leader>tx :tabclose<CR>
 
-nnoremap <M-1> 1gt
-nnoremap <M-2> 2gt
-nnoremap <M-3> 3gt
-nnoremap <M-4> 4gt
-nnoremap <M-5> 5gt
-nnoremap <M-6> 6gt
-nnoremap <M-7> 7gt
-nnoremap <M-8> 8gt
-nnoremap <M-9> 9gt
+nnoremap <A-1> 1gt
+nnoremap <A-2> 2gt
+nnoremap <A-3> 3gt
+nnoremap <A-4> 4gt
+nnoremap <A-5> 5gt
+nnoremap <A-6> 6gt
+nnoremap <A-7> 7gt
+nnoremap <A-8> 8gt
+nnoremap <A-9> 9gt
 
 " Terminal fixes
 tnoremap <C-x> <C-\><C-n>
