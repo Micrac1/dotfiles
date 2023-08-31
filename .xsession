@@ -14,9 +14,6 @@ if [ "${HOSTNAME}" = "ende" ]; then
 
   # Discord
   "${HOME}/bin/discord.sh" &
-
-  # Alt-Tab
-  #/bin/alttab -s 0 &
 fi
 
 # clamp
@@ -52,8 +49,8 @@ fi
 # Desktop notifications
 /bin/dunst &
 
-# Polybar // TODO move to i3-only session
-"${HOME}/.config/polybar/launch_polybar.sh"
+# Polybar
+#"${HOME}/.config/polybar/launch_polybar.sh"
 
 # Background
 if [ -x "${HOME}/.fehbg" ]; then "${HOME}/.fehbg"; fi
@@ -66,6 +63,9 @@ if [ -x "${HOME}/.fehbg" ]; then "${HOME}/.fehbg"; fi
 
 # Key repeat delay
 /bin/xset r rate 300 25
+
+# Key repeat delay
+xset r rate 300 25
 
 # Xmodmap
 /bin/xmodmap "${HOME}/.config/Xmodmap"

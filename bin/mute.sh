@@ -1,10 +1,10 @@
 #!/bin/bash
 #pactl set-source-mute @DEFAULT_SOURCE@ toggle
 SOURCE=alsa_input.pci-0000_00_1b.0.analog-stereo
-pactl set-source-mute "$SOURCE" toggle
+if [ "$1" = "" ]; then
+  pactl set-source-mute "$SOURCE" toggle
+fi
 STATUS=$(pactl list sources | grep "$SOURCE" -m 1 -A6 | grep 'Mute: ' | cut -d' ' -f2)
-
-#echo "$STATUS"
 
 if [ "$STATUS" = 'yes' ]; then
 	#notify-send 'Microphone Muted'
@@ -13,4 +13,7 @@ else
 	#notify-send 'Microphone Unmuted'
 	xset -led named "Scroll Lock"
 fi
-paplay /usr/share/sounds/freedesktop/stereo/bell.oga
+
+if [ "$1" = "" ]; then
+  paplay /usr/share/sounds/freedesktop/stereo/bell.oga
+fi
