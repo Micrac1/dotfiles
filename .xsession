@@ -2,6 +2,7 @@
 
 # XRDB
 /bin/xrdb -merge "${HOME}/.config/xresources/Xresources"
+/bin/xrdb -merge "${HOME}/.config/xresources/Xresources_${HOSTNAME}"
 
 # ende
 if [ "${HOSTNAME}" = "ende" ]; then
