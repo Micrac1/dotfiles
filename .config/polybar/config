@@ -19,10 +19,8 @@ color13 = ${xrdb:color13:#DDD}
 color14 = ${xrdb:color14:#DDD}
 color15 = ${xrdb:color15:#FFFFFF}
 
-black = ${colors.color0}
-gray = ${colors.color8}
-light_gray = ${colors.color7}
-white = ${colors.color15}
+[bar/default]
+# colors
 background = ${colors.color0}
 foreground = ${colors.color15}
 background_alt = ${colors.color8}
@@ -35,6 +33,14 @@ color_xkeyboard = ${colors.color6}
 color_filesystem = ${colors.color5}
 color_cpu = ${colors.color2}
 color_memory = ${colors.color6}
+color_network = ${colors.color3}
+color_date = ${colors.color4}
+color_audio = ${colors.color10}
+color_backlight = ${colors.color14}
+color_battery = ${colors.color3}
+color_battery_charging = ${colors.color2}
+color_temperature = ${colors.color1}
+
 enable-ipc = true
 monitor = ${env:POLYBAR_MONITOR}
 dpi = ${xrdb:Xft.dpi:}
@@ -63,7 +69,7 @@ modules-center = xwindow
 modules-right = wlan eth pulseaudio backlight xkeyboard filesystem memory cpu temperature battery date
 
 tray-padding = 2
-tray-background = ${colors.black}
+tray-background = ${root.background}
 
 
 # -[BAR SETTINGS]-----------------------
@@ -119,7 +125,7 @@ type = internal/xkeyboard
 format = <label-layout>
 
 label-layout = %{T2}%layout%%{T-}
-label-layout-underline = ${colors.color6}
+label-layout-underline = ${root.color_xkeyboard}
 
 
 # FILESYSTEM
@@ -131,12 +137,12 @@ mount-0 = "/"
 mount-1 = "/media/blue"
 
 label-mounted = %{A3:thunar:}%free%%{A}
-label-mounted-underline = ${colors.color5}
+label-mounted-underline = ${root.color_filesystem}
 format-mounted = <label-mounted>
 
 label-unmounted = ""
-label-unmounted-foreground = ${colors.light_gray}
-label-unmounted-underline = ${self.label-mounted-underline}
+label-unmounted-underline = ${root.color_filesystem}
+label-unmounted-foreground = ${root.foreground_alt}
 format-unmounted = "<label-unmounted>"
 
 
@@ -152,14 +158,13 @@ pin-workspaces = true
 format = <label-state> <label-mode>
 
 label-mode-padding = 2
-label-mode-foreground = ${colors.primary}
-label-mode-background = ${colors.black}
+label-mode-foreground = ${root.primary}
 
 # focused = Active workspace on focused monitor
 label-focused = %name%
 label-focused-padding = 2
-label-focused-background = ${colors.gray}
-label-focused-underline= ${colors.primary}
+label-focused-background = ${root.background_alt}
+label-focused-underline= ${root.primary}
 
 # unfocused = Inactive workspace on any monitor
 label-unfocused = %name%
@@ -168,11 +173,11 @@ label-unfocused-padding = ${self.label-focused-padding}
 # visible = Active workspace on unfocused monitor
 label-visible = %name%
 label-visible-padding = ${self.label-focused-padding}
-label-visible-underline = ${colors.gray}
+label-visible-underline = ${root.background_alt}
 
 # urgent = Workspace with urgency hint set
 label-urgent = %name%
-label-urgent-background = ${colors.alert}
+label-urgent-background = ${root.alert}
 label-urgent-padding = ${self.label-focused-padding}
 
 # Separator in between workspaces
@@ -190,11 +195,11 @@ format = "%{A4:brightnessctl -n1 set 5%+:}%{A5:brightnessctl -n1 set 5%-:}<label
 
 bar-width = 11
 bar-indicator = "|"
-bar-indicator-foreground = ${colors.white}
+bar-indicator-foreground = ${root.foreground}
 bar-fill = "|"
-bar-fill-foreground = ${colors.color14}
+bar-fill-foreground = ${root.color_backlight}
 bar-empty = "|"
-bar-empty-foreground = ${colors.gray}
+bar-empty-foreground = ${root.background_alt}
 
 
 # CPU
@@ -203,7 +208,7 @@ type = internal/cpu
 interval = 2.0
 
 label = "%{A3:xfce4-terminal -e htop:}%{T2}%percentage:3%%{T-}%%{A}"
-label-underline = ${colors.color2}
+label-underline = ${root.color_cpu}
 format = <label>
 
 
@@ -213,7 +218,7 @@ type = internal/memory
 interval = 2.0
 
 label = "%{A3:xfce4-terminal -e htop:}%{T2}%percentage_used:3%%{T-}%%{A}"
-label-underline = ${colors.color6}
+label-underline = ${root.color_memory}
 format = <label>
 
 
@@ -225,24 +230,29 @@ ping-interval = 15
 interval = 2.0
 
 format-connected = %{A3:nm-connection-editor:}<label-connected><ramp-signal>%{A}
-label-connected-underline = ${colors.color3}
+format-connected-underline = ${root.color_network}
 
 format-disconnected = %{A3:nm-connection-editor:}<label-disconnected>%{A}
-format-packetloss = %{A3:nm-connection-editor:}<animation-packetloss><label-connected><ramp-signal>${A}
+format-disconnected-underline = ${root.color_network}
 
-label-disconnected-foreground = ${colors.light_gray}
-label-disconnected-underline = ${self.label-connected-underline}
+format-packetloss = %{A3:nm-connection-editor:}<animation-packetloss><label-connected><ramp-signal>${A}
+format-packetloss-underline = ${root.color_network}
+
+label-disconnected-foreground = ${root.foreground_alt}
+
 animation-packetloss-0 = "⚠"
 animation-packetloss-framerate = 0
 
+animation-packetloss-background = ${root.alert}
+animation-packetloss-overline = ${root.background}
 
 ramp-signal-0 = ""
 ramp-signal-1 = "░"
 ramp-signal-2 = "▒"
 ramp-signal-3 = "▓"
 ramp-signal-4 = "█"
-ramp-signal-foreground = ${self.label-connected-underline}
-ramp-signal-underline = ${self.label-connected-underline}
+ramp-signal-foreground = ${root.color_network}
+ramp-signal-overline = ${root.background}
 
 [module/wlan]
 inherit = module/network
@@ -268,7 +278,7 @@ date = "%H:%M"
 date-alt = "%W%{-u} %{+u}%Y.%m.%d%{-u} %{+u}%H:%M:%S"
 
 label = "%{A3:xfce4-terminal --geometry=66x35 -e 'sh -c "cal --year --color=always | less -R"':}%date%%{A}"
-label-underline = ${colors.color4}
+label-underline = ${root.color_date}
 
 
 # PULSEAUDIO
@@ -279,20 +289,20 @@ label-volume = %{T2}%percentage:3%%{T-}%
 format-volume = <label-volume> <bar-volume>
 
 format-muted = <label-volume> %{R}|:::::::::|
-format-muted-foreground = ${colors.alert}
+format-muted-foreground = ${root.alert}
 format-muted-overline = ${root.background}
 
 bar-volume-width = 11
-bar-volume-foreground-0 = ${colors.color10}
-bar-volume-foreground-1 = ${colors.color10}
-bar-volume-foreground-2 = ${colors.color10}
+bar-volume-foreground-0 = ${root.color_audio}
+bar-volume-foreground-1 = ${root.color_audio}
+bar-volume-foreground-2 = ${root.color_audio}
 bar-volume-foreground-3 = ${colors.color11}
-bar-volume-foreground-4 = ${colors.color1}
+bar-volume-foreground-4 = ${root.alert}
 bar-volume-gradient = false
 bar-volume-indicator = "|"
 bar-volume-fill = "|"
 bar-volume-empty = "|"
-bar-volume-empty-foreground = ${colors.gray}
+bar-volume-empty-foreground = ${root.background_alt}
 click-right = "pavucontrol"
 
 
@@ -307,17 +317,14 @@ interval = 5.0
 time-format = "%_H:%M"
 
 # Charging
-discharging-color = ${colors.color3}
-charging-color = ${colors.color2}
 format-charging = <label-charging> <ramp-capacity>
+format-charging-underline = ${root.color_battery_charging}
+format-charging-foreground = ${root.color_battery_charging}
 label-charging = "%time%%{-u} %{+u}%consumption%W %{T2}%percentage:3%%{T-}%"
 
 # Discharging
 format-discharging = <label-discharging> <ramp-capacity>
-format-discharging-underline = "${self.discharging-color}"
-label-charging-underline = ${self.charging-color}
-label-charging-foreground = ${self.charging-color}
-format-charging-underline = ${self.charging-color}
+format-discharging-underline = ${root.color_battery}
 label-discharging = ${self.label-charging}
 
 ramp-capacity-0 = " "
@@ -338,14 +345,14 @@ hwmon-path = ${root.temperature/hwmon-path}
 thermal-zone = 0
 warn-temperature = 69
 
-label-underline = ${colors.color1}
 format = <label>
 label = "%temperature-c:4%"
+label-underline = ${root.color_temperature}
 
-label-warn-foreground = ${colors.alert}
-label-warn-underline = ${self.label-underline}
 format-warn = <label-warn>
 label-warn = "%temperature-c:4%"
+label-warn-foreground = ${root.alert}
+label-warn-underline = ${root.color_temperature}
 
 
 # POWERMENU
