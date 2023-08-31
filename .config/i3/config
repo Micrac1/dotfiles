@@ -139,7 +139,8 @@ set $open_mode "⌘Actions ➤Firefox  ➤Blender  ➤Terminal  \
 ➤Calc  ➤Discord  ➤Launcher  ➤Godot  ➤Obs  ➤XFinder "
 mode $open_mode {
   bindsym a mode $action_mode
-  bindsym s exec $i "steam"; mode "default"
+  bindsym s exec $i "test \\"${HOSTNAME}\\" = \\"clamp\\" \
+    && STEAM_FORCE_DESKTOPUI_SCALING=1.25 steam || steam"; mode "default"
   bindsym t exec $i "$terminal"; mode "default"
   bindsym e exec "thunar"; mode "default"
   bindsym f exec "$browser"; mode "default"
