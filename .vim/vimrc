@@ -52,6 +52,12 @@ set encoding=utf-8
 set completeopt=menu,menuone,preview
 let mapleader=" "
 
+" Terminal fuckery (needs to be rebound to avoid waiting for timeout on <esc>)
+set <A-h>=h
+set <A-j>=j
+set <A-k>=k
+set <A-l>=l
+
 map Q gq
 sunmap Q
 
@@ -85,6 +91,12 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+
+" Window resize
+nnoremap <silent> <A-h> :vertical resize -2<CR>
+nnoremap <silent> <A-j> :resize +2 <CR>
+nnoremap <silent> <A-k> :resize -2 <CR>
+nnoremap <silent> <A-l> :vertical resize +2<CR>
 
 " Buffers
 nnoremap <leader>b :ls<CR>:b<Space>
