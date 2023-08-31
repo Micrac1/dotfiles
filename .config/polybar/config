@@ -275,9 +275,9 @@ bar-volume-foreground-2 = ${colors.color10}
 bar-volume-foreground-3 = ${colors.color11}
 bar-volume-foreground-4 = ${colors.color1}
 bar-volume-gradient = false
-bar-volume-indicator = |
-bar-volume-fill = |
-bar-volume-empty = |
+bar-volume-indicator = "|"
+bar-volume-fill = "|"
+bar-volume-empty = "|"
 bar-volume-empty-foreground = ${colors.gray}
 click-right = "pavucontrol"
 
