@@ -202,9 +202,9 @@ bar-empty-foreground = ${colors.gray}
 type = internal/cpu
 interval = 2.0
 
-label = %{T2}%percentage:3%%{T-}%
+label = "%{A3:xfce4-terminal -e htop:}%{T2}%percentage:3%%{T-}%%{A}"
 label-underline = ${colors.color2}
-format = %{A3:xfce4-terminal -e htop:}<label>%{A}
+format = <label>
 
 
 # MEMORY
