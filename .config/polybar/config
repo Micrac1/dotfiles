@@ -130,8 +130,8 @@ format-mounted = %{A3:thunar:}<label-mounted>%{A}
 label-unmounted = ""
 label-unmounted-foreground = ${colors.light_gray}
 label-unmounted-underline = ${self.label-mounted-underline}
+format-unmounted = "<label-unmounted>"
 
-format-unmounted = <label-unmounted>
 
 [module/i3]
 type = internal/i3
