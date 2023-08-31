@@ -252,7 +252,7 @@ interval = 5
 date = "%H:%M"
 date-alt = "%W%{-u} %{+u}%Y.%m.%d%{-u} %{+u}%H:%M:%S"
 
-label = "%date%"
+label = "%{A3:xfce4-terminal --geometry=66x35 -e 'sh -c "cal --year --color=always | less -R"':}%date%%{A}"
 label-underline = ${colors.color4}
 
 # PULSEAUDIO
