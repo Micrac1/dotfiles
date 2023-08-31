@@ -123,9 +123,9 @@ interval = 20
 mount-0 = "/"
 mount-1 = "/media/blue"
 
-label-mounted = %free%
+label-mounted = %{A3:thunar:}%free%%{A}
 label-mounted-underline = ${colors.color5}
-format-mounted = %{A3:thunar:}<label-mounted>%{A}
+format-mounted = <label-mounted>
 
 label-unmounted = ""
 label-unmounted-foreground = ${colors.light_gray}
