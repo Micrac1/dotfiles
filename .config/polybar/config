@@ -262,9 +262,7 @@ type = internal/pulseaudio
 label-volume = %{T2}%percentage:3%%{T-}%
 format-volume = <label-volume> <bar-volume>
 
-label-muted = ${self.label-volume}
-
-format-muted = <label-muted> %{R}|:::::::::|
+format-muted = <label-volume> %{R}|:::::::::|
 format-muted-foreground = ${colors.alert}
 format-muted-overline = ${root.background}
 
