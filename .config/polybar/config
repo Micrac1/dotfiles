@@ -321,14 +321,14 @@ hwmon-path = ${root.temperature/hwmon-path}
 thermal-zone = 0
 warn-temperature = 69
 
-label = %temperature-c:4%
 label-underline = ${colors.color1}
 format = <label>
+label = "%temperature-c:4%"
 
-label-warn = %temperature-c:4%
 label-warn-foreground = ${colors.alert}
 label-warn-underline = ${self.label-underline}
 format-warn = <label-warn>
+label-warn = "%temperature-c:4%"
 
 [module/powermenu]
 type = custom/menu
