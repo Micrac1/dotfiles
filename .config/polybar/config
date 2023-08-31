@@ -301,8 +301,8 @@ click-right = "pavucontrol"
 type = internal/battery
 battery = BAT0
 adapter = ADP1
-full-at = 95
-low-at = 15
+full-at = 100
+low-at = 0
 interval = 5.0
 time-format = "%_H:%M"
 
