@@ -31,7 +31,10 @@ foreground_alt = ${colors.color7}
 primary = ${colors.color12}
 alert = ${colors.color1}
 
-[bar/default]
+color_xkeyboard = ${colors.color6}
+color_filesystem = ${colors.color5}
+color_cpu = ${colors.color2}
+color_memory = ${colors.color6}
 enable-ipc = true
 monitor = ${env:POLYBAR_MONITOR}
 dpi = ${xrdb:Xft.dpi:}
