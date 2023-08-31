@@ -14,7 +14,7 @@ set $lock_command \
   XSECURELOCK_PASSWORD_PROMPT=disco \
   XSECURELOCK_BLANK_DPMS_STATE=off \
   XSECURELOCK_DISCARD_FIRST_KEYPRESS=0 \
-  xsecurelock
+xsecurelock
 
 # Modifier key, win key
 set $mod Mod4
@@ -108,94 +108,94 @@ font pango:monospace 8
 
 # resize mode
 mode "resize" {
-	# resize windows with hjkl
-	bindsym h resize shrink width 10 px or 10 ppt
-	bindsym j resize grow height 10 px or 10 ppt
-	bindsym k resize shrink height 10 px or 10 ppt
-	bindsym l resize grow width 10 px or 10 ppt
+  # resize windows with hjkl
+  bindsym h resize shrink width 10 px or 10 ppt
+  bindsym j resize grow height 10 px or 10 ppt
+  bindsym k resize shrink height 10 px or 10 ppt
+  bindsym l resize grow width 10 px or 10 ppt
 
-	bindsym Shift+h resize shrink width 20 px or 20 ppt
-	bindsym Shift+j resize grow height 20 px or 20 ppt
-	bindsym Shift+k resize shrink height 20 px or 20 ppt
-	bindsym Shift+l resize grow width 20 px or 20 ppt
-	
-	# same bindings, but for the arrow keys
-	bindsym Left resize shrink width 10 px or 10 ppt
-	bindsym Down resize grow height 10 px or 10 ppt
-	bindsym Up resize shrink height 10 px or 10 ppt
-	bindsym Right resize grow width 10 px or 10 ppt
+  bindsym Shift+h resize shrink width 20 px or 20 ppt
+  bindsym Shift+j resize grow height 20 px or 20 ppt
+  bindsym Shift+k resize shrink height 20 px or 20 ppt
+  bindsym Shift+l resize grow width 20 px or 20 ppt
 
-	bindsym Shift+Left resize shrink width 20 px or 20 ppt
-	bindsym Shift+Down resize grow height 20 px or 20 ppt
-	bindsym Shift+Up resize shrink height 20 px or 20 ppt
-	bindsym Shift+Right resize grow width 20 px or 20 ppt
-	
-	bindsym Return mode "default"
-	bindsym Escape mode "default"
-	bindsym $mod+c mode "default"
+  # same bindings, but for the arrow keys
+  bindsym Left resize shrink width 10 px or 10 ppt
+  bindsym Down resize grow height 10 px or 10 ppt
+  bindsym Up resize shrink height 10 px or 10 ppt
+  bindsym Right resize grow width 10 px or 10 ppt
+
+  bindsym Shift+Left resize shrink width 20 px or 20 ppt
+  bindsym Shift+Down resize grow height 20 px or 20 ppt
+  bindsym Shift+Up resize shrink height 20 px or 20 ppt
+  bindsym Shift+Right resize grow width 20 px or 20 ppt
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  bindsym $mod+c mode "default"
 }
 
 set $open_mode "⌘Actions ➤Firefox  ➤Blender  ➤Terminal  \
 ➤Calc  ➤Discord  ➤Launcher  ➤Godot  ➤Obs  ➤XFinder "
 mode $open_mode {
-	bindsym a mode $action_mode
-	bindsym s exec $i "steam"; mode "default"
-	bindsym t exec $i "$terminal"; mode "default"
-	bindsym e exec "thunar"; mode "default"
-	bindsym f exec "$browser"; mode "default"
-	bindsym Shift+f exec "firefox"; mode "default"
-	bindsym b exec $i "blender"; mode "default"
-	bindsym c exec "qalculate-gtk"; mode "default"
-	bindsym g exec $i "godot"; mode "default"
-	bindsym d exec $i "$discord"; mode "default"
-	bindsym l exec "~/bin/gamelauncher.sh"; mode "default"
-	bindsym w exec "~/bin/wp.sh --gui"; mode "default"
-	bindsym o exec "obs --startreplaybuffer"; mode "default"
-	bindsym x exec $i "xfce4-appfinder"; mode "default"
-	
-	bindsym Return mode "default"
-	bindsym Escape mode "default"
-	bindsym $mod+o mode "default"
-	bindsym $mod+s mode "default"
+  bindsym a mode $action_mode
+  bindsym s exec $i "steam"; mode "default"
+  bindsym t exec $i "$terminal"; mode "default"
+  bindsym e exec "thunar"; mode "default"
+  bindsym f exec "$browser"; mode "default"
+  bindsym Shift+f exec "firefox"; mode "default"
+  bindsym b exec $i "blender"; mode "default"
+  bindsym c exec "qalculate-gtk"; mode "default"
+  bindsym g exec $i "godot"; mode "default"
+  bindsym d exec $i "$discord"; mode "default"
+  bindsym l exec "~/bin/gamelauncher.sh"; mode "default"
+  bindsym w exec "~/bin/wp.sh --gui"; mode "default"
+  bindsym o exec "obs --startreplaybuffer"; mode "default"
+  bindsym x exec $i "xfce4-appfinder"; mode "default"
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  bindsym $mod+o mode "default"
+  bindsym $mod+s mode "default"
 }
 
 set $action_mode " ➤Qrcode  ➤Image  ➤Text  ➤Meme  "
 mode $action_mode {
-	# qr from clipboard
-	bindsym q exec $i "xclip -sel clip -q -o | \
-		qrencode -o - --size=8 | feh - --auto-zoom --class floating -g 512x512"; mode "default"
-	# qr from primary (SHIFT)
-	bindsym Shift+q exec $i "xclip -sel primary -q -o | \
-		qrencode -o - --size=8 | feh - --auto-zoom --class floating -g 512x512"; mode "default"
+  # qr from clipboard
+  bindsym q exec $i "xclip -sel clip -q -o | \
+    qrencode -o - --size=8 | feh - --auto-zoom --class floating -g 512x512"; mode "default"
+  # qr from primary (SHIFT)
+  bindsym Shift+q exec $i "xclip -sel primary -q -o | \
+    qrencode -o - --size=8 | feh - --auto-zoom --class floating -g 512x512"; mode "default"
 
-	# text from clipboard
-	bindsym t exec $i "xclip -sel clip -q -o | \
-		zenity --text-info --title Clipboard --width 512 --height 256"; mode "default"
+  # text from clipboard
+  bindsym t exec $i "xclip -sel clip -q -o | \
+    zenity --text-info --title Clipboard --width 512 --height 256"; mode "default"
 
-	# text from primary (SHIFT)
-	bindsym Shift+t exec $i "xclip -sel primary -q -o | \
-		zenity --text-info --title Clipboard --width 512 --height 256"; mode "default"
+  # text from primary (SHIFT)
+  bindsym Shift+t exec $i "xclip -sel primary -q -o | \
+    zenity --text-info --title Clipboard --width 512 --height 256"; mode "default"
 
-	# show image from clipboard
-	bindsym i exec $i "xclip -sel clip -q -o -t image/png | \
-		feh - --auto-zoom --scale-down --class=floating -g 512x512"; mode "default"
+  # show image from clipboard
+  bindsym i exec $i "xclip -sel clip -q -o -t image/png | \
+    feh - --auto-zoom --scale-down --class=floating -g 512x512"; mode "default"
 
-	bindsym Return mode "default"
-	bindsym Escape mode "default"
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
 }
 
 set $border_mode "Default, None, Small, Medium, Large, THICC"
 mode $border_mode {
-	bindsym d [class=".*"] border pixel $border; mode "default"
-	bindsym n [class=".*"] border pixel 0; mode "default"
-	bindsym s [class=".*"] border pixel 2; mode "default"
-	bindsym m [class=".*"] border pixel 4; mode "default"
-	bindsym l [class=".*"] border pixel 8; mode "default"
-	bindsym t [class=".*"] border pixel 16; mode "default"
+  bindsym d [class=".*"] border pixel $border; mode "default"
+  bindsym n [class=".*"] border pixel 0; mode "default"
+  bindsym s [class=".*"] border pixel 2; mode "default"
+  bindsym m [class=".*"] border pixel 4; mode "default"
+  bindsym l [class=".*"] border pixel 8; mode "default"
+  bindsym t [class=".*"] border pixel 16; mode "default"
 
-	bindsym Return mode "default"
-	bindsym Escape mode "default"
-	bindsym $mod+b mode "default"
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  bindsym $mod+b mode "default"
 }
 
 # ----------
