@@ -306,26 +306,29 @@ low-at = 0
 interval = 5.0
 time-format = "%_H:%M"
 
+# Charging
 discharging-color = ${colors.color3}
 charging-color = ${colors.color2}
+format-charging = <label-charging> <ramp-capacity>
+label-charging = "%time%%{-u} %{+u}%consumption%W %{T2}%percentage:3%%{T-}%"
 
 # Discharging
-label-discharging = "%{T2}%percentage:3%%{T-}%%{-u} %{+u}%time%"
-#format-discharging = %{T2}<ramp-capacity>%{T-}<label-discharging>
-format-discharging = <ramp-capacity>%{-u} %{+u}<label-discharging>
+format-discharging = <label-discharging> <ramp-capacity>
 format-discharging-underline = "${self.discharging-color}"
-
-# Charging
-label-charging = ${self.label-discharging}
 label-charging-underline = ${self.charging-color}
 label-charging-foreground = ${self.charging-color}
-format0charging = ⚡<ramp-capacity>%{-u} %{+u}<label-discharging>
 format-charging-underline = ${self.charging-color}
+label-discharging = ${self.label-charging}
 
-# Full (over 90)
-format-full = %{R}%{T2}⚡100%%{T-}%{-u} %{+u}FULL
-format-full-underline = ${self.charging-color}
-format-full-foreground = ${self.charging-color}
+ramp-capacity-0 = " "
+ramp-capacity-1 = "▁"
+ramp-capacity-2 = "▂"
+ramp-capacity-3 = "▃"
+ramp-capacity-4 = "▄"
+ramp-capacity-5 = "▅"
+ramp-capacity-6 = "▆"
+ramp-capacity-7 = "▇"
+ramp-capacity-8 = "█"
 
 
 # TEMPERATURE
