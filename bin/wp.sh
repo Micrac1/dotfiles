@@ -137,3 +137,4 @@ done
 load_list
 select_preset
 apply_preset
+unset RND GUI NOSAVE FEHFLAGS VIEW WP LIST LIST_FILE
