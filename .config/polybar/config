@@ -1,20 +1,5 @@
-;==========================================================
-;
-;
-;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
-;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
-;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
-;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
-;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
-;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
-;
-;
-;   To learn more about how to configure Polybar
-;   go to https://github.com/polybar/polybar
-;
-;   The README contains a lot of information
-;
-;==========================================================
+[settings]
+screenchange-reload = true
 
 [colors]
 color0  = ${xrdb:color0:#000000}
@@ -34,14 +19,29 @@ color13 = ${xrdb:color13:#DDD}
 color14 = ${xrdb:color14:#DDD}
 color15 = ${xrdb:color15:#FFFFFF}
 
-black = ${colors.color0}
-gray = ${colors.color8}
-light_gray = ${colors.color7}
-white = ${colors.color15}
+[bar/default]
+# colors
+background = ${colors.color0}
+foreground = ${colors.color15}
+background_alt = ${colors.color8}
+foreground_alt = ${colors.color7}
+
 primary = ${colors.color12}
 alert = ${colors.color1}
 
-[bar/default]
+color_xkeyboard = ${colors.color6}
+color_filesystem = ${colors.color5}
+color_cpu = ${colors.color2}
+color_memory = ${colors.color6}
+color_network = ${colors.color3}
+color_date = ${colors.color4}
+color_audio = ${colors.color10}
+color_backlight = ${colors.color14}
+color_battery = ${colors.color3}
+color_battery_charging = ${colors.color2}
+color_temperature = ${colors.color1}
+
+enable-ipc = true
 monitor = ${env:POLYBAR_MONITOR}
 dpi = ${xrdb:Xft.dpi:}
 width = 100%
@@ -49,9 +49,9 @@ height = 18
 radius = 0.0
 fixed-center = true
 bottom = true
+cursor-click = pointer
+cursor-scroll = pointer
 
-background = ${colors.black}
-foreground = ${colors.white}
 
 underline-size = 3
 overline-size = 3
@@ -66,18 +66,11 @@ font-1 = "Dejavu Sans Mono:pixelsize=10;2"
 
 modules-left = powermenu i3
 modules-center = xwindow
-modules-right = wlan eth pulseaudio xbacklight xkeyboard filesystem memory cpu temperature battery date
-;modules-right = filesystem xbacklight alsa pulseaudio xkeyboard memory cpu wlan eth battery temperature date powermenu
+modules-right = wlan eth pulseaudio backlight xkeyboard filesystem memory cpu temperature battery date
 
 tray-padding = 2
-tray-background = ${colors.black}
+tray-background = ${root.background}
 
-;wm-restack = bspwm
-;wm-restack = i3
-
-;override-redirect = true
-
-cursor-click = pointer
 
 # -[BAR SETTINGS]-----------------------
 
@@ -119,69 +112,59 @@ inherit = settings/clamp bar/secondary
 
 # -[MODULES]----------------------------
 
+# XWINDOW
 [module/xwindow]
 type = internal/xwindow
-label = " %title:0:70:...% "
+label = "%title:0:70:...%"
 format = <label>
-format-background = ${colors.black}
 
+
+# XKEYBOARD
 [module/xkeyboard]
 type = internal/xkeyboard
-
-indicator-icon-default = some-icon
-indicator-icon-0 = scroll lock;S;S
-indicator-icon-1 = num lock;N;N
-indicator-icon-2 = caps lock;C;C
-
 format = <label-layout>
 
-label-layout = %layout%
-label-layout-underline = ${colors.color6}
+label-layout = %{T2}%layout%%{T-}
+label-layout-underline = ${root.color_xkeyboard}
 
-label-indicator-on = %icon%
-label-indicator-off = %icon%
-label-indicator-on-background = ${colors.primary}
-label-indicator-on-foreground = ${colors.black}
-label-indicator-on-underline = ${colors.black}
 
+# FILESYSTEM
 [module/filesystem]
 type = internal/fs
-interval = 25
-spacing = 1
+interval = 20
 
-mount-0 = /
-mount-1 = /media/blue
+mount-0 = "/"
+mount-1 = "/media/blue"
 
-label-mounted = %free%
-label-mounted-underline = ${colors.color5}
-format-mounted = %{A3:thunar:}<label-mounted>%{A}
+label-mounted = %{A3:thunar:}%free%%{A}
+label-mounted-underline = ${root.color_filesystem}
+format-mounted = <label-mounted>
 
-label-unmounted = U
-label-unmounted-foreground = ${colors.light_gray}
-label-unmounted-underline = ${self.label-mounted-underline}
+label-unmounted = ""
+label-unmounted-underline = ${root.color_filesystem}
+label-unmounted-foreground = ${root.foreground_alt}
+format-unmounted = "<label-unmounted>"
 
-format-unmounted = <label-unmounted>
 
+# I3
 [module/i3]
 type = internal/i3
-index-sort = true
+index-sort = false
 wrapping-scroll = false
 enable-click = true
 strip-wsnumbers = true
-# Only show workspaces on the same output as the bar
 pin-workspaces = true
 
 format = <label-state> <label-mode>
 
 label-mode-padding = 2
-label-mode-foreground = ${colors.primary}
-label-mode-background = ${colors.black}
+label-mode-foreground = ${root.primary}
 
 # focused = Active workspace on focused monitor
 label-focused = %name%
 label-focused-padding = 2
-label-focused-background = ${colors.gray}
-label-focused-underline= ${colors.primary}
+label-focused-background = ${root.background_alt}
+label-focused-underline= ${root.primary}
 
 # unfocused = Inactive workspace on any monitor
 label-unfocused = %name%
@@ -190,106 +173,101 @@ label-unfocused-padding = ${self.label-focused-padding}
 # visible = Active workspace on unfocused monitor
 label-visible = %name%
 label-visible-padding = ${self.label-focused-padding}
-label-visible-background = ${colors.black}
-label-visible-underline = ${colors.gray}
+label-visible-underline = ${root.background_alt}
 
 # urgent = Workspace with urgency hint set
 label-urgent = %name%
-label-urgent-background = ${colors.alert}
+label-urgent-background = ${root.alert}
 label-urgent-padding = ${self.label-focused-padding}
 
 # Separator in between workspaces
 label-separator = ""
 
 
-[module/mpd]
-type = internal/mpd
-format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
-
-icon-prev = 
-icon-stop = 
-icon-play = 
-icon-pause = 
-icon-next = 
-
-label-song-maxlen = 25
-label-song-ellipsis = true
-
-[module/xbacklight]
-type = internal/xbacklight
+# BACKLIGHT
+[module/backlight]
+type = internal/backlight
+card = intel_backlight
 enable-scroll = false
 
 label = %{T2}%percentage:3%%{T-}%
-format = "%{A1: :}%{A4:brightnessctl -n1 set 5%+:}%{A5:brightnessctl -n1 set 5%-:}<label> <bar>%{A}%{A}%{A}"
+format = "%{A4:brightnessctl -n1 set 5%+:}%{A5:brightnessctl -n1 set 5%-:}<label> <bar>%{A}%{A}"
 
 bar-width = 11
 bar-indicator = "|"
-bar-indicator-foreground = ${colors.white}
+bar-indicator-foreground = ${root.foreground}
 bar-fill = "|"
-bar-fill-foreground = ${colors.color14}
+bar-fill-foreground = ${root.color_backlight}
 bar-empty = "|"
-bar-empty-foreground = ${colors.gray}
+bar-empty-foreground = ${root.background_alt}
 
+
+# CPU
 [module/cpu]
 type = internal/cpu
 interval = 2.0
 
-label = %{T2}%percentage:3%%{T-}%
-label-underline = ${colors.color2}
-format = %{A3:xfce4-terminal -e htop:}<label>%{A}
+label = "%{A3:xfce4-terminal -e htop:}%{T2}%percentage:3%%{T-}%%{A}"
+label-underline = ${root.color_cpu}
+format = <label>
 
+
+# MEMORY
 [module/memory]
 type = internal/memory
 interval = 2.0
 
-label = %{T2}%percentage_used:3%%{T-}%
-label-underline = ${colors.color6}
+label = "%{A3:xfce4-terminal -e htop:}%{T2}%percentage_used:3%%{T-}%%{A}"
+label-underline = ${root.color_memory}
 format = <label>
 
-[module/wlan]
+
+# NETWORK
+[module/network]
 type = internal/network
-interface = wlan0
+interface = ""
+ping-interval = 15
 interval = 2.0
 
-label-connected = ↑%upspeed% ↓%downspeed%%{-u} %{+u}%essid%
-label-connected-underline = ${colors.color3}
-format-connected = <label-connected> <ramp-signal>
+format-connected = %{A3:nm-connection-editor:}<label-connected><ramp-signal>%{A}
+format-connected-underline = ${root.color_network}
 
-label-disconnected = "W"
-label-disconnected-foreground = ${colors.light_gray}
-label-disconnected-underline = ${self.label-connected-underline}
-format-disconnected = <label-disconnected>
-;format-disconnected = <label-disconnected>
-;format-disconnected-underline = ${self.format-connected-underline}
-;label-disconnected = %ifname% disconnected
-;label-disconnected-foreground = ${colors.foreground-alt}
+format-disconnected = %{A3:nm-connection-editor:}<label-disconnected>%{A}
+format-disconnected-underline = ${root.color_network}
 
-ramp-signal-0 = " "
+format-packetloss = %{A3:nm-connection-editor:}<animation-packetloss><label-connected><ramp-signal>${A}
+format-packetloss-underline = ${root.color_network}
+
+label-disconnected-foreground = ${root.foreground_alt}
+
+animation-packetloss-0 = "⚠"
+animation-packetloss-framerate = 0
+
+animation-packetloss-background = ${root.alert}
+animation-packetloss-overline = ${root.background}
+
+ramp-signal-0 = ""
 ramp-signal-1 = "░"
 ramp-signal-2 = "▒"
 ramp-signal-3 = "▓"
 ramp-signal-4 = "█"
-ramp-signal-foreground = ${self.label-connected-underline}
-ramp-signal-underline = ${self.label-connected-underline}
+ramp-signal-foreground = ${root.color_network}
+ramp-signal-overline = ${root.background}
+
+[module/wlan]
+inherit = module/network
+interface-type = wireless
+
+label-connected = "↑%upspeed% ↓%downspeed% %essid:0:15:...%"
+label-disconnected = "W"
 
 [module/eth]
-type = internal/network
-interface = enp3s0
-interval = 2.0
+inherit = module/network
+interface-type = wired
 
-format-connected-underline = ${colors.color3}
-format-connected-prefix =
-format-connected-prefix-foreground = ${colors.color10}
-format-connected = <label-connected>
-label-connected = ↑%upspeed% ↓%downspeed%
+label-connected = "↑%upspeed% ↓%downspeed%"
+label-disconnected = "E"
 
-format-disconnected-prefix-foreground = ${colors.color10}
-;label-unmounted-foreground = ${colors.light_gray}
-format-disconnected = "E"
-;format-disconnected = <label-disconnected>
-;format-disconnected-underline = ${self.format-connected-underline}
-;label-disconnected = %ifname% disconnected
-;label-disconnected-foreground = ${colors.foreground-alt}
 
 # DATE
 [module/date]
@@ -299,8 +277,9 @@ interval = 5
 date = "%H:%M"
 date-alt = "%W%{-u} %{+u}%Y.%m.%d%{-u} %{+u}%H:%M:%S"
 
-label = "%date%"
-label-underline = ${colors.color4}
+label = "%{A3:xfce4-terminal --geometry=66x35 -e 'sh -c "cal --year --color=always | less -R"':}%date%%{A}"
+label-underline = ${root.color_date}
+
 
 # PULSEAUDIO
 [module/pulseaudio]
@@ -309,49 +288,23 @@ type = internal/pulseaudio
 label-volume = %{T2}%percentage:3%%{T-}%
 format-volume = <label-volume> <bar-volume>
 
-label-muted = ${self.label-volume}
-
-format-muted = <label-muted> %{R}|:::::::::|
-format-muted-foreground = ${colors.alert}
+format-muted = <label-volume> %{R}|:::::::::|
+format-muted-foreground = ${root.alert}
 format-muted-overline = ${root.background}
 
 bar-volume-width = 11
-bar-volume-foreground-0 = ${colors.color10}
-bar-volume-foreground-1 = ${colors.color10}
-bar-volume-foreground-2 = ${colors.color10}
+bar-volume-foreground-0 = ${root.color_audio}
+bar-volume-foreground-1 = ${root.color_audio}
+bar-volume-foreground-2 = ${root.color_audio}
 bar-volume-foreground-3 = ${colors.color11}
-bar-volume-foreground-4 = ${colors.color1}
+bar-volume-foreground-4 = ${root.alert}
 bar-volume-gradient = false
-bar-volume-indicator = |
-bar-volume-fill = |
-bar-volume-empty = |
-bar-volume-empty-foreground = ${colors.gray}
+bar-volume-indicator = "|"
+bar-volume-fill = "|"
+bar-volume-empty = "|"
+bar-volume-empty-foreground = ${root.background_alt}
 click-right = "pavucontrol"
 
-# ALSA
-[module/alsa]
-type = internal/alsa
-
-format-volume = <label-volume> <bar-volume>
-label-volume = VOL
-label-volume-foreground = ${colors.color10}
-
-format-muted-foreground = ${colors.light_gray}
-label-muted = xmuted
-
-bar-volume-width = 10
-bar-volume-foreground-0 = #55aa55
-bar-volume-foreground-1 = #55aa55
-bar-volume-foreground-2 = #55aa55
-bar-volume-foreground-3 = #55aa55
-bar-volume-foreground-4 = #55aa55
-bar-volume-foreground-5 = #f5a70a
-bar-volume-foreground-6 = #ff5555
-bar-volume-gradient = false
-bar-volume-indicator = |
-bar-volume-fill = ─
-bar-volume-empty = ─
-bar-volume-empty-foreground = ${colors.color10}
 
 # BATTERY
 [module/battery]
@@ -359,51 +312,50 @@ type = internal/battery
 battery = BAT0
 adapter = ADP1
 full-at = 100
+low-at = 0
 interval = 5.0
 time-format = "%_H:%M"
 
-discharging-color = ${colors.color3}
-charging-color = ${colors.color2}
+# Charging
+format-charging = <label-charging> <ramp-capacity>
+format-charging-underline = ${root.color_battery_charging}
+format-charging-foreground = ${root.color_battery_charging}
+label-charging = "%time%%{-u} %{+u}%consumption%W %{T2}%percentage:3%%{T-}%"
 
 # Discharging
-label-discharging = "%{T2}%percentage:3%%{T-}%%{-u} %{+u}%time%"
-format-discharging = %{T2}<ramp-capacity>%{T-}<label-discharging>
-format-discharging-underline = "${self.discharging-color}"
+format-discharging = <label-discharging> <ramp-capacity>
+format-discharging-underline = ${root.color_battery}
+label-discharging = ${self.label-charging}
 
-# Charging
-label-charging = ${self.label-discharging}
-label-charging-underline = ${self.charging-color}
-label-charging-foreground = ${self.charging-color}
-format-charging = %{T2}⚡%{T-}<label-charging>
-format-charging-underline = ${self.charging-color}
+ramp-capacity-0 = " "
+ramp-capacity-1 = "▁"
+ramp-capacity-2 = "▂"
+ramp-capacity-3 = "▃"
+ramp-capacity-4 = "▄"
+ramp-capacity-5 = "▅"
+ramp-capacity-6 = "▆"
+ramp-capacity-7 = "▇"
+ramp-capacity-8 = "█"
 
-# Full (over 90)
-format-full = %{R}%{T2}⚡100%%{T-}%{-u} %{+u}FULL
-format-full-underline = ${self.charging-color}
-format-full-foreground = ${self.charging-color}
 
-# Ramp
-ramp-capacity-foreground = ${self.discharging-color}
-ramp-capacity-0 = "▂"
-ramp-capacity-1 = "▄"
-ramp-capacity-2 = "▆"
-ramp-capacity-3 = "█"
-
+# TEMPERATURE
 [module/temperature]
 type = internal/temperature
 hwmon-path = ${root.temperature/hwmon-path}
 thermal-zone = 0
 warn-temperature = 69
 
-label = %temperature-c:4%
-label-underline = ${colors.color1}
 format = <label>
+label = "%temperature-c:4%"
+label-underline = ${root.color_temperature}
 
-label-warn = %temperature-c:4%
-label-warn-foreground = ${colors.alert}
-label-warn-underline = ${self.label-underline}
 format-warn = <label-warn>
+label-warn = "%temperature-c:4%"
+label-warn-foreground = ${root.alert}
+label-warn-underline = ${root.color_temperature}
 
+
+# POWERMENU
 [module/powermenu]
 type = custom/menu
 
@@ -414,7 +366,6 @@ format-spacing = 1
 label-open = " "
 label-close = " X"
 label-separator = |
-label-separator-foreground = ${colors.color10}
 
 menu-0-0 = reboot
 menu-0-0-exec = menu-open-1
@@ -437,17 +388,5 @@ menu-3-0 = yes
 menu-3-0-exec = i3-msg exit
 menu-3-1 = no
 menu-3-1-exec = menu-open-0
-
-[settings]
-screenchange-reload = true
-;compositing-background = xor
-;compositing-background = screen
-;compositing-foreground = source
-;compositing-border = over
-;pseudo-transparency = false
-
-[global/wm]
-margin-top = 5
-margin-bottom = 5
 
 ; vim:ft=dosini

@@ -16,6 +16,9 @@
 
 !/.config/
 
+# Xmodmap
+!/.config/Xmodmap
+
 # git
 !/.config/git/
 !/.config/git/config
@@ -54,6 +57,10 @@
 !/.config/qt5ct/
 !/.config/qt5ct/**
 
+# qt6ct
+!/.config/qt6ct/
+!/.config/qt6ct/**
+
 # dunst
 !/.config/dunst/
 !/.config/dunst/**
@@ -65,5 +72,9 @@
 # tmux
 !/.config/tmux/
 !/.config/tmux/tmux.conf
+
+# touchegg
+!/.config/touchegg/
+!/.config/touchegg/touchegg.conf
 
 # OBS TODO

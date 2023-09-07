@@ -18,10 +18,15 @@ PATH="${PATH}:${HOME}/bin"
 _RES='\[\e[0m\]'
 
 # GIT PROMPT SUPPORT
+GIT_PS1="1"
 if [ -f "/usr/share/git/completion/git-prompt.sh" ]; then
   . "/usr/share/git/completion/git-prompt.sh"
-  # ignore when we are in home dir or subdir
-  _GIT_PS1='$( [ "${PWD}" = "${PWD##/home/peter}" ] && __git_ps1 " (\001\e[01;33m\002%s'"${_RES}"')")'
+  # ignore when we are in home dir repo
+  _GIT_PS1='$( [ "${GIT_PS1}" = "1" ] \
+    && ! findmnt . 2>/dev/null >/dev/null \
+    && [ ! "${HOME}" = "$(git rev-parse --show-toplevel 2>/dev/null)" ] \
+    && __git_ps1 " (\001\e[01;33m\002%s'"${_RES}"')" \
+  )'
   export GIT_PS1_SHOWDIRTYSTATE=1
   export GIT_PS1_SHOWSTASHSTATE=1
   export GIT_PS1_SHOWUNTRACKEDFILES=1
@@ -56,7 +61,7 @@ fi
 PS1=\
 "${_RES}${_COLOR}[${_LOGIN}\u"\
 '$(test "$?" -eq 0 && echo "\001\e[01;32m\002" || echo "\001\e[01;31m\002")'"@\
-${_COLOR}\h ${_RES}\W${_COLOR}]${_RES}\
+${_COLOR}\h${_RES} \W${_COLOR}]${_RES}\
 ${_GIT_PS1}${_C_DBUS}${_PROMPT}${_RES} "
 
 unset _COLOR _PROMPT _RES _GIT_PS1 _C_DBUS
@@ -70,12 +75,15 @@ alias l="ls -lav --block-size=\"'1\" --ignore=.?*"
 alias t='xfce4-terminal &'
 alias cim="vim --cmd 'set clipboard=unnamed'"
 alias v='vim'
-alias cdprog='cd /media/blue/programming/'
-alias cdmc='cd /media/blue/mc_servers/Vanilla/'
+alias vi='vim'
+alias nv='nvim'
+alias nvi='nvim'
 alias j='jrnl'
 alias clip='xclip -i -sel clipboard'
 alias s='pkgfile -v -b'
 alias bel='echo -e -n "\007"'
+alias c="cpupower-gui"
+alias mv="mv -i"
 
 # pacman stuff
 alias pi='pacman -Qi'

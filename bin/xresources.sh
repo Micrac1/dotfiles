@@ -60,7 +60,7 @@ function extractDB {
 	if [ -z "${XRDB}" ]; then
 		XRDB=`xrdb -q`
 	fi
-	echo `egrep -m 1 "\*.${1}\:" <<<"${XRDB}" | awk '{print $NF}'`
+	echo `grep -E -m 1 "\*.${1}:" <<<"${XRDB}" | awk '{print $NF}'`
 }
 
 # xfce4 name, value from Xres, file path
@@ -101,7 +101,7 @@ function xfcecolors {
 		if [ -z "${NEWCOLOR}" ]; then
 			echo "Warn: Color ${i} could not be loaded from XRDB. Skipping..." >&2
 			# Attempt to extract color from the config
-			OLDCOLOR=`egrep '^ColorPalette *=' "${XFCECFGFILE}" | cut -d'=' -f2 | cut -d';' -f$((${i} + 1))`
+			OLDCOLOR=`grep -E '^ColorPalette *=' "${XFCECFGFILE}" | cut -d'=' -f2 | cut -d';' -f$((${i} + 1))`
 			if [ -z "${OLDCOLOR}" ]; then
 				# should never happen
 				OLDCOLOR="#000000"

@@ -1,12 +1,22 @@
 [user]
-	signkey = 5FA042908EC218453C2FB983AFB2F3948B880D55
+  signkey = 5FA042908EC218453C2FB983AFB2F3948B880D55
 
 [alias]
   s = status
   l = log --oneline --graph --all --decorate
+  a = add
+  c = commit
+  cm = commit -m
+  co = checkout
+  d = diff
+  dc = diff --cached
 
 [filter "lfs"]
-	process = git-lfs filter-process
-	required = true
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+[gui]
+  fontui = -family \"DejaVu Sans\" -size 10 -weight normal -slant roman -underline 0 -overstrike 0
+  fontdiff = -family \"DejaVu Sans Mono\" -size 10 -weight normal -slant roman -underline 0 -overstrike 0
+  diffcontext = 3

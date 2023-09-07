@@ -1,5 +1,5 @@
 " so $VIM/vimrc
-so $VIMRUNTIME/defaults.vim
+"so $VIMRUNTIME/defaults.vim
 set nocompatible
 set viminfofile=$HOME/.vim/viminfo
 
@@ -15,7 +15,8 @@ if has('gui_running')
 	set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
 endif
 
-set background=dark
+" Tabline colors for tty
+hi TabLine cterm=reverse
 
 set sessionoptions=blank,buffers,curdir,folds,help,tabpages,winpos,winsize,resize,terminal
 set splitbelow
@@ -24,110 +25,229 @@ set number
 set relativenumber
 set ruler
 set wildmenu
+set wildoptions=pum " Vertical wild menu in cmdline
 set showcmd
 set lazyredraw
+set scrolloff=8
+set timeout
+set timeoutlen=1000
+set ttimeout
+set ttimeoutlen=50
+set mouse=n
+set hidden
+
+filetype plugin indent on
 
 set tabstop=2
 set shiftwidth=2
 " set softtabstop=2
 set expandtab
 syntax on
+set incsearch
+set hlsearch
 set noundofile
 set noswapfile
 set nobackup
 set encoding=utf-8
 set completeopt=menu,menuone,preview
-let mapleader=","
+let mapleader=" "
 
-" Hide matches
-nnoremap <leader>n :noh<CR>
+" Terminal fuckery (needs to be rebound to avoid waiting for timeout on <esc>)
+set <A-h>=h
+set <A-j>=j
+set <A-k>=k
+set <A-l>=l
+
+set <A-1>=1
+set <A-2>=2
+set <A-3>=3
+set <A-4>=4
+set <A-5>=5
+set <A-6>=6
+set <A-7>=7
+set <A-8>=8
+set <A-9>=9
+
+map Q gq
+sunmap Q
+
+" Funny stuff
+nnoremap <silent> <esc> :silent noh<CR>
+nnoremap <leader> <Nop>
 
 " Change marks
-nnoremap <Space><Space> /<++><CR>c4l
-nnoremap <leader>m i<++><Esc>l
+"nnoremap <Space><Space> /<++><CR>c4l
+"nnoremap <leader>m i<++><Esc>l
 
 " Encoding
-nnoremap <leader>u :set encoding=latin1<CR>
-nnoremap <leader>U :set encoding=utf-8<CR>
+"nnoremap <leader>u :set encoding=latin1<CR>
+"nnoremap <leader>U :set encoding=utf-8<CR>
 
 " Fonts (gui only)
-nnoremap <leader>fw :set guifont=Bitstream\ Vera\ Sans\ Mono\ 10<CR>
-nnoremap <leader>fe :set guifont=Bitstream\ Vera\ Sans\ Mono\ 12<CR>
-nnoremap <leader>fr :set guifont=Bitstream\ Vera\ Sans\ Mono\ 16<CR>
-
-" Formating
-nnoremap <leader>q i <right> <Esc>
-nnoremap <leader>w i <right><right> <Esc>
+"nnoremap <leader>fw :set guifont=Bitstream\ Vera\ Sans\ Mono\ 10<CR>
+"nnoremap <leader>fe :set guifont=Bitstream\ Vera\ Sans\ Mono\ 12<CR>
+"nnoremap <leader>fr :set guifont=Bitstream\ Vera\ Sans\ Mono\ 16<CR>
 
 " Configuring
 nnoremap <leader>r :so $MYVIMRC<CR>
 nnoremap <leader>E :tabnew $MYVIMRC<CR>
 
 " C++ helpers
-nnoremap <leader>inc a#include 
-nnoremap <leader>ifn a#ifndef <++><CR>#define <++><CR>#endif<Esc>?<++><CR>n<C-v>j3lc
+"nnoremap <leader>inc a#include 
+"nnoremap <leader>ifn a#ifndef <++><CR>#define <++><CR>#endif<Esc>?<++><CR>n<C-v>j3lc
+
+" Window navigation
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" Window resize
+nnoremap <silent> <A-h> :vertical resize -2<CR>
+nnoremap <silent> <A-j> :resize +2 <CR>
+nnoremap <silent> <A-k> :resize -2 <CR>
+nnoremap <silent> <A-l> :vertical resize +2<CR>
 
 " Buffers
-nnoremap <leader>b :ls<CR>:b
-nnoremap <leader>d :ls<CR>:bd
+nnoremap <leader>b :ls<CR>:b<Space>
+nnoremap <leader>d :ls<CR>:bd<Space>
+nnoremap <leader>n :bnext<CR>
+nnoremap <leader>p :bprev<CR>
+nnoremap <leader>x :bd<CR>
+nnoremap <leader>X :bd!<CR>
+nnoremap <leader>e :enew<CR>
+nnoremap <leader><Tab> <C-^>
 
 " Tabs
-nnoremap <C-Tab> :tabnext<CR>
-nnoremap <C-S-Tab> :tabprev<CR>
+nnoremap <leader>tn :tabnew<CR>
+nnoremap <leader>tx :tabclose<CR>
 
-nnoremap <M-1> 1gt
-nnoremap <M-2> 2gt
-nnoremap <M-3> 3gt
-nnoremap <M-4> 4gt
-nnoremap <M-5> 5gt
-nnoremap <M-6> 6gt
-nnoremap <M-7> 7gt
-nnoremap <M-8> 8gt
-nnoremap <M-9> 9gt
+nnoremap <A-1> 1gt
+nnoremap <A-2> 2gt
+nnoremap <A-3> 3gt
+nnoremap <A-4> 4gt
+nnoremap <A-5> 5gt
+nnoremap <A-6> 6gt
+nnoremap <A-7> 7gt
+nnoremap <A-8> 8gt
+nnoremap <A-9> 9gt
 
-inoremap <C-Tab> <Esc>:tabnext<CR>
-inoremap <C-S-Tab> <Esc>:tabprev<CR>
+" Terminal fixes
+tnoremap <C-x> <C-\><C-n>
+tnoremap <C-w> <C-w>.
+tnoremap <C-\><C-x> <C-x>
 
-" Auto bracketo (ctrl space works only in gvim)
-inoremap <C-Space> <right>
-inoremap <C-@> <right>
+" Movement in insert mode
+inoremap <C-h> <left>
+inoremap <C-j> <down>
+inoremap <C-k> <up>
+inoremap <C-l> <right>
 
-inoremap " ""<left>
+" Matching pairs
+inoremap " ""<C-G>U<left>
 inoremap "<esc> "<esc>
 inoremap "" ""
 
-inoremap ' ''<left>
+inoremap ' ''<C-G>U<left>
 inoremap '<esc> '<esc>
 inoremap '' ''
 
-inoremap ( ()<left>
+inoremap ( ()<C-G>U<left>
 inoremap (<esc> (<esc>
 inoremap () ()
 
-inoremap [ []<left>
+inoremap [ []<C-G>U<left>
 inoremap [<esc> [<esc>
 inoremap [] []
 
-inoremap { {}<left>
+inoremap { {}<C-G>U<left>
 inoremap {<esc> {<esc>
 inoremap {} {}
 
-inoremap < <><left>
+inoremap < <><C-G>U<left>
 inoremap <<esc> <<esc>
 inoremap <<Space> < 
 inoremap <= <=
 inoremap << <<
 
+" TODO make it so this does not close them on other tabs
+function! CleanNoNameEmptyBuffers()
+    let buffers = filter(range(1, bufnr('$')), 'buflisted(v:val) 
+      \ && empty(bufname(v:val)) && empty(win_findbuf(v:val))
+      \ && (getbufline(v:val, 1, "$") == [""])')
+    if !empty(buffers)
+        exe 'bd '.join(buffers, ' ')
+    else
+        echo 'No buffer deleted'
+    endif
+endfunction
+
+" Put these in an autocmd group, so that you can revert them with:
+" ":augroup vimStartup | exe 'au!' | augroup END"
+augroup vimStartup
+  au!
+
+  " When editing a file, always jump to the last known cursor position.
+  " Don't do it when the position is invalid, when inside an event handler
+  " (happens when dropping a file on gvim) and for a commit message (it's
+  " likely a different one than last time).
+  autocmd BufReadPost *
+    \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+    \ |   exe "normal! g`\""
+    \ | endif
+
+augroup END
+
 " Plugins
 call plug#begin('~/.vim/plugged')
-Plug 'habamax/vim-godot'
-Plug 'mattn/emmet-vim'
-Plug 'plasticboy/vim-markdown'
 Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
-Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
-Plug 'tikhomirov/vim-glsl'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+Plug 'prabirshrestha/vim-lsp'
 call plug#end()
+
+if executable('clangd')
+  augroup lsp_clangd
+    autocmd!
+    autocmd User lsp_setup call lsp#register_server({
+          \ 'name': 'clangd',
+          \ 'cmd': {server_info->['clangd']},
+          \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
+          \ })
+    autocmd FileType c setlocal omnifunc=lsp#complete
+    autocmd FileType cpp setlocal omnifunc=lsp#complete
+    autocmd FileType objc setlocal omnifunc=lsp#complete
+    autocmd FileType objcpp setlocal omnifunc=lsp#complete
+  augroup end
+endif
+
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gD <plug>(lsp-declaration)
+    "nmap <buffer> gs <plug>(lsp-document-symbol-search)
+    "nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+    nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> gi <plug>(lsp-implementation)
+    "nmap <buffer> gt <plug>(lsp-type-definition)
+    "nmap <buffer> <leader>rn <plug>(lsp-rename)
+    nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+    nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+    nmap <buffer> K <plug>(lsp-hover)
+    nnoremap <buffer> <expr><c-d> lsp#document_hover_preview_winid() ? lsp#scroll(+4):'<C-d>'
+    nnoremap <buffer> <expr><c-u> lsp#document_hover_preview_winid() ? lsp#scroll(-4):'<C-u>'
+    "inoremap <buffer> <expr><c-d> lsp#document_hover_preview_winid() ? lsp#scroll(+4):'<C-d>'
+    "inoremap <buffer> <expr><c-u> lsp#document_hover_preview_winid() ? lsp#scroll(-4):'<C-u>'
+
+    " refer to doc to add more commands
+endfunction
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+let g:lsp_diagnostics_virtual_text_align = 'after'
+let g:lsp_diagnostics_virtual_text_wrap = 'truncate'
 
 " vim-markdown
 let g:vim_markdown_new_list_item_indent = 0
