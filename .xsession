@@ -75,6 +75,8 @@ xset s noexpose
 
 # Picom
 /usr/bin/picom --experimental-backends &
+# Set correct scroll lock to indicate mute status
+"${HOME}/bin/mute.sh" -s
 
 # Welcome
 "${HOME}/bin/welcome.sh && ${SHELL}" &
