@@ -206,7 +206,7 @@ function! MyTabLine()
     " Separator
     let s .= '%#TabLine#'
     " let s .= n != tabpagenr('$') ? '|' : ''
-    let s .= n != tabpagenr('$') ? '' : ''
+    let s .= n != tabpagenr('$') ? '|' : ''
   endfor
 
   " Rest of the line
