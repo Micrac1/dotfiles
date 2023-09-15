@@ -170,6 +170,54 @@ inoremap <<Space> <
 inoremap <= <=
 inoremap << <<
 
+" Tabline
+set tabline=%!MyTabLine()
+function! MyTabLine()
+  let s = ''
+
+  for i in range(tabpagenr('$'))
+    let n = (i + 1)
+    let color = n == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#'
+    let buflist = tabpagebuflist(n)
+    let fullname = bufname(buflist[tabpagewinnr(n) - 1])
+    let filename = fnamemodify(fullname, ':t')
+
+    " Begin tab
+    let s .= color
+    let s .= '%' . n . 'T '
+
+    "let s .= '['
+    "let s .= tabpagewinnr(a:n, '$')
+    "let s .= '] '
+
+    " Modified indicator
+    for bufnr in buflist
+      if getbufvar(bufnr, '&modified')
+        " let s .= '%#Error#[+]' . color . ' '
+        let s .= '[+]' . color . ' '
+        break
+      endif
+    endfor
+
+    " Filename
+    let s .= filename == '' ? '[No Name]' : pathshorten(fnamemodify(fullname, ":~:."))
+    let s .= ' '
+
+    " Separator
+    let s .= '%#TabLine#'
+    " let s .= n != tabpagenr('$') ? '|' : ''
+    let s .= n != tabpagenr('$') ? '' : ''
+  endfor
+
+  " Rest of the line
+  let s .= '%T%#TabLineFill#'
+  if tabpagenr('$') > 1
+    let s .= '%=;)'
+  endif
+
+  return s
+endfunction
+
 " TODO make it so this does not close them on other tabs
 function! CleanNoNameEmptyBuffers()
     let buffers = filter(range(1, bufnr('$')), 'buflisted(v:val) 
