@@ -213,10 +213,7 @@ if executable('clangd')
           \ 'cmd': {server_info->['clangd']},
           \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
           \ })
-    autocmd FileType c setlocal omnifunc=lsp#complete
-    autocmd FileType cpp setlocal omnifunc=lsp#complete
-    autocmd FileType objc setlocal omnifunc=lsp#complete
-    autocmd FileType objcpp setlocal omnifunc=lsp#complete
+    autocmd FileType c,cpp,objc,objcpp setlocal omnifunc=lsp#complete
   augroup end
 endif
 
