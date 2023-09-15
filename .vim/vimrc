@@ -182,16 +182,10 @@ function! CleanNoNameEmptyBuffers()
     endif
 endfunction
 
-" Put these in an autocmd group, so that you can revert them with:
-" ":augroup vimStartup | exe 'au!' | augroup END"
+" Restore cursor position
 aug vimStartup
   au!
   au BufReadPost *
-
-  " When editing a file, always jump to the last known cursor position.
-  " Don't do it when the position is invalid, when inside an event handler
-  " (happens when dropping a file on gvim) and for a commit message (it's
-  " likely a different one than last time).
     \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
     \ |   exe "normal! g`\""
     \ | endif
@@ -204,6 +198,7 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 
 Plug 'prabirshrestha/vim-lsp'
 call plug#end()
 
+" vim-lsp
 if executable('clangd')
   aug lsp_clangd
     au!
