@@ -194,7 +194,7 @@ function! MyTabLine()
     for bufnr in buflist
       if getbufvar(bufnr, '&modified')
         " let s .= '%#Error#[+]' . color . ' '
-        let s .= '[+]' . color . ' '
+        let s .= '[+] '
         break
       endif
     endfor
