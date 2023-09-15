@@ -184,19 +184,18 @@ endfunction
 
 " Put these in an autocmd group, so that you can revert them with:
 " ":augroup vimStartup | exe 'au!' | augroup END"
-augroup vimStartup
+aug vimStartup
   au!
+  au BufReadPost *
 
   " When editing a file, always jump to the last known cursor position.
   " Don't do it when the position is invalid, when inside an event handler
   " (happens when dropping a file on gvim) and for a commit message (it's
   " likely a different one than last time).
-  autocmd BufReadPost *
     \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
     \ |   exe "normal! g`\""
     \ | endif
-
-augroup END
+aug END
 
 " Plugins
 call plug#begin('~/.vim/plugged')
@@ -206,15 +205,15 @@ Plug 'prabirshrestha/vim-lsp'
 call plug#end()
 
 if executable('clangd')
-  augroup lsp_clangd
-    autocmd!
-    autocmd User lsp_setup call lsp#register_server({
+  aug lsp_clangd
+    au!
+    au User lsp_setup call lsp#register_server({
           \ 'name': 'clangd',
           \ 'cmd': {server_info->['clangd']},
           \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
           \ })
     autocmd FileType c,cpp,objc,objcpp setlocal omnifunc=lsp#complete
-  augroup end
+  aug end
 endif
 
 function! s:on_lsp_buffer_enabled() abort
@@ -238,11 +237,11 @@ function! s:on_lsp_buffer_enabled() abort
 
     " refer to doc to add more commands
 endfunction
-augroup lsp_install
+aug lsp_install
     au!
     " call s:on_lsp_buffer_enabled only for languages that has the server registered.
-    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-augroup END
+    au User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+aug END
 let g:lsp_diagnostics_virtual_text_align = 'after'
 let g:lsp_diagnostics_virtual_text_wrap = 'truncate'
 
