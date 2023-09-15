@@ -170,6 +170,18 @@ inoremap <<Space> <
 inoremap <= <=
 inoremap << <<
 
+" Statusline
+set laststatus=2
+set statusline=%!MyStatusLine()
+function! MyStatusLine()
+  let s = "%<%f %h%m%r %=
+    \%( %{&fenc != '' ? &fenc . ' /' : ''}%)
+    \%( %{%&ff != '' ? get({'unix':'U','dos':'D','mac':'M'}, &ff) . ' /' : ''%}%)
+    \%( %{&ft != '' ? &ft . ' /':''}%)
+    \%(  %l:%c%V%)  %P"
+  return s
+endfunction
+
 " Tabline
 set tabline=%!MyTabLine()
 function! MyTabLine()
