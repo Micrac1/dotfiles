@@ -13,7 +13,7 @@ if [ "${HOSTNAME}" = "ende" ]; then
   "${HOME}/bin/tablet.sh"
 
   # Discord
-  "${HOME}/bin/discord.sh" &
+  #"${HOME}/bin/discord.sh" &
 fi
 
 # clamp
