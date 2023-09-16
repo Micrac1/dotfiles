@@ -9,10 +9,10 @@ LC_TIME=en_DK.UTF-8 date +'%d-%m-%Y, %A'
 
 # Nameday
 printf '📆 '
-curl -X POST "https://nameday.abalin.net/today" \
+curl -X POST "https://nameday.abalin.net/api/V1/today" \
 	-H "Content-Type: application/json" \
 	-H "Accept: application/json" \
-	-d '{"country":"slovakia","timezone":"Pacific\/Palau"}' -s | jq '.data.namedays.sk' -r
+	-d '{"country":"sk","timezone":"Pacific\/Palau"}' -s | jq '.nameday.sk' -r
 
 # Time
 printf '🕑 '
