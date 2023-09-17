@@ -421,10 +421,9 @@ bindsym Shift+Print exec $i "\
   'xclip -selection c -t image/png < $f' || notify-send 'Screenshot failed!' \
 "
 
-# Main monitor 1280,0,1920,1080
-set $ssgeo 1280,0,1920,1080
+# Primary monitor (scrot uses Xinerama, but 0 seems to always be randr primary monitor)
 bindsym $mod+Print exec $i "\
-  scrot -a $ssgeo -z -p $ssdir/'Screenshot_%Y-%m-%d_%H-%M-%S.png' -e \
+  scrot -M 0 -z -p $ssdir/'Screenshot_%Y-%m-%d_%H-%M-%S.png' -e \
   'xclip -selection c -t image/png < $f' || notify-send 'Screenshot failed!' \
 "
 
