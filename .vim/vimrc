@@ -136,6 +136,7 @@ nnoremap <A-9> 9gt
 " Terminal fixes
 tnoremap <C-x> <C-\><C-n>
 tnoremap <C-w> <C-w>.
+tnoremap <C-\>" <C-w>"
 tnoremap <C-\><C-x> <C-x>
 
 " Movement in insert mode
