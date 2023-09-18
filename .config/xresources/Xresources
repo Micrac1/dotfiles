@@ -1,40 +1,47 @@
 !# Colors
-#define white #ffffff
+#define _background_ 101020
+#define _foreground_ ffffff
 
-#define _0_ 333333
-#define _8_ 666666
+! black
+#define _0_ 303030
+#define _8_ 606060
 
-#define _1_ ff3030
-#define _9_ ff4060
+! red
+#define _1_ dd2222
+#define _9_ ffaaaa
 
-#define _2_ 66ff66
+! green
+#define _2_ 009900
 #define _10_ 00ff00
 
-#define _3_ eab030
-#define _11_ ffc123
+! yellow
+#define _3_ a0a00d
+#define _11_ ffffaa
 
-#define _4_ 5555ff
+! blue
+#define _4_ 2222dd
 #define _12_ 00aaff
 
-#define _5_ ce5c00
-#define _13_ f57900
+! magenta
+#define _5_ bb22bb
+#define _13_ ffaaff
 
+! cyan
 #define _6_ 22aaaa
 #define _14_ 44cccc
 
+! white
 #define _7_ aaaaaa
 #define _15_ ffffff
 
 ! special
-*.foreground:   white
-*.fg:           white
-*.background:   #0b0b3b
-*.bg:           #0b0b3b
-*.cursorColor:  #00aaff
+*.background:   #_background_
+*.bg:           #_background_
+*.foreground:   #_foreground_
+*.fg:           #_foreground_
+*.cursorColor:  #_12_
 
 ! Normal colors
-
-! black
 *.color0:       #_0_
 *.color8:       #_8_
 
