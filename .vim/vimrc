@@ -49,7 +49,7 @@ set noundofile
 set noswapfile
 set nobackup
 set encoding=utf-8
-set completeopt=menu,menuone,preview
+set completeopt=menu,menuone,preview,noselect
 let mapleader=" "
 
 " Terminal fuckery (needs to be rebound to avoid waiting for timeout on <esc>)
