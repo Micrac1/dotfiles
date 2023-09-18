@@ -1,320 +1,230 @@
 #!/bin/bash
-# Loads Xresources file and reloads selected applications
 
 # Default Xresources file, used when no arguments are given
-#XRESFILE=${HOME}/.Xresources
-XRESFILE=${HOME}/.config/xresources/Xresources
-
-usage (){
-  printf "Usage: xresources.sh [OPTION]... [FILE]\n\n"
-  printf "TODO write this shit properly\n\n"
-  printf "OPTIONS:\n"
-  printf "  -a, --apply                [default] reload default Xresources file and refresh apps (must specify explicitly when using -o)\n"
-  printf "  -o, --output [DIRECTORY]   generate config files for external use\n"
-  printf "  -n, --no-reload            do not reload xresources file\n"
-  printf "  -p, --preset [PRESET]      use preset location (pywall, light, dark,...)\n"
-}
-
-# Used for outputting theme files
-OUTPUTAPPS=(
-  xfce4-terminal
-)
+#XRES_DEFAULT_FILE=${HOME}/.Xresources
+_XRES_DEFAULT_FILE="${HOME}/.config/xresources/Xresources"
 
 # Classic xresources files, NAME and PATH
-declare -A PRESETS=(
+declare -A _XRES_PRESETS=(
   ['default']="${HOME}/.config/xresources/Xresources"
   ['pywall']="${HOME}/.cache/wal/colors.Xresources"
   ['matrix']="${HOME}/.config/xresources/matrix.Xresources"
 )
 
-# Application to apply xresources to
-APPLYAPPS=(
+# List of applications that get configured (comment out to disable)
+_APPLY_APPS=(
   i3
   xfce4-terminal
   polybar
 )
 
-# XFCE4 TERMINAL SETTINGS
-XFCEOUTPUTNAME="Xresources.theme"
+# ========================================================================
 
-# Source xfce config file
-XFCECFGFILE=${XDG_CONFIG_HOME:-~/.config}/xfce4/terminal/terminalrc
+# Xfce terminal xml file path
+_CONFIG_DIR="${XDG_CONFIG_HOME:-${HOME}/.config}"
 
-# Additional settings that are set when applying the theme
-XFCESETTINGS=(
-  'ColorSelectionUseDefault=TRUE'
-  'ColorBoldUseDefault=TRUE'
-  'ColorBoldIsBright=TRUE'
-  'ColorCursorUseDefault=FALSE'
-  'ColorUseTheme=FALSE'
-  'ColorBackgroundVary=FALSE'
-  #TabActivityColor
-  #ColorCursorForeground
-  #ColorBold
-  #ColorSelection
-  #ColorSelectionBackground
+# Additional xfce terminal settings that are set when applying the theme
+_XFCE_TERMINAL_SETTINGS=(
+  'color-selection-use-default' 'bool' 'true'
+  'color-bold-use-default' 'bool' 'true'
+  'color-bold-is-bright' 'bool' 'true'
+  'color-cursor-use-default' 'bool' 'false'
+  'color-use-theme' 'bool' 'false'
+  'color-background-vary' 'bool' 'false'
 )
+#TabActivityColor
+#ColorCursorForeground
+#ColorBold
+#ColorSelection
+#ColorSelectionBackground
 
-# Extract ${1} value
-function extractDB {
-  if [ -z "${XRDB}" ]; then
-    XRDB=`xrdb -q`
+# Returns ${1} extracted value from $XRDB if not empty, ${2} otherwise
+_extractDB() {
+  _OUT="$(grep -E -m 1 "\*.${1}:" <<< "${_XRDB}" | awk '{print $NF}')"
+  if [ -z "${_OUT}" ]; then
+    _OUT="${2}"
+    echo "Warning: Color '${1}' could not be loaded from XRDB, using ${2}..." >&2
   fi
-  echo $(grep -E -m 1 "\*.${1}:" <<< "${XRDB}" | awk '{print $NF}')
+  echo "${_OUT}"
 }
 
-# xfce4 name, value from Xres, file path
-function xfcereplace {
-  VAL=`extractDB "${2}"`
-  if [ -z "${VAL}" ]; then
-    echo "Warn: ${1}, ${2} could not be loaded from XRDB. Skipping..." >&2
-    return
-  else
-    xfceremove "${1}" "${3}"
-    echo "${1}=${VAL}" >> "${3}"
-  fi
-}
+_apply_xfce() {
+  # Create the palette
+  _PALETTE=""
+  _DELIM=""
 
-# remove ${1} entry from ${2} file (used for replacing old settings with new ones)
-# xfceremove "ColorPallete" "$TMPFILE"
-function xfceremove {
-  sed -i "/^${1} *=.*/d" "${2}"
-}
-
-# Modifies argument file with new settings (should be used on a temporary file)
-function xfcecolors {
-  if [ -z "${1}" ]; then
-    echo "WRONG CALL TO xfcecolors! NO ARGUMENT"
-  fi
-
-  TMPFILE="${1}"
-  # check tmp file
-  if [ ! -f "${TMPFILE}" ]; then
-    echo "Error: Could not create temporary file ${TMPFILE}. " >&2
-    return -1
-  fi
-
-  # ColorPalette
-  PALETTE=""
   for i in {0..15}; do
-    NEWCOLOR=`extractDB "color${i}"`
-    if [ -z "${NEWCOLOR}" ]; then
-      echo "Warn: Color ${i} could not be loaded from XRDB. Skipping..." >&2
-      # Attempt to extract color from the config
-      OLDCOLOR=`grep -E '^ColorPalette *=' "${XFCECFGFILE}" | cut -d'=' -f2 | cut -d';' -f$((${i} + 1))`
-      if [ -z "${OLDCOLOR}" ]; then
-        # should never happen
-        OLDCOLOR="#000000"
-      fi
-      PALETTE="${PALETTE}"";""${OLDCOLOR}"
-    else
-      PALETTE="${PALETTE}"";""${NEWCOLOR}"
-    fi
+    _COLOR="$(_extractDB "color${i}" "#000000")"
+
+    _PALETTE="${_PALETTE}${_DELIM}${_COLOR}"
+    _DELIM=';'
   done
-  xfceremove ColorPalette "${TMPFILE}"
-  echo "ColorPalette="`echo "${PALETTE}" | sed 's/^;//g'` >> "${TMPFILE}"
+  
+  # Add the palette to terminal settings
+  _SETTINGS=("${_XFCE_TERMINAL_SETTINGS[@]}" 
+    'color-palette' 'string' "${_PALETTE}"
+    'color-foreground'        'string' "$(_extractDB "foreground"  "#ff0000")"
+    'color-background'        'string' "$(_extractDB "background"  "#ff00ff")"
+    'color-cursor'            'string' "$(_extractDB "cursorColor" "#ffff00")"
+    'color-cursor-foreground' 'string' "$(_extractDB "background"  "#00ff00")"
+  )
 
-  # Read and apply settings from xres
-  xfcereplace ColorForeground        foreground   "${TMPFILE}"
-  xfcereplace ColorBackground        background   "${TMPFILE}"
-  xfcereplace ColorCursor            cursorColor  "${TMPFILE}"
-  xfcereplace ColorCursorForeground  background   "${TMPFILE}"
-
-  # Apply additional settings
-  for i in "${XFCESETTINGS[@]}"; do
-    xfceremove `echo "${i}" | cut -d'=' -f1` "${TMPFILE}"
-    echo "${i}" >> "${TMPFILE}"
+  for (( i=0; i<${#_SETTINGS[@]}; i+=3 )); do
+    _NAME="${_SETTINGS[${i}]}"
+    _TYPE="${_SETTINGS[${i} + 1]}"
+    _VALUE="${_SETTINGS[${i} + 2]}"
+    xfconf-query --create -c xfce4-terminal -p "/${_NAME}" --type "${_TYPE}" -s "${_VALUE}"
   done
+}
 
-  # remove empty lines from the theme file
-  sed -i "/^$/d" "${TMPFILE}"
+# Generate the xmlstarlet command
+#_XMLSTARLET_COMMAND="xmlstarlet ed -L"
+#for (( i=0; i<${#_SETTINGS[@]}; i+=3 )); do
+#  _NAME="${_SETTINGS[${i}]}"
+#  _TYPE="${_SETTINGS[${i} + 1]}"
+#  _VALUE="${_SETTINGS[${i} + 2]}"
+#  _XMLSTARLET_COMMAND+="
+#    -u '//channel/property[@name=\"${_NAME}\"]/@value' -v '${_VALUE}'
+#    -s '//channel[not(property/@name=\"${_NAME}\")]' -t elem -n property
+#    -i '//channel/property[not(@name)]' -t attr -n 'name' -v '${_NAME}'
+#    -i '//channel/property[not(@type)]' -t attr -n 'type' -v '${_TYPE}'
+#    -i '//channel/property[not(@value)]' -t attr -n 'value' -v '${_VALUE}'
+#  "
+#done
+#_XMLSTARLET_COMMAND+=" ${_XFCE_TERMINAL_CONFIG_FILE}"
+
+_apply_i3(){
+  i3-msg -q reload
 }
 
 # Try to apply theme to all applications in APPS
-function apply {
-  for app in ${APPLYAPPS[@]}; do
-    echo "Applying ${app}..."
+_apply (){
+  for _app in "${_APPLY_APPS[@]}"; do
+    echo "Applying ${_app}..."
+    _FAIL=""
 
-    case ${app} in
+    case ${_app} in
       i3)
-        i3-msg -q reload
+        _apply_i3 || _FAIL="x"
         ;;
 
       xfce4-terminal)
-        # Create new config and replace old
-        TMP=`mktemp`
-        if [ ! -f "${TMP}" ]; then
-          echo "Error: Could not create temporary file. Skipping..." >2&
-          return -1
-        fi
-        if [ ! -e "${XFCECFGFILE}" ]; then
-          echo "Error: ${XFCECFGFILE} does not exist. Skipping..." >2&
-          return -1
-        fi
-        cp "${XFCECFGFILE}" "${TMP}"
-
-        xfcecolors "${TMP}"
-
-        mv "${TMP}" "${XFCECFGFILE}"
-
-        if [ -e "${TMP}" ]; then
-          rm "${TMP}"
-        fi
+        _apply_xfce || _FAIL="x"
         ;;
 
       polybar)
-        # reload polybar
-        #"$HOME/.config/polybar/launch_polybar.sh"
-        touch -m .config/polybar/config
+        touch -m "${_CONFIG_DIR}/polybar/config" || _FAIL="x"
         ;;
 
       *)
-        echo "Warn: Application ${1} does not have an apply function. Skipping..." >&2
+        echo "Warn: Application ${_app} does not have an apply function. Skipping..." >&2
         ;;
     esac
     # fail only when known app fails
-    if [ $? -ne 0 ]; then echo "Error: Could not apply xresources to ${app}. Skipping..." >&2; fi
+    if [ -n "${_FAIL}" ]; then echo "Error: Could not apply xresources to ${_app}. Skipping..." >&2; fi
   done
 }
 
 
-function output_app {
-  case ${1} in
-    xfce4-terminal)
-      TMP=`mktemp`
-      if [ ! -f "${TMP}" ]; then
-        echo "Error: could not create temporary file. Skipping..."
-        return -1
-      fi
-      echo "[Scheme]" >> "${TMP}"
-      echo "Name=Xresources" >> "${TMP}"
+#output_app {
+#  case ${1} in
+#    xfce4-terminal)
+#      TMP=$(mktemp)
+#      if [ ! -f "${TMP}" ]; then
+#        echo "Error: could not create temporary file. Skipping..."
+#        return 1
+#      fi
+#      echo "[Scheme]" >> "${TMP}"
+#      echo "Name=Xresources" >> "${TMP}"
+#
+#      xfcecolors "${TMP}"
+#
+#      # commit tmpfile
+#      mv "${TMP}" "${OUTPUTDIR}/${XFCEOUTPUTNAME}"
+#
+#      if [ -f "${TMP}" ]; then
+#        rm "${TMP}"
+#      fi
+#      ;;
+#
+#    *)
+#      echo "Warn: Unsupported output ${1}. Skipping..." >&2
+#      ;;
+#  esac
+#}
 
-      xfcecolors "${TMP}"
-
-      # commit tmpfile
-      mv "${TMP}" "${OUTPUTDIR}/${XFCEOUTPUTNAME}"
-
-      if [ -f "${TMP}" ]; then
-        rm "${TMP}"
-      fi
-      ;;
-
-    *)
-      echo "Warn: Unsupported output ${1}. Skipping..." >&2
-      ;;
-  esac
+_usage (){
+  printf "Usage: xresources.sh [OPTIONS]... [FILE]\n\n"
+  printf "TODO write this shit properly\n\n"
+  printf "OPTIONS:\n"
+  #printf "  -a, --apply                [default] reload default Xresources file and refresh apps\n"
+  printf "  -n, --no-xrdb              don't load any Xresources file with xrdb\n"
+  printf "  -h, --help                 print this help\n"
+  printf "  -p, --preset [PRESET]      use preset location (pywall, light, dark,...), overwrites -f\n"
+  printf "  -f, --file [FILE]          specify Xresources file\n"
 }
 
-function output {
-  mkdir -p "${OUTPUTDIR}"
-  if [ ! -d "${OUTPUTDIR}" ]; then
-    echo "Error: ${OUTPUTDIR} does not exist and could not be created. Exitting..." >&2
-    exit -1;
-  fi
+# ==================================================
 
-  for app in ${OUTPUTAPPS[@]}; do
-    echo "Outputting ${app} to ${OUTPUTDIR}/..."
-    output_app ${app} || {echo "Error: Could not output ${app} config file. Skipping..." >&2}
-  done
-}
-
-
-# Load xresources file to the memory
-function load_xrdb {
-  if [ ! -e "${XRESFILE}" ]; then
-    echo "Error: ${XRESFILE} does not exist. Exitting..." >&2
-    exit -1
-  fi
-
-  echo "Loading ${XRESFILE}..."
-  xrdb "${XRESFILE}" || { echo "Error: xrdb failed. Exitting..." >&2; exit -1; }
-  # XRESFILE should not be used after this
-}
-
-# argument is a preset, returns xresfile path
-function preset {
-  echo "${PRESETS[${1}]}"
-}
-
-
-# apply, output
-NORELOAD=""
-APPLY=""
-OUTPUT=""
-PRESET=""
-OUTPUTDIR=""
+# Options
+_OPT_NO_XRDB=""
+_OPT_OUTPUT=""
+_OPT_PRESET=""
+_OPT_FILE="${_XRES_DEFAULT_FILE}"
+echo $_OPT_FILE
 
 while (($#)); do
   case ${1} in 
     "-h" | "--help")
-      usage
+      _usage
       exit
       ;;
     "-p" | "--preset")
       shift
-      PRESET="${1}"
-      if [ -z "${PRESET}" ]; then
-        echo "Error: Preset ${PRESET} not found. Exitting..." >&2
-        exit -1
+      _OPT_PRESET="${1}"
+      if [ -z "${_OPT_PRESET}" ]; then
+        echo "Error: --preset needs an argument. Exitting..." >&2
+        exit 1
       fi
       shift
       ;;
 
-    "-o" | "--output")
-      OUTPUT="true"
-      # output generated config files (ex. xfce4 theme)
+    "-n" | "--no-xrdb")
+      _OPT_NO_XRDB="true"
       shift
-      OUTPUTDIR="${1}"
-      if [ -z "${OUTPUTDIR}" ]; then
-        echo "Error: OUTPUTDIR can not be empty. Exitting..." >&2
-        exit -1
+      ;;
+
+    "-f" | "--file")
+      shift
+      _OPT_FILE="${1}"
+      if [ -z "${_OPT_FILE}" ]; then
+        echo "Error: --file needs an argument. Exitting..." >&2
+        exit 1
       fi
-      shift
-      ;;
-
-    "-n" | "--no-reload")
-      NORELOAD="true"
-      shift
-      ;;
-
-    "-a" | "--apply")
-      APPLY="true"
-      shift
       ;;
 
     *)
-      # last one counts
-      XRESFILE="${1}"
+      _OPT_FILE="${1}"
       shift
       ;;
   esac
 done
 
-# Converting to absolute path might help in some cases, if 
-# realpath does not exist on your system just comment this out
-
-if [ ! -z "${PRESET}" ]; then
-  if [ ! -z "${NORELOAD}" ]; then
-    echo "Warning: Using a preset with noreaload." >&2
-  fi
-  XRESFILE=`preset "${PRESET}"`
+# Load ponential preset path
+if [ -n "${_OPT_PRESET}" ]; then
+  _OPT_FILE="${_XRES_PRESETS["${_OPT_PRESET}"]}"
 fi
 
-XRESFILE=`realpath ${XRESFILE}`
-
-# Load xrdb
-if [ -z "${NORELOAD}" ]; then
-  load_xrdb
-fi
-XRESFILE="" # enforce no XRESFILE usage
-
-if [ "${APPLY}" == "${OUTPUT}" ]; then
-  apply
+# Load Xresources file using xrdb if not asked not to
+if [ -z "${_OPT_NO_XRDB}" ]; then
+  echo "Loading ${_OPT_FILE}..."
+  if ! xrdb "${_OPT_FILE}"; then echo "Error: xrdb failed. Exitting..." >&2; exit 1; fi
 fi
 
-if [ ! -z "${OUTPUT}" ]; then
-  output
-fi
+# Load xrdb into memory
+_XRDB="$(xrdb -q)"
 
+# Apply settings to apps
+_apply
 
 echo "Done!"
