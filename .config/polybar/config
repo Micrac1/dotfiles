@@ -2,6 +2,9 @@
 screenchange-reload = true
 
 [colors]
+background = ${xrdb:background:#000000}
+foreground = ${xrdb:foreground:#000000}
+primary = ${xrdb:cursorColor:#000000}
 color0  = ${xrdb:color0:#000000}
 color1  = ${xrdb:color1:#FF0000}
 color2  = ${xrdb:color2:#10FF10}
@@ -21,19 +24,19 @@ color15 = ${xrdb:color15:#FFFFFF}
 
 [bar/default]
 # colors
-background = ${colors.color0}
-foreground = ${colors.color15}
+background = ${colors.background}
+foreground = ${colors.foreground}
 background_alt = ${colors.color8}
 foreground_alt = ${colors.color7}
 
-primary = ${colors.color12}
+primary = ${colors.primary}
 alert = ${colors.color1}
 
 color_xkeyboard = ${colors.color6}
-color_filesystem = ${colors.color5}
-color_cpu = ${colors.color2}
+color_filesystem = ${colors.color3}
+color_cpu = ${colors.color10}
 color_memory = ${colors.color6}
-color_network = ${colors.color3}
+color_network = ${colors.color11}
 color_date = ${colors.color4}
 color_audio = ${colors.color10}
 color_backlight = ${colors.color14}
