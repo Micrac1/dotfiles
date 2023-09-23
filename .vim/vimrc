@@ -256,7 +256,7 @@ aug END
 " Plugins
 call plug#begin('~/.vim/plugged')
 Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install', 'for': ['markdown', 'vim-plug']}
 Plug 'prabirshrestha/vim-lsp'
 call plug#end()
 
