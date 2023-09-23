@@ -53,6 +53,10 @@
 !/.config/screenlayout/
 !/.config/screenlayout/**
 
+# gtk3
+!/.config/gtk-3.0/
+!/.config/gtk-3.0/settings.ini
+
 # qt5ct
 !/.config/qt5ct/
 !/.config/qt5ct/**
