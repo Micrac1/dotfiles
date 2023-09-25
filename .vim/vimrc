@@ -304,6 +304,7 @@ let g:lsp_diagnostics_virtual_text_wrap = 'truncate'
 
 " vim-markdown
 let g:vim_markdown_new_list_item_indent = 0
+let g:mkdp_auto_close = 0
 
 " Hexokinase
 let g:Hexokinase_ftEnabled = []
