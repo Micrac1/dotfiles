@@ -64,9 +64,6 @@ if [ -x "${HOME}/.fehbg" ]; then "${HOME}/.fehbg"; fi
 # Key repeat delay
 /bin/xset r rate 300 25
 
-# Key repeat delay
-xset r rate 300 25
-
 # Xmodmap
 /bin/xmodmap "${HOME}/.config/Xmodmap"
 
