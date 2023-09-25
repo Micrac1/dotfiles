@@ -194,7 +194,7 @@ card = intel_backlight
 enable-scroll = false
 
 label = %{T2}%percentage:3%%{T-}%
-format = "%{A4:brightnessctl -n1 set 5%+:}%{A5:brightnessctl -n1 set 5%-:}<label> <bar>%{A}%{A}"
+format = "%{A4:brightnessctl -n200 set 5%+:}%{A5:brightnessctl -n200 set 5%-:}<label> <bar>%{A}%{A}"
 
 bar-width = 11
 bar-indicator = "|"
