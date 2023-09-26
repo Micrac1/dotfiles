@@ -238,7 +238,7 @@ format-connected-underline = ${root.color_network}
 format-disconnected = %{A3:nm-connection-editor:}<label-disconnected>%{A}
 format-disconnected-underline = ${root.color_network}
 
-format-packetloss = %{A3:nm-connection-editor:}<animation-packetloss><label-connected><ramp-signal>${A}
+format-packetloss = %{A3:nm-connection-editor:}<animation-packetloss><label-connected><ramp-signal>%{A}
 format-packetloss-underline = ${root.color_network}
 
 label-disconnected-foreground = ${root.foreground_alt}
