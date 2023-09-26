@@ -41,7 +41,7 @@ color_date = ${colors.color4}
 color_audio = ${colors.color10}
 color_backlight = ${colors.color14}
 color_battery = ${colors.color3}
-color_battery_charging = ${colors.color2}
+color_battery_charging = ${colors.color10}
 color_temperature = ${colors.color1}
 
 enable-ipc = true
