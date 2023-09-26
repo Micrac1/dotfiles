@@ -218,7 +218,7 @@ fi
 # Load Xresources file using xrdb if not asked not to
 if [ -z "${_OPT_NO_XRDB}" ]; then
   echo "Loading ${_OPT_FILE}..."
-  if ! xrdb "${_OPT_FILE}"; then echo "Error: xrdb failed. Exitting..." >&2; exit 1; fi
+  if ! xrdb -m "${_OPT_FILE}"; then echo "Error: xrdb failed. Exitting..." >&2; exit 1; fi
 fi
 
 # Load xrdb into memory
