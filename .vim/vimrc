@@ -15,6 +15,9 @@ if has('gui_running')
 	set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
 endif
 
+" Should be bg& to let it determine itself and done automatically, but that is broken
+set background=dark
+
 " Tabline colors for tty
 hi TabLine cterm=reverse
 
