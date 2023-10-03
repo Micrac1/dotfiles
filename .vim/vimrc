@@ -261,6 +261,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install', 'for': ['markdown', 'vim-plug']}
 Plug 'prabirshrestha/vim-lsp'
+Plug 'aklt/plantuml-syntax'
 call plug#end()
 
 " vim-lsp
