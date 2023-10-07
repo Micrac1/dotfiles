@@ -89,11 +89,13 @@ tray-position = none
 
 # Settings CLAMP
 [settings/clamp]
+keep = keep
 height = 22
 temperature/hwmon-path = "/sys/devices/platform/coretemp.0/hwmon/hwmon5/temp1_input"
 
 # Settings ENDE
 [settings/ende]
+keep = keep
 temperature/hwmon-path = "/sys/devices/platform/coretemp.0/hwmon/hwmon1/temp1_input"
 
 # Primary ende
