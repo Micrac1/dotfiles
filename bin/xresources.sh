@@ -59,9 +59,9 @@ _apply_xfce() {
     _PALETTE="${_PALETTE}${_DELIM}${_COLOR}"
     _DELIM=';'
   done
-  
+
   # Add the palette to terminal settings
-  _SETTINGS=("${_XFCE_TERMINAL_SETTINGS[@]}" 
+  _SETTINGS=("${_XFCE_TERMINAL_SETTINGS[@]}"
     'color-palette' 'string' "${_PALETTE}"
     'color-foreground'        'string' "$(_extractDB "foreground"  "#ff0000")"
     'color-background'        'string' "$(_extractDB "background"  "#ff00ff")"
@@ -174,7 +174,7 @@ _OPT_FILE="${_XRES_DEFAULT_FILE}"
 echo $_OPT_FILE
 
 while (($#)); do
-  case ${1} in 
+  case ${1} in
     "-h" | "--help")
       _usage
       exit
