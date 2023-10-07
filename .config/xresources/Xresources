@@ -75,3 +75,9 @@
 
 xterm*faceName: Monospace
 xterm*faceSize: 10
+
+! Clamp specific configuration
+#ifdef SRVR_clamp
+Xft.dpi: 120
+Xcursor.size: 32
+#endif
