@@ -94,7 +94,6 @@ temperature/hwmon-path = "/sys/devices/platform/coretemp.0/hwmon/hwmon5/temp1_in
 
 # Settings ENDE
 [settings/ende]
-dpi = 96
 temperature/hwmon-path = "/sys/devices/platform/coretemp.0/hwmon/hwmon1/temp1_input"
 
 # Primary ende
