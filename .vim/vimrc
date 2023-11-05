@@ -271,19 +271,18 @@ endif
 function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
     if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
-    nmap <buffer> gd <plug>(lsp-definition)
-    nmap <buffer> gD <plug>(lsp-declaration)
+    nnoremap <buffer> gd <plug>(lsp-definition)
+    nnoremap <buffer> gD <plug>(lsp-declaration)
+    nnoremap <buffer> gr <plug>(lsp-references)
+    nnoremap <buffer> gi <plug>(lsp-implementation)
+    "nmap <buffer> gt <plug>(lsp-type-definition)
     "nmap <buffer> gs <plug>(lsp-document-symbol-search)
     "nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
-    nmap <buffer> gr <plug>(lsp-references)
-    nmap <buffer> gi <plug>(lsp-implementation)
-    "nmap <buffer> gt <plug>(lsp-type-definition)
-    "nmap <buffer> <leader>rn <plug>(lsp-rename)
-    nmap <buffer> [g <plug>(lsp-previous-diagnostic)
-    nmap <buffer> ]g <plug>(lsp-next-diagnostic)
-    nmap <buffer> K <plug>(lsp-hover)
+    nnoremap <buffer> <leader>ca <plug>(lsp-code-action)
+    nnoremap <buffer> <leader>cr <plug>(lsp-rename)
     nnoremap <buffer> [g <plug>(lsp-previous-diagnostic)
     nnoremap <buffer> ]g <plug>(lsp-next-diagnostic)
+    nnoremap <buffer> K <plug>(lsp-hover)
     nnoremap <buffer> <leader>fm <plug>(lsp-document-format)
     inoremap <buffer> <C-s> <C-o><plug>(lsp-signature-help)
     nnoremap <buffer> <expr><c-d> lsp#document_hover_preview_winid() ? lsp#scroll(+4):'<C-d>'
