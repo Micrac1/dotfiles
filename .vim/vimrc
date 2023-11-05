@@ -55,6 +55,41 @@ set noswapfile
 set nobackup
 set encoding=utf-8
 set completeopt=menu,menuone,preview,noselect
+
+" Switch source and header files
+function! SwitchSourceHeader(force)
+  let extension = expand("%:e")
+  let fullpath = expand('%:p:r')
+
+  " CPP
+  if (extension == "cpp")
+    if (filereadable(fullpath.'.hpp'))
+      exe 'edit '.fullpath.'.hpp'
+    elseif (filereadable(fullpath.'.h') || a:force)
+      exe 'edit '.fullpath.'.h'
+    endif
+  " C
+  elseif (extension == "c")
+    if (filereadable(fullpath.'.h') || a:force)
+      exe 'edit '.fullpath.'.h'
+    endif
+  " H
+  elseif (extension == "h")
+    if (filereadable(fullpath.'.c'))
+      exe 'edit '.fullpath.'.c'
+    elseif (filereadable(fullpath.'.cpp') || a:force) " assume cpp file
+      exe 'edit '.fullpath.'.cpp'
+    endif
+  " HPP
+  elseif (extension == "hpp")
+    if (filereadable(fullpath.'.cpp') || a:force)
+      exe 'edit '.fullpath.'.cpp'
+    endif
+  else
+    echo "Can not switch source/header: not a source/header file."
+  endif
+endfunction
+"map <F4> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 let mapleader=" "
 
 if (!has("nvim"))
@@ -193,6 +228,8 @@ inoremap <= <=
 inoremap << <<
 endif
 
+nnoremap <silent> <leader>s :call SwitchSourceHeader(0)<CR>
+nnoremap <silent> <leader>S :call SwitchSourceHeader(1)<CR>
 " Statusline
 set laststatus=2
 set statusline=%!MyStatusLine()
