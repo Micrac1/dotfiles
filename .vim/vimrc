@@ -317,7 +317,7 @@ aug lsp_install
     au User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 aug END
 let g:lsp_diagnostics_virtual_text_align = 'after'
-let g:lsp_diagnostics_virtual_text_wrap = 'truncate'
+"let g:lsp_diagnostics_virtual_text_wrap = 'truncate'
 
 " vim-markdown
 let g:vim_markdown_new_list_item_indent = 0
