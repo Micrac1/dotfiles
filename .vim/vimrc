@@ -20,9 +20,6 @@ endif
 " Should be bg& to let it determine itself and done automatically, but that is broken
 set background=dark
 
-" Tabline colors for tty
-hi TabLine cterm=reverse
-
 set sessionoptions=blank,buffers,curdir,folds,help,tabpages,winpos,winsize,resize,terminal
 set splitbelow
 set splitright
@@ -55,6 +52,129 @@ set noswapfile
 set nobackup
 set encoding=utf-8
 set completeopt=menu,menuone,preview,noselect
+
+if (!has("nvim"))
+set laststatus=2 " Statusline
+set statusline=%!MyStatusLine()
+set tabline=%!MyTabLine() " Tabline
+let g:tabline_diagnostics=0
+hi TabLine cterm=reverse " Tabline colors for tty
+endif
+
+
+
+"TabLine        xxx term=underline cterm=reverse ctermfg=15 ctermbg=242 gui=underline guibg=DarkGrey
+
+"TabLineFill    xxx term=reverse cterm=reverse gui=reverse
+
+"TabLineSel     xxx term=bold cterm=bold gui=bold
+
+" =FUNCTIONS====================
+function! GetDiagnostics(id)
+  if (exists('*lsp#internal#diagnostics#state#_get_diagnostics_count_for_buffer'))
+    return lsp#internal#diagnostics#state#_get_diagnostics_count_for_buffer(a:id)
+  endif
+  return {'information': 0, 'hint': 0, 'warning': 0, 'error': 0}
+endfunction
+
+function! GetDiagnosticsString(table, color)
+  let s = ''
+  if (a:table.information)
+    let s .= s == '' ? '' : a:color.' '
+    let s .= 'I'.a:table.information
+  endif
+  if (a:table.hint)
+    let s .= s == '' ? '' : a:color.' '
+    let s .= 'H'.a:table.hint
+  endif
+  if (a:table.warning)
+    let s .= s == '' ? '' : a:color.' '
+    let s .= '%#Todo#W'.a:table.warning
+  endif
+  if (a:table.error)
+    let s .= s == '' ? '' : a:color.' '
+    let s .= '%#Error#E'.a:table.error
+  endif
+  return s
+endfunction
+
+function! MyTabLine()
+  let s = ''
+  let s .= '%#TabLineSel#'
+  let s .= ' '
+
+  for i in range(tabpagenr('$'))
+    let n = (i + 1)
+    let color = n == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#'
+    let buflist = tabpagebuflist(n)
+    let fullname = bufname(buflist[tabpagewinnr(n) - 1])
+    let filename = fnamemodify(fullname, ':t')
+
+    " Diagnostics calculation
+    let diagnosticsstring = ''
+    if (exists('g:tabline_diagnostics') && g:tabline_diagnostics)
+      let d = {'information': 0, 'hint': 0, 'warning': 0, 'error': 0}
+      for bufnr in buflist
+        let tmp = GetDiagnostics(bufnr)
+        let d.information += tmp.information
+        let d.hint += tmp.hint
+        let d.warning += tmp.warning
+        let d.error += tmp.error
+      endfor
+      let diagnosticsstring = GetDiagnosticsString(d, color)
+    endif
+
+    " Begin tab
+    let s .= '%' . n . 'T'
+
+    let s .= color
+    let s .= ' '
+    " Tab number
+    let s .= ''.n.'.'
+
+    "let s .= '['
+    "let s .= tabpagewinnr(a:n, '$')
+    "let s .= '] '
+
+    let s .= color
+
+    " Filename
+    let s .= filename == '' ? ' [No Name] ' : ' '.pathshorten(fnamemodify(fullname, ":~:.")).' '
+
+    " Diagnostics
+    let s .= diagnosticsstring
+    let s .= color
+    let s .= diagnosticsstring == '' ? '' : ' '
+
+    " Modified indicator
+    let modified = 0
+    for bufnr in buflist
+      if getbufvar(bufnr, '&modified')
+        let modified = 1
+        break
+      endif
+    endfor
+    if (modified)
+      let s .= '[+]'
+    else
+      let s .= ''
+    endif
+    let s .= ' '
+
+    " Separator
+    let s .= '%#TabLineSel#'
+    "let s .= n != tabpagenr('$') ? ' ' : ''
+    let s .= ' '
+  endfor
+
+  " Rest of the line
+  let s .= '%T%#TabLineFill#'
+  if tabpagenr('$') > 1
+    let s .= '%=;)'
+  endif
+
+  return s
+endfunction
 
 " Switch source and header files
 function! SwitchSourceHeader(force)
@@ -90,6 +210,33 @@ function! SwitchSourceHeader(force)
   endif
 endfunction
 "map <F4> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
+
+" Statusline
+function! MyStatusLine()
+  let d = exists("g:tabline_diagnostics" && g:tabline_diagnostics) ? GetDiagnosticsString(GetDiagnostics(winbufnr(g:statusline_winid)), '') : ''
+  let s = "%<%f ".d."%*
+    \%h%m%r %=
+    \%( %{&fenc != '' ? &fenc . ' /' : ''}%)
+    \%( %{%&ff != '' ? get({'unix':'U','dos':'D','mac':'M'}, &ff) . ' /' : ''%}%)
+    \%( %{&ft != '' ? &ft . ' /':''}%)
+    \%(  %l:%c%V%)  %P"
+  return s
+endfunction
+
+" Close empty nameless buffers
+function! CleanNoNameEmptyBuffers()
+" TODO make it so this does not close them on other tabs
+    let buffers = filter(range(1, bufnr('$')), 'buflisted(v:val) 
+      \ && empty(bufname(v:val)) && empty(win_findbuf(v:val))
+      \ && (getbufline(v:val, 1, "$") == [""])')
+    if !empty(buffers)
+        exe 'bd '.join(buffers, ' ')
+    else
+        echo 'No buffer deleted'
+    endif
+endfunction
+
+" =KEYBINDS=====================
 let mapleader=" "
 
 if (!has("nvim"))
@@ -230,77 +377,8 @@ endif
 
 nnoremap <silent> <leader>s :call SwitchSourceHeader(0)<CR>
 nnoremap <silent> <leader>S :call SwitchSourceHeader(1)<CR>
-" Statusline
-set laststatus=2
-set statusline=%!MyStatusLine()
-function! MyStatusLine()
-  let s = "%<%f %h%m%r %=
-    \%( %{&fenc != '' ? &fenc . ' /' : ''}%)
-    \%( %{%&ff != '' ? get({'unix':'U','dos':'D','mac':'M'}, &ff) . ' /' : ''%}%)
-    \%( %{&ft != '' ? &ft . ' /':''}%)
-    \%(  %l:%c%V%)  %P"
-  return s
-endfunction
 
-" Tabline
-set tabline=%!MyTabLine()
-function! MyTabLine()
-  let s = ''
-
-  for i in range(tabpagenr('$'))
-    let n = (i + 1)
-    let color = n == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#'
-    let buflist = tabpagebuflist(n)
-    let fullname = bufname(buflist[tabpagewinnr(n) - 1])
-    let filename = fnamemodify(fullname, ':t')
-
-    " Begin tab
-    let s .= color
-    let s .= '%' . n . 'T '
-
-    "let s .= '['
-    "let s .= tabpagewinnr(a:n, '$')
-    "let s .= '] '
-
-    " Modified indicator
-    for bufnr in buflist
-      if getbufvar(bufnr, '&modified')
-        " let s .= '%#Error#[+]' . color . ' '
-        let s .= '[+] '
-        break
-      endif
-    endfor
-
-    " Filename
-    let s .= filename == '' ? '[No Name]' : pathshorten(fnamemodify(fullname, ":~:."))
-    let s .= ' '
-
-    " Separator
-    let s .= '%#TabLine#'
-    " let s .= n != tabpagenr('$') ? '|' : ''
-    let s .= n != tabpagenr('$') ? '|' : ''
-  endfor
-
-  " Rest of the line
-  let s .= '%T%#TabLineFill#'
-  if tabpagenr('$') > 1
-    let s .= '%=;)'
-  endif
-
-  return s
-endfunction
-
-" TODO make it so this does not close them on other tabs
-function! CleanNoNameEmptyBuffers()
-    let buffers = filter(range(1, bufnr('$')), 'buflisted(v:val) 
-      \ && empty(bufname(v:val)) && empty(win_findbuf(v:val))
-      \ && (getbufline(v:val, 1, "$") == [""])')
-    if !empty(buffers)
-        exe 'bd '.join(buffers, ' ')
-    else
-        echo 'No buffer deleted'
-    endif
-endfunction
+" =AUTOCOMMANDS=================
 if (has("nvim"))|finish|endif " everything after this is plugin specific
 
 " Restore cursor position
@@ -334,6 +412,7 @@ if executable('clangd')
 endif
 
 function! s:on_lsp_buffer_enabled() abort
+    let g:tabline_diagnostics=1
     setlocal omnifunc=lsp#complete
     if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
     nnoremap <buffer> gd <plug>(lsp-definition)
@@ -362,6 +441,9 @@ aug lsp_install
 aug END
 let g:lsp_diagnostics_virtual_text_align = 'after'
 "let g:lsp_diagnostics_virtual_text_wrap = 'truncate'
+"let g:lsp_inlay_hints_mode = {
+"\  'normal': ['curline'],
+"\}
 
 " vim-markdown
 let g:vim_markdown_new_list_item_indent = 0
