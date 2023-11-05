@@ -70,6 +70,7 @@ if [ -x "${HOME}/.fehbg" ]; then "${HOME}/.fehbg"; fi
 LOCK_TIMEOUT=295
 LOCK_DIM_DURATION=5
 
+/bin/xset dpms 0 0 0
 /bin/xset s "${LOCK_TIMEOUT}" "${LOCK_DIM_DURATION}"
 /bin/xset s blank
 /bin/xset s noexpose
