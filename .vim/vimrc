@@ -70,6 +70,10 @@ set <A-6>=6
 set <A-7>=7
 set <A-8>=8
 set <A-9>=9
+set <A-n>=n
+set <A-p>=p
+set <A-f>=f
+set <A-e>=e
 
 map Q gq
 sunmap Q
@@ -101,6 +105,10 @@ nnoremap <silent> <A-h> :vertical resize -2<CR>
 nnoremap <silent> <A-j> :resize +2 <CR>
 nnoremap <silent> <A-k> :resize -2 <CR>
 nnoremap <silent> <A-l> :vertical resize +2<CR>
+
+" Fullscreen window
+nnoremap <A-f> <c-w>_<c-w>\|
+nnoremap <A-e> <c-w>=
 
 " Buffers
 nnoremap <leader>b :ls<CR>:b<Space>
