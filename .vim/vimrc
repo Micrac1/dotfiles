@@ -139,6 +139,12 @@ inoremap <C-j> <down>
 inoremap <C-k> <up>
 inoremap <C-l> <right>
 
+" Moving lines
+nnoremap <A-n> :m .+1<cr>==
+nnoremap <A-p> :m .-2<cr>==
+vnoremap <A-n> :m '>+1<cr>gv=gv
+vnoremap <A-p> :m '<-2<cr>gv=gv
+
 " Matching pairs
 inoremap " ""<C-G>U<left>
 inoremap "<esc> "<esc>
