@@ -154,28 +154,35 @@ vnoremap <A-n> :m '>+1<cr>gv=gv
 vnoremap <A-p> :m '<-2<cr>gv=gv
 
 " Matching pairs
+inoremap <s-tab> <nop>
 inoremap " ""<C-G>U<left>
 inoremap "<esc> "<esc>
+inoremap <S-tab>" "
 inoremap "" ""
 
 inoremap ' ''<C-G>U<left>
 inoremap '<esc> '<esc>
+inoremap <S-tab>' '
 inoremap '' ''
 
 inoremap ( ()<C-G>U<left>
 inoremap (<esc> (<esc>
+inoremap <S-tab>( (
 inoremap () ()
 
 inoremap [ []<C-G>U<left>
 inoremap [<esc> [<esc>
+inoremap <S-tab>[ [
 inoremap [] []
 
 inoremap { {}<C-G>U<left>
 inoremap {<esc> {<esc>
+inoremap <S-tab>{ {
 inoremap {} {}
 
 inoremap < <><C-G>U<left>
 inoremap <<esc> <<esc>
+inoremap <S-tab>< <
 inoremap <<Space> < 
 inoremap <= <=
 inoremap << <<
