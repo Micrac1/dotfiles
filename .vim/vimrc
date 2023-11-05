@@ -282,6 +282,10 @@ function! s:on_lsp_buffer_enabled() abort
     nmap <buffer> [g <plug>(lsp-previous-diagnostic)
     nmap <buffer> ]g <plug>(lsp-next-diagnostic)
     nmap <buffer> K <plug>(lsp-hover)
+    nnoremap <buffer> [g <plug>(lsp-previous-diagnostic)
+    nnoremap <buffer> ]g <plug>(lsp-next-diagnostic)
+    nnoremap <buffer> <leader>fm <plug>(lsp-document-format)
+    inoremap <buffer> <C-s> <C-o><plug>(lsp-signature-help)
     nnoremap <buffer> <expr><c-d> lsp#document_hover_preview_winid() ? lsp#scroll(+4):'<C-d>'
     nnoremap <buffer> <expr><c-u> lsp#document_hover_preview_winid() ? lsp#scroll(-4):'<C-u>'
     "inoremap <buffer> <expr><c-d> lsp#document_hover_preview_winid() ? lsp#scroll(+4):'<C-d>'
