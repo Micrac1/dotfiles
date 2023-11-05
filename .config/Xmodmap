@@ -3,6 +3,7 @@ keycode 66 = Escape NoSymbol Escape
 
 keycode 108 = Pointer_Button2 Pointer_Button2
 keycode 105 = Pointer_Button3 Pointer_Button3
+keycode 108 = Multi_key Multi_key
 
 keycode 191 = F13 F13 F13 F13 F13
 keycode 192 = F14 F14 F14 F14 F14
