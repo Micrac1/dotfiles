@@ -312,6 +312,13 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
+## Resize window
+# resize window hjkl
+bindsym Mod1+$mod+h resize shrink width 10px or 10ppt
+bindsym Mod1+$mod+j resize grow height 10px or 10ppt
+bindsym Mod1+$mod+k resize shrink height 10px or 10ppt
+bindsym Mod1+$mod+l resize grow width 10px or 10ppt
+
 ## Split
 bindsym $mod+semicolon split h
 bindsym $mod+v split v
