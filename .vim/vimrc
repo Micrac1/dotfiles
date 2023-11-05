@@ -82,15 +82,6 @@ nnoremap <leader> <Nop>
 "nnoremap <Space><Space> /<++><CR>c4l
 "nnoremap <leader>m i<++><Esc>l
 
-" Encoding
-"nnoremap <leader>u :set encoding=latin1<CR>
-"nnoremap <leader>U :set encoding=utf-8<CR>
-
-" Fonts (gui only)
-"nnoremap <leader>fw :set guifont=Bitstream\ Vera\ Sans\ Mono\ 10<CR>
-"nnoremap <leader>fe :set guifont=Bitstream\ Vera\ Sans\ Mono\ 12<CR>
-"nnoremap <leader>fr :set guifont=Bitstream\ Vera\ Sans\ Mono\ 16<CR>
-
 " Configuring
 nnoremap <leader>r :so $MYVIMRC<CR>
 nnoremap <leader>E :tabnew $MYVIMRC<CR>
@@ -295,8 +286,6 @@ function! s:on_lsp_buffer_enabled() abort
     nnoremap <buffer> <expr><c-u> lsp#document_hover_preview_winid() ? lsp#scroll(-4):'<C-u>'
     "inoremap <buffer> <expr><c-d> lsp#document_hover_preview_winid() ? lsp#scroll(+4):'<C-d>'
     "inoremap <buffer> <expr><c-u> lsp#document_hover_preview_winid() ? lsp#scroll(-4):'<C-u>'
-
-    " refer to doc to add more commands
 endfunction
 aug lsp_install
     au!
