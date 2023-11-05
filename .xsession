@@ -21,7 +21,7 @@ if [ "${HOSTNAME}" = "clamp" ]; then
   /bin/xinput set-prop "ELAN0662:00 04F3:30BC Touchpad" "libinput Natural Scrolling Enabled" 1
 
   # Power manager
-  /bin/xfce4-power-manager &
+  #/bin/xfce4-power-manager &
 
   # Touchpad gestures
   /bin/pgrep -f -- "/bin/touchegg --client" || /bin/touchegg --client &
