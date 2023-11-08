@@ -323,7 +323,7 @@ nnoremap <leader><Tab> <C-^>
 " Tabs
 nnoremap <leader>tn :tabnew<CR>
 nnoremap <leader>te :tabedit<Space>
-nnoremap <leader>tx :tabclose<CR>
+"nnoremap <leader>tx :tabclose<CR>
 
 nnoremap <A-1> 1gt
 nnoremap <A-2> 2gt
