@@ -321,6 +321,16 @@ nnoremap <A-7> 7gt
 nnoremap <A-8> 8gt
 nnoremap <A-9> 9gt
 
+nnoremap <silent> <leader>tm1 :tabmove 0<CR>
+nnoremap <silent> <leader>tm2 :tabmove 2<CR>
+nnoremap <silent> <leader>tm3 :tabmove 3<CR>
+nnoremap <silent> <leader>tm4 :tabmove 4<CR>
+nnoremap <silent> <leader>tm5 :tabmove 5<CR>
+nnoremap <silent> <leader>tm6 :tabmove 6<CR>
+nnoremap <silent> <leader>tm7 :tabmove 7<CR>
+nnoremap <silent> <leader>tm8 :tabmove 8<CR>
+nnoremap <silent> <leader>tm9 :tabmove 9<CR>
+
 " Terminal fixes
 tnoremap <C-x> <C-\><C-n>
 tnoremap <C-w> <C-w>.
