@@ -442,7 +442,9 @@ function! s:on_lsp_buffer_enabled() abort
     nnoremap <buffer> <leader>cr <plug>(lsp-rename)
     nnoremap <buffer> [g <plug>(lsp-previous-diagnostic)
     nnoremap <buffer> ]g <plug>(lsp-next-diagnostic)
-    nnoremap <buffer> K <plug>(lsp-hover)
+    nnoremap <buffer> K <plug>(lsp-hover-float)
+    nnoremap <buffer> <leader>K <plug>(lsp-hover-preview)
+    nnoremap <buffer> <leader>fk <plug>(lsp-document-diagnostics)
     nnoremap <buffer> <leader>fm <plug>(lsp-document-format)
     inoremap <buffer> <C-s> <C-o><plug>(lsp-signature-help)
     nnoremap <buffer> <expr><c-d> lsp#document_hover_preview_winid() ? lsp#scroll(+4):'<C-d>'
