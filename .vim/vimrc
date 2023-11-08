@@ -432,6 +432,7 @@ endif
 
 function! s:on_lsp_buffer_enabled() abort
     let g:tabline_diagnostics=1
+    set signcolumn=yes
     setlocal omnifunc=lsp#complete
     if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
     nnoremap <buffer> gd <plug>(lsp-definition)
