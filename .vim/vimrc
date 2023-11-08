@@ -447,6 +447,8 @@ function! s:on_lsp_buffer_enabled() abort
     nnoremap <buffer> <leader>fk <plug>(lsp-document-diagnostics)
     nnoremap <buffer> <leader>fm <plug>(lsp-document-format)
     inoremap <buffer> <C-s> <C-o><plug>(lsp-signature-help)
+    inoremap <buffer> <expr><c-d> lsp#document_hover_preview_winid() ? lsp#scroll(+4):'<C-d>'
+    inoremap <buffer> <expr><c-u> lsp#document_hover_preview_winid() ? lsp#scroll(-4):'<C-u>'
     nnoremap <buffer> <expr><c-d> lsp#document_hover_preview_winid() ? lsp#scroll(+4):'<C-d>'
     nnoremap <buffer> <expr><c-u> lsp#document_hover_preview_winid() ? lsp#scroll(-4):'<C-u>'
     "inoremap <buffer> <expr><c-d> lsp#document_hover_preview_winid() ? lsp#scroll(+4):'<C-d>'
