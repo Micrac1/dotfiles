@@ -100,6 +100,11 @@ function! GetDiagnosticsString(table, color)
   return s
 endfunction
 
+function! DefaultColorschemeFix()
+  hi! link SignColumn Normal
+  hi! link Pmenu Normal
+endfunction
+
 function! MyTabLine()
   let s = ''
   let s .= '%#TabLineSel#'
@@ -237,6 +242,9 @@ function! CleanNoNameEmptyBuffers()
         echo 'No buffer deleted'
     endif
 endfunction
+
+" Call some of the functions
+call DefaultColorschemeFix()
 
 " =KEYBINDS=====================
 let mapleader=" "
@@ -392,7 +400,10 @@ nnoremap <silent> <leader>s :call SwitchSourceHeader(0)<CR>
 nnoremap <silent> <leader>S :call SwitchSourceHeader(1)<CR>
 
 " =AUTOCOMMANDS=================
-if (has("nvim"))|finish|endif " everything after this is plugin specific
+aug default_colorscheme_fix
+  au!
+  au ColorScheme default call DefaultColorschemeFix()
+aug end
 
 " Restore cursor position
 aug vimStartup
@@ -402,6 +413,7 @@ aug vimStartup
     \ |   exe "normal! g`\""
     \ | endif
 aug end
+if (has("nvim"))|finish|endif " everything after this is regular vim specific
 
 " Plugins
 call plug#begin('~/.vim/plugged')
