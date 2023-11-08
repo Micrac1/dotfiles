@@ -378,6 +378,7 @@ inoremap { {}<C-G>U<left>
 inoremap {<esc> {<esc>
 inoremap <S-tab>{ {
 inoremap {} {}
+inoremap {<CR> {<CR>}<C-G>U<up><end><CR>
 
 inoremap < <><C-G>U<left>
 inoremap <<esc> <<esc>
