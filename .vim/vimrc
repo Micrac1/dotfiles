@@ -421,11 +421,59 @@ Plug 'tpope/vim-commentary'
 Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install', 'for': ['markdown', 'vim-plug']}
 Plug 'prabirshrestha/vim-lsp'
+"Plug 'rafamadriz/friendly-snippets'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'aklt/plantuml-syntax'
 " Colorschemes
 Plug 'altercation/vim-colors-solarized'
 Plug 'morhetz/gruvbox'
 call plug#end()
+
+aug PluginEnter
+  au!
+  au VimEnter * call PluginEnter()
+aug end
+
+function! PluginEnter()
+  " vsnip
+  if (exists('*vsnip#get_context'))
+    function! CompleteVsnip(findstart, base)
+      if a:findstart
+        " locate the start of the word
+        let line = getline('.')
+        let start = col('.') - 1
+        while start > 0 && line[start - 1] !~ '\s'
+          let start -= 1
+        endwhile
+        return start
+      else
+        let ret = []
+        let current_buffer = bufnr('%')
+        let ctx = vsnip#get_context()
+        let snippets = vsnip#get_complete_items(current_buffer)
+
+        for s in snippets
+          if s.word =~ '^' .. a:base
+            call add(ret, s)
+          endif
+        endfor
+        eval ret->sort({i1, i2 -> i1.word == i2.word ? 0 : i1.word > i2.word ? 1 : -1})
+
+        return ret == [] ? v:none : ret
+      endif
+    endfunction
+    imap <expr> <CR>     pumvisible() && vsnip#expandable() ? '<Plug>(vsnip-expand)'    : '<CR>'
+    imap <expr> <Tab>   !pumvisible() && vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)' : '<Tab>'
+    smap <expr> <Tab>   !pumvisible() && vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)' : '<Tab>'
+    imap <expr> <S-Tab> !pumvisible() && vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
+    smap <expr> <S-Tab> !pumvisible() && vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
+    set completefunc=CompleteVsnip
+  endif
+endfunction
+
+" vim-vsnip
+let g:vsnip_snippet_dir=fnamemodify(expand('$MYVIMRC'), ':p:h').'/vsnip'
 
 " vim-lsp
 let g:lsp_diagnostics_virtual_text_align = 'after'
