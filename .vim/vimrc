@@ -63,12 +63,8 @@ let g:tabline_diagnostics=0
 hi TabLine cterm=reverse " Tabline colors for tty
 endif
 
-
-
 "TabLine        xxx term=underline cterm=reverse ctermfg=15 ctermbg=242 gui=underline guibg=DarkGrey
-
 "TabLineFill    xxx term=reverse cterm=reverse gui=reverse
-
 "TabLineSel     xxx term=bold cterm=bold gui=bold
 
 " =FUNCTIONS====================
@@ -424,6 +420,8 @@ aug vimStartup
     \ |   exe "normal! g`\""
     \ | endif
 aug end
+"au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
 if (has("nvim"))|finish|endif " everything after this is regular vim specific
 
 aug session_save
