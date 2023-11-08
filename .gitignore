@@ -38,6 +38,7 @@
 # Vim
 !/.vim/
 !/.vim/vimrc
+!/.vim/lsp_highlight.vim
 !/.vim/autoload/
 !/.vim/autoload/*
 

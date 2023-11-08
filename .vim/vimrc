@@ -430,6 +430,14 @@ if executable('clangd')
   aug end
 endif
 
+aug lsp_highlight
+  au!
+  au ColorScheme *
+    \ if (filereadable(fnamemodify(expand('$MYVIMRC'), ':p:h').'/lsp_highlight.vim'))
+    \ | exe "so ".fnamemodify(expand('$MYVIMRC'), ':p:h').'/lsp_highlight.vim'
+    \ | endif
+aug end
+
 function! s:on_lsp_buffer_enabled() abort
     let g:tabline_diagnostics=1
     set signcolumn=yes
