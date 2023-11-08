@@ -51,7 +51,7 @@ set noundofile
 set noswapfile
 set nobackup
 set encoding=utf-8
-set completeopt=menu,menuone,preview,noselect
+set completeopt=menu,menuone,preview,noinsert
 
 if (!has("nvim"))
 set laststatus=2 " Statusline
