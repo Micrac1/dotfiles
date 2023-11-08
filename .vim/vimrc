@@ -31,7 +31,7 @@ set ruler
 set wildmenu
 set wildoptions=pum " Vertical wild menu in cmdline
 set showcmd
-set lazyredraw
+set lazyredraw " don't update during macros
 set scrolloff=8
 set timeout
 set timeoutlen=1000
@@ -400,7 +400,7 @@ aug vimStartup
     \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
     \ |   exe "normal! g`\""
     \ | endif
-aug END
+aug end
 
 " Plugins
 call plug#begin('~/.vim/plugged')
@@ -415,6 +415,8 @@ Plug 'morhetz/gruvbox'
 call plug#end()
 
 " vim-lsp
+let g:lsp_diagnostics_virtual_text_align = 'after'
+let g:lsp_diagnostics_virtual_text_wrap = 'truncate'
 if executable('clangd')
   aug lsp_clangd
     au!
@@ -464,11 +466,6 @@ aug lsp_install
     " call s:on_lsp_buffer_enabled only for languages that has the server registered.
     au User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 aug END
-let g:lsp_diagnostics_virtual_text_align = 'after'
-"let g:lsp_diagnostics_virtual_text_wrap = 'truncate'
-"let g:lsp_inlay_hints_mode = {
-"\  'normal': ['curline'],
-"\}
 
 " vim-markdown
 let g:vim_markdown_new_list_item_indent = 0
