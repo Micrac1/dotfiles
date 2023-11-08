@@ -426,6 +426,11 @@ aug vimStartup
 aug end
 if (has("nvim"))|finish|endif " everything after this is regular vim specific
 
+aug session_save
+  au!
+  au VimLeave * if (exists('v:this_session') && v:this_session != '') | exe 'mksession! '.v:this_session | endif
+aug end
+
 " Plugins
 call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-commentary'
