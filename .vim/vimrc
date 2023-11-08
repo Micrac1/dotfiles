@@ -246,6 +246,10 @@ endfunction
 " Call some of the functions
 call DefaultColorschemeFix()
 
+" Expose some of the functions
+command! CleanNoNameEmptyBuffers call CleanNoNameEmptyBuffers()
+
+
 " =KEYBINDS=====================
 let mapleader=" "
 
