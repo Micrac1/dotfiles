@@ -44,7 +44,6 @@ set tabstop=2
 set shiftwidth=2
 " set softtabstop=2
 set expandtab
-syntax on
 set incsearch
 set hlsearch
 set noundofile
@@ -52,6 +51,7 @@ set noswapfile
 set nobackup
 set encoding=utf-8
 set completeopt=menu,menuone,preview,noinsert
+syntax enable
 
 if (!has("nvim"))
 set laststatus=2 " Statusline
