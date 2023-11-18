@@ -541,6 +541,7 @@ let g:lsp_diagnostics_signs_hint = {'text': g:sign_hint}
 let g:lsp_diagnostics_signs_information = {'text': g:sign_info}
 let g:lsp_diagnostics_signs_warning = {'text': g:sign_warning}
 let g:lsp_diagnostics_signs_error = {'text': g:sign_error}
+let g:lsp_diagnostics_virtual_text_prefix = " ‣ "
 
 aug register_lsp_servers
   au!
