@@ -548,13 +548,36 @@ aug register_lsp_servers
 aug end
 
 function! s:register_lsp_servers()
-  if executable('clangd')
-    call lsp#register_server({
-          \ 'name': 'clangd',
-          \ 'cmd': {server_info->['clangd']},
-          \ 'allowlist': ['c', 'cpp', 'objc', 'objcpp'],
-          \ })
-  endif
+  let servers = [
+        \ { 'name': 'clangd',
+        \   'allowlist': ['c', 'cpp', 'objc', 'objcpp'],
+        \   'cmd': {server_info->['clangd', '--header-insertion=never']},
+        \ },
+        \ { 'name': 'phpactor',
+        \   'allowlist': ['php'],
+        \   'cmd': {server_info->['phpactor', 'language-server']},
+        \ },
+        \ { 'name': 'rust-analyzer',
+        \   'allowlist': ['rust'],
+        \   'cmd': {server_info->['rust-analyzer']},
+        \   'initialization_options': {
+        \     'diagnostics': {
+        \       'enable': v:true,
+        \       'experimental': {'enable': v:true}
+        \     },
+        \     'cargo':{'allFeatures': v:true}
+        \   }
+        \ },
+        \ { 'name': 'css-vscode',
+        \   'allowlist': ['css'],
+        \   'cmd': {server_info->['vscode-css-language-server', '--stdio']},
+        \ },
+        \ ]
+  for s in servers
+    if executable(servers[1].cmd(s)[0])
+      call lsp#register_server(s)
+    endif
+  endfor
 endfunction
 
 aug lsp_highlight
