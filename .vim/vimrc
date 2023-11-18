@@ -63,6 +63,12 @@ let g:tabline_diagnostics=0
 hi TabLine cterm=reverse " Tabline colors for tty
 endif
 
+" Some global variables
+let g:sign_error = 'E'
+let g:sign_warning = '‼'
+let g:sign_hint = 'H'
+let g:sign_info = 'i'
+
 "TabLine        xxx term=underline cterm=reverse ctermfg=15 ctermbg=242 gui=underline guibg=DarkGrey
 "TabLineFill    xxx term=reverse cterm=reverse gui=reverse
 "TabLineSel     xxx term=bold cterm=bold gui=bold
@@ -79,19 +85,19 @@ function! GetDiagnosticsString(table, color)
   let s = ''
   if (a:table.information)
     let s .= s == '' ? '' : a:color.' '
-    let s .= 'I'.a:table.information
+    let s .= ''.g:sign_info.a:table.information
   endif
   if (a:table.hint)
     let s .= s == '' ? '' : a:color.' '
-    let s .= 'H'.a:table.hint
+    let s .= ''.g:sign_hint.a:table.hint
   endif
   if (a:table.warning)
     let s .= s == '' ? '' : a:color.' '
-    let s .= '%#Todo#W'.a:table.warning
+    let s .= '%#Todo#'.g:sign_warning.a:table.warning
   endif
   if (a:table.error)
     let s .= s == '' ? '' : a:color.' '
-    let s .= '%#Error#E'.a:table.error
+    let s .= '%#Error#'.g:sign_error.a:table.error
   endif
   return s
 endfunction
@@ -502,10 +508,10 @@ let g:lsp_diagnostics_float_cursor = 1
 let g:lsp_diagnostics_float_insert_mode_enabled = 0
 let g:lsp_diagnostics_float_delay = 200
 
-let g:lsp_diagnostics_signs_hint = {'text': 'H'}
-let g:lsp_diagnostics_signs_information = {'text': 'I'}
-let g:lsp_diagnostics_signs_warning = {'text': 'W'}
-let g:lsp_diagnostics_signs_error = {'text': 'E'}
+let g:lsp_diagnostics_signs_hint = {'text': g:sign_hint}
+let g:lsp_diagnostics_signs_information = {'text': g:sign_info}
+let g:lsp_diagnostics_signs_warning = {'text': g:sign_warning}
+let g:lsp_diagnostics_signs_error = {'text': g:sign_error}
 
 aug register_lsp_servers
   au!
