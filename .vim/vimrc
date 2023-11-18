@@ -135,7 +135,6 @@ endfunction
 function! MyTabLine()
   let s = ''
   let s .= '%#TabLineSel#'
-  let s .= ' '
 
   for i in range(tabpagenr('$'))
     let n = (i + 1)
@@ -166,10 +165,6 @@ function! MyTabLine()
     " Tab number
     let s .= ''.n.'.'
 
-    "let s .= '['
-    "let s .= tabpagewinnr(a:n, '$')
-    "let s .= '] '
-
     let s .= color
 
     " Filename
@@ -196,16 +191,22 @@ function! MyTabLine()
     let s .= ' '
 
     " Separator
-    let s .= '%#TabLineSel#'
-    "let s .= n != tabpagenr('$') ? ' ' : ''
-    let s .= ' '
+      let s .= '%#TabLine#│'
   endfor
 
   " Rest of the line
   let s .= '%T%#TabLineFill#'
-  if tabpagenr('$') > 1
-    let s .= '%=;)'
+  if (get(g:, 'tabline_lsp_progress', 0))
+    let p = GetLspProgressString()
+    let s .= p
   endif
+  let s .= '%='
+  let e = 'UwU'
+  if (get(g:, 'tabline_lsp_status', 0))
+    let st = GetLspStatusString()
+    let e = st != '' ? st : e
+  endif
+  let s .= e . '%<'
 
   return s
 endfunction
@@ -546,6 +547,10 @@ let g:lsp_diagnostics_virtual_text_prefix = " ‣ "
 aug register_lsp_servers
   au!
   au User lsp_setup call s:register_lsp_servers()
+aug end
+aug lsp_progress_updated
+  au!
+  au User lsp_progress_updated redrawtabline
 aug end
 
 function! s:register_lsp_servers()
