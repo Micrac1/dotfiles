@@ -432,7 +432,7 @@ endif
 if (!has("nvim"))
 " Autocomplete
 inoremap <silent> <C-@> <C-x><C-o>
-imap <buffer> <expr> <CR> pumvisible() ? '<c-y>' : '<CR>'
+imap <expr> <CR> pumvisible() ? '<c-y>' : '<CR>'
 endif
 
 nnoremap <silent> <leader>s :call SwitchSourceHeader(0)<CR>
