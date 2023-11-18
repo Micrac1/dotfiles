@@ -573,12 +573,5 @@ aug END
 
 " vim-markdown
 let g:vim_markdown_new_list_item_indent = 0
-let g:mkdp_auto_close = 0
-
-" Hexokinase
-let g:Hexokinase_ftEnabled = []
-let g:Hexokinase_highlighters = [ 'sign_column', 'background', 'backgroundfull', 'foreground', 'foregroundfull' ]
-
-let g:Hexokinase_optInPatterns = [ 'full_hex', 'triple_hex', 'rgb', 'rgba', 'hsl', 'hsla', 'colour_names' ]
-
 let g:vim_markdown_folding_disabled=1
+let g:mkdp_auto_close = 0
