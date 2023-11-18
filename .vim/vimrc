@@ -235,11 +235,11 @@ endfunction
 " Close empty nameless buffers
 function! CleanNoNameEmptyBuffers()
 " TODO make it so this does not close them on other tabs
-    let buffers = filter(range(1, bufnr('$')), 'buflisted(v:val) 
+    let buffers = filter(range(1, bufnr('$')), 'buflisted(v:val)
       \ && empty(bufname(v:val)) && empty(win_findbuf(v:val))
       \ && (getbufline(v:val, 1, "$") == [""])')
     if !empty(buffers)
-        exe 'bd '.join(buffers, ' ')
+        exe 'bd ' . join(buffers, ' ')
     else
         echo 'No buffer deleted'
     endif
@@ -397,7 +397,7 @@ inoremap {<CR> {<CR>}<C-G>U<up><end><CR>
 inoremap < <><C-G>U<left>
 inoremap <<esc> <<esc>
 inoremap <S-tab>< <
-inoremap <<Space> < 
+inoremap <<Space> <
 inoremap <= <=
 inoremap << <<
 endif
@@ -437,14 +437,14 @@ aug end
 
 " Plugins
 call plug#begin('~/.vim/plugged')
-Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-commentary' " Toggle comments
 Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install', 'for': ['markdown', 'vim-plug']}
-Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/vim-lsp' " LSP support
 "Plug 'rafamadriz/friendly-snippets'
-Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/vim-vsnip-integ'
-Plug 'aklt/plantuml-syntax'
+Plug 'hrsh7th/vim-vsnip' " Snippets
+Plug 'hrsh7th/vim-vsnip-integ' " LSP snippet support
+Plug 'aklt/plantuml-syntax' " PlantUML syntax
 " Colorschemes
 Plug 'altercation/vim-colors-solarized'
 Plug 'morhetz/gruvbox'
@@ -558,12 +558,18 @@ function! s:on_lsp_buffer_enabled() abort
     nnoremap <buffer> <leader>fm <plug>(lsp-document-format)
     vnoremap <buffer> <leader>fm <plug>(lsp-document-range-format)
     inoremap <buffer> <C-s> <C-o><plug>(lsp-signature-help)
-    inoremap <buffer> <expr><c-d> lsp#document_hover_preview_winid() ? lsp#scroll(+4):'<C-d>'
-    inoremap <buffer> <expr><c-u> lsp#document_hover_preview_winid() ? lsp#scroll(-4):'<C-u>'
-    nnoremap <buffer> <expr><c-d> lsp#document_hover_preview_winid() ? lsp#scroll(+4):'<C-d>'
-    nnoremap <buffer> <expr><c-u> lsp#document_hover_preview_winid() ? lsp#scroll(-4):'<C-u>'
-    "inoremap <buffer> <expr><c-d> lsp#document_hover_preview_winid() ? lsp#scroll(+4):'<C-d>'
-    "inoremap <buffer> <expr><c-u> lsp#document_hover_preview_winid() ? lsp#scroll(-4):'<C-u>'
+    inoremap <buffer> <expr><c-d>
+          \ lsp#document_hover_preview_winid() ? lsp#scroll(+4):'<C-d>'
+    inoremap <buffer> <expr><c-u>
+          \ lsp#document_hover_preview_winid() ? lsp#scroll(-4):'<C-u>'
+    nnoremap <buffer> <expr><c-d>
+          \ lsp#document_hover_preview_winid() ? lsp#scroll(+4):'<C-d>'
+    nnoremap <buffer> <expr><c-u>
+          \ lsp#document_hover_preview_winid() ? lsp#scroll(-4):'<C-u>'
+    "inoremap <buffer> <expr><c-d>
+          \ lsp#document_hover_preview_winid() ? lsp#scroll(+4):'<C-d>'
+    "inoremap <buffer> <expr><c-u>
+          \ lsp#document_hover_preview_winid() ? lsp#scroll(-4):'<C-u>'
     " Autocomplete
     inoremap <buffer> :: ::<C-x><C-o>
     inoremap <buffer> . .<C-x><C-o>
@@ -575,7 +581,7 @@ aug lsp_install
     au!
     " call s:on_lsp_buffer_enabled only for languages that has the server registered.
     au User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-aug END
+aug end
 
 " vim-markdown
 let g:vim_markdown_new_list_item_indent = 0
