@@ -191,7 +191,7 @@ function! MyTabLine()
     let s .= ' '
 
     " Separator
-      let s .= '%#TabLine#│'
+    let s .= '%#TabLine#│'
   endfor
 
   " Rest of the line
@@ -216,11 +216,11 @@ function! MyStatusLine()
   let d = get(g:, 'statusline_lsp_diagnostics', 0) ?
         \ GetLspDiagnosticsString(GetLspDiagnostics(winbufnr(g:statusline_winid)), '') : ''
   let s = "%f ".d."%*
-    \%h%m%r %=%<
-    \%( %{&fenc != '' ? &fenc . ' /' : ''}%)
-    \%( %{%&ff != '' ? get({'unix':'U','dos':'D','mac':'M'}, &ff) . ' /' : ''%}%)
-    \%( %{&ft != '' ? &ft . ' /':''}%)
-    \%(  %l:%c%V%)  %P"
+        \%h%m%r %=%<
+        \%( %{&fenc != '' ? &fenc . ' /' : ''}%)
+        \%( %{%&ff != '' ? get({'unix':'U','dos':'D','mac':'M'}, &ff) . ' /' : ''%}%)
+        \%( %{&ft != '' ? &ft . ' /':''}%)
+        \%(  %l:%c%V%)  %P"
   return s
 endfunction
 
@@ -261,16 +261,16 @@ endfunction
 
 " Close empty nameless buffers
 function! CleanNoNameEmptyBuffers()
-" TODO make it so this does not close them on other tabs
-    let buffers = filter(range(1, bufnr('$')), 'buflisted(v:val)
-      \ && empty(bufname(v:val)) && empty(win_findbuf(v:val))
-      \ && (getbufline(v:val, 1, "$") == [""])')
-    if !empty(buffers)
-        exe 'bd ' . join(buffers, ' ')
-        echo len(buffers) . ' buffer' . (len(buffers) != 1 ? 's' : '') . ' deleted'
-    else
-        echo 'No buffer deleted'
-    endif
+  " TODO make it so this does not close them on other tabs
+  let buffers = filter(range(1, bufnr('$')), 'buflisted(v:val)
+        \ && empty(bufname(v:val)) && empty(win_findbuf(v:val))
+        \ && (getbufline(v:val, 1, "$") == [""])')
+  if !empty(buffers)
+    exe 'bd ' . join(buffers, ' ')
+    echo len(buffers) . ' buffer' . (len(buffers) != 1 ? 's' : '') . ' deleted'
+  else
+    echo 'No buffer deleted'
+  endif
 endfunction
 
 " Call some of the functions
@@ -595,56 +595,56 @@ aug lsp_highlight
 aug end
 
 function! s:on_lsp_buffer_enabled() abort
-    let g:tabline_lsp_diagnostics=1
-    let g:tabline_lsp_progress=1
-    let g:tabline_lsp_status=1
-    let g:statusline_lsp_diagnostics=1
-    let g:statusline_lsp_progress=1 " unused
-    let g:statusline_lsp_status=1 " unused
-    set signcolumn=yes
-    setlocal omnifunc=lsp#complete
-    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
-    nnoremap <buffer> gd <plug>(lsp-definition)
-    nnoremap <buffer> gD <plug>(lsp-declaration)
-    nnoremap <buffer> gr <plug>(lsp-references)
-    nnoremap <buffer> gi <plug>(lsp-implementation)
-    "nmap <buffer> gt <plug>(lsp-type-definition)
-    "nmap <buffer> gs <plug>(lsp-document-symbol-search)
-    "nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
-    nnoremap <buffer> <leader>ca <plug>(lsp-code-action)
-    nnoremap <buffer> <leader>cr <plug>(lsp-rename)
-    nnoremap <buffer> [g <plug>(lsp-previous-diagnostic)
-    nnoremap <buffer> ]g <plug>(lsp-next-diagnostic)
-    nnoremap <buffer> K <plug>(lsp-hover-float)
-    nnoremap <buffer> <leader>K <plug>(lsp-hover-preview)
-    nnoremap <buffer> <leader>fk <plug>(lsp-document-diagnostics)
-    nnoremap <buffer> <leader>fm <plug>(lsp-document-format)
-    vnoremap <buffer> <leader>fm <plug>(lsp-document-range-format)
-    inoremap <buffer> <C-s> <C-o><plug>(lsp-signature-help)
-    inoremap <buffer> <expr><c-d>
-          \ lsp#document_hover_preview_winid() ? lsp#scroll(+4):'<C-d>'
-    inoremap <buffer> <expr><c-u>
-          \ lsp#document_hover_preview_winid() ? lsp#scroll(-4):'<C-u>'
-    nnoremap <buffer> <expr><c-d>
-          \ lsp#document_hover_preview_winid() ? lsp#scroll(+4):'<C-d>'
-    nnoremap <buffer> <expr><c-u>
-          \ lsp#document_hover_preview_winid() ? lsp#scroll(-4):'<C-u>'
-    "inoremap <buffer> <expr><c-d>
-          \ lsp#document_hover_preview_winid() ? lsp#scroll(+4):'<C-d>'
-    "inoremap <buffer> <expr><c-u>
-          \ lsp#document_hover_preview_winid() ? lsp#scroll(-4):'<C-u>'
-    " Autocomplete
-    inoremap <buffer> :: ::<C-x><C-o>
-    inoremap <buffer> . .<C-x><C-o>
-    inoremap <buffer> -> -><C-x><C-o>
-    let g:agressive_lsp=1
-    au TextChangedI * if (get(g:, 'agressive_lsp', 0)) | call feedkeys("\<c-x>\<C-o>") | endif
+  let g:tabline_lsp_diagnostics=1
+  let g:tabline_lsp_progress=1
+  let g:tabline_lsp_status=1
+  let g:statusline_lsp_diagnostics=1
+  let g:statusline_lsp_progress=1 " unused
+  let g:statusline_lsp_status=1 " unused
+  set signcolumn=yes
+  setlocal omnifunc=lsp#complete
+  if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+  nnoremap <buffer> gd <plug>(lsp-definition)
+  nnoremap <buffer> gD <plug>(lsp-declaration)
+  nnoremap <buffer> gr <plug>(lsp-references)
+  nnoremap <buffer> gi <plug>(lsp-implementation)
+  "nmap <buffer> gt <plug>(lsp-type-definition)
+  "nmap <buffer> gs <plug>(lsp-document-symbol-search)
+  "nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+  nnoremap <buffer> <leader>ca <plug>(lsp-code-action)
+  nnoremap <buffer> <leader>cr <plug>(lsp-rename)
+  nnoremap <buffer> [g <plug>(lsp-previous-diagnostic)
+  nnoremap <buffer> ]g <plug>(lsp-next-diagnostic)
+  nnoremap <buffer> K <plug>(lsp-hover-float)
+  nnoremap <buffer> <leader>K <plug>(lsp-hover-preview)
+  nnoremap <buffer> <leader>fk <plug>(lsp-document-diagnostics)
+  nnoremap <buffer> <leader>fm <plug>(lsp-document-format)
+  vnoremap <buffer> <leader>fm <plug>(lsp-document-range-format)
+  inoremap <buffer> <C-s> <C-o><plug>(lsp-signature-help)
+  inoremap <buffer> <expr><c-d>
+        \ lsp#document_hover_preview_winid() ? lsp#scroll(+4):'<C-d>'
+  inoremap <buffer> <expr><c-u>
+        \ lsp#document_hover_preview_winid() ? lsp#scroll(-4):'<C-u>'
+  nnoremap <buffer> <expr><c-d>
+        \ lsp#document_hover_preview_winid() ? lsp#scroll(+4):'<C-d>'
+  nnoremap <buffer> <expr><c-u>
+        \ lsp#document_hover_preview_winid() ? lsp#scroll(-4):'<C-u>'
+  "inoremap <buffer> <expr><c-d>
+        \ lsp#document_hover_preview_winid() ? lsp#scroll(+4):'<C-d>'
+  "inoremap <buffer> <expr><c-u>
+        \ lsp#document_hover_preview_winid() ? lsp#scroll(-4):'<C-u>'
+  " Autocomplete
+  inoremap <buffer> :: ::<C-x><C-o>
+  inoremap <buffer> . .<C-x><C-o>
+  inoremap <buffer> -> -><C-x><C-o>
+  let g:agressive_lsp=1
+  au TextChangedI * if (get(g:, 'agressive_lsp', 0)) | call feedkeys("\<c-x>\<C-o>") | endif
 endfunction
 
 aug lsp_install
-    au!
-    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
-    au User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+  au!
+  " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+  au User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 aug end
 
 " vim-markdown
