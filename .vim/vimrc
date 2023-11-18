@@ -60,7 +60,6 @@ set laststatus=2 " Statusline
 set statusline=%!MyStatusLine()
 set tabline=%!MyTabLine() " Tabline
 let g:tabline_diagnostics=0
-hi TabLine cterm=reverse " Tabline colors for tty
 endif
 
 " Some global variables
@@ -74,6 +73,12 @@ let g:sign_info = 'i'
 "TabLineSel     xxx term=bold cterm=bold gui=bold
 
 " =FUNCTIONS====================
+function! DefaultColorschemeFix()
+  hi! link SignColumn Normal
+  hi! link Pmenu Normal
+  hi! TabLine cterm=reverse
+endfunction
+
 function! GetDiagnostics(id)
   if (exists('*lsp#internal#diagnostics#state#_get_diagnostics_count_for_buffer'))
     return lsp#internal#diagnostics#state#_get_diagnostics_count_for_buffer(a:id)
@@ -100,11 +105,6 @@ function! GetDiagnosticsString(table, color)
     let s .= '%#Error#'.g:sign_error.a:table.error
   endif
   return s
-endfunction
-
-function! DefaultColorschemeFix()
-  hi! link SignColumn Normal
-  hi! link Pmenu Normal
 endfunction
 
 function! MyTabLine()
