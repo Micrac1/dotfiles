@@ -39,6 +39,7 @@ set ttimeout
 set ttimeoutlen=0
 set mouse=n
 set hidden
+set fillchars=vert:║
 
 filetype plugin indent on
 
