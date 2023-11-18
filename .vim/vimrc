@@ -608,7 +608,8 @@ function! s:on_lsp_buffer_enabled() abort
     inoremap <buffer> :: ::<C-x><C-o>
     inoremap <buffer> . .<C-x><C-o>
     inoremap <buffer> -> -><C-x><C-o>
-    inoremap <buffer> <Space> <Space><C-x><C-o>
+    let g:agressive_lsp=1
+    au TextChangedI * if (get(g:, 'agressive_lsp', 0)) | call feedkeys("\<c-x>\<C-o>") | endif
 endfunction
 
 aug lsp_install
