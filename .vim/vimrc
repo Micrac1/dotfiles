@@ -60,7 +60,6 @@ if (!has("nvim"))
 set laststatus=2 " Statusline
 set statusline=%!MyStatusLine()
 set tabline=%!MyTabLine() " Tabline
-let g:tabline_diagnostics=0
 endif
 
 " Some global variables
@@ -80,14 +79,39 @@ function! DefaultColorschemeFix()
   hi! TabLine cterm=reverse
 endfunction
 
-function! GetDiagnostics(id)
+function! GetLspProgressString()
+  let s = ''
+  let pp = lsp#get_progress()
+  "[{'token': 'rustAnalyzer/Indexing',
+  "'title': 'Indexing', 'server': 'rust-analyzer'}]
+  "'percentage': 16,
+  "'message': '1/6 (core)',
+  if (pp != [])
+    let p = pp[0]
+    let s .= '['.p.server.'] '.p.title.' '.p.message
+  endif
+  return s
+endfunction
+
+function! GetLspStatusString()
+  let s = ''
+  let status = lsp#collect_server_status()
+  for key in keys(status)
+    if (status[key].status == 'running')
+      let s .= (s == '' ? '' : ', ').key
+    endif
+  endfor
+  return s != '' ? '['.s.']' : s
+endfunction
+
+function! GetLspDiagnostics(id)
   if (exists('*lsp#internal#diagnostics#state#_get_diagnostics_count_for_buffer'))
     return lsp#internal#diagnostics#state#_get_diagnostics_count_for_buffer(a:id)
   endif
   return {'information': 0, 'hint': 0, 'warning': 0, 'error': 0}
 endfunction
 
-function! GetDiagnosticsString(table, color)
+function! GetLspDiagnosticsString(table, color)
   let s = ''
   if (a:table.information)
     let s .= s == '' ? '' : a:color.' '
@@ -122,16 +146,16 @@ function! MyTabLine()
 
     " Diagnostics calculation
     let diagnosticsstring = ''
-    if (exists('g:tabline_diagnostics') && g:tabline_diagnostics)
+    if (get(g:, 'tabline_lsp_diagnostics', 0))
       let d = {'information': 0, 'hint': 0, 'warning': 0, 'error': 0}
       for bufnr in buflist
-        let tmp = GetDiagnostics(bufnr)
+        let tmp = GetLspDiagnostics(bufnr)
         let d.information += tmp.information
         let d.hint += tmp.hint
         let d.warning += tmp.warning
         let d.error += tmp.error
       endfor
-      let diagnosticsstring = GetDiagnosticsString(d, color)
+      let diagnosticsstring = GetLspDiagnosticsString(d, color)
     endif
 
     " Begin tab
@@ -186,6 +210,19 @@ function! MyTabLine()
   return s
 endfunction
 
+" Statusline
+function! MyStatusLine()
+  let d = get(g:, 'statusline_lsp_diagnostics', 0) ?
+        \ GetLspDiagnosticsString(GetLspDiagnostics(winbufnr(g:statusline_winid)), '') : ''
+  let s = "%f ".d."%*
+    \%h%m%r %=%<
+    \%( %{&fenc != '' ? &fenc . ' /' : ''}%)
+    \%( %{%&ff != '' ? get({'unix':'U','dos':'D','mac':'M'}, &ff) . ' /' : ''%}%)
+    \%( %{&ft != '' ? &ft . ' /':''}%)
+    \%(  %l:%c%V%)  %P"
+  return s
+endfunction
+
 " Switch source and header files
 function! SwitchSourceHeader(force)
   let extension = expand("%:e")
@@ -220,18 +257,6 @@ function! SwitchSourceHeader(force)
   endif
 endfunction
 "map <F4> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
-
-" Statusline
-function! MyStatusLine()
-  let d = exists("g:tabline_diagnostics" && g:tabline_diagnostics) ? GetDiagnosticsString(GetDiagnostics(winbufnr(g:statusline_winid)), '') : ''
-  let s = "%<%f ".d."%*
-    \%h%m%r %=
-    \%( %{&fenc != '' ? &fenc . ' /' : ''}%)
-    \%( %{%&ff != '' ? get({'unix':'U','dos':'D','mac':'M'}, &ff) . ' /' : ''%}%)
-    \%( %{&ft != '' ? &ft . ' /':''}%)
-    \%(  %l:%c%V%)  %P"
-  return s
-endfunction
 
 " Close empty nameless buffers
 function! CleanNoNameEmptyBuffers()
@@ -508,6 +533,8 @@ let g:lsp_diagnostics_virtual_text_delay = 50
 let g:lsp_diagnostics_float_cursor = 1
 let g:lsp_diagnostics_float_insert_mode_enabled = 0
 let g:lsp_diagnostics_float_delay = 200
+let g:lsp_work_done_progress_enabled=1
+let g:lsp_async_completion=1
 
 let g:lsp_diagnostics_signs_hint = {'text': g:sign_hint}
 let g:lsp_diagnostics_signs_information = {'text': g:sign_info}
@@ -538,7 +565,12 @@ aug lsp_highlight
 aug end
 
 function! s:on_lsp_buffer_enabled() abort
-    let g:tabline_diagnostics=1
+    let g:tabline_lsp_diagnostics=1
+    let g:tabline_lsp_progress=1
+    let g:tabline_lsp_status=1
+    let g:statusline_lsp_diagnostics=1
+    let g:statusline_lsp_progress=1 " unused
+    let g:statusline_lsp_status=1 " unused
     set signcolumn=yes
     setlocal omnifunc=lsp#complete
     if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
