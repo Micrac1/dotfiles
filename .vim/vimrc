@@ -17,10 +17,12 @@ if has('gui_running')
 	set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
 endif
 
-" Should be bg& to let it determine itself and done automatically, but that is broken
+" Should be bg& to let it determine itself and done automatically, but that is
+" broken
 set background=dark
 
-set sessionoptions=blank,buffers,curdir,folds,help,tabpages,winpos,winsize,resize,terminal
+set sessionoptions=blank,buffers,curdir,folds,help,tabpages,winpos,winsize,
+      \resize,terminal
 set splitbelow
 set splitright
 set winminheight=0
@@ -68,7 +70,8 @@ let g:sign_warning = '‼'
 let g:sign_hint = 'H'
 let g:sign_info = 'i'
 
-"TabLine        xxx term=underline cterm=reverse ctermfg=15 ctermbg=242 gui=underline guibg=DarkGrey
+"TabLine        xxx term=underline cterm=reverse ctermfg=15 ctermbg=242
+"gui=underline guibg=DarkGrey
 "TabLineFill    xxx term=reverse cterm=reverse gui=reverse
 "TabLineSel     xxx term=bold cterm=bold gui=bold
 
@@ -168,7 +171,8 @@ function! MyTabLine()
     let s .= color
 
     " Filename
-    let s .= filename == '' ? ' [No Name] ' : ' '.pathshorten(fnamemodify(fullname, ":~:.")).' '
+    let s .= filename == '' ?
+          \ ' [No Name] ' : ' '.pathshorten(fnamemodify(fullname, ":~:.")).' '
 
     " Diagnostics
     let s .= diagnosticsstring
@@ -214,7 +218,8 @@ endfunction
 " Statusline
 function! MyStatusLine()
   let d = get(g:, 'statusline_lsp_diagnostics', 0) ?
-        \ GetLspDiagnosticsString(GetLspDiagnostics(winbufnr(g:statusline_winid)), '') : ''
+        \ GetLspDiagnosticsString(
+        \GetLspDiagnostics(winbufnr(g:statusline_winid)), '') : ''
   let s = "%f ".d."%*
         \%h%m%r %=%<
         \%( %{&fenc != '' ? &fenc . ' /' : ''}%)
@@ -460,7 +465,10 @@ if (has("nvim"))|finish|endif " everything after this is regular vim specific
 
 aug session_save
   au!
-  au VimLeave * if (exists('v:this_session') && v:this_session != '') | exe 'mksession! '.v:this_session | endif
+  au VimLeave *
+        \ if (exists('v:this_session') && v:this_session != '')
+        \ |   exe 'mksession! '.v:this_session
+        \ | endif
 aug end
 
 " Plugins
@@ -506,16 +514,22 @@ function! PluginEnter()
             call add(ret, s)
           endif
         endfor
-        eval ret->sort({i1, i2 -> i1.word == i2.word ? 0 : i1.word > i2.word ? 1 : -1})
+        eval ret->sort({i1, i2 -> i1.word == i2.word ?
+              \ 0 : i1.word > i2.word ? 1 : -1})
 
         return ret == [] ? v:none : ret
       endif
     endfunction
-    imap <expr> <CR>     pumvisible() && vsnip#expandable() ? '<Plug>(vsnip-expand)'    : '<CR>'
-    imap <expr> <Tab>   !pumvisible() && vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)' : '<Tab>'
-    smap <expr> <Tab>   !pumvisible() && vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)' : '<Tab>'
-    imap <expr> <S-Tab> !pumvisible() && vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
-    smap <expr> <S-Tab> !pumvisible() && vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
+    imap <expr> <CR>     pumvisible() && vsnip#expandable() ?
+          \ '<Plug>(vsnip-expand)'    : '<CR>'
+    imap <expr> <Tab>   !pumvisible() && vsnip#jumpable(1)  ?
+          \ '<Plug>(vsnip-jump-next)' : '<Tab>'
+    smap <expr> <Tab>   !pumvisible() && vsnip#jumpable(1)  ?
+          \ '<Plug>(vsnip-jump-next)' : '<Tab>'
+    imap <expr> <S-Tab> !pumvisible() && vsnip#jumpable(-1) ?
+          \ '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
+    smap <expr> <S-Tab> !pumvisible() && vsnip#jumpable(-1) ?
+          \ '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
     set completefunc=CompleteVsnip
   endif
 
