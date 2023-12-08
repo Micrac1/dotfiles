@@ -518,6 +518,9 @@ function! PluginEnter()
     smap <expr> <S-Tab> !pumvisible() && vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
     set completefunc=CompleteVsnip
   endif
+
+  " vim-lsp
+  let g:agressive_lsp=1
 endfunction
 
 " vim-vsnip
@@ -637,8 +640,8 @@ function! s:on_lsp_buffer_enabled() abort
   inoremap <buffer> :: ::<C-x><C-o>
   inoremap <buffer> . .<C-x><C-o>
   inoremap <buffer> -> -><C-x><C-o>
-  let g:agressive_lsp=1
-  au TextChangedI * if (get(g:, 'agressive_lsp', 0)) | call feedkeys("\<c-x>\<C-o>") | endif
+  au TextChangedI <buffer> if (get(g:, 'agressive_lsp', 0) && &omnifunc != '')
+        \ | call feedkeys("\<c-x>\<C-o>") | endif
 endfunction
 
 aug lsp_install
