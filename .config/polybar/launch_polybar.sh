@@ -23,8 +23,6 @@ if ! xrandr --version > /dev/null; then
   exit
 fi
 
-export HWMON_PATH="$(ls -d /sys/devices/platform/coretemp.0/hwmon/hwmon*/temp1_input 2>/dev/null)"
-
 PRIMARY=$(xrandr --query | grep " connected" | grep "primary" | cut -d" " -f1)
 
 # Primary display exists
