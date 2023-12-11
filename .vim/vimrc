@@ -591,6 +591,10 @@ function! s:register_lsp_servers()
         \     'cargo':{'allFeatures': v:true}
         \   }
         \ },
+        \ { 'name': 'html-vscode',
+        \   'allowlist': ['html'],
+        \   'cmd': {server_info->['vscode-html-language-server', '--stdio']},
+        \ },
         \ { 'name': 'css-vscode',
         \   'allowlist': ['css'],
         \   'cmd': {server_info->['vscode-css-language-server', '--stdio']},
