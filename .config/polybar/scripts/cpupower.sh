@@ -1,46 +1,49 @@
 #!/bin/sh
-GOVERNOR=''
-spid=0
+. "$(dirname "${0}")/base.sh"
+if [ -z "${BASE_SH_SUCCESS}" ]; then
+  echo "Failed to initalize base.sh"; exit 101
+fi
 
-killspid(){
-  if [ "${spid}" -ne 0 ]; then
-    kill "${spid}" > /dev/null 2>&1
-  fi
-}
+# ============================================================================
+# Environmental variables
+LABEL_PROGRESS="${LABEL_PROGRESS:-*}"
+LABEL_PERFORMANCE="${LABEL_PERFORMANCE:-P}"
+LABEL_POWERSAVE="${LABEL_POWERSAVE:-S}"
+LABEL_UNKNOWN="${LABEL_UNKNOWN:-?}"
+# ============================================================================
+
+
+# ============================================================================
+_GOVERNOR=''
 
 update_state(){
-  GOVERNOR="$(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_governor)"
+  _GOVERNOR="$(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_governor)"
 }
 
 print_state(){
-  if [ "${GOVERNOR}" = "performance" ]; then
-    echo "${LABEL_PERFORMANCE:-P}"
-  elif [ "${GOVERNOR}" = "powersave" ]; then
-    echo "${LABEL_POWERSAVE:-S}"
+  if [ "${_GOVERNOR}" = "performance" ]; then
+    echo "${LABEL_PERFORMANCE}"
+  elif [ "${_GOVERNOR}" = "powersave" ]; then
+    echo "${LABEL_POWERSAVE}"
   else
-    echo "${LABEL_UNKNOWN:-?}"
+    echo "${LABEL_UNKNOWN}"
   fi 
 }
 
 click_left(){
   update_state
-  if [ "${GOVERNOR}" = "performance" ]; then
-    echo "${LABEL_PROGRESS:-*}"
+  if [ "${_GOVERNOR}" = "performance" ]; then
+    echo "${LABEL_PROGRESS}"
     cpupower-gui profile "Powersave" > /dev/null 2>&1
-  elif [ "${GOVERNOR}" = "powersave" ]; then
-    echo "${LABEL_PROGRESS:-*}"
+  elif [ "${_GOVERNOR}" = "powersave" ]; then
+    echo "${LABEL_PROGRESS}"
     cpupower-gui profile "Performance" > /dev/null 2>&1
   fi 
-  killspid
 }
 
-trap "click_left" USR1
-trap "click_right" USR2
-
-while true; do
+print_module(){
   update_state
   print_state
-  sleep "${INTERVAL:-30s}" &
-  spid=$!
-  wait
-done
+}
+
+start_loop
