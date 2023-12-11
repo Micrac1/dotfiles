@@ -57,6 +57,7 @@ set nobackup
 set encoding=utf-8
 set completeopt=menu,menuone,preview,noinsert
 syntax enable
+if (&omnifunc == '') | set omnifunc=syntaxcomplete#Complete | endif
 
 if (!has("nvim"))
 set laststatus=2 " Statusline
