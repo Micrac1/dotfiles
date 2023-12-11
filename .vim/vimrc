@@ -33,6 +33,7 @@ set ruler
 set wildmenu
 set wildmode=lastused:full
 set wildoptions=pum " Vertical wild menu in cmdline
+set wildignore=*/.git/*,*/.vscode/*,*.o
 set showcmd
 set lazyredraw " don't update during macros
 set scrolloff=8
