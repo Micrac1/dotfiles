@@ -45,6 +45,7 @@ set fillchars=vert:║
 
 filetype plugin indent on
 
+set history=1000
 set tabstop=2
 set shiftwidth=2
 " set softtabstop=2
