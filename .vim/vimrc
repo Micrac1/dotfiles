@@ -658,7 +658,8 @@ function! s:on_lsp_buffer_enabled() abort
   inoremap <buffer> :: ::<C-x><C-o>
   inoremap <buffer> . .<C-x><C-o>
   inoremap <buffer> -> -><C-x><C-o>
-  au TextChangedI <buffer> if (get(g:, 'agressive_lsp', 0) && &omnifunc != '')
+  au TextChangedI <buffer> if (get(g:, 'agressive_lsp', 0)
+        \ && &omnifunc != '' && getline('.')[col('.')-2] =~ '[:graph:]')
         \ | call feedkeys("\<c-x>\<C-o>") | endif
 endfunction
 
