@@ -44,6 +44,9 @@ set ttimeoutlen=0
 set mouse=n
 set hidden
 set fillchars=vert:║
+"set listchars=eol:¬,tab:\|\ ,trail:~,extends:>,precedes:<,space:·
+set listchars=leadmultispace:\ ,multispace:·,tab:║\ ,trail:~
+"set list
 
 filetype plugin indent on
 
