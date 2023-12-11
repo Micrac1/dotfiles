@@ -357,6 +357,9 @@ nnoremap <leader>X :bd!<CR>
 nnoremap <leader>e :enew<CR>
 nnoremap <leader><Tab> <C-^>
 
+" Finding
+nnoremap <leader>f :f ./**/*
+
 " Tabs
 nnoremap <leader>tn :tabnew<CR>
 nnoremap <leader>te :tabedit<Space>
