@@ -461,6 +461,12 @@ aug default_colorscheme_fix
   au ColorScheme default call DefaultColorschemeFix()
 aug end
 
+" Terminal window specific settings
+aug terminal_open
+  au!
+  au TerminalOpen * set nonu | set nornu | set scrolloff=0
+aug end
+
 " Restore cursor position
 aug vimStartup
   au!
