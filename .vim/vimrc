@@ -469,7 +469,7 @@ aug terminal_open
 aug end
 
 " Restore cursor position
-aug vimStartup
+aug vim_startup
   au!
   au BufReadPost *
     \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
