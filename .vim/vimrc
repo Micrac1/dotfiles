@@ -330,7 +330,7 @@ nnoremap <leader> <Nop>
 
 " Configuring
 nnoremap <leader>r :so $MYVIMRC<CR>
-nnoremap <leader>E :tabnew $MYVIMRC<CR>
+nnoremap <leader>E :tab drop $MYVIMRC<CR>
 
 " C++ helpers
 "nnoremap <leader>inc a#include 
