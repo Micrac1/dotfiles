@@ -67,7 +67,7 @@ ${_GIT_PS1}${_C_DBUS}${_PROMPT}${_RES} "
 unset _COLOR _PROMPT _RES _GIT_PS1 _C_DBUS
 
 # Aliases
-alias sway="sway unsupported-gpu"
+alias sway="sway --unsupported-gpu"
 alias ncdu="ncdu --color dark"
 alias ls='ls --color=auto'
 alias ll="ls -lav --block-size=\"'1\" --ignore=.."
