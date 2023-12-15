@@ -32,7 +32,7 @@ double_click_left(){ :; }
 event_handler(){ :; } # any other piped command gets handled by this
 # ============================================================================
 
-_PID="${$}"
+export _PID="${$}"
 
 _cleanup(){
   # TODO chcek if exists
