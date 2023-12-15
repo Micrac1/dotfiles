@@ -21,6 +21,7 @@ PIPE="${PIPE:-/tmp/polybar_module_}${$}"
 
 # Functions
 print_module(){ :; } # overwrite to actually print something
+cleanup(){ :; } # called when the script is exiting
 
 # Interaction
 click_left(){ :; }
@@ -37,6 +38,7 @@ export _PID="${$}"
 _cleanup(){
   # TODO chcek if exists
   rm "${PIPE}" 2>/dev/null
+  cleanup
   exit 0
 }
 
