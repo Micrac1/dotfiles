@@ -190,6 +190,7 @@ function! MyTabLine()
     let modified = 0
     for bufnr in buflist
       if getbufvar(bufnr, '&modified')
+            \ && getbufvar(bufnr, '&buftype') != 'terminal'
         let modified = 1
         break
       endif
