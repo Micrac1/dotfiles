@@ -105,6 +105,10 @@ font pango:monospace 8
 # Wallpapers
 #bindsym $mod+comma exec --no-startup-id `xsettingsd -c <(echo 'Net/ThemeName "Arc-Dark"') &`
 #bindsym $mod+period exec --no-startup-id `xsettingsd -c <(echo 'Net/ThemeName "Xresources"') &`
+mode "passthrough" {
+  bindsym $mod+Shift+o mode "default";
+  bindsym $mod+Escape mode "default";
+}
 
 # resize mode
 mode "resize" {
@@ -250,6 +254,7 @@ bindsym Control+Shift+$mod+l move workspace to output right
 ## Modes
 bindsym $mod+s mode $open_mode
 bindsym $mod+c mode "resize"
+bindsym $mod+o mode "passthrough"
 
 ## Apps
 # Terminal
