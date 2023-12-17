@@ -1,5 +1,10 @@
 #!/bin/bash
-killall polybar 2>/dev/null
+#killall polybar 2>/dev/null
+if xdotool --version; then
+  for bar in $(xdotool search --class '^polybar$' getwindowpid %@); do
+    polybar-msg -p "${bar}" cmd quit
+  done
+fi
 
 FLAGS="--reload"
 if [ "$1" != "-d" ]; then
