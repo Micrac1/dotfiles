@@ -45,7 +45,7 @@ set timeout
 set timeoutlen=1000
 set ttimeout
 set ttimeoutlen=0
-set mouse=n
+set mouse=a
 set hidden
 set foldmethod=marker
 set fillchars=vert:║
