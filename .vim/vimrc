@@ -397,10 +397,12 @@ nnoremap <silent> <leader>tm8 :tabmove 8<CR>
 nnoremap <silent> <leader>tm9 :tabmove 9<CR>
 
 " Terminal fixes
-tnoremap <C-\> <C-w>
 tnoremap <C-x> <C-\><C-n>
-tnoremap <C-w> <C-w>.
-tnoremap <C-\><C-x> <C-x>
+if (!has('nvim'))
+  tnoremap <C-\> <C-w>
+  tnoremap <C-w> <C-w>.
+  tnoremap <C-\><C-x> <C-x>
+endif
 
 " Movement in insert mode
 inoremap <C-h> <left>
