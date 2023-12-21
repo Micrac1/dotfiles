@@ -501,6 +501,7 @@ aug end
 
 " Plugins
 call plug#begin('~/.vim/plugged')
+Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-commentary' " Toggle comments
 Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install', 'for': ['markdown', 'vim-plug']}
@@ -562,6 +563,12 @@ function! PluginEnter()
     set completefunc=CompleteVsnip
   endif
 
+  " fzf
+  if (exists(':FZF'))
+    nmap <leader>F :FZF<CR>
+    nmap <leader>B :Buffers<CR>
+  endif
+
   " vim-lsp
   let g:agressive_lsp=1
 endfunction
@@ -570,6 +577,9 @@ endfunction
 let g:vim_markdown_new_list_item_indent = 0
 let g:vim_markdown_folding_disabled=1
 let g:mkdp_auto_close = 0
+
+" FZF
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 , 'border': 'sharp'} }
 
 " vim-vsnip
 let g:vsnip_snippet_dir=fnamemodify(expand('$MYVIMRC'), ':p:h').'/vsnip'
