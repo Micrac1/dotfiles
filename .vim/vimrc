@@ -1,6 +1,9 @@
 " so $VIM/vimrc
 "so $VIMRUNTIME/defaults.vim
-set nocompatible
+" Check this because reloading would automatically load nocompatible options
+" and overwrite any filetype settings alrady set
+if (&compatible) | set nocompatible | endif
+
 if (!has("nvim"))
 set viminfofile=$HOME/.vim/viminfo
 endif
