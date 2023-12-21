@@ -560,6 +560,11 @@ function! PluginEnter()
   let g:agressive_lsp=1
 endfunction
 
+" vim-markdown
+let g:vim_markdown_new_list_item_indent = 0
+let g:vim_markdown_folding_disabled=1
+let g:mkdp_auto_close = 0
+
 " vim-vsnip
 let g:vsnip_snippet_dir=fnamemodify(expand('$MYVIMRC'), ':p:h').'/vsnip'
 
@@ -695,8 +700,3 @@ aug lsp_install
   " call s:on_lsp_buffer_enabled only for languages that has the server registered.
   au User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 aug end
-
-" vim-markdown
-let g:vim_markdown_new_list_item_indent = 0
-let g:vim_markdown_folding_disabled=1
-let g:mkdp_auto_close = 0
