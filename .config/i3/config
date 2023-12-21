@@ -260,6 +260,7 @@ bindsym $mod+o mode "passthrough"
 ## Apps
 # Terminal
 bindsym $mod+Return exec $i "$terminal"
+bindsym Control+Mod1+t exec $i "$terminal"
 
 # Compositor
 bindsym $mod+t exec $i "$compositor_on"
