@@ -470,7 +470,11 @@ aug end
 " Terminal window specific settings
 aug terminal_open
   au!
+  if (has('nvim'))
+    au TermOpen * setlocal nonu | setlocal nornu | setlocal scrolloff=0
+  else
     au TerminalWinOpen * setlocal nonu | setlocal nornu | setlocal scrolloff=0
+  endif
 aug end
 
 " Restore cursor position
