@@ -649,7 +649,7 @@ function! s:on_lsp_buffer_enabled() abort
   let g:statusline_lsp_diagnostics=1
   let g:statusline_lsp_progress=1 " unused
   let g:statusline_lsp_status=1 " unused
-  set signcolumn=yes
+  setlocal signcolumn=yes
   setlocal omnifunc=lsp#complete
   if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
   nnoremap <buffer> gd <plug>(lsp-definition)
