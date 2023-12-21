@@ -140,7 +140,7 @@ mode "resize" {
 }
 
 set $open_mode "⌘Actions ➤Firefox  ➤Blender  ➤Terminal  \
-➤Calc  ➤Discord  ➤Launcher  ➤Godot  ➤Obs  ➤XFinder "
+➤Calc  ➤Discord  ➤Launcher  ➤Godot  ➤Obs  ➤XFinder ➤Notes"
 mode $open_mode {
   bindsym a mode $action_mode
   bindsym s exec $i "test \\"${HOSTNAME}\\" = \\"clamp\\" \
@@ -157,6 +157,7 @@ mode $open_mode {
   bindsym w exec "~/bin/wp.sh --gui"; mode "default"
   bindsym o exec "obs --startreplaybuffer"; mode "default"
   bindsym x exec $i "xfce4-appfinder"; mode "default"
+  bindsym n exec $i "$terminal -e \\"sh -c 'vim ${HOME}/Sync/notes.txt'\\""; mode "default"
 
   bindsym Return mode "default"
   bindsym Escape mode "default"
