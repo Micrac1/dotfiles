@@ -3,35 +3,35 @@
 #define _foreground_ ffffff
 
 ! black
-#define _0_ 303030
-#define _8_ 606060
+#define  _0_ 272727
+#define  _8_ 606060
 
 ! red
-#define _1_ dd2222
-#define _9_ ffaaaa
+#define  _1_ b30808
+#define  _9_ ff0000
 
 ! green
-#define _2_ 009900
+#define  _2_ 008800
 #define _10_ 00ff00
 
 ! yellow
-#define _3_ a0a00d
-#define _11_ ffffaa
+#define  _3_ a0a00d
+#define _11_ ffff7f
 
 ! blue
-#define _4_ 2222dd
+#define  _4_ 5522ff
 #define _12_ 00aaff
 
 ! magenta
-#define _5_ bb22bb
+#define  _5_ c155c1
 #define _13_ ffaaff
 
 ! cyan
-#define _6_ 22aaaa
+#define  _6_ 008b8b
 #define _14_ 44cccc
 
 ! white
-#define _7_ aaaaaa
+#define  _7_ aaaaaa
 #define _15_ ffffff
 
 ! special
