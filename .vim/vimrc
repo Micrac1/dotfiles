@@ -470,7 +470,7 @@ aug end
 " Terminal window specific settings
 aug terminal_open
   au!
-  au TerminalOpen * setlocal nonu | setlocal nornu | setlocal scrolloff=0
+    au TerminalWinOpen * setlocal nonu | setlocal nornu | setlocal scrolloff=0
 aug end
 
 " Restore cursor position
