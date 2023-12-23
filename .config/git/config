@@ -3,7 +3,7 @@
 
 [alias]
   s = status
-  l = log --oneline --graph --all --decorate
+  l = log --oneline --graph
   a = add
   c = commit
   cm = commit -m
