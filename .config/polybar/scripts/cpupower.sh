@@ -9,6 +9,7 @@ fi
 LABEL_PROGRESS="${LABEL_PROGRESS:-*}"
 LABEL_PERFORMANCE="${LABEL_PERFORMANCE:-P}"
 LABEL_POWERSAVE="${LABEL_POWERSAVE:-S}"
+LABEL_SCHEDUTIL="${LABEL_SCHEDUTIL:-s}"
 LABEL_UNKNOWN="${LABEL_UNKNOWN:-?}"
 # ============================================================================
 
@@ -21,13 +22,20 @@ update_state(){
 }
 
 print_state(){
-  if [ "${_GOVERNOR}" = "performance" ]; then
-    echo "${LABEL_PERFORMANCE}"
-  elif [ "${_GOVERNOR}" = "powersave" ]; then
-    echo "${LABEL_POWERSAVE}"
-  else
-    echo "${LABEL_UNKNOWN}"
-  fi 
+  case "${_GOVERNOR}" in
+    "performance" )
+      echo "${LABEL_PERFORMANCE}"
+      ;;
+    "powersave")
+      echo "${LABEL_POWERSAVE}"
+      ;;
+    "schedutil")
+      echo "${LABEL_SCHEDUTIL}"
+      ;;
+    *)
+      echo "${LABEL_UNKNOWN}"
+      ;;
+  esac
 }
 
 click_left(){
