@@ -132,6 +132,7 @@ xterm*cursorTheme: Adwaita
 //xterm*pointerShape: left_ptr
 
 /* Scrollbar */
+/*
 xterm*scrollBar: true
 xterm*rightScrollBar: true
 xterm*scrollbar.width: 10
@@ -139,6 +140,7 @@ xterm*scrollbar.translations: #override \n\
   <Btn1Down>: StartScroll(Continous) MoveThumb() NotifyThumb() \n\
   <Btn1Motion>: MoveThumb() NotifyThumb() \n\
   <Btn1Up>: NotifyScroll(Proportional) EndScroll() \n\
+ */
 
 ! Clamp specific configuration
 #ifdef SRVR_clamp
