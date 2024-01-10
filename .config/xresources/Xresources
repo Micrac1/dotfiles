@@ -80,7 +80,7 @@
 ! Xterm settings
 xterm.termName: xterm-256color
 xterm*utf8: true
-xterm*faceName: xft:DejaVu Sans Mono:style=book:
+xterm*faceName: xft:DejaVu Sans Mono:style=book:antialias=true:
 
 /* Font sizes */
 xterm*faceSize1: 6
