@@ -121,7 +121,7 @@ xterm*translations: #override \n\
   Shift <Btn5Down>: scroll-forw(5,line,m) \n\
   <Btn4Down>: scroll-back(2,line,m) \n\
   <Btn5Down>: scroll-forw(2,line,m) \n\
-  /**/\
+  /* New terminal */\
   Meta <Key>Return: spawn-new-terminal()  \n\
   /* URL clicking */\
   Ctrl <Btn1Up>: \
