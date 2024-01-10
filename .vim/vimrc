@@ -647,7 +647,8 @@ function! s:register_lsp_servers()
         \ },
         \ ]
   for s in servers
-    if executable(servers[1].cmd(s)[0])
+    "if executable(servers[1].cmd(s)[0])
+    if executable(s.cmd(0)[0])
       call lsp#register_server(s)
     endif
   endfor
