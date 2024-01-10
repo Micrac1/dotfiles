@@ -90,7 +90,12 @@ xterm*faceSize7: 21
 
 /* Options */
 xterm*metaSendsEscape: true
+
 xterm*alternateScroll: true
+xterm*scrollTtyOutput: false
+xterm*autoScrollLock: true
+xterm*scrollKey: true
+
 xterm*pointerMode: 0
 ! xterm.vt100.backarrowKey: false
 ! xterm.ttyModes: erase ^?
