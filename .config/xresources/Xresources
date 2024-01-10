@@ -102,6 +102,7 @@ xterm*autoScrollLock: true
 xterm*scrollKey: true
 
 xterm*pointerMode: 0
+xterm*toolBar: false // not compiled in the arch version
 ! xterm.vt100.backarrowKey: false
 ! xterm.ttyModes: erase ^?
 
@@ -126,6 +127,8 @@ xterm*translations: #override \n\
   Ctrl <Btn1Up>: \
     exec-selectable("xdg-open '%s'", _url_regex_) \
     select-end() \n\
+  /* Toggle menu bar */\
+  Ctrl Meta <Key>m: set-toolbar(toggle) \n\
 
 /* */
 //xterm.vt100.normalKeymap.translations: #override \n\
