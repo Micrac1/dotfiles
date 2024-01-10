@@ -93,6 +93,7 @@ xterm*faceSize6: 17
 xterm*faceSize7: 21
 
 /* Options */
+xterm*bellIsUrgent: true
 xterm*metaSendsEscape: true
 
 xterm*alternateScroll: true
