@@ -34,6 +34,10 @@
 #define  _7_ aaaaaa
 #define _15_ ffffff
 
+// TODO fix this for emails and other stuff
+#define _url_regex_ "regex (https?|ftp|file)://[a-zA-Z0-9.]{2,256}(/[a-zA-Z0-9]*)*"
+// (\b(https?|ftp|file)://)?[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]
+
 ! special
 *.background:   #_background_
 *.bg:           #_background_
@@ -117,10 +121,10 @@ xterm*translations: #override \n\
   <Btn5Down>: scroll-forw(2,line,m) \n\
   /**/\
   Meta <Key>Return: spawn-new-terminal()  \n\
-  /**/\
-  /* Ctrl <Btn1Up>: \ */
-  /*   insert-selectable("xterm -e sh -c 'echo =''%s'' | less'", word) \ */
-  /*   select-end() \n\ */
+  /* URL clicking */\
+  Ctrl <Btn1Up>: \
+    exec-selectable("xdg-open '%s'", _url_regex_) \
+    select-end() \n\
 
 /* */
 //xterm.vt100.normalKeymap.translations: #override \n\
