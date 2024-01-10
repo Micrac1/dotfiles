@@ -89,15 +89,15 @@ xterm*faceSize6: 17
 xterm*faceSize7: 21
 
 /* Options */
-xterm.vt100.metaSendsEscape: true
-xterm.vt100.alternateScroll: true
-xterm.vt100.pointerMode: 0
+xterm*metaSendsEscape: true
+xterm*alternateScroll: true
+xterm*pointerMode: 0
 ! xterm.vt100.backarrowKey: false
 ! xterm.ttyModes: erase ^?
 
 /* Disable some default keybinds */
 xterm.omitTranslation: scroll-lock,reset,popup-menu
-xterm.vt100.translations: #override \n\
+xterm*translations: #override \n\
   /* Change font size */\
   Ctrl Shift <Key>=: larger-vt-font() \n\
   Ctrl <Key>0: set-vt-font(d) \n\
