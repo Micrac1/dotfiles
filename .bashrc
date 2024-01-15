@@ -87,6 +87,13 @@ alias bel='echo -e -n "\007"'
 alias c="cpupower-gui"
 alias mv="mv -i"
 
+# Aliases (configs)
+alias _bash="vim ~/.bashrc"
+alias _vim="vim ~/.vim/vimrc"
+alias _i3="vim ~/.config/i3/config"
+alias _polybar="vim ~/.config/polybar/config.ini"
+alias _xresources="vim ~/.config/xresources/Xresources"
+
 # pacman stuff
 alias pi='pacman -Qi'
 alias p='pacman'
