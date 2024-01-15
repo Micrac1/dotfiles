@@ -95,8 +95,10 @@ alias _polybar="vim ~/.config/polybar/config.ini"
 alias _xresources="vim ~/.config/xresources/Xresources"
 
 # pacman stuff
-alias pi='pacman -Qi'
 alias p='pacman'
+alias qi='pacman -Qi'
+alias si="pacman -Si"
+alias ss="pacman -Ss"
 
 # DONT RUN UNDER ROOT
 [ "$(whoami)" = "root" ] && return
