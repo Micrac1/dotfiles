@@ -59,7 +59,7 @@ set_from_resource $color_gray       color8  "#888888"
 set_from_resource $color_light_gray color7  "#aaaaaa"
 set_from_resource $color_white      color15 "#ffff00"
 
-set_from_resource $color_select     color12 "#00ff00"
+set_from_resource $color_select     cursorColor "#00ff00"
 set_from_resource $color_red        color1  "#ff0000"
 
 # no xresources backup
