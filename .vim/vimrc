@@ -636,6 +636,9 @@ function! s:register_lsp_servers()
         \ { 'name': 'html-vscode',
         \   'allowlist': ['html'],
         \   'cmd': {server_info->['vscode-html-language-server', '--stdio']},
+        \   'initialization_options': {
+        \     'provideFormatter':v:true
+        \   }
         \ },
         \ { 'name': 'css-vscode',
         \   'allowlist': ['css'],
