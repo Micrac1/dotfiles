@@ -95,13 +95,15 @@ font pango:DejaVu Sans Mono 10
 #> MODES {{{1
 
 # Passthrough mode {{{2
-mode "passthrough" {
+set $passthrough_mode "Passthrough"
+mode $passthrough_mode {
   bindsym $mod+Shift+o mode "default";
   bindsym $mod+Escape mode "default";
 }
 
 # Resize mode {{{2
-mode "resize" {
+set $resize_mode "Resize"
+mode $resize_mode {
   # resize windows with hjkl
   bindsym h resize shrink width 10 px or 10 ppt
   bindsym j resize grow height 10 px or 10 ppt
@@ -292,6 +294,9 @@ bindsym $mod+Shift+i swap container with mark swapee; [con_mark=swapee] focus; u
 bindsym $mod+u sticky enable
 bindsym $mod+Shift+u sticky disable
 
+bindsym $mod+b border normal $border
+bindsym $mod+Shift+b border pixel $border
+
 
 ## Outputs {{{2
 # Focus outputs
@@ -305,8 +310,8 @@ bindsym Control+Shift+$mod+l move workspace to output right
 
 ## Modes {{{2
 bindsym $mod+s mode $open_mode
-bindsym $mod+c mode "resize"
-bindsym $mod+o mode "passthrough"
+bindsym $mod+c mode $resize_mode
+bindsym $mod+o mode $passthrough_mode
 
 ## Apps {{{2
 # Terminal
