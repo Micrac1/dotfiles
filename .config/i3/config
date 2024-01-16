@@ -182,21 +182,6 @@ mode $action_mode {
   bindsym Escape mode "default"
 }
 
-# Border mode {{{2
-set $border_mode "Default, None, Small, Medium, Large, THICC"
-mode $border_mode {
-  bindsym d [class=".*"] border pixel $border; mode "default"
-  bindsym n [class=".*"] border pixel 0; mode "default"
-  bindsym s [class=".*"] border pixel 2; mode "default"
-  bindsym m [class=".*"] border pixel 4; mode "default"
-  bindsym l [class=".*"] border pixel 8; mode "default"
-  bindsym t [class=".*"] border pixel 16; mode "default"
-
-  bindsym Return mode "default"
-  bindsym Escape mode "default"
-  bindsym $mod+b mode "default"
-}
-
 # ---------- }}}1
 
 #> KEYBINDS {{{1
