@@ -53,6 +53,7 @@ set $ws10 10
 #bindsym --whole-window button2 workspace $ws9
 
 ## Xresources
+set_from_resource $color_background background "#aa00aa"
 set_from_resource $color_black      color0  "#000000"
 set_from_resource $color_gray       color8  "#888888"
 set_from_resource $color_light_gray color7  "#aaaaaa"
@@ -74,7 +75,7 @@ client.focused_inactive $color_gray       $color_gray       $color_white      $c
 client.urgent           $color_red        $color_red        $color_white      $color_red        $color_red
 
 client.placeholder      #000000           #000000           #000000           #000000           #000000
-client.background       $color_black
+client.background       $color_background
 
 # ----------
 #> i3 settings
