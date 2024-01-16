@@ -298,6 +298,7 @@ command! CleanNoNameEmptyBuffers call CleanNoNameEmptyBuffers()
 
 " =KEYBINDS=====================
 let mapleader=" "
+let maplocalleader=","
 
 if (!has("nvim"))
 " Terminal fuckery (needs to be rebound to avoid waiting for timeout on <esc>)
