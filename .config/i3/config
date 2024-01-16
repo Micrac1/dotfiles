@@ -1,8 +1,6 @@
 # i3 config file (v4)
 
-# ----------
-#> Variables
-# ----------
+#> VARIABLES {{{1
 # for visibility
 set $i --no-startup-id
 
@@ -33,7 +31,6 @@ set $discord ~/bin/discord.sh
 #set $compositor_off "killall picom ; nvidia-settings -a CurrentMetaMode=\\"nvidia-auto-select +1280+0 {ForceFullCompositionPipeline=Off}\\""
 set $compositor_on picom
 set $compositor_off killall picom
-#set $browser vivaldi-stable
 set $browser firefox
 
 # Workspaces
@@ -52,7 +49,7 @@ set $ws10 10
 #bindsym --whole-window button8 workspace $ws8
 #bindsym --whole-window button2 workspace $ws9
 
-## Xresources
+# Xresources
 set_from_resource $color_background background "#aa00aa"
 set_from_resource $color_black      color0  "#000000"
 set_from_resource $color_gray       color8  "#888888"
@@ -62,24 +59,17 @@ set_from_resource $color_white      color15 "#ffffff"
 set_from_resource $color_select     cursorColor "#00ff00"
 set_from_resource $color_red        color1  "#ff0000"
 
-# no xresources backup
-#client.focused          #00aaff           #00aaff           #333333           #00aaff           #00aaff
-#client.unfocused        #666666           #666666           #aaaaaa           #666666           #666666
-#client.focused_inactive #666666           #666666           #ffffff           #666666           #666666
-#client.urgent           #ff0000           #ff0000           #ffffff           #ff0000           #ff0000
-
-## Colors               title border      title bg          text              h/v indic.        window border
+# Colors                title border      title bg          text              h/v indic.        window border
 client.focused          $color_select     $color_select     $color_black      $color_select     $color_select
 client.unfocused        $color_black      $color_black      $color_light_gray $color_black      $color_black
 client.focused_inactive $color_gray       $color_gray       $color_white      $color_gray       $color_gray
 client.urgent           $color_red        $color_red        $color_white      $color_red        $color_red
-
 client.placeholder      #000000           #000000           #000000           #000000           #000000
 client.background       $color_background
 
-# ----------
-#> i3 settings
-# ----------
+# ---------- }}}1
+
+#> I3 SETTINGS {{{1
 
 focus_follows_mouse no
 focus_wrapping no
@@ -100,18 +90,17 @@ gaps inner 10
 # Font for window titles.
 font pango:DejaVu Sans Mono 10
 
-# ----------
-#> Modes
-# ----------
-# Wallpapers
-#bindsym $mod+comma exec --no-startup-id `xsettingsd -c <(echo 'Net/ThemeName "Arc-Dark"') &`
-#bindsym $mod+period exec --no-startup-id `xsettingsd -c <(echo 'Net/ThemeName "Xresources"') &`
+# ---------- }}}1
+
+#> MODES {{{1
+
+# Passthrough mode {{{2
 mode "passthrough" {
   bindsym $mod+Shift+o mode "default";
   bindsym $mod+Escape mode "default";
 }
 
-# resize mode
+# Resize mode {{{2
 mode "resize" {
   # resize windows with hjkl
   bindsym h resize shrink width 10 px or 10 ppt
@@ -140,6 +129,7 @@ mode "resize" {
   bindsym $mod+c mode "default"
 }
 
+# Open mode {{{2
 set $open_mode "⌘Actions ➤Firefox  ➤Blender  ➤Terminal  \
 ➤Calc  ➤Discord  ➤Launcher  ➤Godot  ➤Obs  ➤XFinder ➤Notes"
 mode $open_mode {
@@ -166,6 +156,7 @@ mode $open_mode {
   bindsym $mod+s mode "default"
 }
 
+# Action mode {{{2
 set $action_mode " ➤Qrcode  ➤Image  ➤Text  ➤Meme  "
 mode $action_mode {
   # qr from clipboard
@@ -191,6 +182,7 @@ mode $action_mode {
   bindsym Escape mode "default"
 }
 
+# Border mode {{{2
 set $border_mode "Default, None, Small, Medium, Large, THICC"
 mode $border_mode {
   bindsym d [class=".*"] border pixel $border; mode "default"
@@ -205,11 +197,11 @@ mode $border_mode {
   bindsym $mod+b mode "default"
 }
 
-# ----------
-#> Keybinds
-# ----------
+# ---------- }}}1
 
-## Workspaces
+#> KEYBINDS {{{1
+
+## Workspaces {{{2
 # Focus workspace
 bindsym $mod+m exec $i "i3-input -P 'Workspace: ' -F 'workspace \\"%s\\"'"
 bindsym $mod+grave workspace number "$ws0"
@@ -242,10 +234,81 @@ bindsym $mod+Shift+0     move container to workspace number "$ws10"; workspace n
 bindsym $mod+Shift+n     move container to workspace next; workspace next
 bindsym $mod+Shift+p     move container to workspace prev; workspace prev
 
+# Scratch pad
+bindsym $mod+y [class=.*] scratchpad show
+bindsym $mod+Shift+y sticky enable; move scratchpad
+
+# Last workspace
+bindsym $mod+Tab workspace back_and_forth
+bindsym $mod+Shift+Tab move container to workspace back_and_forth; workspace back_and_forth
+
 # Rename workspace
 bindsym $mod+Control+n exec $i "i3-input -P 'Rename workspace: ' -F 'rename workspace to \\"%s\\"'"
 
-## Outputs
+
+## Windows {{{2
+# Focus window hjkl/arrows
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Focus window parent/child
+bindsym $mod+a focus parent
+bindsym $mod+d focus child
+
+# Focus window tiling/floating
+bindsym $mod+z focus mode_toggle
+
+# Move window hjkl/arrows
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Resize window hjkl
+bindsym Mod1+$mod+h resize shrink width 10px or 10ppt
+bindsym Mod1+$mod+j resize grow height 10px or 10ppt
+bindsym Mod1+$mod+k resize shrink height 10px or 10ppt
+bindsym Mod1+$mod+l resize grow width 10px or 10ppt
+
+# Split
+bindsym $mod+semicolon split h
+bindsym $mod+v split v
+
+# Fullscreen toggle
+bindsym $mod+f fullscreen toggle
+bindsym $mod+Shift+f fullscreen toggle global
+
+# Layout toggle (stacked, tabbed, toggle split)
+bindsym $mod+w layout toggle tabbed stacking
+bindsym $mod+e layout toggle split
+
+# Floating toggle
+bindsym $mod+Shift+z floating toggle; sticky disable
+bindsym --whole-window $mod+button2 floating toggle; sticky disable
+bindsym button3 floating toggle
+
+# Swap window
+bindsym $mod+i unmark swapee; mark --replace swapee
+bindsym $mod+Shift+i swap container with mark swapee; [con_mark=swapee] focus; unmark swapee
+
+# Sticky toggle
+bindsym $mod+u sticky enable
+bindsym $mod+Shift+u sticky disable
+
+
+## Outputs {{{2
 # Focus outputs
 bindsym Control+$mod+h focus output left
 bindsym Control+$mod+l focus output right
@@ -254,12 +317,13 @@ bindsym Control+$mod+l focus output right
 bindsym Control+Shift+$mod+h move workspace to output left
 bindsym Control+Shift+$mod+l move workspace to output right
 
-## Modes
+
+## Modes {{{2
 bindsym $mod+s mode $open_mode
 bindsym $mod+c mode "resize"
 bindsym $mod+o mode "passthrough"
 
-## Apps
+## Apps {{{2
 # Terminal
 bindsym $mod+Return exec $i "$terminal"
 bindsym $mod+Shift+Return exec $i "$terminal_alt"
@@ -285,6 +349,10 @@ bindsym $mod+r exec $i "dmenu_run -b -i"
 bindsym --release $mod+x exec $i "xkill"
 bindsym --release Ctrl+Shift+$mod+x exec $i "xdotool getwindowfocus windowkill"
 
+# Add empty space
+bindsym $mod+Shift+s exec --no-startup-id "i3-msg open"
+
+## i3 control {{{2
 # Quit / close
 bindsym $mod+q kill
 
@@ -292,101 +360,37 @@ bindsym $mod+q kill
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
-## Focus window
-# change focus hjkl
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
+# Lock screen
+#bindsym Control+Mod1+l exec i3lock -c 333333ff
+bindsym Control+Mod1+l exec $i "$lock_command"
 
-# change focus arrows
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
 
-# focus up/down
-bindsym $mod+a focus parent
-bindsym $mod+d focus child
-
-## Move window
-# move window hjkl
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
-
-# move window arrows
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
-
-## Resize window
-# resize window hjkl
-bindsym Mod1+$mod+h resize shrink width 10px or 10ppt
-bindsym Mod1+$mod+j resize grow height 10px or 10ppt
-bindsym Mod1+$mod+k resize shrink height 10px or 10ppt
-bindsym Mod1+$mod+l resize grow width 10px or 10ppt
-
-## Split
-bindsym $mod+semicolon split h
-bindsym $mod+v split v
-
-# Fullscreen mode
-bindsym $mod+f fullscreen toggle
-bindsym $mod+Shift+f fullscreen toggle global
-
-# Layout (stacked, tabbed, toggle split)
-bindsym $mod+w layout toggle tabbed stacking
-bindsym $mod+e layout toggle split
-
-## Floating windows
-# toggle tiling / floating
-bindsym $mod+Shift+z floating toggle; sticky disable
-bindsym --whole-window $mod+button2 floating toggle; sticky disable
-
-# change focus between tiling / floating windows
-bindsym $mod+z focus mode_toggle
-
-## Controls
+## XF86 Controls {{{2
 # Redirect sound to headphones
 #bindsym $mod+m exec "/usr/local/bin/switch-audio-port"
 
-# backlight
+# Backlight adjust
 bindsym XF86MonBrightnessDown exec $i "brightnessctl -n200 set 5%-"
 bindsym Shift+XF86MonBrightnessDown exec $i "brightnessctl set 5%-"
 bindsym XF86MonBrightnessUp exec $i "brightnessctl -n200 set 5%+"
 
-# volume
+# Volume adjust
 bindsym XF86AudioRaiseVolume exec $i "pactl set-sink-volume 0 +5%"
 bindsym XF86AudioLowerVolume exec $i "pactl set-sink-volume 0 -5%"
 
-# granular volume control
+# Volume adjust granular
 bindsym Shift+XF86AudioRaiseVolume exec $i "pactl set-sink-volume 0 +1%"
 bindsym Shift+XF86AudioLowerVolume exec $i "pactl set-sink-volume 0 -1%"
 
-# mute
+# Mute toggle
 bindsym XF86AudioMute exec $i "pactl set-sink-mute 0 toggle"
 bindsym Scroll_Lock exec $i "~/bin/mute.sh"
 
-# play/pause
+# Play/pause
 bindsym XF86AudioPlay exec $i "playerctl play-pause"
 bindsym XF86AudioStop exec $i "playerctl pause"
 bindsym XF86AudioPrev exec $i "playerctl previous"
 bindsym XF86AudioNext exec $i "playerctl next"
-
-## Swapping
-bindsym $mod+i unmark swapee; mark --replace swapee
-bindsym $mod+Shift+i swap container with mark swapee; [con_mark=swapee] focus; unmark swapee
-
-# Sticky toggle
-bindsym $mod+u sticky enable
-bindsym $mod+Shift+u sticky disable
-
-# Lock screen
-#bindsym Control+Mod1+l exec i3lock -c 333333ff
-bindsym Control+Mod1+l exec $i "$lock_command"
 
 # Power button
 bindsym XF86PowerOff exec $i \
@@ -403,21 +407,6 @@ yad --escape-ok --undecorated --sticky --close-on-unfocus --on-top --center --fi
   --button='Shut Down!system-shutdown: \
     sh -c \\"kill -USR1 $YAD_PID;                  shutdown now\\"' \
 "
-
-## Mouse
-bindsym button3 floating toggle
-#bindsym button2 kill
-
-# Scratch pad
-bindsym $mod+y [class=.*] scratchpad show
-bindsym $mod+Shift+y sticky enable; move scratchpad
-
-# Win tab
-bindsym $mod+Tab workspace back_and_forth
-bindsym $mod+Shift+Tab move container to workspace back_and_forth; workspace back_and_forth
-
-# Add empty space
-bindsym $mod+Shift+s exec --no-startup-id "i3-msg open"
 
 # Gaps add and subtract
 bindsym $mod+equal gaps inner all plus 10
@@ -448,9 +437,9 @@ bindsym --release Control+Shift+Print exec $i "\
   'xclip -selection c -t image/png < $f' \
 "
 
-# ----------
-#> Window settings
-# ----------
+# ---------- }}}1
+
+#> WINDOW SETTINGS {{{1
 
 # Always show border
 for_window [all] border pixel $border
@@ -473,13 +462,9 @@ for_window [instance="qt5ct"] floating enable
 for_window [instance="yad"] floating enable
 for_window [class="floating"] floating enable
 
-# ----------
-#> Start applications
-# ----------
+# ---------- }}}1
 
-## i3 apps, i3 only, for session agonistic use .xsession
-
-# Assign workspaces to outputs
+#> WORKSPACE ASSIGNMENT {{{1
 workspace $ws0 output VGA1
 workspace $ws1 output primary
 workspace $ws2 output primary
@@ -488,6 +473,22 @@ workspace $ws4 output primary
 workspace $ws5 output primary
 workspace $ws8 output HDMI3
 workspace $ws9 output HDMI3
+
+# ---------- }}}1
+
+#> APPLICATION AUTOSTART {{{1
+## i3 apps, i3 only, for session agonistic use .xsession
 exec $i "${HOME}/.config/polybar/launch_polybar.sh"
 
-#bindsym Ctrl+n exec xdotool ~/sandbox/combo.sh
+# ---------- }}}1
+
+#> BAR {{{1
+# bar {
+#   i3bar_command i3bar --transparency
+#   font pango:DejaVu Sans Mono 10
+#   position bottom
+#   tray_output primary
+#   workspace_min_width 24
+# }
+
+# ---------- }}}1
