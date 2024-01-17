@@ -170,11 +170,11 @@ mode $action_mode {
 
   # text from clipboard
   bindsym t exec $i "xclip -sel clip -q -o | \
-    zenity --text-info --title Clipboard --width 512 --height 256"; mode "default"
+    yad --text-info --title Clipboard --width 512 --height 256"; mode "default"
 
   # text from primary (SHIFT)
   bindsym Shift+t exec $i "xclip -sel primary -q -o | \
-    zenity --text-info --title Clipboard --width 512 --height 256"; mode "default"
+    yad --text-info --title Clipboard --width 512 --height 256"; mode "default"
 
   # show image from clipboard
   bindsym i exec $i "xclip -sel clip -q -o -t image/png | \
