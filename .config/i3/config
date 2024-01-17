@@ -443,7 +443,7 @@ assign [class="net-minecraft-server-Main"] workspace number $ws8
 #assign [class="^(?!firefox$)"] output primary
 
 # Floating windows
-for_window [instance="Godot_Engine"] floating enable
+for_window [instance="Godot_Engine" class="Godot_Engine"] floating enable
 for_window [title="^Origin$"] floating enable
 for_window [instance="qalculate-gtk"] floating enable
 for_window [instance="gtk3-widget-factory"] floating enable
