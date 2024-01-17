@@ -445,6 +445,7 @@ assign [class="net-minecraft-server-Main"] workspace number $ws8
 # Floating windows
 for_window [instance="Godot_Engine" class="Godot_Engine"] floating enable
 for_window [instance="qalculate-gtk"] floating enable
+for_window [instance="xfce4-appfinder"] floating enable
 for_window [instance="gtk3-widget-factory"] floating enable
 for_window [instance="gtk4-widget-factory"] floating enable
 for_window [instance="pavucontrol"] floating enable
