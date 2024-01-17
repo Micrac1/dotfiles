@@ -223,7 +223,7 @@ bindsym $mod+Shift+n     move container to workspace next; workspace next
 bindsym $mod+Shift+p     move container to workspace prev; workspace prev
 
 # Scratch pad
-bindsym $mod+y [class=.*] scratchpad show
+bindsym $mod+y [all] scratchpad show
 bindsym $mod+Shift+y sticky enable; move scratchpad
 
 # Last workspace
