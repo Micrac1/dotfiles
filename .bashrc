@@ -81,7 +81,6 @@ alias note='vim "${HOME}/Sync/notes.txt"'
 alias not="note"
 alias no="note"
 alias clip='xclip -i -sel clipboard'
-alias s='pkgfile -v -b'
 alias bel='echo -e -n "\007"'
 alias c="cpupower-gui"
 alias mv="mv -i"
@@ -96,6 +95,7 @@ alias _xresources="vim ~/.config/xresources/Xresources"
 
 # pacman stuff
 alias p='pacman'
+alias s='pkgfile -v -b'
 alias qi='pacman -Qi'
 alias si="pacman -Si"
 alias ss="pacman -Ss"
