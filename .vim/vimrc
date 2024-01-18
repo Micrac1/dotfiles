@@ -468,6 +468,14 @@ aug default_colorscheme_fix
   au ColorScheme default call DefaultColorschemeFix()
 aug end
 
+" Markdown maps
+aug markdown_ft
+  au!
+  au FileType markdown
+        \ vnoremap <buffer> <localleader>b s****<esc>hP|
+        \ nnoremap <buffer> <localleader><localleader> :echo 'Works!'<CR>|
+aug end
+
 " Terminal window specific settings
 aug terminal_open
   au!
