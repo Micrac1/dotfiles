@@ -478,7 +478,7 @@ exec $i "${HOME}/.config/polybar/launch_polybar.sh"
 #> BAR {{{1
 # bar {
 #   i3bar_command i3bar --transparency
-#   font pango:DejaVu Sans Mono 10
+#   status_command i3blocks
 #   position bottom
 #   tray_output primary
 #   workspace_min_width 24
