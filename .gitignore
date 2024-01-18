@@ -11,6 +11,9 @@
 # Bash
 !/.bashrc
 
+# Shell
+!/.profile
+
 # xsession
 !/.xsession
 

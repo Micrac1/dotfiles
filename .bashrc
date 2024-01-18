@@ -3,7 +3,6 @@
 #
 
 # Exports for some funny apps
-export QT_QPA_PLATFORMTHEME=qt5ct
 export HISTFILESIZE=-1
 export HISTSIZE=-1
 
@@ -89,6 +88,7 @@ alias mv="mv -i"
 
 # Aliases (configs)
 alias _bash="vim ~/.bashrc"
+alias _profile="vim ~/.profile"
 alias _vim="vim ~/.vim/vimrc"
 alias _i3="vim ~/.config/i3/config"
 alias _polybar="vim ~/.config/polybar/config.ini"
