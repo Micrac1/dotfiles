@@ -154,7 +154,7 @@ mode $open_mode {
   bindsym w exec "~/bin/wp.sh --gui"; mode "default"
   bindsym o exec "obs --startreplaybuffer"; mode "default"
   bindsym x exec $i "xfce4-appfinder"; mode "default"
-  bindsym n exec $i "$terminal -e \\"sh -c 'vim ${HOME}/Sync/notes.txt'\\""; mode "default"
+  bindsym n exec $i "$terminal_float -e \\"sh -c 'vim ${HOME}/Sync/notes.txt'\\""; mode "default"
 
   bindsym Return mode "default"
   bindsym Escape mode "default"
