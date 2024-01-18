@@ -505,14 +505,15 @@ Plug 'tpope/vim-commentary' " Toggle comments
 Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install', 'for': ['markdown', 'vim-plug']}
 Plug 'prabirshrestha/vim-lsp' " LSP support
-"Plug 'rafamadriz/friendly-snippets'
+"Plug 'mattn/vim-lsp-settings'
 Plug 'hrsh7th/vim-vsnip' " Snippets
 Plug 'hrsh7th/vim-vsnip-integ' " LSP snippet support
 Plug 'aklt/plantuml-syntax' " PlantUML syntax
+"Plug 'KabbAmine/vCoolor.vim' " Color picker
 " Colorschemes
-Plug 'lifepillar/vim-colortemplate'
-Plug 'altercation/vim-colors-solarized'
-Plug 'morhetz/gruvbox'
+"Plug 'lifepillar/vim-colortemplate'
+"Plug 'altercation/vim-colors-solarized'
+"Plug 'morhetz/gruvbox'
 call plug#end()
 
 aug PluginEnter
