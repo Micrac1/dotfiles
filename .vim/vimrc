@@ -469,8 +469,6 @@ inoremap <silent> <C-@> <C-x><C-o>
 imap <expr> <CR> pumvisible() ? '<c-y>' : '<CR>'
 endif
 
-nnoremap <silent> <leader>s :call SwitchSourceHeader(0)<CR>
-nnoremap <silent> <leader>S :call SwitchSourceHeader(1)<CR>
 
 
 " =AUTOCOMMANDS=================
@@ -518,6 +516,11 @@ aug vimrc_ft
   au!
   au FileType markdown
         \ vnoremap <buffer> <localleader>b s****<esc>hP|
+
+  au FileType c,cpp,objc,objcpp
+        \ nnoremap <buffer> <silent> <localleader>s :call SwitchSourceHeader(0)<CR>|
+        \ nnoremap <buffer> <silent> <localleader>S :call SwitchSourceHeader(1)<CR>|
+        \ command! -buffer -bang SwitchSourceHeader call SwitchSourceHeader(<bang>0)|
 
 aug end
 function! VimOnly(ls={})
@@ -727,15 +730,15 @@ function! s:on_lsp_buffer_enabled() abort
   "nmap <buffer> gt <plug>(lsp-type-definition)
   "nmap <buffer> gs <plug>(lsp-document-symbol-search)
   "nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
-  nnoremap <buffer> <leader>ca <plug>(lsp-code-action)
-  nnoremap <buffer> <leader>cr <plug>(lsp-rename)
+  nnoremap <buffer> <localleader>a <plug>(lsp-code-action)
+  nnoremap <buffer> <localleader>r <plug>(lsp-rename)
   nnoremap <buffer> [g <plug>(lsp-previous-diagnostic)
   nnoremap <buffer> ]g <plug>(lsp-next-diagnostic)
   nnoremap <buffer> K <plug>(lsp-hover-float)
-  nnoremap <buffer> <leader>K <plug>(lsp-hover-preview)
-  nnoremap <buffer> <leader>fk <plug>(lsp-document-diagnostics)
-  nnoremap <buffer> <leader>fm <plug>(lsp-document-format)
-  vnoremap <buffer> <leader>fm <plug>(lsp-document-range-format)
+  nnoremap <buffer> <localleader>K <plug>(lsp-hover-preview)
+  nnoremap <buffer> <localleader>fk <plug>(lsp-document-diagnostics)
+  nnoremap <buffer> <localleader>fm <plug>(lsp-document-format)
+  vnoremap <buffer> <localleader>fm <plug>(lsp-document-range-format)
   inoremap <buffer> <C-s> <C-o><plug>(lsp-signature-help)
   inoremap <buffer> <expr><c-d>
         \ lsp#document_hover_preview_winid() ? lsp#scroll(+4):'<C-d>'
