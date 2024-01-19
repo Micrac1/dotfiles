@@ -527,6 +527,8 @@ aug vimrc_ft
         \ packadd termdebug|
 
 aug end
+packadd matchit
+
 function! VimOnly(ls={})
   return has('nvim') ? {'on':[]} : a:ls
 endfunction
