@@ -86,8 +86,6 @@ alias c="cpupower-gui"
 alias mv="mv -i"
 
 # Aliases (configs)
-alias dit='git --work-tree="${HOME}" --git-dir="${HOME}/.dfs/.git"'
-alias ditk='GIT_DIR="${HOME}/.dfs/.git" gitk'
 alias _bash="vim ~/.bashrc"
 alias _profile="vim ~/.profile"
 alias _vim="vim ~/.vim/vimrc"
@@ -103,9 +101,7 @@ alias si="pacman -Si"
 alias ss="pacman -Ss"
 
 # Completion for aliases
-_completion_loader git
-_TMP="$(complete -p git)" && eval "${_TMP% *} dit"
-_TMP="$(complete -p gitk)" && eval "${_TMP% *} ditk"
+. "${HOME}/.dfs/init.sh"
 
 # DONT RUN UNDER ROOT
 [ "$(whoami)" = "root" ] && return
