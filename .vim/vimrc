@@ -416,6 +416,9 @@ nnoremap <A-p> :m .-2<cr>==
 vnoremap <A-n> :m '>+1<cr>gv=gv
 vnoremap <A-p> :m '<-2<cr>gv=gv
 
+" Evaluate command from buffer and paste there
+nnoremap <leader><c-e><c-v><c-a><c-l> dd:put!=execute(':@\"')<CR>'[_dd<C-o>
+
 " Clear search term
 nnoremap <leader>? :let @/='^$cleared'<CR>:echo "Search cleared"<CR>
 
