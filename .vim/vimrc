@@ -334,7 +334,7 @@ nnoremap <leader> <Nop>
 "nnoremap <leader>m i<++><Esc>l
 
 " Configuring
-nnoremap <leader>r :so $MYVIMRC<CR>
+nnoremap <leader>r :so $MYVIMRC<CR>:echo "Reloaded"<CR>
 nnoremap <leader>E :tab drop $MYVIMRC<CR>
 
 " C++ helpers
