@@ -523,6 +523,9 @@ aug vimrc_ft
         \ nnoremap <buffer> <silent> <localleader>S :call SwitchSourceHeader(1)<CR>|
         \ command! -buffer -bang SwitchSourceHeader call SwitchSourceHeader(<bang>0)|
 
+  au FileType rust
+        \ packadd termdebug|
+
 aug end
 function! VimOnly(ls={})
   return has('nvim') ? {'on':[]} : a:ls
