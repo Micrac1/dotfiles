@@ -86,6 +86,8 @@ alias c="cpupower-gui"
 alias mv="mv -i"
 
 # Aliases (configs)
+alias dit='git --work-tree="${HOME}" --git-dir="${HOME}/.dfs/.git"'
+alias ditk='GIT_DIR="${HOME}/.dfs/.git" gitk'
 alias _bash="vim ~/.bashrc"
 alias _profile="vim ~/.profile"
 alias _vim="vim ~/.vim/vimrc"
@@ -99,6 +101,11 @@ alias s='pkgfile -v -b'
 alias qi='pacman -Qi'
 alias si="pacman -Si"
 alias ss="pacman -Ss"
+
+# Completion for aliases
+_completion_loader git
+_TMP="$(complete -p git)" && eval "${_TMP% *} dit"
+_TMP="$(complete -p gitk)" && eval "${_TMP% *} ditk"
 
 # DONT RUN UNDER ROOT
 [ "$(whoami)" = "root" ] && return

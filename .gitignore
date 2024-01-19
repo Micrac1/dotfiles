@@ -1,4 +1,7 @@
 *
+# Resources and other stuff
+!/.dfs/
+!/.dfs/**
 
 # * - any part (no subdirs)
 # /* - only in git root dir
