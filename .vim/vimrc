@@ -416,6 +416,10 @@ nnoremap <A-p> :m .-2<cr>==
 vnoremap <A-n> :m '>+1<cr>gv=gv
 vnoremap <A-p> :m '<-2<cr>gv=gv
 
+" Select pasted text in visual mode
+vnoremap an `[o`]
+vnoremap in `[o`]
+
 " Matching pairs
 if (!has("nvim")) " nvim has plugin for this
 inoremap <s-tab> <nop>
