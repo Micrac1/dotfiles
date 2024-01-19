@@ -555,7 +555,7 @@ function! PluginEnter()
         eval ret->sort({i1, i2 -> i1.word == i2.word ?
               \ 0 : i1.word > i2.word ? 1 : -1})
 
-        return ret == [] ? v:none : ret
+        return ret == [] ? v:null : ret
       endif
     endfunction
     imap <expr> <CR>     pumvisible() && vsnip#expandable() ?
