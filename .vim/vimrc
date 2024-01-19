@@ -479,12 +479,9 @@ aug default_colorscheme_fix
   au ColorScheme default call DefaultColorschemeFix()
 aug end
 
-" Markdown maps
-aug markdown_ft
+aug reset_buffer_maps
   au!
-  au FileType markdown
-        \ vnoremap <buffer> <localleader>b s****<esc>hP|
-        \ nnoremap <buffer> <localleader><localleader> :echo 'Works!'<CR>|
+  au FileType * mapclear <buffer>
 aug end
 
 " Terminal window specific settings
@@ -517,6 +514,12 @@ aug session_save
         \ | endif
 aug end
 endif
+aug vimrc_ft
+  au!
+  au FileType markdown
+        \ vnoremap <buffer> <localleader>b s****<esc>hP|
+
+aug end
 function! VimOnly(ls={})
   return has('nvim') ? {'on':[]} : a:ls
 endfunction
