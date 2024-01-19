@@ -328,6 +328,7 @@ sunmap Q
 " Funny stuff
 nnoremap <silent> <esc> :silent noh<CR>
 nnoremap <leader> <Nop>
+nnoremap <localleader> <Nop>
 
 " Change marks
 "nnoremap <Space><Space> /<++><CR>c4l
