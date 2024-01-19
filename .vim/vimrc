@@ -1,5 +1,21 @@
-" so $VIM/vimrc
-"so $VIMRUNTIME/defaults.vim
+" VIMRC
+
+"> VARIABLES {{{1
+
+" Some global variables
+let g:sign_error = 'E'
+let g:sign_warning = '‼'
+let g:sign_hint = 'H'
+let g:sign_info = 'i'
+
+" Leaders
+let mapleader=" "
+let maplocalleader=","
+
+" ---------- }}}1
+
+"> SETTINGS {{{1
+
 " Check this because reloading would automatically load nocompatible options
 " and overwrite any filetype settings alrady set
 if (&compatible) | set nocompatible | endif
@@ -74,24 +90,16 @@ set laststatus=2 " Statusline
 set statusline=%!MyStatusLine()
 set tabline=%!MyTabLine() " Tabline
 
-" Some global variables
-let g:sign_error = 'E'
-let g:sign_warning = '‼'
-let g:sign_hint = 'H'
-let g:sign_info = 'i'
+" ---------- }}}1
 
-"TabLine        xxx term=underline cterm=reverse ctermfg=15 ctermbg=242
-"gui=underline guibg=DarkGrey
-"TabLineFill    xxx term=reverse cterm=reverse gui=reverse
-"TabLineSel     xxx term=bold cterm=bold gui=bold
-
-" =FUNCTIONS====================
+"> FUNCTIONS {{{1
 function! DefaultColorschemeFix()
   hi! link SignColumn Normal
   hi! link Pmenu Normal
   hi! TabLine cterm=reverse
 endfunction
 
+" Get LSP progress string {{{
 function! GetLspProgressString()
   let s = ''
   let pp = lsp#get_progress()
@@ -105,7 +113,9 @@ function! GetLspProgressString()
   endif
   return s
 endfunction
+"}}}
 
+" Get LSP status string {{{
 function! GetLspStatusString()
   let s = ''
   let status = lsp#collect_server_status()
@@ -116,14 +126,18 @@ function! GetLspStatusString()
   endfor
   return s != '' ? '['.s.']' : s
 endfunction
+"}}}
 
+" Get LSP diagnostics {{{
 function! GetLspDiagnostics(id)
   if (exists('*lsp#internal#diagnostics#state#_get_diagnostics_count_for_buffer'))
     return lsp#internal#diagnostics#state#_get_diagnostics_count_for_buffer(a:id)
   endif
   return {'information': 0, 'hint': 0, 'warning': 0, 'error': 0}
 endfunction
+"}}}
 
+" Get LSP diagnostics string {{{
 function! GetLspDiagnosticsString(table, color)
   let s = ''
   if (a:table.information)
@@ -144,7 +158,9 @@ function! GetLspDiagnosticsString(table, color)
   endif
   return s
 endfunction
+"}}}
 
+" Tabline {{{
 function! MyTabLine()
   let s = ''
   let s .= '%#TabLineSel#'
@@ -225,8 +241,9 @@ function! MyTabLine()
 
   return s
 endfunction
+"}}}
 
-" Statusline
+" Statusline {{{
 function! MyStatusLine()
   let d = get(g:, 'statusline_lsp_diagnostics', 0) ?
         \ GetLspDiagnosticsString(
@@ -239,8 +256,9 @@ function! MyStatusLine()
         \%(  %l:%c%V%)  %P"
   return s
 endfunction
+"}}}
 
-" Switch source and header files
+" Switch source and header files {{{
 function! SwitchSourceHeader(force)
   let extension = expand("%:e")
   let fullpath = expand('%:p:r')
@@ -274,8 +292,9 @@ function! SwitchSourceHeader(force)
   endif
 endfunction
 "map <F4> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
+"}}}
 
-" Close empty nameless buffers
+" Close empty nameless buffers {{{
 function! CleanNoNameEmptyBuffers()
   " TODO make it so this does not close them on other tabs
   let buffers = filter(range(1, bufnr('$')), 'buflisted(v:val)
@@ -288,6 +307,7 @@ function! CleanNoNameEmptyBuffers()
     echo 'No buffer deleted'
   endif
 endfunction
+"}}}
 
 " Call some of the functions
 call DefaultColorschemeFix()
@@ -295,13 +315,12 @@ call DefaultColorschemeFix()
 " Expose some of the functions
 command! CleanNoNameEmptyBuffers call CleanNoNameEmptyBuffers()
 
+" ---------- }}}1
 
-" =KEYBINDS=====================
-let mapleader=" "
-let maplocalleader=","
+"> KEYBINDS {{{1
 
-if (!has("nvim"))
 " Terminal fuckery (needs to be rebound to avoid waiting for timeout on <esc>)
+if (!has("nvim"))
 set <A-h>=h
 set <A-j>=j
 set <A-k>=k
@@ -469,20 +488,25 @@ inoremap <silent> <C-@> <C-x><C-o>
 imap <expr> <CR> pumvisible() ? '<c-y>' : '<CR>'
 endif
 
+" ---------- }}}1
 
+"> AUTOCOMMANDS {{{1
 
-" =AUTOCOMMANDS=================
+" Default colorscheme fix {{{
 aug default_colorscheme_fix
   au!
   au ColorScheme default call DefaultColorschemeFix()
 aug end
+"}}}
 
+" Reset all buffer specific maps when changing filetypes {{{
 aug reset_buffer_maps
   au!
   au FileType * mapclear <buffer>
 aug end
+"}}}
 
-" Terminal window specific settings
+" Terminal window specific settings {{{
 aug terminal_open
   au!
   if (has('nvim'))
@@ -491,8 +515,9 @@ aug terminal_open
     au TerminalWinOpen * setlocal nonu | setlocal nornu | setlocal scrolloff=0
   endif
 aug end
+"}}}
 
-" Restore cursor position
+" Restore cursor position {{{
 aug vim_startup
   au!
   au BufReadPost *
@@ -500,9 +525,9 @@ aug vim_startup
     \ |   exe "normal! g`\""
     \ | endif
 aug end
-"au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+"}}}
 
-
+" Session saving on exit {{{
 if (!has("nvim"))
 aug session_save
   au!
@@ -512,23 +537,40 @@ aug session_save
         \ | endif
 aug end
 endif
+"}}}
+
+" Filetype specific {{{
 aug vimrc_ft
   au!
+  " Markdown {{{
   au FileType markdown
         \ vnoremap <buffer> <localleader>b s****<esc>hP|
+  "}}}
 
+  " C/CPP {{{
   au FileType c,cpp,objc,objcpp
         \ packadd termdebug|
         \ nnoremap <buffer> <silent> <localleader>s :call SwitchSourceHeader(0)<CR>|
         \ nnoremap <buffer> <silent> <localleader>S :call SwitchSourceHeader(1)<CR>|
         \ command! -buffer -bang SwitchSourceHeader call SwitchSourceHeader(<bang>0)|
+  "}}}
 
+  " Rust {{{
   au FileType rust
         \ packadd termdebug|
+  "}}}
 
 aug end
+"}}}
+
+" ---------- }}}1
+
+"> PLUGINS {{{1
+
+" Builtin plugins {{{2
 packadd matchit
 
+" Plug init {{{2
 function! VimOnly(ls={})
   return has('nvim') ? {'on':[]} : a:ls
 endfunction
@@ -550,7 +592,7 @@ endif
 "   \| PlugInstall --sync | source $MYVIMRC
 " \| endif
 
-" Plugins
+" Plugin loading {{{2
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-commentary' " Toggle comments
@@ -568,11 +610,13 @@ Plug 'aklt/plantuml-syntax' " PlantUML syntax
 "Plug 'morhetz/gruvbox'
 call plug#end()
 
+" Plugin enter {{{2
 aug PluginEnter
   au!
   au VimEnter * call PluginEnter()
 aug end
 
+" TODO this does not work when lazy loading plugins
 function! PluginEnter()
   " vsnip
   if (exists('*vsnip#get_context'))
@@ -623,20 +667,23 @@ function! PluginEnter()
 
   " vim-lsp
   let g:agressive_lsp=1
+
 endfunction
 
-" vim-markdown
+" Plugin specific settings {{{2
+
+" vim-markdown {{{3
 let g:vim_markdown_new_list_item_indent = 0
 let g:vim_markdown_folding_disabled=1
 let g:mkdp_auto_close = 0
 
-" FZF
+" FZF {{{3
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 , 'border': 'sharp'} }
 
-" vim-vsnip
+" vim-vsnip {{{3
 let g:vsnip_snippet_dir=fnamemodify(expand('$MYVIMRC'), ':p:h').'/vsnip'
 
-" vim-lsp
+" vim-lsp {{{3
 let g:lsp_diagnostics_virtual_text_align = 'after'
 let g:lsp_diagnostics_virtual_text_wrap = 'truncate'
 let g:lsp_document_code_action_signs_enabled = 0
@@ -772,3 +819,5 @@ aug lsp_install
   " call s:on_lsp_buffer_enabled only for languages that has the server registered.
   au User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 aug end
+
+" ---------- }}}1
