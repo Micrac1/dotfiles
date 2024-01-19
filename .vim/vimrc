@@ -518,6 +518,7 @@ aug vimrc_ft
         \ vnoremap <buffer> <localleader>b s****<esc>hP|
 
   au FileType c,cpp,objc,objcpp
+        \ packadd termdebug|
         \ nnoremap <buffer> <silent> <localleader>s :call SwitchSourceHeader(0)<CR>|
         \ nnoremap <buffer> <silent> <localleader>S :call SwitchSourceHeader(1)<CR>|
         \ command! -buffer -bang SwitchSourceHeader call SwitchSourceHeader(<bang>0)|
