@@ -497,8 +497,8 @@ aug vim_startup
 aug end
 "au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
-if (has("nvim"))|finish|endif " everything after this is regular vim specific
 
+if (!has("nvim"))
 aug session_save
   au!
   au VimLeave *
@@ -506,6 +506,27 @@ aug session_save
         \ |   exe 'mksession! '.v:this_session
         \ | endif
 aug end
+endif
+function! VimOnly(ls={})
+  return has('nvim') ? {'on':[]} : a:ls
+endfunction
+
+function! NVimOnly(ls={})
+  return !has('nvim') ? {'on':[]} : a:ls
+endfunction
+
+if (empty(glob('~/.vim/autoload/plug.vim')))
+  " silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+  "   \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  finish
+else
+  source ~/.vim/autoload/plug.vim
+endif
+
+" Run PlugInstall if there are missing plugins
+" autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+"   \| PlugInstall --sync | source $MYVIMRC
+" \| endif
 
 " Plugins
 call plug#begin('~/.vim/plugged')
@@ -513,7 +534,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-commentary' " Toggle comments
 Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install', 'for': ['markdown', 'vim-plug']}
-Plug 'prabirshrestha/vim-lsp' " LSP support
+Plug 'prabirshrestha/vim-lsp', VimOnly() " LSP support
 "Plug 'mattn/vim-lsp-settings'
 Plug 'hrsh7th/vim-vsnip' " Snippets
 Plug 'hrsh7th/vim-vsnip-integ' " LSP snippet support
