@@ -416,6 +416,9 @@ nnoremap <A-p> :m .-2<cr>==
 vnoremap <A-n> :m '>+1<cr>gv=gv
 vnoremap <A-p> :m '<-2<cr>gv=gv
 
+" Clear search term
+nnoremap <leader>? :let @/='^$cleared'<CR>:echo "Search cleared"<CR>
+
 " Select pasted text in visual mode
 vnoremap an `[o`]
 vnoremap in `[o`]
