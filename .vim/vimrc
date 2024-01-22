@@ -88,6 +88,7 @@ if (&omnifunc == '') | set omnifunc=syntaxcomplete#Complete | endif
 set thesaurus=/usr/share/dict/words
 
 set laststatus=2 " Statusline
+
 set statusline=%!MyStatusLine()
 set tabline=%!MyTabLine()
 set foldtext=MyFoldText()
@@ -590,6 +591,8 @@ nnoremap <leader>? :let @/='^$cleared'<CR>:echo "Search cleared"<CR>
 " Select pasted text in visual mode
 vnoremap an `[o`]
 vnoremap in `[o`]
+onoremap <silent> an :<C-u>normal! v`[o`]<CR>
+onoremap <silent> in :<C-u>normal! v`[o`]<CR>
 
 "}}}
 
