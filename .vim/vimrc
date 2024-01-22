@@ -368,7 +368,21 @@ command! CleanNoNameEmptyBuffers call CleanNoNameEmptyBuffers()
 map Q :<C-u>echo "Have a nice day :)"<CR>
 nnoremap <silent> <esc> :silent noh<CR>
 nnoremap <leader> <Nop>
+vnoremap <leader> <Nop>
 nnoremap <localleader> <Nop>
+vnoremap <localleader> <Nop>
+
+" also reset file specific binds to prevent accidents from muscle memory
+nnoremap <localleader>a  :echo "[NO LOCAL MAPPING] a"<CR>
+nnoremap <localleader>b  :echo "[NO LOCAL MAPPING] b"<CR>
+nnoremap <localleader>c  :echo "[NO LOCAL MAPPING] c"<CR>
+nnoremap <localleader>d  :echo "[NO LOCAL MAPPING] d"<CR>
+nnoremap <localleader>e  :echo "[NO LOCAL MAPPING] e"<CR>
+nnoremap <localleader>f  :echo "[NO LOCAL MAPPING] f"<CR>
+nnoremap <localleader>fm :echo "[NO LOCAL MAPPING] fm"<CR>
+nnoremap <localleader>s  :echo "[NO LOCAL MAPPING] s"<CR>
+nnoremap <localleader>t  :echo "[NO LOCAL MAPPING] t"<CR>
+nnoremap <localleader>v  :echo "[NO LOCAL MAPPING] v"<CR>
 "}}}
 
 " CSI fuckery {{{
@@ -448,6 +462,7 @@ nnoremap <leader>f :f ./**/*
 "}}}
 
 " Tabs {{{
+nnoremap <leader>t <Nop>
 nnoremap <leader>tn :tabnew<CR>
 nnoremap <leader>te :tabedit<Space>
 "nnoremap <leader>tx :tabclose<CR>
@@ -462,6 +477,7 @@ nnoremap <A-7> 7gt
 nnoremap <A-8> 8gt
 nnoremap <A-9> 9gt
 
+nnoremap <leader>tm <Nop>
 nnoremap <silent> <leader>tm1 :tabmove 0<CR>
 nnoremap <silent> <leader>tm2 :tabmove 2<CR>
 nnoremap <silent> <leader>tm3 :tabmove 3<CR>
@@ -563,6 +579,9 @@ ounmap <leader>}
 " Other (misc.) {{{
 
 " Evaluate command from buffer and paste there
+nnoremap <leader><c-e> <Nop>
+nnoremap <leader><c-e><c-v> <Nop>
+nnoremap <leader><c-e><c-v><c-a> <Nop>
 nnoremap <leader><c-e><c-v><c-a><c-l> dd:put!=execute(':@\"')<CR>'[_dd<C-o>
 
 " Clear search term
