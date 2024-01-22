@@ -361,27 +361,6 @@ command! CleanNoNameEmptyBuffers call CleanNoNameEmptyBuffers()
 
 "> KEYBINDS {{{1
 
-" Terminal fuckery (needs to be rebound to avoid waiting for timeout on <esc>)
-if (!has("nvim"))
-set <A-h>=h
-set <A-j>=j
-set <A-k>=k
-set <A-l>=l
-
-set <A-1>=1
-set <A-2>=2
-set <A-3>=3
-set <A-4>=4
-set <A-5>=5
-set <A-6>=6
-set <A-7>=7
-set <A-8>=8
-set <A-9>=9
-set <A-n>=n
-set <A-p>=p
-set <A-f>=f
-set <A-e>=e
-endif
 
 map Q gq
 sunmap Q
@@ -390,6 +369,14 @@ sunmap Q
 nnoremap <silent> <esc> :silent noh<CR>
 nnoremap <leader> <Nop>
 nnoremap <localleader> <Nop>
+" CSI fuckery {{{
+" (needs to be rebound to avoid waiting for timeout on <esc>)
+if (!has("nvim"))
+for c in range(char2nr('a'), char2nr('z')) + range(char2nr('0'), char2nr('9'))
+  execute "set <A-"..nr2char(c)..">=\<esc>"..nr2char(c)
+endfor
+endif
+"}}}
 
 " Change marks
 "nnoremap <Space><Space> /<++><CR>c4l
