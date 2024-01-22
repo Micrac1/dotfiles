@@ -101,6 +101,8 @@ alias si="pacman -Si"
 alias ss="pacman -Ss"
 
 # Completion for aliases
+_completion_loader pacman
+_TMP="$(complete -p pacman)" && eval "${_TMP% *} p"
 . "${HOME}/.dfs/init.sh"
 
 # DONT RUN UNDER ROOT
