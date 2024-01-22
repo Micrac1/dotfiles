@@ -362,10 +362,9 @@ command! CleanNoNameEmptyBuffers call CleanNoNameEmptyBuffers()
 "> KEYBINDS {{{1
 
 
-map Q gq
-sunmap Q
 
 " Funny stuff
+map Q :<C-u>echo "Have a nice day :)"<CR>
 nnoremap <silent> <esc> :silent noh<CR>
 nnoremap <leader> <Nop>
 nnoremap <localleader> <Nop>
