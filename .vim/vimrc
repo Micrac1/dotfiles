@@ -258,8 +258,23 @@ function! MyStatusLine()
 endfunction
 "}}}
 
-" Switch source and header files {{{
-function! SwitchSourceHeader(force)
+" Close empty nameless buffers {{{
+function! CleanNoNameEmptyBuffers()
+  " TODO make it so this does not close them on other tabs
+  let buffers = filter(range(1, bufnr('$')), 'buflisted(v:val)
+        \ && empty(bufname(v:val)) && empty(win_findbuf(v:val))
+        \ && (getbufline(v:val, 1, "$") == [""])')
+  if !empty(buffers)
+    exe 'bd ' . join(buffers, ' ')
+    echo len(buffers) . ' buffer' . (len(buffers) != 1 ? 's' : '') . ' deleted'
+  else
+    echo 'No buffer deleted'
+  endif
+endfunction
+"}}}
+
+" C/CPP switch source and header files {{{
+function! CppSwitchSourceHeader(force)
   let extension = expand("%:e")
   let fullpath = expand('%:p:r')
 
@@ -292,21 +307,6 @@ function! SwitchSourceHeader(force)
   endif
 endfunction
 "map <F4> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
-"}}}
-
-" Close empty nameless buffers {{{
-function! CleanNoNameEmptyBuffers()
-  " TODO make it so this does not close them on other tabs
-  let buffers = filter(range(1, bufnr('$')), 'buflisted(v:val)
-        \ && empty(bufname(v:val)) && empty(win_findbuf(v:val))
-        \ && (getbufline(v:val, 1, "$") == [""])')
-  if !empty(buffers)
-    exe 'bd ' . join(buffers, ' ')
-    echo len(buffers) . ' buffer' . (len(buffers) != 1 ? 's' : '') . ' deleted'
-  else
-    echo 'No buffer deleted'
-  endif
-endfunction
 "}}}
 
 " Call some of the functions
@@ -550,9 +550,9 @@ aug vimrc_ft
   " C/CPP {{{
   au FileType c,cpp,objc,objcpp
         \ packadd termdebug|
-        \ nnoremap <buffer> <silent> <localleader>s :call SwitchSourceHeader(0)<CR>|
-        \ nnoremap <buffer> <silent> <localleader>S :call SwitchSourceHeader(1)<CR>|
-        \ command! -buffer -bang SwitchSourceHeader call SwitchSourceHeader(<bang>0)|
+        \ nnoremap <buffer> <silent> <localleader>s :call CppSwitchSourceHeader(0)<CR>|
+        \ nnoremap <buffer> <silent> <localleader>S :call CppSwitchSourceHeader(1)<CR>|
+        \ command! -buffer -bang CppSwitchSourceHeader call CppSwitchSourceHeader(<bang>0)|
   "}}}
 
   " Rust {{{
