@@ -56,7 +56,7 @@ set wildignore=*/.git/*,*/.vscode/*,*.o
 set showcmd
 set shortmess-=S " show match count
 set lazyredraw " don't update during macros
-set scrolloff=8
+set scrolloff=4
 set timeout
 set timeoutlen=1000
 set ttimeout
