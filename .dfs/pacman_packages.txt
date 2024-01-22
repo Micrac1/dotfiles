@@ -1,0 +1,100 @@
+# Browsers
+chromium
+firefox
+lynx
+
+# Desktop
+blueman
+brightnessctl
+dunst
+i3
+picom
+polybar
+scrot
+xsecurelock
+xss-lock
+touchegg
+inotify-tools 
+pavucontrol
+pasystray
+parcellite
+
+# Media
+playerctl
+smplayer
+mpv
+jdk-openjdk
+#qpdfview
+feh
+
+# Media creation
+gimp
+krita
+kdenlive
+inkscape
+
+# Development tools
+gvim
+valgrind
+ctags
+gdb
+lldb
+glxinfo
+blender
+code
+bless
+nodejs
+
+# Dependencies
+ttf-dejavu
+ttf-dejavu-nerd
+noto-fonts-emoji
+yad
+gnome-keyring
+w3m
+words
+nvidia-settings
+mesa-demos
+nvidia-prime
+sdl2
+
+# Games
+gamemode
+#minecraft-launcher
+steam
+
+# CLI tools
+qrencode
+ncdu
+tree
+yt-dlp
+powertop
+htop
+nvtop
+ranger
+fzf
+
+# X utils
+xclip
+xdotool
+xorg-xev
+xorg-xkill
+xorg-xset
+xorg-xrdb
+xorg-xrandr
+xprintidle
+slop
+
+# Other
+font-manager
+qalculate-gtk
+gnuplot
+qt5ct
+#xfce4-goodies
+#teams
+python-pip
+#alt-tab
+cdrtools
+gpick
+xsettingsd
+screenkey
