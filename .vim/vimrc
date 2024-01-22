@@ -97,6 +97,7 @@ set tabline=%!MyTabLine() " Tabline
 function! DefaultColorschemeFix()
   hi! link SignColumn Normal
   hi! link Pmenu Normal
+  hi! clear TabLine
   hi! TabLine cterm=reverse
 endfunction
 
