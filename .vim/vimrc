@@ -95,6 +95,8 @@ set foldtext=MyFoldText()
 " ---------- }}}1
 
 "> FUNCTIONS {{{1
+
+" Default color scheme fix {{{
 function! DefaultColorschemeFix()
   hi! link FoldColumn Normal
   hi! link SignColumn Normal
@@ -102,6 +104,7 @@ function! DefaultColorschemeFix()
   hi! clear TabLine
   hi! TabLine cterm=reverse
 endfunction
+"}}}
 
 " Surround visual selection (or motion) with strings {{{
 function! SurroundWithStrings(left_string = "<==", right_string = "==>", type = '') abort
@@ -359,15 +362,15 @@ command! CleanNoNameEmptyBuffers call CleanNoNameEmptyBuffers()
 
 " ---------- }}}1
 
-"> KEYBINDS {{{1
+"> MAPPINGS {{{1
 
-
-
-" Funny stuff
+" Funny stuff {{{
 map Q :<C-u>echo "Have a nice day :)"<CR>
 nnoremap <silent> <esc> :silent noh<CR>
 nnoremap <leader> <Nop>
 nnoremap <localleader> <Nop>
+"}}}
+
 " CSI fuckery {{{
 " (needs to be rebound to avoid waiting for timeout on <esc>)
 if (!has("nvim"))
@@ -377,35 +380,50 @@ endfor
 endif
 "}}}
 
-" Change marks
+" Terminal buffer fixes {{{
+tnoremap <C-x> <C-\><C-n>
+if (!has('nvim'))
+  tnoremap <C-\> <C-w>
+  tnoremap <C-w> <C-w>.
+  tnoremap <C-\><C-x> <C-x>
+endif
+"}}}
+
+" Change marks {{{
 "nnoremap <Space><Space> /<++><CR>c4l
 "nnoremap <leader>m i<++><Esc>l
+"}}}
 
-" Configuring
+" Configuring {{{
 nnoremap <leader>r :so $MYVIMRC<CR>:echo "Reloaded"<CR>
 nnoremap <leader>E :tab drop $MYVIMRC<CR>
+"}}}
 
-" C++ helpers
+" C++ helpers {{{
 "nnoremap <leader>inc a#include 
 "nnoremap <leader>ifn a#ifndef <++><CR>#define <++><CR>#endif<Esc>?<++><CR>n<C-v>j3lc
+"}}}
 
-" Window navigation
+" Window navigation {{{
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+"}}}
 
-" Window resize
+" Window resize {{{
 nnoremap <silent> <A-h> :vertical resize -2<CR>
 nnoremap <silent> <A-j> :resize +2 <CR>
 nnoremap <silent> <A-k> :resize -2 <CR>
 nnoremap <silent> <A-l> :vertical resize +2<CR>
+"}}}
 
-" Fullscreen window
+" Fullscreen window {{{
 nnoremap <A-f> <c-w>_<c-w>\|
 nnoremap <A-e> <c-w>=
+"}}}
 
-" Buffers
+" Buffers {{{
 nnoremap <leader>b :ls<CR>:b<Space>
 nnoremap <leader>D :ls<CR>:bd<Space>
 nnoremap <leader>n :bnext<CR>
@@ -414,6 +432,7 @@ nnoremap <leader>x :bd<CR>
 nnoremap <leader>X :bd!<CR>
 nnoremap <leader>e :enew<CR>
 nnoremap <leader><Tab> <C-^>
+"}}}
 
 " Options toggle {{{
 nnoremap <leader>s <Nop>
@@ -424,10 +443,11 @@ nnoremap <leader>sb :let &bg=&bg=="dark"?"light":"dark"<CR>
 nnoremap <leader>sc :let &t_Co=&t_Co==256?16:256<CR>:echo "Terminal colors: "..&t_Co<CR>
 "}}}
 
-" Finding
+" Finding {{{
 nnoremap <leader>f :f ./**/*
+"}}}
 
-" Tabs
+" Tabs {{{
 nnoremap <leader>tn :tabnew<CR>
 nnoremap <leader>te :tabedit<Space>
 "nnoremap <leader>tx :tabclose<CR>
@@ -451,38 +471,30 @@ nnoremap <silent> <leader>tm6 :tabmove 6<CR>
 nnoremap <silent> <leader>tm7 :tabmove 7<CR>
 nnoremap <silent> <leader>tm8 :tabmove 8<CR>
 nnoremap <silent> <leader>tm9 :tabmove 9<CR>
+"}}}
 
-" Terminal fixes
-tnoremap <C-x> <C-\><C-n>
-if (!has('nvim'))
-  tnoremap <C-\> <C-w>
-  tnoremap <C-w> <C-w>.
-  tnoremap <C-\><C-x> <C-x>
-endif
-
-" Movement in insert mode
+" Movement in insert mode {{{
 inoremap <C-h> <left>
 inoremap <C-j> <down>
 inoremap <C-k> <up>
 inoremap <C-l> <right>
+"}}}
 
-" Moving lines
+" Moving lines {{{
 nnoremap <A-n> :m .+1<cr>==
 nnoremap <A-p> :m .-2<cr>==
 vnoremap <A-n> :m '>+1<cr>gv=gv
 vnoremap <A-p> :m '<-2<cr>gv=gv
+"}}}
 
-" Evaluate command from buffer and paste there
-nnoremap <leader><c-e><c-v><c-a><c-l> dd:put!=execute(':@\"')<CR>'[_dd<C-o>
+" Autocomplete {{{
+if (!has("nvim"))
+inoremap <silent> <C-@> <C-x><C-o>
+imap <expr> <CR> pumvisible() ? '<c-y>' : '<CR>'
+endif
+"}}}
 
-" Clear search term
-nnoremap <leader>? :let @/='^$cleared'<CR>:echo "Search cleared"<CR>
-
-" Select pasted text in visual mode
-vnoremap an `[o`]
-vnoremap in `[o`]
-
-" Matching pairs
+" Matching pairs {{{
 if (!has("nvim")) " nvim has plugin for this
 inoremap <s-tab> <nop>
 inoremap " ""<C-G>U<left>
@@ -518,6 +530,7 @@ inoremap {<CR> {<CR>}<C-G>U<up><end><CR>
 "inoremap <= <=
 "inoremap << <<
 endif
+"}}}
 
 " Surround with string {{{
 noremap <expr> <leader>< SurroundWithStrings('<', '>')
@@ -547,11 +560,19 @@ noremap <expr> <leader>} SurroundWithStrings("{", "}")
 ounmap <leader>}
 "}}}
 
-if (!has("nvim"))
-" Autocomplete
-inoremap <silent> <C-@> <C-x><C-o>
-imap <expr> <CR> pumvisible() ? '<c-y>' : '<CR>'
-endif
+" Other (misc.) {{{
+
+" Evaluate command from buffer and paste there
+nnoremap <leader><c-e><c-v><c-a><c-l> dd:put!=execute(':@\"')<CR>'[_dd<C-o>
+
+" Clear search term
+nnoremap <leader>? :let @/='^$cleared'<CR>:echo "Search cleared"<CR>
+
+" Select pasted text in visual mode
+vnoremap an `[o`]
+vnoremap in `[o`]
+
+"}}}
 
 " ---------- }}}1
 
