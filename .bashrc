@@ -59,7 +59,7 @@ fi
 
 PS1=\
 "${_RES}${_COLOR}[${_LOGIN}\u"\
-'$(test "$?" -eq 0 && echo "\001\e[01;32m\002" || echo "\001\e[01;31m\002")'"@\
+'$([ "$?" -eq 0 ] && echo "\001\e[01;32m\002" || echo "\001\e[01;31m\002")'"@\
 ${_COLOR}\h${_RES} \W${_COLOR}]${_RES}\
 ${_GIT_PS1}${_C_DBUS}${_PROMPT}${_RES} "
 
