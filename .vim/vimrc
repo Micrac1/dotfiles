@@ -411,6 +411,7 @@ endif
 
 " Configuring {{{
 nnoremap <leader>r :so $MYVIMRC<CR>:echo "Vimrc reloaded"<CR>
+nnoremap <leader>R :let &ft=&ft<CR>:echo "Filetype reloaded"<CR>
 nnoremap <leader>E :tab drop $MYVIMRC<CR>
 "}}}
 
