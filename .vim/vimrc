@@ -494,9 +494,11 @@ endif
 
 "> AUTOCOMMANDS {{{1
 
-" Default colorscheme fix {{{
-aug default_colorscheme_fix
+" Colorscheme change {{{
+aug colorscheme_change
   au!
+  " TODO see why this is needed
+  au ColorScheme * syntax on
   au ColorScheme default call DefaultColorschemeFix()
 aug end
 "}}}
