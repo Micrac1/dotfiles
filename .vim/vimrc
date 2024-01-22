@@ -101,6 +101,36 @@ function! DefaultColorschemeFix()
   hi! TabLine cterm=reverse
 endfunction
 
+" Surround visual selection (or motion) with strings {{{
+function! SurroundWithStrings(left_string = "<==", right_string = "==>", type = '') abort
+  if a:type == ''
+    let &operatorfunc = function('SurroundWithStrings', [a:left_string,a:right_string])
+    return 'g@'
+  endif
+
+  let save_mark = [getpos("'["), getpos("']"), getpos("'a"), getpos("'b")]
+  call setpos("'a", save_mark[0])
+  call setpos("'b", save_mark[1])
+  try
+    " TODO line and block
+    " TODO dont run normal!
+    " TODO teleport to second position, dont do <right>
+    if a:type == 'char'
+      let left_len = len(a:left_string)
+      execute "silent noautocmd keepjumps normal! `ai"..a:left_string.."\<esc>`b"..
+            \ (save_mark[0][1] == save_mark[1][1] && left_len != 0 ? 
+            \ (left_len .. "\<right>") : "") ..
+            \ "a"..a:right_string.."\<esc>"
+    endif
+  finally
+    call setpos("'[", save_mark[0])
+    call setpos("']", save_mark[1])
+    call setpos("'a", save_mark[2])
+    call setpos("'b", save_mark[3])
+  endtry
+endfunction
+"}}}
+
 " Get LSP progress string {{{
 function! GetLspProgressString()
   let s = ''
