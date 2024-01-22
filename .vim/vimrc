@@ -64,7 +64,7 @@ set ttimeoutlen=0
 set mouse=a
 set hidden
 set foldmethod=marker
-set fillchars=vert:║
+set fillchars=vert:\ ,fold:\ ,foldclose:▶,foldopen:▼,foldsep:│
 "set listchars=eol:¬,tab:\|\ ,trail:~,extends:>,precedes:<,space:·
 set listchars=leadmultispace:\ ,multispace:·,tab:║\ ,trail:~
 "set list
@@ -89,12 +89,14 @@ set thesaurus=/usr/share/dict/words
 
 set laststatus=2 " Statusline
 set statusline=%!MyStatusLine()
-set tabline=%!MyTabLine() " Tabline
+set tabline=%!MyTabLine()
+set foldtext=MyFoldText()
 
 " ---------- }}}1
 
 "> FUNCTIONS {{{1
 function! DefaultColorschemeFix()
+  hi! link FoldColumn Normal
   hi! link SignColumn Normal
   hi! link Pmenu Normal
   hi! clear TabLine
@@ -287,6 +289,14 @@ function! MyStatusLine()
         \%( %{&ft != '' ? &ft . ' /':''}%)
         \%(  %l:%c%V%)  %P"
   return s
+endfunction
+"}}}
+
+" Foldtext {{{
+function! MyFoldText()
+  return (&foldcolumn?"":v:folddashes[1:].."▶")..
+        \ printf(" %3s ∙ ",v:foldend-v:foldstart)..
+        \ substitute(foldtext(),'^+-*\s*\d\+ lines: ','','')
 endfunction
 "}}}
 
