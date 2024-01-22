@@ -723,6 +723,10 @@ function! s:register_lsp_servers()
         \ { 'name': 'phpactor',
         \   'allowlist': ['php'],
         \   'cmd': {server_info->['phpactor', 'language-server']},
+        \   'initialization_options': {
+        \     'language_server_phpstan.enabled': v:true,
+        \     'language_server_psalm.enabled': v:true
+        \   }
         \ },
         \ { 'name': 'rust-analyzer',
         \   'allowlist': ['rust'],
