@@ -514,6 +514,34 @@ inoremap {<CR> {<CR>}<C-G>U<up><end><CR>
 "inoremap << <<
 endif
 
+" Surround with string {{{
+noremap <expr> <leader>< SurroundWithStrings('<', '>')
+ounmap <leader><
+noremap <expr> <leader>> SurroundWithStrings('<', '>')
+ounmap <leader>>
+
+noremap <expr> <leader>" SurroundWithStrings('"', '"')
+ounmap <leader>"
+
+noremap <expr> <leader>' SurroundWithStrings("'", "'")
+ounmap <leader>'
+
+noremap <expr> <leader>( SurroundWithStrings("(", ")")
+ounmap <leader>(
+noremap <expr> <leader>) SurroundWithStrings("(", ")")
+ounmap <leader>)
+
+noremap <expr> <leader>[ SurroundWithStrings("[", "]")
+ounmap <leader>[
+noremap <expr> <leader>] SurroundWithStrings("[", "]")
+ounmap <leader>]
+
+noremap <expr> <leader>{ SurroundWithStrings("{", "}")
+ounmap <leader>{
+noremap <expr> <leader>} SurroundWithStrings("{", "}")
+ounmap <leader>}
+"}}}
+
 if (!has("nvim"))
 " Autocomplete
 inoremap <silent> <C-@> <C-x><C-o>
