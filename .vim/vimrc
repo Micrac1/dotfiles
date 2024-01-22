@@ -609,13 +609,6 @@ aug colorscheme_change
 aug end
 "}}}
 
-" Reset all buffer specific maps when changing filetypes {{{
-aug reset_buffer_maps
-  au!
-  au FileType * mapclear <buffer>
-aug end
-"}}}
-
 " Terminal window specific settings {{{
 aug terminal_open
   au!
@@ -652,11 +645,6 @@ endif
 " Filetype specific {{{
 aug vimrc_ft
   au!
-  " Markdown {{{
-  au FileType markdown
-        \ vnoremap <buffer> <localleader>b s****<esc>hP|
-  "}}}
-
   " C/CPP {{{
   au FileType c,cpp,objc,objcpp
         \ packadd termdebug|
@@ -679,6 +667,11 @@ aug end
 
 " Plugin options {{{
 
+" Built-in {{{
+let g:markdown_folding = 1
+let g:markdown_syntax_conceal=1
+let g:markdown_fenced_languages=["sh", "cpp", "c", "vim", "html"]
+"}}}
 " vim-markdown {{{
 let g:vim_markdown_new_list_item_indent = 0
 let g:vim_markdown_folding_disabled=1

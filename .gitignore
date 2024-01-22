@@ -47,6 +47,8 @@
 !/.vim/lsp_highlight.vim
 !/.vim/autoload/
 !/.vim/autoload/*
+!/.vim/after/
+!/.vim/after/**
 
 # Bin
 !/bin/

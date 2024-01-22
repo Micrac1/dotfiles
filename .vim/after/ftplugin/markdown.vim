@@ -1,0 +1,87 @@
+" Options {{{
+setl foldlevel=1
+"}}}
+
+" Functions {{{
+
+" Markdown generate location list {{{
+" Generates location list for the current window. Does not chceck filetype
+function! MarkdownGenerateLocList()
+  let winid = win_getid()
+  " Do nothing if opened from a quickfix window (should not happen)
+  if getwininfo(winid)[0]["quickfix"]|return ''|endif
+
+  let locinfo = getloclist(winid,{"filewinid":0})
+  let winnr = win_id2win(winid)
+
+  let bufnr = winbufnr(winnr)
+  let lines = getbufline(bufnr, 1, "$")
+  let cur_line = getcurpos(win_id2win(winbufnr(locinfo["filewinid"])))[1]
+  let new_idx = 1
+  let items = []
+
+  for i in range(0,len(lines)-1)
+    let col = match(lines[i], "^#\\+\\s\\+\\zs")
+    if (col >= 0)
+      call add(items, {
+            \ 'bufnr': bufnr,
+            \ 'lnum': i+1,
+            \ 'text': repeat('-',col-2).."▶ "..lines[i][col:-1]})
+      if (i < cur_line)|let new_idx = len(items)|endif
+    endif
+  endfor
+  noautocmd call setloclist(winnr, [], 'r', {
+        \ 'title' : "Headings for "..bufname(bufnr),
+        \ 'idx' : new_idx,
+        \ 'items' : items})
+  return ""
+endfunction
+"}}}
+
+" Markdown TOC {{{
+" Updates the TOC and opens QF window with proper concealing set
+function! MarkdownTOC()
+  " TODO check if we need to actually generate again (based on getlocinfo or sth)
+  call MarkdownGenerateLocList()
+  execute "lopen | syntax match Conceal /^[^|]*|[^|]*|\s*/ conceal | setlocal conceallevel=2 concealcursor=nc"
+endfunction
+"}}}
+
+" Markdown mode for viewing {{{
+function! MarkdownMode(mode = 0) " 0 - edit, 1 - view
+  if (a:mode)
+    setlocal nonu nornu conceallevel=2
+  else
+    setlocal nonu< nornu< conceallevel< concealcursor<
+  endif
+  return ''
+endfunction
+"}}}
+
+"}}}
+
+" Mappings {{{
+nnoremap <buffer> <expr> <localleader>b SurroundWithStrings("**", "**")
+vnoremap <buffer> <expr> <localleader>b SurroundWithStrings("**", "**")
+nnoremap <buffer> <silent> Q :MarkdownTOC<CR>
+nnoremap <buffer> <localleader>v :call MarkdownMode(1)<CR>:echo "View mode"<CR>
+nnoremap <buffer> <localleader>e :call MarkdownMode(0)<CR>:echo "Edit mode"<CR>
+"}}}
+
+" Commands {{{
+command! -buffer MarkdownTOC call MarkdownTOC()
+command! -buffer MarkdownEditMode call MarkdownMode(1)
+command! -buffer MarkdownViewMode call MarkdownMode(1)
+"}}}
+
+aug ftplugin_markdown
+  au! * <buffer>
+  au InsertLeave <buffer> call MarkdownGenerateLocList()
+  au TextChanged <buffer> call MarkdownGenerateLocList()
+aug end
+
+if !exists('b:undo_ftplugin')|let b:undo_ftplugin=''|endif
+let b:undo_ftplugin.='|setlocal foldlevel< nu< rnu< conceallevel<|'.
+      \ 'nunmap <buffer> <localleader>b|vunmap <buffer> <localleader>b|'.
+      \ 'nunmap <buffer> Q|nunmap <buffer> <localleader>v|nunmap <buffer> <localleader>e|'.
+      \ 'aug ftplugin_markdown|execute "au! * <buffer>"|aug end'
