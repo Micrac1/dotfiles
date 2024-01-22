@@ -419,6 +419,15 @@ nnoremap <leader>X :bd!<CR>
 nnoremap <leader>e :enew<CR>
 nnoremap <leader><Tab> <C-^>
 
+" Options toggle {{{
+nnoremap <leader>s <Nop>
+nnoremap <silent> <leader>ss :setlocal spell!<CR>:echo "Spellcheck "..(&spell ? "ON" : "OFF")<CR>
+nnoremap <silent> <leader>sf :let &foldcolumn=&foldcolumn?0:4<CR>
+"nnoremap <expr> <silent> <leader>sf execute('setl foldcolumn'..(&l:foldcolumn==0?'=4':'<'))
+nnoremap <leader>sb :let &bg=&bg=="dark"?"light":"dark"<CR>
+nnoremap <leader>sc :let &t_Co=&t_Co==256?16:256<CR>:echo "Terminal colors: "..&t_Co<CR>
+"}}}
+
 " Finding
 nnoremap <leader>f :f ./**/*
 
