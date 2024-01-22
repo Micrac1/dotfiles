@@ -677,123 +677,20 @@ aug end
 
 "> PLUGINS {{{1
 
-" Builtin plugins {{{2
-packadd matchit
+" Plugin options {{{
 
-" Plug init {{{2
-function! VimOnly(ls={})
-  return has('nvim') ? {'on':[]} : a:ls
-endfunction
-
-function! NVimOnly(ls={})
-  return !has('nvim') ? {'on':[]} : a:ls
-endfunction
-
-if (empty(glob('~/.vim/autoload/plug.vim')))
-  " silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-  "   \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  finish
-else
-  source ~/.vim/autoload/plug.vim
-endif
-
-" Run PlugInstall if there are missing plugins
-" autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-"   \| PlugInstall --sync | source $MYVIMRC
-" \| endif
-
-" Plugin loading {{{2
-call plug#begin('~/.vim/plugged')
-Plug 'junegunn/fzf.vim'
-Plug 'tpope/vim-commentary' " Toggle comments
-Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install', 'for': ['markdown', 'vim-plug']}
-Plug 'prabirshrestha/vim-lsp', VimOnly() " LSP support
-"Plug 'mattn/vim-lsp-settings'
-Plug 'hrsh7th/vim-vsnip' " Snippets
-Plug 'hrsh7th/vim-vsnip-integ' " LSP snippet support
-Plug 'aklt/plantuml-syntax' " PlantUML syntax
-"Plug 'KabbAmine/vCoolor.vim' " Color picker
-" Colorschemes
-"Plug 'lifepillar/vim-colortemplate'
-"Plug 'altercation/vim-colors-solarized'
-"Plug 'morhetz/gruvbox'
-call plug#end()
-
-" Plugin enter {{{2
-aug PluginEnter
-  au!
-  au VimEnter * call PluginEnter()
-aug end
-
-" TODO this does not work when lazy loading plugins
-function! PluginEnter()
-  " vsnip
-  if (exists('*vsnip#get_context'))
-    function! CompleteVsnip(findstart, base)
-      if a:findstart
-        " locate the start of the word
-        let line = getline('.')
-        let start = col('.') - 1
-        while start > 0 && line[start - 1] !~ '\s'
-          let start -= 1
-        endwhile
-        return start
-      else
-        let ret = []
-        let current_buffer = bufnr('%')
-        let ctx = vsnip#get_context()
-        let snippets = vsnip#get_complete_items(current_buffer)
-
-        for s in snippets
-          if s.word =~ '^' .. a:base
-            call add(ret, s)
-          endif
-        endfor
-        eval ret->sort({i1, i2 -> i1.word == i2.word ?
-              \ 0 : i1.word > i2.word ? 1 : -1})
-
-        return ret == [] ? v:null : ret
-      endif
-    endfunction
-    imap <expr> <CR>     pumvisible() && vsnip#expandable() ?
-          \ '<Plug>(vsnip-expand)'    : '<CR>'
-    imap <expr> <Tab>   vsnip#jumpable(1)  ?
-          \ '<Plug>(vsnip-jump-next)' : '<Tab>'
-    smap <expr> <Tab>   vsnip#jumpable(1)  ?
-          \ '<Plug>(vsnip-jump-next)' : '<Tab>'
-    imap <expr> <S-Tab> vsnip#jumpable(-1) ?
-          \ '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
-    smap <expr> <S-Tab> vsnip#jumpable(-1) ?
-          \ '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
-    set completefunc=CompleteVsnip
-  endif
-
-  " fzf
-  if (exists(':FZF'))
-    nmap <leader>F :FZF<CR>
-    nmap <leader>B :Buffers<CR>
-  endif
-
-  " vim-lsp
-  let g:agressive_lsp=1
-
-endfunction
-
-" Plugin specific settings {{{2
-
-" vim-markdown {{{3
+" vim-markdown {{{
 let g:vim_markdown_new_list_item_indent = 0
 let g:vim_markdown_folding_disabled=1
 let g:mkdp_auto_close = 0
-
-" FZF {{{3
+"}}}
+" FZF {{{
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 , 'border': 'sharp'} }
-
-" vim-vsnip {{{3
+"}}}
+" vim-vsnip {{{
 let g:vsnip_snippet_dir=fnamemodify(expand('$MYVIMRC'), ':p:h').'/vsnip'
-
-" vim-lsp {{{3
+"}}}
+" vim-lsp {{{
 let g:lsp_diagnostics_virtual_text_align = 'after'
 let g:lsp_diagnostics_virtual_text_wrap = 'truncate'
 let g:lsp_document_code_action_signs_enabled = 0
@@ -929,5 +826,116 @@ aug lsp_install
   " call s:on_lsp_buffer_enabled only for languages that has the server registered.
   au User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 aug end
+"}}}
+" Builtin plugins {{{
+packadd matchit
+"}}}
+
+"}}}
+" Plug init {{{
+function! VimOnly(ls={})
+  return has('nvim') ? {'on':[]} : a:ls
+endfunction
+
+function! NVimOnly(ls={})
+  return !has('nvim') ? {'on':[]} : a:ls
+endfunction
+
+if (empty(glob('~/.vim/autoload/plug.vim')))
+  " silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+  "   \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  finish
+else
+  source ~/.vim/autoload/plug.vim
+endif
+
+" Run PlugInstall if there are missing plugins
+" autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+"   \| PlugInstall --sync | source $MYVIMRC
+" \| endif
+"}}}
+" Plugin loading {{{
+call plug#begin('~/.vim/plugged')
+Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-commentary' " Toggle comments
+Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install', 'for': ['markdown', 'vim-plug']}
+Plug 'prabirshrestha/vim-lsp', VimOnly() " LSP support
+"Plug 'mattn/vim-lsp-settings'
+Plug 'hrsh7th/vim-vsnip' " Snippets
+Plug 'hrsh7th/vim-vsnip-integ' " LSP snippet support
+Plug 'aklt/plantuml-syntax' " PlantUML syntax
+"Plug 'KabbAmine/vCoolor.vim' " Color picker
+" Colorschemes
+"Plug 'lifepillar/vim-colortemplate'
+"Plug 'altercation/vim-colors-solarized'
+"Plug 'morhetz/gruvbox'
+" Plug 'neovim/nvim-lspconfig', NVimOnly(
+"       \ {
+"       \   'for': ['rust', 'c', 'cpp', 'lua', 'markdown', 'php', 'javascript', 'html']
+"       \ })
+call plug#end()
+"}}}
+" Plugin enter {{{
+aug PluginEnter
+  au!
+  au VimEnter * call PluginEnter()
+aug end
+
+" TODO this does not work when lazy loading plugins
+function! PluginEnter()
+  " vsnip
+  if (exists('*vsnip#get_context'))
+    function! CompleteVsnip(findstart, base)
+      if a:findstart
+        " locate the start of the word
+        let line = getline('.')
+        let start = col('.') - 1
+        while start > 0 && line[start - 1] !~ '\s'
+          let start -= 1
+        endwhile
+        return start
+      else
+        let ret = []
+        let current_buffer = bufnr('%')
+        let ctx = vsnip#get_context()
+        let snippets = vsnip#get_complete_items(current_buffer)
+
+        for s in snippets
+          if s.word =~ '^' .. a:base
+            call add(ret, s)
+          endif
+        endfor
+        eval ret->sort({i1, i2 -> i1.word == i2.word ?
+              \ 0 : i1.word > i2.word ? 1 : -1})
+
+        return ret == [] ? v:null : ret
+      endif
+    endfunction
+    imap <expr> <CR>     pumvisible() && vsnip#expandable() ?
+          \ '<Plug>(vsnip-expand)'    : '<CR>'
+    imap <expr> <Tab>   vsnip#jumpable(1)  ?
+          \ '<Plug>(vsnip-jump-next)' : '<Tab>'
+    smap <expr> <Tab>   vsnip#jumpable(1)  ?
+          \ '<Plug>(vsnip-jump-next)' : '<Tab>'
+    imap <expr> <S-Tab> vsnip#jumpable(-1) ?
+          \ '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
+    smap <expr> <S-Tab> vsnip#jumpable(-1) ?
+          \ '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
+    set completefunc=CompleteVsnip
+  endif
+
+  " fzf
+  if (exists(':FZF'))
+    nmap <leader>F :FZF<CR>
+    nmap <leader>B :Buffers<CR>
+  endif
+
+  " vim-lsp
+  let g:agressive_lsp=1
+
+endfunction
+
+"}}}
 
 " ---------- }}}1
