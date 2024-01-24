@@ -807,10 +807,10 @@ function! s:on_lsp_buffer_enabled() abort
         \ lsp#document_hover_preview_winid() ? lsp#scroll(+4):'<C-d>'
   nnoremap <buffer> <expr><c-u>
         \ lsp#document_hover_preview_winid() ? lsp#scroll(-4):'<C-u>'
-  "inoremap <buffer> <expr><c-d>
-        \ lsp#document_hover_preview_winid() ? lsp#scroll(+4):'<C-d>'
-  "inoremap <buffer> <expr><c-u>
-        \ lsp#document_hover_preview_winid() ? lsp#scroll(-4):'<C-u>'
+  " inoremap <buffer> <expr><c-d>
+        " \ lsp#document_hover_preview_winid() ? lsp#scroll(+4):'<C-d>'
+  " inoremap <buffer> <expr><c-u>
+        " \ lsp#document_hover_preview_winid() ? lsp#scroll(-4):'<C-u>'
   " Autocomplete
   inoremap <buffer> :: ::<C-x><C-o>
   inoremap <buffer> . .<C-x><C-o>
