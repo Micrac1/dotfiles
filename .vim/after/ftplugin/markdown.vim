@@ -4,9 +4,29 @@ setl foldlevel=1
 
 " Functions {{{
 
+" Markdown TOC {{{
+" Updates the TOC and opens QF window with proper concealing set
+function! MarkdownTOC()
+  " TODO check if we need to actually generate again (based on getlocinfo or sth)
+  call MarkdownLocListGenerate()
+  execute "lopen | syntax match Conceal /^[^|]*|[^|]*|\s*/ conceal | setlocal conceallevel=2 concealcursor=nc"
+endfunction
+"}}}
+
+" Markdown mode for viewing {{{
+function! MarkdownMode(mode = 0) " 0 - edit, 1 - view
+  if (a:mode)
+    setlocal nonu nornu conceallevel=2
+  else
+    setlocal nonu< nornu< conceallevel< concealcursor<
+  endif
+  return ''
+endfunction
+"}}}
+
 " Markdown generate location list {{{
 " Generates location list for the current window. Does not chceck filetype
-function! MarkdownGenerateLocList()
+function! MarkdownLocListGenerate()
   let winid = win_getid()
   " Do nothing if opened from a quickfix window (should not happen)
   if getwininfo(winid)[0]["quickfix"]|return ''|endif
@@ -38,26 +58,6 @@ function! MarkdownGenerateLocList()
 endfunction
 "}}}
 
-" Markdown TOC {{{
-" Updates the TOC and opens QF window with proper concealing set
-function! MarkdownTOC()
-  " TODO check if we need to actually generate again (based on getlocinfo or sth)
-  call MarkdownGenerateLocList()
-  execute "lopen | syntax match Conceal /^[^|]*|[^|]*|\s*/ conceal | setlocal conceallevel=2 concealcursor=nc"
-endfunction
-"}}}
-
-" Markdown mode for viewing {{{
-function! MarkdownMode(mode = 0) " 0 - edit, 1 - view
-  if (a:mode)
-    setlocal nonu nornu conceallevel=2
-  else
-    setlocal nonu< nornu< conceallevel< concealcursor<
-  endif
-  return ''
-endfunction
-"}}}
-
 "}}}
 
 " Mappings {{{
@@ -76,8 +76,8 @@ command! -buffer MarkdownViewMode call MarkdownMode(1)
 
 aug ftplugin_markdown
   au! * <buffer>
-  au InsertLeave <buffer> call MarkdownGenerateLocList()
-  au TextChanged <buffer> call MarkdownGenerateLocList()
+  au InsertLeave  <buffer> call MarkdownLocListGenerate()
+  au TextChanged  <buffer> call MarkdownLocListGenerate()
 aug end
 
 if !exists('b:undo_ftplugin')|let b:undo_ftplugin=''|endif
