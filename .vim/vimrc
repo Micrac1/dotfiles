@@ -699,6 +699,9 @@ aug end
 " Filetype specific {{{
 aug vimrc_ft
   au!
+  " Quickfix
+  au FileType qf nnoremap <buffer> <silent> Q :lclose<CR>
+
   " C/CPP {{{
   au FileType c,cpp,objc,objcpp
         \ packadd termdebug|
