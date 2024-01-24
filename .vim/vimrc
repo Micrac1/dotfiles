@@ -12,6 +12,14 @@ let g:sign_info = 'i'
 let mapleader=" "
 let maplocalleader=","
 
+let g:autocomplete_enable = 1
+
+" Global options
+" let g:autocomplete_enable = 1
+" let g:autocomplete_min_chars = 2
+" let g:autocomplete_func = ''
+" let b:autocomplete_func = ''
+
 " ---------- }}}1
 
 "> SETTINGS {{{1
@@ -134,6 +142,30 @@ function! SurroundWithStrings(left_string = "<==", right_string = "==>", type = 
     call setpos("'a", save_mark[2])
     call setpos("'b", save_mark[3])
   endtry
+endfunction
+"}}}
+
+" AutoComplete {{{
+function! AutoComplete(func=v:null, min_chars=get(g:, 'autocomplete_min_chars', 2), allow_when_pum = 0) abort
+  if (get(b:, 'autocomplete_debounce', 0))|let b:autocomplete_debounce=0|return|endif
+  if (get(g:, 'autocomplete_enable', 0)
+        \ && (!a:min_chars || getline('.')[col('.')-1-a:min_chars:col('.')-2] =~ '^[[:graph:]]\{'..a:min_chars..'\}$')
+        \ && (!pumvisible() || a:allow_when_pum))
+    let Func = a:func != v:null ? a:func
+          \ : (get(b:, 'autocomplete_func', '') != '' ? function(b:autocomplete_func)
+          \ : (get(g:, 'autocomplete_func', '') != '' ? function(g:autocomplete_func)
+          \ : (&omnifunc != "" ? function(&omnifunc)
+          \ : v:null)))
+    let col = Func != v:null ? Func(1, "") : -1
+    if (col >= 0) " ignore negative columns
+      let list = Func(0, getline('.')[col:col('.')])
+      if (type(list) == type([]))
+        " call timer_start(0, { timer -> complete(col+1, list) })
+        call complete(col+1, list)
+      endif
+    endif
+  endif
+  return ''
 endfunction
 "}}}
 
@@ -507,7 +539,8 @@ vnoremap <A-p> :m '<-2<cr>gv=gv
 
 " Autocomplete {{{
 if (!has("nvim"))
-inoremap <silent> <C-@> <C-x><C-o>
+inoremap <silent> <C-@> <c-r>=AutoComplete(v:null, 0)<CR>
+" inoremap <silent> <C-@> <C-x><C-o>
 imap <expr> <CR> pumvisible() ? '<c-y>' : '<CR>'
 endif
 "}}}
@@ -641,6 +674,17 @@ aug session_save
         \ | endif
 aug end
 endif
+"}}}
+
+" Auto complete {{{
+" if (!has('nvim'))
+aug auto_complete
+  au!
+  au TextChangedI * call AutoComplete()
+  au CompleteDone * let b:autocomplete_debounce=1
+  au InsertLeave * let b:autocomplete_debounce=0
+aug end
+" endif
 "}}}
 
 " Filetype specific {{{
@@ -812,12 +856,12 @@ function! s:on_lsp_buffer_enabled() abort
   " inoremap <buffer> <expr><c-u>
         " \ lsp#document_hover_preview_winid() ? lsp#scroll(-4):'<C-u>'
   " Autocomplete
-  inoremap <buffer> :: ::<C-x><C-o>
-  inoremap <buffer> . .<C-x><C-o>
-  inoremap <buffer> -> -><C-x><C-o>
-  au TextChangedI <buffer> if (get(g:, 'agressive_lsp', 0)
-        \ && &omnifunc != '' && getline('.')[col('.')-2] =~ '[:graph:]')
-        \ | call feedkeys("\<c-x>\<C-o>") | endif
+  " inoremap <buffer> :: ::<C-x><C-o>
+  " inoremap <buffer> . .<C-x><C-o>
+  " inoremap <buffer> -> -><C-x><C-o>
+  " au TextChangedI <buffer> if (get(g:, 'agressive_lsp', 0)
+  "       \ && &omnifunc != '' && getline('.')[col('.')-2] =~ '[[:graph:]]')
+  "       \ | call feedkeys("\<c-x>\<C-o>") | endif
 endfunction
 
 aug lsp_install
