@@ -58,6 +58,25 @@ function! MarkdownLocListGenerate()
 endfunction
 "}}}
 
+" Update cursor position {{{
+function! MarkdownLocListRefreshPos()
+  let locinfo = getloclist(win_getid(),{"filewinid":0, "items":0, "idx":0})
+  let winnr = win_id2win(winbufnr(locinfo["filewinid"]))
+
+  let new_idx = locinfo["idx"]
+  if (!new_idx)|return ''|endif
+  let cur_line = getcurpos(winnr)[1]
+  while (new_idx < len(locinfo["items"]) && locinfo["items"][new_idx]["lnum"] <= cur_line)
+    let new_idx += 1
+  endwhile
+  while (new_idx > 0 && locinfo["items"][new_idx-1]["lnum"]  > cur_line)
+    let new_idx -= 1
+  endwhile
+  noautocmd call setloclist(winnr, [], 'r', {'idx' : new_idx})
+  return ''
+endfunction
+"}}}
+
 "}}}
 
 " Mappings {{{
@@ -78,6 +97,8 @@ aug ftplugin_markdown
   au! * <buffer>
   au InsertLeave  <buffer> call MarkdownLocListGenerate()
   au TextChanged  <buffer> call MarkdownLocListGenerate()
+  au CursorMoved  <buffer> call MarkdownLocListRefreshPos()
+  au CursorMovedI <buffer> call MarkdownLocListRefreshPos()
 aug end
 
 if !exists('b:undo_ftplugin')|let b:undo_ftplugin=''|endif
