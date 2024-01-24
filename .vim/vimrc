@@ -93,7 +93,7 @@ set encoding=utf-8
 set completeopt=menu,menuone,preview,noinsert
 syntax enable
 if (&omnifunc == '') | set omnifunc=syntaxcomplete#Complete | endif
-set thesaurus=/usr/share/dict/words
+set dictionary=/usr/share/dict/words
 
 set laststatus=2 " Statusline
 
