@@ -74,7 +74,7 @@ set hidden
 set foldmethod=marker
 set fillchars=vert:\ ,fold:\ ,foldclose:▶,foldopen:▼,foldsep:│
 "set listchars=eol:¬,tab:\|\ ,trail:~,extends:>,precedes:<,space:·
-set listchars=leadmultispace:\ ,multispace:·,tab:║\ ,trail:~
+set listchars=leadmultispace:│\ ,multispace:·,tab:▬▬►,trail:¤
 "set list
 
 filetype plugin indent on
