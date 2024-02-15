@@ -5,6 +5,7 @@
 # Exports for some funny apps
 export HISTFILESIZE=-1
 export HISTSIZE=-1
+export HISTFILE="${HOME}/.bashhistory"
 
 # If not running interactively, don't do anything
 [ ${-#*i} != ${-} ] || return
