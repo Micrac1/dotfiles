@@ -6,10 +6,11 @@
 export HISTFILESIZE=-1
 export HISTSIZE=-1
 
-set colored-stats on
-
 # If not running interactively, don't do anything
 [ ${-#*i} != ${-} ] || return
+
+# This thing breaks session loading when sourced from .profile
+set colored-stats on
 
 PATH="${PATH}:${HOME}/bin"
 
