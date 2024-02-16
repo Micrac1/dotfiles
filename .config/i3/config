@@ -438,7 +438,7 @@ bindsym --release Control+Shift+Print exec $i "\
 for_window [all] border pixel $border
 
 # Assign windows to workspaces
-assign [instance="obs"] workspace number $ws9
+assign [instance="^obs$"] workspace number $ws9
 assign [instance="discord.com__app"] workspace number $ws0
 assign [instance="discord"] workspace number $ws0
 assign [class="net-minecraft-server-Main"] workspace number $ws8
