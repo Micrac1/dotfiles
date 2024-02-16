@@ -9,7 +9,7 @@ setl foldlevel=1
 function! MarkdownTOC()
   " TODO check if we need to actually generate again (based on getlocinfo or sth)
   call MarkdownLocListGenerate()
-  execute "lopen | syntax match Conceal /^[^|]*|[^|]*|\s*/ conceal | setlocal conceallevel=2 concealcursor=nc"
+  execute "lopen | syntax match Conceal /^[^|]*|[^|]*|\s*/ conceal | setlocal conceallevel=2 concealcursor=nc nowrap"
 endfunction
 "}}}
 
