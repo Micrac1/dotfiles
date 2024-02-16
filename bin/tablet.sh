@@ -11,3 +11,5 @@ xsetwacom set "${id}" MapToOutput `xrandr --listactivemonitors | grep \* | cut -
 
 #set area
 xsetwacom set "${id}" Area 0 873 33020 19447
+# Require touching for pen buttons
+xsetwacom set 19 TabletPCButton on
