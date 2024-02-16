@@ -568,8 +568,12 @@ vnoremap <A-p> :m '<-2<cr>gv=gv
 if (!has("nvim"))
 inoremap <silent> <C-@> <c-r>=AutoComplete(v:null, 0)<CR>
 " inoremap <silent> <C-@> <C-x><C-o>
-imap <expr> <CR> pumvisible() ? '<c-y>' : '<CR>'
+imap <expr> <CR> pumvisible() ? '<c-y>' . (complete_info()["mode"]=="files" ? '<c-x><c-f>' : '') : '<CR>'
 endif
+
+inoremap <expr> / complete_info()["mode"]=="files" ? '/<c-x><c-f>' : '/'
+inoremap <silent> <c-f> <c-x><c-f>
+inoremap <expr> <c-w> complete_info()["mode"]=="files" ? '<c-w><c-x><c-f>' : '<c-w>'
 "}}}
 
 " Matching pairs {{{
