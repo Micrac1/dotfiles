@@ -89,7 +89,7 @@ nnoremap <buffer> <localleader>e :call MarkdownMode(0)<CR>:echo "Edit mode"<CR>
 
 " Commands {{{
 command! -buffer MarkdownTOC call MarkdownTOC()
-command! -buffer MarkdownEditMode call MarkdownMode(1)
+command! -buffer MarkdownEditMode call MarkdownMode(0)
 command! -buffer MarkdownViewMode call MarkdownMode(1)
 "}}}
 
