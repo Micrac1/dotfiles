@@ -466,8 +466,10 @@ workspace $ws2 output primary
 workspace $ws3 output primary
 workspace $ws4 output primary
 workspace $ws5 output primary
-workspace $ws8 output HDMI3
-workspace $ws9 output HDMI3
+# workspace $ws8 output HDMI3
+# workspace $ws9 output HDMI3
+workspace $ws8 output DP-1
+workspace $ws9 output DP-1
 
 # ---------- }}}1
 
