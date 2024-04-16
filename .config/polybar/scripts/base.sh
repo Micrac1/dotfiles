@@ -40,8 +40,7 @@ export _PID="${$}"
 _cleanup(){
   # TODO chcek if exists
   rm "${PIPE}" 2>/dev/null
-  cleanup
-  exit 0
+  cleanup && exit 0 || exit 10
 }
 
 _timer_loop(){
