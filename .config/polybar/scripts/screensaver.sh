@@ -8,8 +8,14 @@ fi
 #PREVENT_IDLE="yes"
 # Countdown to timeout if unset, countdown to timeout + cycle when set
 COUNTDOWN_TO_CYCLE="yes"
+LOCK_STRING="${LOCK_STRING:-LCK}"
 # ============================================================================
+# TODO:
+# env for reverse (count up, not down)
+# env for enabling counter in minutes, not seconds
+# use xrdb for screen timeout
 
+# Toggle between timeout and always on
 click_left(){
   update_state
   if [ "${_TIMEOUT}" = '0' ]; then
@@ -37,10 +43,11 @@ update_state(){
 
 print_state(){
   if [ "${_TIMEOUT}" = '0' ]; then
-    echo "W" # TODO make env
+    echo "${LOCK_STRING}"
   elif [ "${_TIMEOUT}" -gt "${_IDLE_TIME}" ] 2>/dev/null; then
-    # TODO handle other cases
-    echo "$(( "${_TIMEOUT}" - "${_IDLE_TIME}" ))"
+    printf "%3s\n" "$(( "${_TIMEOUT}" - "${_IDLE_TIME}" ))"
+  else
+    echo "ERR"
   fi
 }
 
