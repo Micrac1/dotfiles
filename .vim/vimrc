@@ -872,6 +872,8 @@ function! s:on_lsp_buffer_enabled() abort
   nnoremap <buffer> [g <plug>(lsp-previous-diagnostic)
   nnoremap <buffer> ]g <plug>(lsp-next-diagnostic)
   nnoremap <buffer> K <plug>(lsp-hover-float)
+  nnoremap <buffer> <expr> <localleader>D lsp#disable_diagnostics_for_buffer()
+  nnoremap <buffer> <expr> <localleader>d lsp#enable_diagnostics_for_buffer()
   nnoremap <buffer> <localleader>K <plug>(lsp-hover-preview)
   nnoremap <buffer> <localleader>fk <plug>(lsp-document-diagnostics)
   nnoremap <buffer> <localleader>fm <plug>(lsp-document-format)
