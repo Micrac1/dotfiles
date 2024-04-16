@@ -67,8 +67,8 @@ if [ -x "${HOME}/.fehbg" ]; then "${HOME}/.fehbg"; fi
 /bin/xmodmap "${HOME}/.config/Xmodmap"
 
 # Automatic lockscreen after xset delay
-LOCK_TIMEOUT=295
-LOCK_DIM_DURATION=5
+export LOCK_TIMEOUT=295
+export LOCK_DIM_DURATION=5
 
 /bin/xset dpms 0 0 0
 /bin/xset s "${LOCK_TIMEOUT}" "${LOCK_DIM_DURATION}"
