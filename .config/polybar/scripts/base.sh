@@ -29,7 +29,7 @@ click_right(){ :; }
 scroll_up(){ :; }
 scroll_down(){ :; }
 double_click_left(){ :; }
-double_click_left(){ :; }
+double_click_right(){ :; }
 event_handler(){ :; } # any other piped command gets handled by this
 # ============================================================================
 
