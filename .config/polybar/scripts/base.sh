@@ -25,10 +25,12 @@ cleanup(){ :; } # called when the script is exiting
 
 # Interaction
 click_left(){ :; }
+click_middle(){ :; }
 click_right(){ :; }
 scroll_up(){ :; }
 scroll_down(){ :; }
 double_click_left(){ :; }
+double_click_middle(){ :; }
 double_click_right(){ :; }
 event_handler(){ :; } # any other piped command gets handled by this
 # ============================================================================
@@ -80,10 +82,12 @@ start_loop(){
     case "${line}" in
       "refresh") : ;;
       "click-left") click_left ;;
+      "click-middle") click_middle ;;
       "click-right") click_right ;;
       "scroll-up") scroll_up ;;
       "scroll-down") scroll_down ;;
       "double-click-left") double_click_left ;;
+      "double-click-middle") double_click_middle ;;
       "double-click-right") double_click_right ;;
       "exit") _DO_LOOP="" ;;
       *) event_handler "${line}" ;;
