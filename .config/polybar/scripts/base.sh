@@ -58,6 +58,7 @@ start_loop(){
   fi
   exec <>"${PIPE}"
   trap '_cleanup' INT TERM
+  # receiving any interrupt gets us out of read -r, we don't need to do anything special
   trap ':' USR1
 
   _DO_LOOP="yes"
@@ -70,6 +71,7 @@ start_loop(){
     fi
     print_module
 
+    # restart the timer after manual interaction
     kill -- "${_TIMER_PID}" 2>/dev/null
     if [ "${INTERVAL}" -gt 0 ]; then
       _timer_loop &
