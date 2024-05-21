@@ -833,6 +833,10 @@ function! s:register_lsp_servers()
         \   'allowlist': ['javascript', 'typescript'],
         \   'cmd': {server_info->['typescript-language-server', '--stdio']},
         \ },
+        \ { 'name': 'omnisharp',
+        \   'allowlist': ['cs'],
+        \   'cmd': {server_info->['omnisharp', '-lsp']},
+        \ },
         \ ]
   for s in servers
     "if executable(servers[1].cmd(s)[0])
