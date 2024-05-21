@@ -136,7 +136,8 @@ mode $resize_mode {
 
 # Open mode {{{2
 set $open_mode "⌘Actions ➤Firefox  ➤Blender  ➤Terminal  \
-➤Calc  ➤Discord  ➤Launcher  ➤Godot  ➤Obs  ➤XFinder ➤Notes"
+➤Calc  ➤Discord  ➤Launcher  ➤Godot  ➤Obs  ➤XFinder  ➤Notes  \
+➤Prism"
 mode $open_mode {
   bindsym a mode $action_mode
   bindsym s exec $i "test \\"${HOSTNAME}\\" = \\"clamp\\" \
@@ -155,6 +156,7 @@ mode $open_mode {
   bindsym o exec "obs --startreplaybuffer"; mode "default"
   bindsym x exec $i "xfce4-appfinder"; mode "default"
   bindsym n exec $i "$terminal_float -e \\"sh -c 'vim ${HOME}/Sync/notes.txt'\\""; mode "default"
+  bindsym p exec "prismlauncher"; mode "default"
 
   bindsym Return mode "default"
   bindsym Escape mode "default"
