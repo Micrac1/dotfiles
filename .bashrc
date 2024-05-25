@@ -13,6 +13,10 @@ export HISTSIZE=-1
 set colored-stats on
 
 PATH="${PATH}:${HOME}/bin"
+case ${TERM} in
+  st*|Eterm*|alacritty*|aterm*|foot*|gnome*|konsole*|kterm*|putty*|rxvt*|tmux*|xterm*)
+    PROMPT_COMMAND+=('printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"')
+esac
 
 # Reset character
 _RES='\[\e[0m\]'
