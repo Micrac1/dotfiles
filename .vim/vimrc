@@ -728,6 +728,11 @@ aug vimrc_ft
         \ command! -buffer -bang CppSwitchSourceHeader call CppSwitchSourceHeader(<bang>0)|
   "}}}
 
+  " HTML {{{
+  au FileType html
+        \ inoremap <buffer> > ><C-x><C-o>
+  "}}}"
+
   " Rust {{{
   au FileType rust
         \ packadd termdebug|
