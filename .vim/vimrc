@@ -905,10 +905,13 @@ aug lsp_install
   au User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 aug end
 "}}}
-" Builtin plugins {{{
-packadd matchit
+" Termdebug {{{
+"let g:termdebug_config = {'sign': '>>'}
 "}}}
 
+"}}}
+" Builtin plugins {{{
+packadd matchit
 "}}}
 " Plug init {{{
 function! VimOnly(ls={})
