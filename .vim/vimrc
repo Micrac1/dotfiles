@@ -154,6 +154,24 @@ function! SurroundWithStrings(left_string = "<==", right_string = "==>", type = 
 endfunction
 "}}}
 
+" CompleteSpell (kinda useless) {{{
+function! CompleteSpell(findstart, base)
+  if a:findstart
+    " locate the start of the word
+    let line = getline('.')
+    let start = col('.') - 1
+    while start > 0 && line[start - 1] !~ '\s'
+      let start -= 1
+    endwhile
+    return start
+  else
+    let suggestions = spellsuggest(a:base, 15, ('A' >= a:base[0] && a:base[0] <= 'Z'))
+
+    return suggestions == [] ? v:null : {'words':suggestions,"refresh":"always"}
+  endif
+endfunction
+"}}}
+
 " AutoComplete {{{
 function! AutoComplete(func=v:null, min_chars=get(g:, 'autocomplete_min_chars', 2), allow_when_pum = 0) abort
   if (get(b:, 'autocomplete_debounce', 0))|let b:autocomplete_debounce=0|return|endif
