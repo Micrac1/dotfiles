@@ -586,8 +586,12 @@ vnoremap <A-p> :m '<-2<cr>gv=gv
 if (!has("nvim"))
 inoremap <silent> <C-@> <c-r>=AutoComplete(v:null, 0)<CR>
 " inoremap <silent> <C-@> <C-x><C-o>
-imap <expr> <CR> pumvisible() ? '<c-y>' : '<CR>'
+imap <expr> <CR> pumvisible() ? '<c-y>' . (complete_info()["mode"]=="files" ? '<c-x><c-f>' : '') : '<CR>'
 endif
+
+inoremap <expr> / complete_info()["mode"]=="files" ? '/<c-x><c-f>' : '/'
+inoremap <silent> <c-f> <c-x><c-f>
+inoremap <expr> <c-w> complete_info()["mode"]=="files" ? '<c-w><c-x><c-f>' : '<c-w>'
 "}}}
 
 " Matching pairs {{{
@@ -852,6 +856,10 @@ function! s:register_lsp_servers()
         \   'allowlist': ['javascript', 'typescript'],
         \   'cmd': {server_info->['typescript-language-server', '--stdio']},
         \ },
+        \ { 'name': 'omnisharp',
+        \   'allowlist': ['cs'],
+        \   'cmd': {server_info->['omnisharp', '-lsp']},
+        \ },
         \ ]
   for s in servers
     "if executable(servers[1].cmd(s)[0])
@@ -891,6 +899,8 @@ function! s:on_lsp_buffer_enabled() abort
   nnoremap <buffer> [g <plug>(lsp-previous-diagnostic)
   nnoremap <buffer> ]g <plug>(lsp-next-diagnostic)
   nnoremap <buffer> K <plug>(lsp-hover-float)
+  nnoremap <buffer> <expr> <localleader>D lsp#disable_diagnostics_for_buffer()
+  nnoremap <buffer> <expr> <localleader>d lsp#enable_diagnostics_for_buffer()
   nnoremap <buffer> <localleader>K <plug>(lsp-hover-preview)
   nnoremap <buffer> <localleader>fk <plug>(lsp-document-diagnostics)
   nnoremap <buffer> <localleader>fm <plug>(lsp-document-format)

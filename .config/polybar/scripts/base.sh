@@ -25,11 +25,13 @@ cleanup(){ :; } # called when the script is exiting
 
 # Interaction
 click_left(){ :; }
+click_middle(){ :; }
 click_right(){ :; }
 scroll_up(){ :; }
 scroll_down(){ :; }
 double_click_left(){ :; }
-double_click_left(){ :; }
+double_click_middle(){ :; }
+double_click_right(){ :; }
 event_handler(){ :; } # any other piped command gets handled by this
 # ============================================================================
 
@@ -38,8 +40,7 @@ export _PID="${$}"
 _cleanup(){
   # TODO chcek if exists
   rm "${PIPE}" 2>/dev/null
-  cleanup
-  exit 0
+  cleanup && exit 0 || exit 10
 }
 
 _timer_loop(){
@@ -57,6 +58,7 @@ start_loop(){
   fi
   exec <>"${PIPE}"
   trap '_cleanup' INT TERM
+  # receiving any interrupt gets us out of read -r, we don't need to do anything special
   trap ':' USR1
 
   _DO_LOOP="yes"
@@ -69,6 +71,7 @@ start_loop(){
     fi
     print_module
 
+    # restart the timer after manual interaction
     kill -- "${_TIMER_PID}" 2>/dev/null
     if [ "${INTERVAL}" -gt 0 ]; then
       _timer_loop &
@@ -80,10 +83,12 @@ start_loop(){
     case "${line}" in
       "refresh") : ;;
       "click-left") click_left ;;
+      "click-middle") click_middle ;;
       "click-right") click_right ;;
       "scroll-up") scroll_up ;;
       "scroll-down") scroll_down ;;
       "double-click-left") double_click_left ;;
+      "double-click-middle") double_click_middle ;;
       "double-click-right") double_click_right ;;
       "exit") _DO_LOOP="" ;;
       *) event_handler "${line}" ;;

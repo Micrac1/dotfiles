@@ -136,7 +136,8 @@ mode $resize_mode {
 
 # Open mode {{{2
 set $open_mode "⌘Actions ➤Firefox  ➤Blender  ➤Terminal  \
-➤Calc  ➤Discord  ➤Launcher  ➤Godot  ➤Obs  ➤XFinder ➤Notes"
+➤Calc  ➤Discord  ➤Launcher  ➤Godot  ➤Obs  ➤XFinder  ➤Notes  \
+➤Prism"
 mode $open_mode {
   bindsym a mode $action_mode
   bindsym s exec $i "test \\"${HOSTNAME}\\" = \\"clamp\\" \
@@ -155,6 +156,7 @@ mode $open_mode {
   bindsym o exec "obs --startreplaybuffer"; mode "default"
   bindsym x exec $i "xfce4-appfinder"; mode "default"
   bindsym n exec $i "$terminal_float -e \\"sh -c 'vim ${HOME}/Sync/notes.txt'\\""; mode "default"
+  bindsym p exec "prismlauncher"; mode "default"
 
   bindsym Return mode "default"
   bindsym Escape mode "default"
@@ -438,7 +440,7 @@ bindsym --release Control+Shift+Print exec $i "\
 for_window [all] border pixel $border
 
 # Assign windows to workspaces
-assign [instance="obs"] workspace number $ws9
+assign [instance="^obs$"] workspace number $ws9
 assign [instance="discord.com__app"] workspace number $ws0
 assign [instance="discord"] workspace number $ws0
 assign [class="net-minecraft-server-Main"] workspace number $ws8
@@ -466,8 +468,10 @@ workspace $ws2 output primary
 workspace $ws3 output primary
 workspace $ws4 output primary
 workspace $ws5 output primary
-workspace $ws8 output HDMI3
-workspace $ws9 output HDMI3
+# workspace $ws8 output HDMI3
+# workspace $ws9 output HDMI3
+workspace $ws8 output DP-1
+workspace $ws9 output DP-1
 
 # ---------- }}}1
 

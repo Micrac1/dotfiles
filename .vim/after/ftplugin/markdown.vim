@@ -9,7 +9,7 @@ setl foldlevel=1
 function! MarkdownTOC()
   " TODO check if we need to actually generate again (based on getlocinfo or sth)
   call MarkdownLocListGenerate()
-  execute "lopen | syntax match Conceal /^[^|]*|[^|]*|\s*/ conceal | setlocal conceallevel=2 concealcursor=nc"
+  execute "lopen | syntax match Conceal /^[^|]*|[^|]*|\s*/ conceal | setlocal conceallevel=2 concealcursor=nc nowrap"
 endfunction
 "}}}
 
@@ -89,7 +89,7 @@ nnoremap <buffer> <localleader>e :call MarkdownMode(0)<CR>:echo "Edit mode"<CR>
 
 " Commands {{{
 command! -buffer MarkdownTOC call MarkdownTOC()
-command! -buffer MarkdownEditMode call MarkdownMode(1)
+command! -buffer MarkdownEditMode call MarkdownMode(0)
 command! -buffer MarkdownViewMode call MarkdownMode(1)
 "}}}
 
