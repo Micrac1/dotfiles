@@ -644,6 +644,9 @@ ounmap <leader>"
 noremap <expr> <leader>' SurroundWithStrings("'", "'")
 ounmap <leader>'
 
+noremap <expr> <leader>` SurroundWithStrings("`", "`")
+ounmap <leader>`
+
 noremap <expr> <leader>( SurroundWithStrings("(", ")")
 ounmap <leader>(
 noremap <expr> <leader>) SurroundWithStrings("(", ")")
