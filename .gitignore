@@ -50,6 +50,8 @@
 !/.vim/autoload/*
 !/.vim/after/
 !/.vim/after/**
+!/.vim/snippets/
+!/.vim/snippets/*
 
 # Bin
 !/bin/

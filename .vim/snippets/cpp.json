@@ -1,0 +1,193 @@
+{
+  "class": {
+    "prefix": "class",
+    "description": "Class declaration",
+    "body": [
+      "class ${1:ClassName} {",
+      " public:",
+      "  $1();",
+      "  $1(const $1 &);",
+      "  $1($1 &&);",
+      "  $1 & operator=(const $1 &);",
+      "  $1 & operator=($1 &&);",
+      "  ~$1();",
+      "  $2",
+      " private:",
+      "  $0",
+      "}; /* class $1 */"
+    ]
+  },
+  "struct": {
+    "prefix": "struct",
+    "description": "Struct declaration",
+    "body": [
+      "struct ${1:StructName} {",
+      "  $0",
+      "}; /* struct $1 */"
+    ]
+  },
+  "structc": {
+    "prefix": "structc",
+    "description": "C Struct declaration",
+    "body": [
+      "typedef struct ${1:StructName} {",
+      "  $0",
+      "} $1;"
+    ]
+  },
+  "enum": {
+    "prefix": "enum",
+    "description": "Enumerator declaration",
+    "body": [
+      "enum ${1:EnumName}{",
+      "  $0",
+      "};"
+    ]
+  },
+  "enumc": {
+    "prefix": "enumc",
+    "description": "Enumerator class declaration",
+    "body": [
+      "enum class ${1:EnumName}{",
+      "  $0",
+      "};"
+    ]
+  },
+  "guard": {
+    "prefix": "guard",
+    "description": "Include guard",
+    "body": [
+      "#ifdef ${1:${TM_FILENAME_BASE/(.*)/${1:/upcase}/}_H}",
+      "#define $1",
+      "",
+      "$0",
+      "",
+      "#endif /* $1 */",
+      ""
+    ]
+  },
+  "inc": {
+    "prefix": "inc",
+    "description": "Include system header",
+    "body": [ "#include <$1>$0" ]
+  },
+  "incc": {
+    "prefix": "incc",
+    "description": "Include local header",
+    "body": [ "#include \"$1\"$0" ]
+  },
+  "for": {
+    "prefix": "for",
+    "description": "For loop using indices",
+    "body": [
+      "for (size_t ${1:i} = 0; $1 < ${2:length}; $1++){",
+      "  $0",
+      "}"
+    ]
+  },
+  "forr": {
+    "prefix": "forr",
+    "description": "For loop using range",
+    "body": [
+      "for (auto & ${1:it} : ${2:vec}){",
+      "  $0",
+      "}"
+    ]
+  },
+  "forv": {
+    "prefix": "forv",
+    "description": "For loop using iterators",
+    "body": [
+      "for (auto ${1:it} = ${2:vec}.begin(); $1 != $2.end(); $1++){",
+      "  $0",
+      "}"
+    ]
+  },
+  "while": {
+    "prefix": "while",
+    "description": "While loop",
+    "body": [
+      "while (${1:true}){",
+      "  $0",
+      "}"
+    ]
+  },
+  "if": {
+    "prefix": "if",
+    "description": "If statement",
+    "body": [
+      "if (${1:true}){",
+      "  $0",
+      "}"
+    ]
+  },
+  "elif": {
+    "prefix": "elif",
+    "description": "Else if statement",
+    "body": [
+      "else if (${1:true}){",
+      "  $0",
+      "}"
+    ]
+  },
+  "switch": {
+    "prefix": "switch",
+    "description": "Switch statement",
+    "body": [
+      "switch (${1:var}){",
+      "  case ${2:first_case}:",
+      "    $0",
+      "    break;",
+      "  default:",
+      "    break;",
+      "}"
+    ]
+  },
+  "def": {
+    "prefix": "def",
+    "description": "#define declaration",
+    "body": [
+      "#define $1 $0"
+    ]
+  },
+  "ifdef": {
+    "prefix": "ifdef",
+    "description": "#ifdef declaration",
+    "body": [
+      "#ifdef ${1:DEBUG}",
+      "$0",
+      "#endif /* $1 */"
+    ]
+  },
+  "ifndef": {
+    "prefix": "ifndef",
+    "description": "#ifndef declaration",
+    "body": [
+      "#ifndef ${1:DEBUG}",
+      "$0",
+      "#endif /* $1 */"
+    ]
+  },
+  "ns": {
+    "prefix": "ns",
+    "description": "#ifdef declaration",
+    "body": [
+      "namespace ${1:space}{",
+      "",
+      "$0",
+      "",
+      "} /* namespace $1 */"
+    ]
+  },
+  "main": {
+    "prefix": "main",
+    "description": "Main function",
+    "body": [
+      "int main(int argc, char * argv[]){",
+      "  $0",
+      "",
+      "  return 0;",
+      "}"
+    ]
+  }
+}
