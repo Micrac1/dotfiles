@@ -786,7 +786,7 @@ let g:mkdp_auto_close = 0
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 , 'border': 'sharp'} }
 "}}}
 " vim-vsnip {{{
-let g:vsnip_snippet_dir=fnamemodify(expand('$MYVIMRC'), ':p:h').'/vsnip'
+let g:vsnip_snippet_dir=fnamemodify(expand('$MYVIMRC'), ':p:h').'/snippets'
 "}}}
 " vim-lsp {{{
 let g:lsp_diagnostics_virtual_text_align = 'after'
