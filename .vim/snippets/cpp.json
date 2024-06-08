@@ -1,4 +1,18 @@
 {
+  "info": {
+    "prefix": "info",
+    "body": [
+      "/* ========================================================================",
+      " *   Filename:       ${RELATIVE_FILEPATH}",
+      " *   Description:    ${1:A C/C++ source file}",
+      " *   Author:         ${2:<anonymous>}",
+      " *   Created:        ${3:${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}}",
+      " *   History:        ${4:-}",
+      " * ========================================================================*/",
+      "$0"
+    ],
+    "descriptioin": "File info"
+  },
   "class": {
     "prefix": "class",
     "description": "Class declaration",
