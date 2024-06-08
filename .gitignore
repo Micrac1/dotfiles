@@ -50,6 +50,8 @@
 !/.vim/autoload/*
 !/.vim/after/
 !/.vim/after/**
+!/.vim/syntax/
+!/.vim/syntax/**
 !/.vim/snippets/
 !/.vim/snippets/*
 
