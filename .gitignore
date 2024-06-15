@@ -46,6 +46,7 @@
 !/.vim/
 !/.vim/vimrc
 !/.vim/lsp_highlight.vim
+!/.vim/markdown.css
 !/.vim/autoload/
 !/.vim/autoload/*
 !/.vim/after/
