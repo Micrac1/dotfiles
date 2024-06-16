@@ -6,3 +6,6 @@ syn region markdownLinkText matchgroup=markdownLinkTextDelimiter
 syn region markdownLink matchgroup=markdownLinkDelimiter start="(" end=")"
       \ contains=markdownUrl keepend contained conceal
 
+" Gray out checked list items
+syn match noteCheckbox "\s*\[.\].*$" nextgroup=noteName
+hi! def noteCheckbox ctermfg=Gray "cterm=strikethrough
