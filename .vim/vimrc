@@ -530,6 +530,8 @@ nnoremap <silent> <leader>sf :let &foldcolumn=&foldcolumn?0:4<CR>
 "nnoremap <expr> <silent> <leader>sf execute('setl foldcolumn'..(&l:foldcolumn==0?'=4':'<'))
 nnoremap <leader>sb :let &bg=&bg=="dark"?"light":"dark"<CR>
 nnoremap <leader>sc :let &t_Co=&t_Co==256?16:256<CR>:echo "Terminal colors: "..&t_Co<CR>
+nnoremap <leader>sa :let g:autocomplete_enable=g:autocomplete_enable==0?1:0<CR>
+      \:echo "Autocomplete: "..(g:autocomplete_enable ? "ON" : "OFF")<CR>
 "}}}
 
 " Finding {{{
