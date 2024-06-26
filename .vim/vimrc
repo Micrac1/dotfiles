@@ -585,8 +585,6 @@ vnoremap <A-p> :m '<-2<cr>gv=gv
 " Autocomplete {{{
 if (!has("nvim"))
 inoremap <silent> <C-@> <c-r>=AutoComplete(v:null, 0)<CR>
-" inoremap <silent> <C-@> <C-x><C-o>
-imap <expr> <CR> pumvisible() ? '<c-y>' . (complete_info()["mode"]=="files" ? '<c-x><c-f>' : '') : '<CR>'
 endif
 
 inoremap <expr> / complete_info()["mode"]=="files" ? '/<c-x><c-f>' : '/'
@@ -766,6 +764,15 @@ aug end
 
 aug end
 "}}}
+
+" CompleteDonePre {{{
+aug retoggle_file_complete
+  au!
+  au CompleteDonePre *
+        \ if complete_info()["mode"]=="files" && v:completed_item != {}
+        \ | call feedkeys("\<c-x>\<C-f>")
+        \ | endif
+aug end
 
 " ---------- }}}1
 
