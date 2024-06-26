@@ -347,6 +347,7 @@ function! MyStatusLine()
         \GetLspDiagnostics(winbufnr(g:statusline_winid)), '') : ''
   let s = "%f ".d."%*
         \%h%m%r %=%<
+        \%( %{%&endofline ? '' : '[noeol] /'%}%)
         \%( %{&fenc != '' ? &fenc . ' /' : ''}%)
         \%( %{%&ff != '' ? get({'unix':'U','dos':'D','mac':'M'}, &ff) . ' /' : ''%}%)
         \%( %{&ft != '' ? &ft . ' /':''}%)
