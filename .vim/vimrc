@@ -956,6 +956,30 @@ aug end
 " Termdebug {{{
 "let g:termdebug_config = {'sign': '>>'}
 "}}}
+" Vim-AI {{{
+let initial_prompt =<< trim END
+>>> system
+
+You are going to play a role of a completion engine with following parameters:
+Task: Provide compact code/text completion, generation, transformation or explanation
+Topic: general programming and text editing
+Style: Plain result without any commentary, unless commentary is necessary
+Audience: Users of text editor and programmers that need to transform/generate text
+END
+
+let g:vim_ai_chat = {
+      \   'engine': 'chat',
+      \   'options': {
+      \     'model': 'llama3',
+      \     'endpoint_url': 'http://127.0.0.1:11434/v1/chat/completions',
+      \     'enable_auth': 0,
+      \   }
+      \ }
+
+let g:vim_ai_edit = g:vim_ai_chat
+let g:vim_ai_edit['options']['initial_prompt'] = initial_prompt
+let g:vim_ai_complete = g:vim_ai_edit
+"}}}
 
 "}}}
 " Builtin plugins {{{
@@ -983,7 +1007,7 @@ endif
 "   \| PlugInstall --sync | source $MYVIMRC
 " \| endif
 "}}}
-" Plugin loading {{{
+" Plugin list {{{
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-commentary' " Toggle comments
@@ -994,6 +1018,7 @@ Plug 'prabirshrestha/vim-lsp', VimOnly() " LSP support
 Plug 'hrsh7th/vim-vsnip' " Snippets
 Plug 'hrsh7th/vim-vsnip-integ' " LSP snippet support
 Plug 'aklt/plantuml-syntax' " PlantUML syntax
+Plug 'madox2/vim-ai'
 "Plug 'KabbAmine/vCoolor.vim' " Color picker
 " Colorschemes
 "Plug 'lifepillar/vim-colortemplate'
