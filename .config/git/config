@@ -20,6 +20,8 @@
   fontui = -family \"DejaVu Sans\" -size 10 -weight normal -slant roman -underline 0 -overstrike 0
   fontdiff = -family \"DejaVu Sans Mono\" -size 10 -weight normal -slant roman -underline 0 -overstrike 0
   diffcontext = 3
+  warndetachedcommit = false
+  tabsize = 2
 [diff]
   tool = vimdiff
   algorithm = patience
