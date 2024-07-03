@@ -749,6 +749,7 @@ aug vimrc_ft
   " C/CPP {{{
   au FileType c,cpp,objc,objcpp
         \ packadd termdebug|
+        \ set foldmethod=syntax|
         \ nnoremap <buffer> <silent> <localleader>s :call CppSwitchSourceHeader(0)<CR>|
         \ nnoremap <buffer> <silent> <localleader>S :call CppSwitchSourceHeader(1)<CR>|
         \ command! -buffer -bang CppSwitchSourceHeader call CppSwitchSourceHeader(<bang>0)|
