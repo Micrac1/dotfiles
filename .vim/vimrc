@@ -117,6 +117,7 @@ function! DefaultColorschemeFix()
   hi! link FoldColumn Normal
   hi! link SignColumn Normal
   hi! SpecialKey ctermfg=DarkGray
+  hi! Error ctermfg=Black
   hi! link Pmenu Normal
   hi! clear TabLine
   hi! TabLine cterm=reverse
