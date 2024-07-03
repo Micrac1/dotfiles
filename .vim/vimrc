@@ -741,9 +741,10 @@ aug end
 " Filetype specific {{{
 aug vimrc_ft
   au!
-  " Quickfix
+
+  " Quickfix {{{
   au FileType qf nnoremap <buffer> <silent> Q :lclose<CR>
-aug end
+  "}}}
 
   " C/CPP {{{
   au FileType c,cpp,objc,objcpp
@@ -756,7 +757,7 @@ aug end
   " HTML {{{
   au FileType html
         \ inoremap <buffer> > ><C-x><C-o>
-  "}}}"
+  "}}}
 
   " Rust {{{
   au FileType rust
