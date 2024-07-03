@@ -73,7 +73,6 @@ set mouse=a
 set hidden
 set foldmethod=marker
 filetype plugin indent on
-
 set history=1000
 set tabstop=2
 set shiftwidth=0
@@ -896,12 +895,16 @@ function! s:register_lsp_servers()
   endfor
 endfunction
 
+function! LspHighlightFix()
+  if (filereadable(fnamemodify(expand('$MYVIMRC'), ':p:h').'/lsp_highlight.vim'))
+    exe "so ".fnamemodify(expand('$MYVIMRC'), ':p:h').'/lsp_highlight.vim'
+  endif
+endfunction
+call LspHighlightFix()
+
 aug lsp_highlight
   au!
-  au ColorScheme *
-    \ if (filereadable(fnamemodify(expand('$MYVIMRC'), ':p:h').'/lsp_highlight.vim'))
-    \ | exe "so ".fnamemodify(expand('$MYVIMRC'), ':p:h').'/lsp_highlight.vim'
-    \ | endif
+  au ColorScheme * call LspHighlightFix()
 aug end
 
 function! s:on_lsp_buffer_enabled() abort
