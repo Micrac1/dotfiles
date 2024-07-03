@@ -72,11 +72,6 @@ set ttimeoutlen=0
 set mouse=a
 set hidden
 set foldmethod=marker
-set fillchars=vert:\ ,fold:\ ,foldclose:▶,foldopen:▼,foldsep:│
-"set listchars=eol:¬,tab:\|\ ,trail:~,extends:>,precedes:<,space:·
-set listchars=leadmultispace:│\ ,multispace:·,tab:▬▬►,trail:¤
-"set list
-
 filetype plugin indent on
 
 set history=1000
@@ -91,6 +86,9 @@ set noswapfile
 set nobackup
 set encoding=utf-8
 set completeopt=menu,menuone,preview,noinsert
+set fillchars=vert:\ ,fold:\ ,foldclose:▶,foldopen:▼,foldsep:│
+let g:listchars = 'set listchars=tab:▬▬►,trail:¤,leadmultispace:│'.repeat('\ ',&ts-1)
+exe get(g:, "listchars")
 syntax enable
 if (&omnifunc == '') | set omnifunc=syntaxcomplete#Complete | endif
 set dictionary=/usr/share/dict/words
@@ -777,6 +775,11 @@ aug retoggle_file_complete
         \ | endif
 aug end
 
+" Tabstop option change
+aug update_listchars_on_tabstop
+  au!
+  au OptionSet tabstop exe get(g:, 'listchars')
+aug end
 " ---------- }}}1
 
 "> PLUGINS {{{1
