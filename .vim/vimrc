@@ -81,8 +81,8 @@ filetype plugin indent on
 
 set history=1000
 set tabstop=2
-set shiftwidth=2
-" set softtabstop=2
+set shiftwidth=0
+set softtabstop=-1
 set expandtab
 set incsearch
 set hlsearch
