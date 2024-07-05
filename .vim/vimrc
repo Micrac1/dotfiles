@@ -987,7 +987,7 @@ let g:vim_ai_complete = g:vim_ai_edit
 
 "}}}
 " Builtin plugins {{{
-packadd matchit
+packadd! matchit
 packadd! comment
 packadd! termdebug
 "}}}
