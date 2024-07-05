@@ -994,6 +994,7 @@ let g:vim_ai_complete = g:vim_ai_edit
 "}}}
 " Builtin plugins {{{
 packadd matchit
+packadd! comment
 "}}}
 " Plug init {{{
 function! VimOnly(ls={})
@@ -1020,7 +1021,7 @@ endif
 " Plugin list {{{
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/fzf.vim'
-Plug 'tpope/vim-commentary' " Toggle comments
+"Plug 'tpope/vim-commentary' " Toggle comments
 Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install', 'for': ['markdown', 'vim-plug']}
 Plug 'prabirshrestha/vim-lsp', VimOnly() " LSP support
