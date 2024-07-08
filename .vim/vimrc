@@ -1014,6 +1014,7 @@ function! PluginEnter()
   " fzf {{{
   if (exists(':FZF'))
     nmap <leader>F :Files<CR>
+    nmap <leader>G :GFiles<CR>
     nmap <leader>B :Buffers<CR>
   endif
   "}}}
