@@ -111,7 +111,6 @@ set foldtext=MyFoldText()
 " ---------- }}}1
 
 "> FUNCTIONS {{{1
-
 " Default color scheme fix {{{
 function! DefaultColorschemeFix()
   hi! link FoldColumn Normal
@@ -140,10 +139,10 @@ function! SurroundWithStrings(left_string = "<==", right_string = "==>", type = 
     " TODO teleport to second position, dont do <right>
     if a:type == 'char'
       let left_len = len(a:left_string)
-      execute "silent noautocmd keepjumps normal! `ai"..a:left_string.."\<esc>`b"..
+      execute "silent noautocmd keepjumps normal! `ai"..a:left_string.."\<Esc>`b"..
             \ (save_mark[0][1] == save_mark[1][1] && left_len != 0 ? 
             \ (left_len .. "\<right>") : "") ..
-            \ "a"..a:right_string.."\<esc>"
+            \ "a"..a:right_string.."\<Esc>"
     endif
   finally
     call setpos("'[", save_mark[0])
@@ -428,20 +427,15 @@ endfunction
 "map <F4> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 "}}}
 
-" Call some of the functions
-"call DefaultColorschemeFix()
-
 " Expose some of the functions
 command! CleanNoNameEmptyBuffers call CleanNoNameEmptyBuffers()
 command! OpenURL call OpenURL()
-
 " ---------- }}}1
 
 "> MAPPINGS {{{1
-
 " Funny stuff {{{
 map Q :<C-u>echo "Have a nice day :)"<CR>
-nnoremap <silent> <esc> :silent noh<CR>
+nnoremap <silent> <Esc> :silent noh<CR>
 nnoremap <leader> <Nop>
 vnoremap <leader> <Nop>
 nnoremap <localleader> <Nop>
@@ -461,10 +455,10 @@ nnoremap <localleader>v  :echo "[NO LOCAL MAPPING] v"<CR>
 "}}}
 
 " CSI fuckery {{{
-" (needs to be rebound to avoid waiting for timeout on <esc>)
+" (needs to be rebound to avoid waiting for timeout on <Esc>)
 if (!has("nvim"))
 for c in range(char2nr('a'), char2nr('z')) + range(char2nr('0'), char2nr('9'))
-  execute "set <A-"..nr2char(c)..">=\<esc>"..nr2char(c)
+  execute "set <A-"..nr2char(c)..">=\<Esc>"..nr2char(c)
 endfor
 endif
 "}}}
@@ -478,20 +472,10 @@ if (!has('nvim'))
 endif
 "}}}
 
-" Change marks {{{
-"nnoremap <Space><Space> /<++><CR>c4l
-"nnoremap <leader>m i<++><Esc>l
-"}}}
-
 " Configuring {{{
 nnoremap <leader>r :so $MYVIMRC<CR>:echo "Vimrc reloaded"<CR>
 nnoremap <leader>R :let &ft=&ft<CR>:echo "Filetype reloaded"<CR>
 nnoremap <leader>E :tab drop $MYVIMRC<CR>
-"}}}
-
-" C++ helpers {{{
-"nnoremap <leader>inc a#include 
-"nnoremap <leader>ifn a#ifndef <++><CR>#define <++><CR>#endif<Esc>?<++><CR>n<C-v>j3lc
 "}}}
 
 " Window navigation {{{
@@ -509,8 +493,8 @@ nnoremap <silent> <A-l> :vertical resize +2<CR>
 "}}}
 
 " Fullscreen window {{{
-nnoremap <A-f> <c-w>_<c-w>\|
-nnoremap <A-e> <c-w>=
+nnoremap <A-f> <C-w>_<C-w>\|
+nnoremap <A-e> <C-w>=
 "}}}
 
 " Buffers {{{
@@ -528,7 +512,6 @@ nnoremap <leader><Tab> <C-^>
 nnoremap <leader>s <Nop>
 nnoremap <silent> <leader>ss :setlocal spell!<CR>:echo "Spellcheck "..(&spell ? "ON" : "OFF")<CR>
 nnoremap <silent> <leader>sf :let &foldcolumn=&foldcolumn?0:4<CR>
-"nnoremap <expr> <silent> <leader>sf execute('setl foldcolumn'..(&l:foldcolumn==0?'=4':'<'))
 nnoremap <leader>sb :let &bg=&bg=="dark"?"light":"dark"<CR>
 nnoremap <leader>sc :let &t_Co=&t_Co==256?16:256<CR>:echo "Terminal colors: "..&t_Co<CR>
 nnoremap <leader>sa :let g:autocomplete_enable=g:autocomplete_enable==0?1:0<CR>
@@ -547,7 +530,6 @@ nnoremap <expr> <leader>o OpenURL()
 nnoremap <leader>t <Nop>
 nnoremap <leader>tn :tabnew<CR>
 nnoremap <leader>te :tabedit<Space>
-"nnoremap <leader>tx :tabclose<CR>
 
 nnoremap <A-1> 1gt
 nnoremap <A-2> 2gt
@@ -587,49 +569,42 @@ vnoremap <A-p> :m '<-2<cr>gv=gv
 
 " Autocomplete {{{
 if (!has("nvim"))
-inoremap <silent> <C-@> <c-r>=AutoComplete(v:null, 0)<CR>
+inoremap <silent> <C-@> <C-r>=AutoComplete(v:null, 0)<CR>
 endif
 
-inoremap <expr> / complete_info()["mode"]=="files" ? '/<c-x><c-f>' : '/'
-inoremap <silent> <c-f> <c-x><c-f>
-inoremap <expr> <c-w> complete_info()["mode"]=="files" ? '<c-w><c-x><c-f>' : '<c-w>'
+inoremap <expr> / complete_info()["mode"]=="files" ? '/<C-x><C-f>' : '/'
+inoremap <silent> <C-f> <C-x><C-f>
+inoremap <expr> <C-w> complete_info()["mode"]=="files" ? '<C-w><C-x><C-f>' : '<C-w>'
 "}}}
 
 " Matching pairs {{{
 if (!has("nvim")) " nvim has plugin for this
-inoremap <s-tab> <nop>
+inoremap <S-Tab> <nop>
 inoremap " ""<C-G>U<left>
-inoremap "<esc> "<esc>
-inoremap <S-tab>" "
+inoremap "<Esc> "<Esc>
+inoremap <S-Tab>" "
 inoremap "" ""
 
 inoremap ' ''<C-G>U<left>
-inoremap '<esc> '<esc>
-inoremap <S-tab>' '
+inoremap '<Esc> '<Esc>
+inoremap <S-Tab>' '
 inoremap '' ''
 
 inoremap ( ()<C-G>U<left>
-inoremap (<esc> (<esc>
-inoremap <S-tab>( (
+inoremap (<Esc> (<Esc>
+inoremap <S-Tab>( (
 inoremap () ()
 
 inoremap [ []<C-G>U<left>
-inoremap [<esc> [<esc>
-inoremap <S-tab>[ [
+inoremap [<Esc> [<Esc>
+inoremap <S-Tab>[ [
 inoremap [] []
 
 inoremap { {}<C-G>U<left>
-inoremap {<esc> {<esc>
-inoremap <S-tab>{ {
+inoremap {<Esc> {<Esc>
+inoremap <S-Tab>{ {
 inoremap {} {}
 inoremap {<CR> {<CR>}<C-G>U<up><end><CR>
-
-"inoremap < <><C-G>U<left>
-"inoremap <<esc> <<esc>
-"inoremap <S-tab>< <
-"inoremap <<Space> <
-"inoremap <= <=
-"inoremap << <<
 endif
 "}}}
 
@@ -665,12 +640,11 @@ ounmap <leader>}
 "}}}
 
 " Other (misc.) {{{
-
 " Evaluate command from buffer and paste there
-nnoremap <leader><c-e> <Nop>
-nnoremap <leader><c-e><c-v> <Nop>
-nnoremap <leader><c-e><c-v><c-a> <Nop>
-nnoremap <leader><c-e><c-v><c-a><c-l> dd:put!=execute(':@\"')<CR>'[_dd<C-o>
+nnoremap <leader><C-e> <Nop>
+nnoremap <leader><C-e><C-v> <Nop>
+nnoremap <leader><C-e><C-v><C-a> <Nop>
+nnoremap <leader><C-e><C-v><C-a><C-l> dd:put!=execute(':@\"')<CR>'[_dd<C-o>
 
 " Clear search term
 nnoremap <leader>? :let @/='^$cleared'<CR>:echo "Search cleared"<CR>
@@ -680,22 +654,10 @@ vnoremap an `[o`]
 vnoremap in `[o`]
 onoremap <silent> an :<C-u>normal! v`[o`]<CR>
 onoremap <silent> in :<C-u>normal! v`[o`]<CR>
-
 "}}}
-
 " ---------- }}}1
 
 "> AUTOCOMMANDS {{{1
-
-" Colorscheme change {{{
-" aug colorscheme_change
-"   au!
-"   " TODO see why this is needed
-"   au ColorScheme * syntax on
-"   au ColorScheme default call DefaultColorschemeFix()
-" aug end
-"}}}
-
 " Terminal window specific settings {{{
 aug terminal_open
   au!
@@ -769,7 +731,7 @@ aug retoggle_file_complete
   au!
   au CompleteDonePre *
         \ if complete_info()["mode"]=="files" && v:completed_item != {}
-        \ | call feedkeys("\<c-x>\<C-f>")
+        \ | call feedkeys("\<C-x>\<C-f>")
         \ | endif
 aug end
 "}}}
@@ -780,21 +742,18 @@ aug update_listchars_on_tabstop
   au OptionSet tabstop exe get(g:, 'listchars')
 aug end
 "}}}
-
 " ---------- }}}1
 
 "> PLUGINS {{{1
-
 " Plugin options {{{
-
 " Built-in {{{
 let g:markdown_folding = 1
-let g:markdown_syntax_conceal=1
-let g:markdown_fenced_languages=["sh", "cpp", "c", "vim", "html", "python", "bash=sh"]
+let g:markdown_syntax_conceal = 1
+let g:markdown_fenced_languages = ["sh", "cpp", "c", "vim", "html", "python", "bash=sh"]
 "}}}
 " vim-markdown {{{
 let g:vim_markdown_new_list_item_indent = 0
-let g:vim_markdown_folding_disabled=1
+let g:vim_markdown_folding_disabled = 1
 "}}}
 " markdown-preview {{{
 let g:mkdp_auto_close = 0
@@ -804,7 +763,7 @@ let g:mkdp_markdown_css = fnamemodify(expand("$MYVIMRC"), ":p:h")."/markdown.css
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 , 'border': 'sharp'} }
 "}}}
 " vim-vsnip {{{
-let g:vsnip_snippet_dir=fnamemodify(expand('$MYVIMRC'), ':p:h').'/snippets'
+let g:vsnip_snippet_dir = fnamemodify(expand('$MYVIMRC'), ':p:h').'/snippets'
 let g:vsnip_filetypes = {
       \   "c": ['cpp']
       \ }
@@ -822,8 +781,8 @@ let g:lsp_diagnostics_virtual_text_delay = 50
 let g:lsp_diagnostics_float_cursor = 1
 let g:lsp_diagnostics_float_insert_mode_enabled = 0
 let g:lsp_diagnostics_float_delay = 200
-let g:lsp_work_done_progress_enabled=1
-let g:lsp_async_completion=1
+let g:lsp_work_done_progress_enabled = 1
+let g:lsp_async_completion = 1
 
 let g:lsp_diagnostics_signs_hint = {'text': g:sign_hint}
 let g:lsp_diagnostics_signs_information = {'text': g:sign_info}
@@ -886,7 +845,6 @@ function! s:register_lsp_servers()
         \ },
         \ ]
   for s in servers
-    "if executable(servers[1].cmd(s)[0])
     if executable(s.cmd(0)[0])
       call lsp#register_server(s)
     endif
@@ -906,12 +864,12 @@ aug lsp_highlight
 aug end
 
 function! s:on_lsp_buffer_enabled() abort
-  let g:tabline_lsp_diagnostics=1
-  let g:tabline_lsp_progress=1
-  let g:tabline_lsp_status=1
-  let g:statusline_lsp_diagnostics=1
-  let g:statusline_lsp_progress=1 " unused
-  let g:statusline_lsp_status=1 " unused
+  let g:tabline_lsp_diagnostics = 1
+  let g:tabline_lsp_progress = 1
+  let g:tabline_lsp_status = 1
+  let g:statusline_lsp_diagnostics = 1
+  let g:statusline_lsp_progress = 1 " unused
+  let g:statusline_lsp_status = 1 " unused
   setlocal signcolumn=yes
   setlocal omnifunc=lsp#complete
   if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
@@ -919,9 +877,6 @@ function! s:on_lsp_buffer_enabled() abort
   nnoremap <buffer> gD <plug>(lsp-declaration)
   nnoremap <buffer> gr <plug>(lsp-references)
   nnoremap <buffer> gi <plug>(lsp-implementation)
-  "nmap <buffer> gt <plug>(lsp-type-definition)
-  "nmap <buffer> gs <plug>(lsp-document-symbol-search)
-  "nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
   nnoremap <buffer> <localleader>a <plug>(lsp-code-action)
   nnoremap <buffer> <localleader>r <plug>(lsp-rename)
   nnoremap <buffer> [g <plug>(lsp-previous-diagnostic)
@@ -934,25 +889,14 @@ function! s:on_lsp_buffer_enabled() abort
   nnoremap <buffer> <localleader>fm <plug>(lsp-document-format)
   vnoremap <buffer> <localleader>fm <plug>(lsp-document-range-format)
   inoremap <buffer> <C-s> <C-o><plug>(lsp-signature-help)
-  inoremap <buffer> <expr><c-d>
+  inoremap <buffer> <expr><C-d>
         \ lsp#document_hover_preview_winid() ? lsp#scroll(+4):'<C-d>'
-  inoremap <buffer> <expr><c-u>
+  inoremap <buffer> <expr><C-u>
         \ lsp#document_hover_preview_winid() ? lsp#scroll(-4):'<C-u>'
-  nnoremap <buffer> <expr><c-d>
+  nnoremap <buffer> <expr><C-d>
         \ lsp#document_hover_preview_winid() ? lsp#scroll(+4):'<C-d>'
-  nnoremap <buffer> <expr><c-u>
+  nnoremap <buffer> <expr><C-u>
         \ lsp#document_hover_preview_winid() ? lsp#scroll(-4):'<C-u>'
-  " inoremap <buffer> <expr><c-d>
-        " \ lsp#document_hover_preview_winid() ? lsp#scroll(+4):'<C-d>'
-  " inoremap <buffer> <expr><c-u>
-        " \ lsp#document_hover_preview_winid() ? lsp#scroll(-4):'<C-u>'
-  " Autocomplete
-  " inoremap <buffer> :: ::<C-x><C-o>
-  " inoremap <buffer> . .<C-x><C-o>
-  " inoremap <buffer> -> -><C-x><C-o>
-  " au TextChangedI <buffer> if (get(g:, 'agressive_lsp', 0)
-  "       \ && &omnifunc != '' && getline('.')[col('.')-2] =~ '[[:graph:]]')
-  "       \ | call feedkeys("\<c-x>\<C-o>") | endif
 endfunction
 
 aug lsp_install
@@ -964,7 +908,7 @@ aug end
 " Termdebug {{{
 "let g:termdebug_config = {'sign': '>>'}
 "}}}
-" Vim-AI {{{
+" vim-ai {{{
 let initial_prompt =<< trim END
 >>> system
 
@@ -988,14 +932,15 @@ let g:vim_ai_edit = g:vim_ai_chat
 let g:vim_ai_edit['options']['initial_prompt'] = initial_prompt
 let g:vim_ai_complete = g:vim_ai_edit
 "}}}
-
 "}}}
+
 " Builtin plugins {{{
 runtime ftplugin/man.vim
 packadd! matchit
 packadd! comment
 packadd! termdebug
 "}}}
+
 " Plug init {{{
 function! VimOnly(ls={})
   return has('nvim') ? {'on':[]} : a:ls
@@ -1018,10 +963,10 @@ endif
 "   \| PlugInstall --sync | source $MYVIMRC
 " \| endif
 "}}}
+
 " Plugin list {{{
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/fzf.vim'
-"Plug 'tpope/vim-commentary' " Toggle comments
 Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install', 'for': ['markdown', 'vim-plug']}
 Plug 'prabirshrestha/vim-lsp', VimOnly() " LSP support
@@ -1030,17 +975,10 @@ Plug 'hrsh7th/vim-vsnip' " Snippets
 Plug 'hrsh7th/vim-vsnip-integ' " LSP snippet support
 Plug 'aklt/plantuml-syntax' " PlantUML syntax
 Plug 'madox2/vim-ai'
-"Plug 'KabbAmine/vCoolor.vim' " Color picker
-" Colorschemes
 "Plug 'lifepillar/vim-colortemplate'
-"Plug 'altercation/vim-colors-solarized'
-"Plug 'morhetz/gruvbox'
-" Plug 'neovim/nvim-lspconfig', NVimOnly(
-"       \ {
-"       \   'for': ['rust', 'c', 'cpp', 'lua', 'markdown', 'php', 'javascript', 'html']
-"       \ })
 call plug#end()
 "}}}
+
 " Plugin enter {{{
 aug PluginEnter
   au!
@@ -1049,7 +987,7 @@ aug end
 
 " TODO this does not work when lazy loading plugins
 function! PluginEnter()
-  " vsnip
+  " vsnip {{{
   if (exists('*vsnip#get_context'))
     function! CompleteVsnip(findstart, base)
       if a:findstart
@@ -1089,18 +1027,14 @@ function! PluginEnter()
           \ '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
     set completefunc=CompleteVsnip
   endif
+  "}}}
 
-  " fzf
+  " fzf {{{
   if (exists(':FZF'))
     nmap <leader>F :FZF<CR>
     nmap <leader>B :Buffers<CR>
   endif
-
-  " vim-lsp
-  let g:agressive_lsp=1
-
+  "}}}
 endfunction
-
 "}}}
-
 " ---------- }}}1
