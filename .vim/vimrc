@@ -363,19 +363,6 @@ function! MyFoldText()
 endfunction
 "}}}
 
-" Open URL {{{
-function! OpenURL()
-  let match = matchstrpos(getline('.'), '\(https\?\|ftp\|file\)://[a-zA-Z0-9.\-_]\{2,256\}\(/[a-zA-Z0-9\-_?&=]*\)*')
-  if (match[0] != '')
-    call system("xdg-open '"..match[0].."' &")
-    echo "Opening "..match[0]
-  else
-    echo "No URL on current line"
-  endif
-  return ''
-endfunction
-"}}}
-
 " Close empty nameless buffers {{{
 function! CleanNoNameEmptyBuffers()
   " TODO make it so this does not close them on other tabs
@@ -429,7 +416,6 @@ endfunction
 
 " Expose some of the functions
 command! CleanNoNameEmptyBuffers call CleanNoNameEmptyBuffers()
-command! OpenURL call OpenURL()
 " ---------- }}}1
 
 "> MAPPINGS {{{1
@@ -520,10 +506,6 @@ nnoremap <leader>sa :let g:autocomplete_enable=g:autocomplete_enable==0?1:0<CR>
 
 " Finding {{{
 nnoremap <leader>f :f ./**/*
-"}}}
-
-" OpenURL {{{
-nnoremap <expr> <leader>o OpenURL()
 "}}}
 
 " Tabs {{{
@@ -975,7 +957,7 @@ Plug 'hrsh7th/vim-vsnip' " Snippets
 Plug 'hrsh7th/vim-vsnip-integ' " LSP snippet support
 Plug 'aklt/plantuml-syntax' " PlantUML syntax
 Plug 'madox2/vim-ai'
-"Plug 'lifepillar/vim-colortemplate'
+Plug 'lifepillar/vim-colortemplate'
 call plug#end()
 "}}}
 
