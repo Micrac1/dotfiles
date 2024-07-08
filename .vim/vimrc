@@ -107,22 +107,9 @@ set foldtext=MyFoldText()
 " Ps = 4  -> steady underline.
 " Ps = 5  -> blinking bar (xterm).
 " Ps = 6  -> steady bar (xterm).
-
 " ---------- }}}1
 
 "> FUNCTIONS {{{1
-" Default color scheme fix {{{
-function! DefaultColorschemeFix()
-  hi! link FoldColumn Normal
-  hi! link SignColumn Normal
-  hi! SpecialKey ctermfg=DarkGray
-  hi! Error ctermfg=Black
-  hi! link Pmenu Normal
-  hi! clear TabLine
-  hi! TabLine cterm=reverse
-endfunction
-"}}}
-
 " Surround visual selection (or motion) with strings {{{
 function! SurroundWithStrings(left_string = "<==", right_string = "==>", type = '') abort
   if a:type == ''
