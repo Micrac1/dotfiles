@@ -53,6 +53,8 @@
 !/.vim/after/**
 !/.vim/snippets/
 !/.vim/snippets/*
+!/.vim/colors/
+!/.vim/colors/*
 
 # Bin
 !/bin/

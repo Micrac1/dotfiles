@@ -46,7 +46,8 @@ endif
 
 " Should be bg& to let it determine itself and done automatically, but that is
 " broken
-set background=dark
+"set background=dark
+colorscheme micrac
 
 set sessionoptions=blank,buffers,curdir,folds,help,tabpages,winpos,winsize,
       \resize,terminal
@@ -428,7 +429,7 @@ endfunction
 "}}}
 
 " Call some of the functions
-call DefaultColorschemeFix()
+"call DefaultColorschemeFix()
 
 " Expose some of the functions
 command! CleanNoNameEmptyBuffers call CleanNoNameEmptyBuffers()
@@ -687,12 +688,12 @@ onoremap <silent> in :<C-u>normal! v`[o`]<CR>
 "> AUTOCOMMANDS {{{1
 
 " Colorscheme change {{{
-aug colorscheme_change
-  au!
-  " TODO see why this is needed
-  au ColorScheme * syntax on
-  au ColorScheme default call DefaultColorschemeFix()
-aug end
+" aug colorscheme_change
+"   au!
+"   " TODO see why this is needed
+"   au ColorScheme * syntax on
+"   au ColorScheme default call DefaultColorschemeFix()
+" aug end
 "}}}
 
 " Terminal window specific settings {{{
@@ -771,12 +772,15 @@ aug retoggle_file_complete
         \ | call feedkeys("\<c-x>\<C-f>")
         \ | endif
 aug end
+"}}}
 
-" Tabstop option change
+" Tabstop option change {{{
 aug update_listchars_on_tabstop
   au!
   au OptionSet tabstop exe get(g:, 'listchars')
 aug end
+"}}}
+
 " ---------- }}}1
 
 "> PLUGINS {{{1
