@@ -1,5 +1,5 @@
 hi  link   lspReference                                                                       CursorColumn
-hi         LspErrorHighlight                                                                  ctermfg=DarkRed cterm=underline
+hi         LspErrorHighlight                                                                  ctermfg=Red cterm=underline
 hi         LspWarningHighlight                                                                ctermfg=Yellow cterm=underline
 hi  link   LspInformationHighlight                                                            Normal
 hi  link   LspHintHighlight                                                                   Normal
