@@ -680,7 +680,7 @@ endif
 aug auto_complete
   au!
   au TextChangedI * call AutoComplete()
-  au CompleteDone * let b:autocomplete_debounce=1
+  au CompleteDonePre * let b:autocomplete_debounce=1
   au InsertLeave * let b:autocomplete_debounce=0
 aug end
 " endif
