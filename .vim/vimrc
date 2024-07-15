@@ -28,6 +28,12 @@ let g:autocomplete_enable = 1
 " and overwrite any filetype settings alrady set
 if (&compatible) | set nocompatible | endif
 
+if (has("win32"))
+  set runtimepath+=$HOME/.vim
+  set runtimepath+=$HOME/.vim/after
+  language en_US.utf8
+endif
+
 if (!has("nvim"))
 set viminfofile=$HOME/.vim/viminfo
 endif
