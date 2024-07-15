@@ -28,13 +28,13 @@ let g:autocomplete_enable = 1
 " and overwrite any filetype settings alrady set
 if (&compatible) | set nocompatible | endif
 
-if (has("win32"))
+if (has('win32'))
   set runtimepath+=$HOME/.vim
   set runtimepath+=$HOME/.vim/after
   language en_US.utf8
 endif
 
-if (!has("nvim"))
+if (!has('nvim'))
 set viminfofile=$HOME/.vim/viminfo
 endif
 
@@ -83,7 +83,7 @@ set encoding=utf-8
 set completeopt=menu,menuone,preview,noinsert
 set fillchars=vert:\ ,fold:\ ,foldclose:▶,foldopen:▼,foldsep:│
 let g:listchars = 'set listchars=tab:▬▬►,trail:¤,leadmultispace:│'.repeat('\ ',&ts-1)
-exe get(g:, "listchars")
+exe get(g:, 'listchars')
 syntax enable
 if (&omnifunc == '') | set omnifunc=syntaxcomplete#Complete | endif
 set dictionary=/usr/share/dict/words
@@ -106,7 +106,7 @@ let &t_EI = "\e[2 q"
 
 "> FUNCTIONS {{{1
 " Surround visual selection (or motion) with strings {{{
-function! SurroundWithStrings(left_string = "<==", right_string = "==>", type = '') abort
+function! SurroundWithStrings(left_string = '<==', right_string = '==>', type = '') abort
   if a:type == ''
     let &operatorfunc = function('SurroundWithStrings', [a:left_string,a:right_string])
     return 'g@'
@@ -121,10 +121,10 @@ function! SurroundWithStrings(left_string = "<==", right_string = "==>", type = 
     " TODO teleport to second position, dont do <right>
     if a:type == 'char'
       let left_len = len(a:left_string)
-      execute "silent noautocmd keepjumps normal! `ai"..a:left_string.."\<Esc>`b"..
+      execute 'silent noautocmd keepjumps normal! `ai'..a:left_string.."\<Esc>`b"..
             \ (save_mark[0][1] == save_mark[1][1] && left_len != 0 ? 
-            \ (left_len .. "\<right>") : "") ..
-            \ "a"..a:right_string.."\<Esc>"
+            \ (left_len .. "\<right>") : '') ..
+            \ 'a'..a:right_string.."\<Esc>"
     endif
   finally
     call setpos("'[", save_mark[0])
@@ -148,7 +148,7 @@ function! CompleteSpell(findstart, base)
   else
     let suggestions = spellsuggest(a:base, 15, ('A' >= a:base[0] && a:base[0] <= 'Z'))
 
-    return suggestions == [] ? v:null : {'words':suggestions,"refresh":"always"}
+    return suggestions == [] ? v:null : {'words':suggestions,'refresh':'always'}
   endif
 endfunction
 "}}}
@@ -163,9 +163,9 @@ function! AutoComplete(func=v:null, min_chars=get(g:, 'autocomplete_min_chars', 
     let Func = a:func != v:null ? a:func
           \ : (get(b:, 'autocomplete_func', '') != '' ? function(b:autocomplete_func)
           \ : (get(g:, 'autocomplete_func', '') != '' ? function(g:autocomplete_func)
-          \ : (&omnifunc != "" ? function(&omnifunc)
+          \ : (&omnifunc != '' ? function(&omnifunc)
           \ : v:null)))
-    let col = Func != v:null ? Func(1, "") : -1
+    let col = Func != v:null ? Func(1, '') : -1
     if (col >= 0) " ignore negative columns
       let list = Func(0, getline('.')[col:col('.')])
       if (type(list) == type([]))
@@ -275,7 +275,7 @@ function! MyTabLine()
 
     " Filename
     let s .= filename == '' ?
-          \ ' [No Name] ' : ' '.pathshorten(fnamemodify(fullname, ":~:.")).' '
+          \ ' [No Name] ' : ' '.pathshorten(fnamemodify(fullname, ':~:.')).' '
 
     " Diagnostics
     let s .= diagnosticsstring . color . (diagnosticsstring == '' ? '' : ' ')
@@ -318,7 +318,7 @@ function! MyStatusLine()
   let d = get(g:, 'statusline_lsp_diagnostics', 0) ?
         \ GetLspDiagnosticsString(
         \GetLspDiagnostics(winbufnr(g:statusline_winid)), '') : ''
-  let s = "%f ".d."%*
+  let s = '%f '.d."%*
         \%h%m%r %=%<
         \%( %{%&endofline ? '' : '[noeol] /'%}%)
         \%( %{&fenc != '' ? &fenc . ' /' : ''}%)
@@ -331,8 +331,8 @@ endfunction
 
 " Foldtext {{{
 function! MyFoldText()
-  return (&foldcolumn?"":v:folddashes[1:].."▶")..
-        \ printf(" %3s ∙ ",v:foldend-v:foldstart)..
+  return (&foldcolumn?'':v:folddashes[1:]..'▶')..
+        \ printf(' %3s ∙ ',v:foldend-v:foldstart)..
         \ substitute(foldtext(),'^+-*\s*\d\+ lines: ','','')
 endfunction
 "}}}
@@ -342,7 +342,7 @@ function! CleanNoNameEmptyBuffers()
   " TODO make it so this does not close them on other tabs
   let buffers = filter(range(1, bufnr('$')), 'buflisted(v:val)
         \ && empty(bufname(v:val)) && empty(win_findbuf(v:val))
-        \ && (getbufline(v:val, 1, "$") == [""])')
+        \ && (getbufline(v:val, 1, '$') == [''])')
   if !empty(buffers)
     exe 'bd ' . join(buffers, ' ')
     echo len(buffers) . ' buffer' . (len(buffers) != 1 ? 's' : '') . ' deleted'
@@ -354,30 +354,30 @@ endfunction
 
 " C/CPP switch source and header files {{{
 function! CppSwitchSourceHeader(force)
-  let extension = expand("%:e")
+  let extension = expand('%:e')
   let fullpath = expand('%:p:r')
 
   " CPP
-  if (extension == "cpp")
+  if (extension == 'cpp')
     if (filereadable(fullpath.'.hpp'))
       exe 'edit '.fullpath.'.hpp'
     elseif (filereadable(fullpath.'.h') || a:force)
       exe 'edit '.fullpath.'.h'
     endif
   " C
-  elseif (extension == "c")
+  elseif (extension == 'c')
     if (filereadable(fullpath.'.h') || a:force)
       exe 'edit '.fullpath.'.h'
     endif
   " H
-  elseif (extension == "h")
+  elseif (extension == 'h')
     if (filereadable(fullpath.'.c'))
       exe 'edit '.fullpath.'.c'
     elseif (filereadable(fullpath.'.cpp') || a:force) " assume cpp file
       exe 'edit '.fullpath.'.cpp'
     endif
   " HPP
-  elseif (extension == "hpp")
+  elseif (extension == 'hpp')
     if (filereadable(fullpath.'.cpp') || a:force)
       exe 'edit '.fullpath.'.cpp'
     endif
@@ -394,7 +394,7 @@ command! CleanNoNameEmptyBuffers call CleanNoNameEmptyBuffers()
 
 "> MAPPINGS {{{1
 " Funny stuff {{{
-map Q :<C-u>echo "Have a nice day :)"<CR>
+map Q :<C-u>echo 'Have a nice day :)'<CR>
 nnoremap <silent> <Esc> :silent noh<CR>
 nnoremap <leader> <Nop>
 vnoremap <leader> <Nop>
@@ -402,23 +402,23 @@ nnoremap <localleader> <Nop>
 vnoremap <localleader> <Nop>
 
 " also reset file specific binds to prevent accidents from muscle memory
-nnoremap <localleader>a  :echo "[NO LOCAL MAPPING] a"<CR>
-nnoremap <localleader>b  :echo "[NO LOCAL MAPPING] b"<CR>
-nnoremap <localleader>c  :echo "[NO LOCAL MAPPING] c"<CR>
-nnoremap <localleader>d  :echo "[NO LOCAL MAPPING] d"<CR>
-nnoremap <localleader>e  :echo "[NO LOCAL MAPPING] e"<CR>
-nnoremap <localleader>f  :echo "[NO LOCAL MAPPING] f"<CR>
-nnoremap <localleader>fm :echo "[NO LOCAL MAPPING] fm"<CR>
-nnoremap <localleader>s  :echo "[NO LOCAL MAPPING] s"<CR>
-nnoremap <localleader>t  :echo "[NO LOCAL MAPPING] t"<CR>
-nnoremap <localleader>v  :echo "[NO LOCAL MAPPING] v"<CR>
+nnoremap <localleader>a  :echo '[NO LOCAL MAPPING] a'<CR>
+nnoremap <localleader>b  :echo '[NO LOCAL MAPPING] b'<CR>
+nnoremap <localleader>c  :echo '[NO LOCAL MAPPING] c'<CR>
+nnoremap <localleader>d  :echo '[NO LOCAL MAPPING] d'<CR>
+nnoremap <localleader>e  :echo '[NO LOCAL MAPPING] e'<CR>
+nnoremap <localleader>f  :echo '[NO LOCAL MAPPING] f'<CR>
+nnoremap <localleader>fm :echo '[NO LOCAL MAPPING] fm'<CR>
+nnoremap <localleader>s  :echo '[NO LOCAL MAPPING] s'<CR>
+nnoremap <localleader>t  :echo '[NO LOCAL MAPPING] t'<CR>
+nnoremap <localleader>v  :echo '[NO LOCAL MAPPING] v'<CR>
 "}}}
 
 " CSI fuckery {{{
 " (needs to be rebound to avoid waiting for timeout on <Esc>)
-if (!has("nvim"))
+if (!has('nvim'))
 for c in range(char2nr('a'), char2nr('z')) + range(char2nr('0'), char2nr('9'))
-  execute "set <A-"..nr2char(c)..">=\<Esc>"..nr2char(c)
+  execute 'set <A-'..nr2char(c)..">=\<Esc>"..nr2char(c)
 endfor
 endif
 "}}}
@@ -430,8 +430,8 @@ tnoremap <C-w> <C-w>.
 "}}}
 
 " Configuring {{{
-nnoremap <leader>r :so $MYVIMRC<CR>:echo "Vimrc reloaded"<CR>
-nnoremap <leader>R :let &ft=&ft<CR>:echo "Filetype reloaded"<CR>
+nnoremap <leader>r :so $MYVIMRC<CR>:echo 'Vimrc reloaded'<CR>
+nnoremap <leader>R :let &ft=&ft<CR>:echo 'Filetype reloaded'<CR>
 nnoremap <leader>E :tab drop $MYVIMRC<CR>
 "}}}
 
@@ -478,12 +478,12 @@ nnoremap <leader><Tab> <C-^>
 
 " Options toggle {{{
 nnoremap <leader>s <Nop>
-nnoremap <silent> <leader>ss :setlocal spell!<CR>:echo "Spellcheck "..(&spell ? "ON" : "OFF")<CR>
+nnoremap <silent> <leader>ss :setlocal spell!<CR>:echo 'Spellcheck '..(&spell ? 'ON' : 'OFF')<CR>
 nnoremap <silent> <leader>sf :let &foldcolumn=&foldcolumn?0:4<CR>
-nnoremap <leader>sb :let &bg=&bg=="dark"?"light":"dark"<CR>
-nnoremap <leader>sc :let &t_Co=&t_Co==256?16:256<CR>:echo "Terminal colors: "..&t_Co<CR>
+nnoremap <leader>sb :let &bg=&bg=='dark'?'light':'dark'<CR>
+nnoremap <leader>sc :let &t_Co=&t_Co==256?16:256<CR>:echo 'Terminal colors: '..&t_Co<CR>
 nnoremap <leader>sa :let g:autocomplete_enable=g:autocomplete_enable==0?1:0<CR>
-      \:echo "Autocomplete: "..(g:autocomplete_enable ? "ON" : "OFF")<CR>
+      \:echo 'Autocomplete: '..(g:autocomplete_enable ? 'ON' : 'OFF')<CR>
 "}}}
 
 " Finding {{{
@@ -551,18 +551,18 @@ vnoremap <C-l> >gv
 "}}}
 
 " Autocomplete {{{
-if (!has("nvim"))
+if (!has('nvim'))
 inoremap <silent> <C-Space> <C-r>=AutoComplete(v:null, 0)<CR>
 imap <C-@> <C-Space>
 endif
 
-inoremap <expr> / complete_info()["mode"]=="files" ? '/<C-x><C-f>' : '/'
+inoremap <expr> / complete_info()['mode']=='files' ? '/<C-x><C-f>' : '/'
 inoremap <silent> <C-f> <C-x><C-f>
-inoremap <expr> <C-w> complete_info()["mode"]=="files" ? '<C-w><C-x><C-f>' : '<C-w>'
+inoremap <expr> <C-w> complete_info()['mode']=='files' ? '<C-w><C-x><C-f>' : '<C-w>'
 "}}}
 
 " Matching pairs {{{
-if (!has("nvim")) " nvim has plugin for this
+if (!has('nvim')) " nvim has plugin for this
 inoremap <S-Tab> <nop>
 inoremap " ""<C-G>U<left>
 inoremap "<Esc> "<Esc>
@@ -604,22 +604,22 @@ ounmap <leader>"
 noremap <expr> <leader>' SurroundWithStrings("'", "'")
 ounmap <leader>'
 
-noremap <expr> <leader>` SurroundWithStrings("`", "`")
+noremap <expr> <leader>` SurroundWithStrings('`', '`')
 ounmap <leader>`
 
-noremap <expr> <leader>( SurroundWithStrings("(", ")")
+noremap <expr> <leader>( SurroundWithStrings('(', ')')
 ounmap <leader>(
-noremap <expr> <leader>) SurroundWithStrings("(", ")")
+noremap <expr> <leader>) SurroundWithStrings('(', ')')
 ounmap <leader>)
 
-noremap <expr> <leader>[ SurroundWithStrings("[", "]")
+noremap <expr> <leader>[ SurroundWithStrings('[', ']')
 ounmap <leader>[
-noremap <expr> <leader>] SurroundWithStrings("[", "]")
+noremap <expr> <leader>] SurroundWithStrings('[', ']')
 ounmap <leader>]
 
-noremap <expr> <leader>{ SurroundWithStrings("{", "}")
+noremap <expr> <leader>{ SurroundWithStrings('{', '}')
 ounmap <leader>{
-noremap <expr> <leader>} SurroundWithStrings("{", "}")
+noremap <expr> <leader>} SurroundWithStrings('{', '}')
 ounmap <leader>}
 "}}}
 
@@ -631,7 +631,7 @@ nnoremap <leader><C-e><C-v><C-a> <Nop>
 nnoremap <leader><C-e><C-v><C-a><C-l> dd:put!=execute(':@\"')<CR>'[_dd<C-o>
 
 " Clear search term
-nnoremap <leader>? :let @/='^$cleared'<CR>:echo "Search cleared"<CR>
+nnoremap <leader>? :let @/='^$cleared'<CR>:echo 'Search cleared'<CR>
 
 " Select pasted text in visual mode
 vnoremap an `[o`]
@@ -664,7 +664,7 @@ aug end
 "}}}
 
 " Session saving on exit {{{
-if (!has("nvim"))
+if (!has('nvim'))
 aug session_save
   au!
   au VimLeave *
@@ -714,7 +714,7 @@ aug end
 aug retoggle_file_complete
   au!
   au CompleteDonePre *
-        \ if complete_info()["mode"]=="files" && v:completed_item != {}
+        \ if complete_info()['mode']=='files' && v:completed_item != {}
         \ | call feedkeys("\<C-x>\<C-f>")
         \ | endif
 aug end
@@ -733,7 +733,7 @@ aug end
 " Built-in {{{
 let g:markdown_folding = 1
 let g:markdown_syntax_conceal = 1
-let g:markdown_fenced_languages = ["sh", "cpp", "c", "vim", "html", "python", "bash=sh"]
+let g:markdown_fenced_languages = ['sh', 'cpp', 'c', 'vim', 'html', 'python', 'bash=sh']
 "}}}
 " vim-markdown {{{
 let g:vim_markdown_new_list_item_indent = 0
@@ -741,7 +741,7 @@ let g:vim_markdown_folding_disabled = 1
 "}}}
 " markdown-preview {{{
 let g:mkdp_auto_close = 0
-let g:mkdp_markdown_css = fnamemodify(expand("$MYVIMRC"), ":p:h")."/markdown.css"
+let g:mkdp_markdown_css = fnamemodify(expand('$MYVIMRC'), ':p:h').'/markdown.css'
 "}}}
 " FZF {{{
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 , 'border': 'sharp'} }
@@ -749,7 +749,7 @@ let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 , 'border': 'sharp'
 " vim-vsnip {{{
 let g:vsnip_snippet_dir = fnamemodify(expand('$MYVIMRC'), ':p:h').'/snippets'
 let g:vsnip_filetypes = {
-      \   "c": ['cpp']
+      \   'c': ['cpp']
       \ }
 "}}}
 " vim-lsp {{{
@@ -772,7 +772,7 @@ let g:lsp_diagnostics_signs_hint = {'text': g:sign_hint}
 let g:lsp_diagnostics_signs_information = {'text': g:sign_info}
 let g:lsp_diagnostics_signs_warning = {'text': g:sign_warning}
 let g:lsp_diagnostics_signs_error = {'text': g:sign_error}
-let g:lsp_diagnostics_virtual_text_prefix = " ‣ "
+let g:lsp_diagnostics_virtual_text_prefix = ' ‣ '
 
 aug register_lsp_servers
   au!
@@ -837,7 +837,7 @@ endfunction
 
 function! LspHighlightFix()
   if (filereadable(fnamemodify(expand('$MYVIMRC'), ':p:h').'/lsp_highlight.vim'))
-    exe "so ".fnamemodify(expand('$MYVIMRC'), ':p:h').'/lsp_highlight.vim'
+    exe 'so '.fnamemodify(expand('$MYVIMRC'), ':p:h').'/lsp_highlight.vim'
   endif
 endfunction
 call LspHighlightFix()
@@ -958,7 +958,7 @@ Plug 'prabirshrestha/vim-lsp', VimOnly() " LSP support
 Plug 'hrsh7th/vim-vsnip' " Snippets
 Plug 'hrsh7th/vim-vsnip-integ' " LSP snippet support
 Plug 'aklt/plantuml-syntax' " PlantUML syntax
-if (has("python3"))
+if (has('python3'))
   Plug 'madox2/vim-ai'
 endif
 Plug 'lifepillar/vim-colortemplate'
