@@ -157,6 +157,7 @@ mode $open_mode {
   bindsym o exec "obs --startreplaybuffer"; mode "default"
   bindsym x exec $i "xfce4-appfinder"; mode "default"
   bindsym n exec $i "$terminal_float -e \\"sh -c 'vim ${HOME}/Sync/notes.txt'\\""; mode "default"
+  bindsym Shift+n exec $i "$terminal_float -e \\"sh -c 'vim -O ${HOME}/Sync/notes.txt ${HOME}/Sync/mobile.txt'\\""; mode "default"
   bindsym p exec "prismlauncher"; mode "default"
 
   bindsym Return mode "default"
