@@ -494,6 +494,8 @@ nnoremap <leader>t <Nop>
 nnoremap <leader>tn :tabnew<CR>
 nnoremap <leader>te :tabedit<Space>
 
+nnoremap <A-n> gt
+nnoremap <A-p> gT
 nnoremap <A-1> 1gt
 nnoremap <A-2> 2gt
 nnoremap <A-3> 3gt
@@ -504,6 +506,8 @@ nnoremap <A-7> 7gt
 nnoremap <A-8> 8gt
 nnoremap <A-9> 9gt
 
+tnoremap <A-n> <C-w>gt
+tnoremap <A-p> <C-w>gT
 tnoremap <A-1> <C-w>1gt
 tnoremap <A-2> <C-w>2gt
 tnoremap <A-3> <C-w>3gt
