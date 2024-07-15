@@ -38,17 +38,8 @@ if (!has("nvim"))
 set viminfofile=$HOME/.vim/viminfo
 endif
 
-if has('gui_running')
-  set belloff=all
-  set guioptions-=L
-  set guioptions-=T
-  set guioptions-=m
-  set guioptions-=r
-  let g:netrw_liststyle=3
-  " colorscheme slate
-  colorscheme default
-  set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
-endif
+set guioptions=cdfi
+set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
 
 colorscheme micrac
 
