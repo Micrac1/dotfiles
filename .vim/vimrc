@@ -947,7 +947,7 @@ endif
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/fzf.vim'
 Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install', 'for': ['markdown', 'vim-plug']}
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'prabirshrestha/vim-lsp', VimOnly() " LSP support
 "Plug 'mattn/vim-lsp-settings'
 Plug 'hrsh7th/vim-vsnip' " Snippets
