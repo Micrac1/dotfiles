@@ -44,9 +44,6 @@ if has('gui_running')
   set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
 endif
 
-" Should be bg& to let it determine itself and done automatically, but that is
-" broken
-"set background=dark
 colorscheme micrac
 
 set sessionoptions=blank,buffers,curdir,folds,help,tabpages,winpos,winsize,
@@ -162,7 +159,8 @@ endfunction
 function! AutoComplete(func=v:null, min_chars=get(g:, 'autocomplete_min_chars', 2), allow_when_pum = 0) abort
   if (get(b:, 'autocomplete_debounce', 0))|let b:autocomplete_debounce=0|return|endif
   if (get(g:, 'autocomplete_enable', 0)
-        \ && (!a:min_chars || getline('.')[col('.')-1-a:min_chars:col('.')-2] =~ '^[[:graph:]]\{'..a:min_chars..'\}$')
+        \ && (!a:min_chars || getline('.')[col('.')-1-a:min_chars:col('.')-2] =~
+        \ '^[[:graph:]]\{'..a:min_chars..'\}$')
         \ && (!pumvisible() || a:allow_when_pum))
     let Func = a:func != v:null ? a:func
           \ : (get(b:, 'autocomplete_func', '') != '' ? function(b:autocomplete_func)
@@ -269,24 +267,20 @@ function! MyTabLine()
       let diagnosticsstring = GetLspDiagnosticsString(d, color)
     endif
 
+    let s .= color
+
     " Begin tab
     let s .= '%' . n . 'T'
 
-    let s .= color
-    let s .= ' '
     " Tab number
-    let s .= ''.n.'.'
-
-    let s .= color
+    let s .= ' ' . n . '.'
 
     " Filename
     let s .= filename == '' ?
           \ ' [No Name] ' : ' '.pathshorten(fnamemodify(fullname, ":~:.")).' '
 
     " Diagnostics
-    let s .= diagnosticsstring
-    let s .= color
-    let s .= diagnosticsstring == '' ? '' : ' '
+    let s .= diagnosticsstring . color . (diagnosticsstring == '' ? '' : ' ')
 
     " Modified indicator
     let modified = 0
@@ -297,12 +291,7 @@ function! MyTabLine()
         break
       endif
     endfor
-    if (modified)
-      let s .= '[+]'
-    else
-      let s .= ''
-    endif
-    let s .= ' '
+    let s .= modified ? '[+] ' : ' '
 
     " Separator
     let s .= '%#TabLine#│'
@@ -311,16 +300,14 @@ function! MyTabLine()
   " Rest of the line
   let s .= '%T%#TabLineFill#'
   if (get(g:, 'tabline_lsp_progress', 0))
-    let p = GetLspProgressString()
-    let s .= p
+    let s .= GetLspProgressString()
   endif
   let s .= '%='
-  let e = 'UwU'
   if (get(g:, 'tabline_lsp_status', 0))
     let st = GetLspStatusString()
-    let e = st != '' ? st : e
+    let s .= st != '' ? st : 'UwU'
   endif
-  let s .= e . '%<'
+  let s .= '%<'
 
   return s
 endfunction
