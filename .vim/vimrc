@@ -301,8 +301,12 @@ function! MyTabLine()
     let s .= GetLspProgressString()
   endif
   let s .= '%='
-  let s .= get(g:, 'tabline_lsp_status', 0) && st != '' ?
-        \ st : 'UwU'
+
+  let st = ''
+  if (get(g:, 'tabline_lsp_status', 0))
+    let st = GetLspStatusString()
+    let s .= st != '' ? st : 'UwU'
+  endif
   let s .= '%<'
 
   return s
