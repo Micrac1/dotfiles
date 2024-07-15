@@ -443,6 +443,12 @@ nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 
+tnoremap <C-\> <C-w>
+tnoremap <C-\><C-\> <C-w><C-w>
+tnoremap <A-h> <C-w>h
+tnoremap <A-j> <C-w>j
+tnoremap <A-k> <C-w>k
+tnoremap <A-l> <C-w>l
 "}}}
 
 " Window resize {{{
@@ -452,6 +458,10 @@ nnoremap <silent> <A-a> :vertical resize -2<CR>
 nnoremap <silent> <A-s> :vertical resize +2<CR>
 nnoremap <A-f> <C-w>_<C-w><Bar>
 nnoremap <A-e> <C-w>=
+tnoremap <silent> <A-s> <C-w>:vertical resize +2<CR>
+tnoremap <silent> <A-v> <C-w>:resize +2 <CR>
+tnoremap <A-f> <C-w>_<C-w><Bar>
+tnoremap <A-e> <C-w>=
 "}}}
 
 " Buffers {{{
@@ -493,6 +503,16 @@ nnoremap <A-6> 6gt
 nnoremap <A-7> 7gt
 nnoremap <A-8> 8gt
 nnoremap <A-9> 9gt
+
+tnoremap <A-1> <C-w>1gt
+tnoremap <A-2> <C-w>2gt
+tnoremap <A-3> <C-w>3gt
+tnoremap <A-4> <C-w>4gt
+tnoremap <A-5> <C-w>5gt
+tnoremap <A-6> <C-w>6gt
+tnoremap <A-7> <C-w>7gt
+tnoremap <A-8> <C-w>8gt
+tnoremap <A-9> <C-w>9gt
 
 nnoremap <leader>tm <Nop>
 nnoremap <silent> <leader>tm1 :tabmove 0<CR>
