@@ -548,7 +548,8 @@ vnoremap <C-l> >gv
 
 " Autocomplete {{{
 if (!has("nvim"))
-inoremap <silent> <C-@> <C-r>=AutoComplete(v:null, 0)<CR>
+inoremap <silent> <C-Space> <C-r>=AutoComplete(v:null, 0)<CR>
+imap <C-@> <C-Space>
 endif
 
 inoremap <expr> / complete_info()["mode"]=="files" ? '/<C-x><C-f>' : '/'
