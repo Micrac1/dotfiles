@@ -68,6 +68,7 @@ set timeoutlen=1000
 set ttimeout
 set ttimeoutlen=0
 set mouse=a
+set belloff=all
 set hidden
 set foldmethod=marker
 filetype plugin indent on
