@@ -425,11 +425,8 @@ endif
 
 " Terminal buffer fixes {{{
 tnoremap <C-x> <C-\><C-n>
-if (!has('nvim'))
-  tnoremap <C-\> <C-w>
-  tnoremap <C-w> <C-w>.
-  tnoremap <C-\><C-x> <C-x>
-endif
+tnoremap <C-\><C-x> <C-x>
+tnoremap <C-w> <C-w>.
 "}}}
 
 " Configuring {{{
@@ -439,21 +436,21 @@ nnoremap <leader>E :tab drop $MYVIMRC<CR>
 "}}}
 
 " Window navigation {{{
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+nnoremap <C-\> <C-w>
+nnoremap <C-\><C-\> <C-w><C-w>
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
+
 "}}}
 
 " Window resize {{{
-nnoremap <silent> <A-h> :vertical resize -2<CR>
-nnoremap <silent> <A-j> :resize +2 <CR>
-nnoremap <silent> <A-k> :resize -2 <CR>
-nnoremap <silent> <A-l> :vertical resize +2<CR>
-"}}}
-
-" Fullscreen window {{{
-nnoremap <A-f> <C-w>_<C-w>\|
+nnoremap <silent> <A-c> :resize -2 <CR>
+nnoremap <silent> <A-v> :resize +2 <CR>
+nnoremap <silent> <A-a> :vertical resize -2<CR>
+nnoremap <silent> <A-s> :vertical resize +2<CR>
+nnoremap <A-f> <C-w>_<C-w><Bar>
 nnoremap <A-e> <C-w>=
 "}}}
 
@@ -517,10 +514,10 @@ inoremap <C-l> <right>
 "}}}
 
 " Moving lines {{{
-nnoremap <A-n> :m .+1<cr>==
-nnoremap <A-p> :m .-2<cr>==
-vnoremap <A-n> :m '>+1<cr>gv=gv
-vnoremap <A-p> :m '<-2<cr>gv=gv
+nnoremap <C-j> :m .+1<cr>
+nnoremap <C-k> :m .-2<cr>
+vnoremap <C-j> :m '>+1<cr>gv
+vnoremap <C-k> :m '<-2<cr>gv
 "}}}
 
 " Autocomplete {{{
