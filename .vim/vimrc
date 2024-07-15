@@ -458,6 +458,7 @@ nnoremap <silent> <A-a> :vertical resize -2<CR>
 nnoremap <silent> <A-s> :vertical resize +2<CR>
 nnoremap <A-f> <C-w>_<C-w><Bar>
 nnoremap <A-e> <C-w>=
+
 tnoremap <silent> <A-s> <C-w>:vertical resize +2<CR>
 tnoremap <silent> <A-v> <C-w>:resize +2 <CR>
 tnoremap <A-f> <C-w>_<C-w><Bar>
@@ -538,10 +539,15 @@ inoremap <C-l> <right>
 "}}}
 
 " Moving lines {{{
+nnoremap <C-h> <<
 nnoremap <C-j> :m .+1<cr>
 nnoremap <C-k> :m .-2<cr>
+nnoremap <C-l> >>
+
+vnoremap <C-h> <gv
 vnoremap <C-j> :m '>+1<cr>gv
 vnoremap <C-k> :m '<-2<cr>gv
+vnoremap <C-l> >gv
 "}}}
 
 " Autocomplete {{{
