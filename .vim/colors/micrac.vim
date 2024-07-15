@@ -6,9 +6,9 @@ if (&t_Co > 16)
 endif
 let g:colors_name = "micrac"
 
-hi! clear Normal
+hi!       Normal           guifg=White guibg=Black
 hi!       SpecialKey       term=bold cterm=NONE ctermfg=DarkGray ctermbg=NONE guifg=DarkGray guibg=NONE
-hi!       NonText          term=bold ctermfg=12 gui=bold guifg=Blue
+hi!       NonText          term=bold ctermfg=Blue gui=bold guifg=Cyan
 hi! link  EndOfBuffer      NonText
 hi!       Directory        term=bold ctermfg=159 guifg=Cyan "TODO
 
@@ -34,17 +34,17 @@ hi!       CursorColumn     term=reverse cterm=reverse ctermfg=NONE ctermbg=NONE 
 hi!       ColorColumn      term=reverse cterm=reverse ctermfg=DarkRed ctermbg=NONE gui=reverse guifg=DarkRed guibg=NONE
 
 hi!       Question         term=standout ctermfg=121 gui=bold guifg=Green
-hi!       Title            term=bold ctermfg=225 gui=bold guifg=Magenta
+hi!       Title            term=bold ctermfg=225 gui=bold guifg=LightMagenta
 hi!       Visual           term=reverse cterm=NONE ctermfg=Black ctermbg=Gray guifg=LightGrey guibg=#575757
 hi!       VisualNOS        term=bold,underline cterm=bold,underline gui=bold,underline
 hi!       WildMenu         term=standout ctermfg=0 ctermbg=11 guifg=Black guibg=Yellow
 
 hi!       Conceal          term=NONE cterm=NONE ctermfg=Gray ctermbg=DarkGray gui=NONE guifg=Grey guibg=DarkGrey
-hi!       Folded           term=standout ctermfg=Cyan ctermbg=DarkGray gui=NONE guifg=Cyan guibg=DarkGrey
+hi!       Folded           term=standout ctermfg=Cyan ctermbg=DarkGray gui=NONE guifg=Cyan guibg=DarkGray
 hi! link  FoldColumn       Normal
 hi! link  SignColumn       Normal
 
-hi!       DiffAdd          term=bold    cterm=NONE ctermfg=NONE ctermbg=DarkGreen   gui=NONE guifg=NONE guibg=DarkBlue
+hi!       DiffAdd          term=bold    cterm=NONE ctermfg=NONE ctermbg=DarkGreen   gui=NONE guifg=NONE guibg=DarkGreen
 hi!       DiffChange       term=bold    cterm=NONE ctermfg=NONE ctermbg=DarkMagenta gui=NONE guifg=NONE guibg=DarkMagenta
 hi!       DiffDelete       term=bold    cterm=NONE ctermfg=Red ctermbg=DarkRed    gui=bold guifg=Red guibg=DarkRed
 hi!       DiffText         term=reverse cterm=bold ctermfg=NONE ctermbg=DarkBlue gui=bold guifg=NONE guibg=Blue
@@ -88,7 +88,7 @@ hi!       ToolbarButton    term=underline cterm=bold ctermfg=Black ctermbg=Gray 
 " Language
 
 hi!       Added            term=reverse cterm=NONE ctermfg=Green ctermbg=NONE gui=NONE guifg=Green guibg=NONE
-hi!       Changed          term=reverse cterm=NONE ctermfg=Blue  ctermbg=NONE gui=NONE guifg=Blue guibg=NONE
+hi!       Changed          term=reverse cterm=NONE ctermfg=Magenta  ctermbg=NONE gui=NONE guifg=LightMagenta guibg=NONE
 hi!       Removed          term=reverse cterm=NONE ctermfg=Red   ctermbg=NONE gui=NONE guifg=Red guibg=NONE
 
 hi!       Comment          term=bold      cterm=NONE      ctermfg=Cyan ctermbg=NONE gui=NONE guifg=Cyan guibg=NONE
@@ -97,7 +97,7 @@ hi!       Ignore           ctermfg=0 guifg=bg "TODO
 hi!       Error            term=reverse,underline cterm=NONE ctermfg=Black ctermbg=Red    gui=NONE guifg=Black guibg=Red
 hi!       Todo             term=reverse           cterm=NONE ctermfg=Black ctermbg=Yellow gui=NONE guifg=Black guibg=Yellow
 
-hi!       Constant         term=NONE cterm=NONE ctermfg=Magenta ctermbg=NONE gui=NONE guifg=Magenta guibg=NONE
+hi!       Constant         term=NONE cterm=NONE ctermfg=Magenta ctermbg=NONE gui=NONE guifg=LightMagenta guibg=NONE
 hi! link  String           Constant
 hi! link  Character        Constant
 hi! link  Boolean          Constant
@@ -114,7 +114,7 @@ hi! link  Delimiter        Special
 hi! link  SpecialComment   Special
 hi! link  Debug            Special
 
-hi!       Statement        term=bold cterm=bold ctermfg=Blue ctermbg=NONE gui=bold guifg=Blue guibg=NONE
+hi!       Statement        term=bold cterm=bold ctermfg=Cyan ctermbg=NONE gui=bold guifg=Cyan guibg=NONE
 hi! link  Conditional      Statement
 hi! link  Repeat           Statement
 hi! link  Label            Statement
