@@ -165,9 +165,12 @@ function! AutoComplete(func=v:null, min_chars=get(g:, 'autocomplete_min_chars', 
           \ : (get(g:, 'autocomplete_func', '') != '' ? function(g:autocomplete_func)
           \ : (&omnifunc != '' ? function(&omnifunc)
           \ : v:null)))
+    let save_pos = getcurpos()
     let col = Func != v:null ? Func(1, '') : -1
+    call setpos('.', save_pos)
     if (col >= 0) " ignore negative columns
       let list = Func(0, getline('.')[col:col('.')])
+      call setpos('.', save_pos)
       if (type(list) == type([]))
         " call timer_start(0, { timer -> complete(col+1, list) })
         call complete(col+1, list)
