@@ -321,9 +321,10 @@ function! MyStatusLine()
   let d = get(g:, 'statusline_lsp_diagnostics', 0) ?
         \ GetLspDiagnosticsString(
         \GetLspDiagnostics(winbufnr(g:statusline_winid)), '') : ''
-  let s = '%f '.d."%*
+  let s = "%(%{&paste ? '[PASTE] ' : ''}%)".
+        \'%f '.d."%*
         \%h%m%r %=%<
-        \%( %{%&endofline ? '' : '[noeol] /'%}%)
+        \%( %{&endofline ? '' : '[noeol] /'}%)
         \%( %{&fenc != '' ? &fenc . ' /' : ''}%)
         \%( %{%&ff != '' ? get({'unix':'U','dos':'D','mac':'M'}, &ff) . ' /' : ''%}%)
         \%( %{&ft != '' ? &ft . ' /':''}%)
