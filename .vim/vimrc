@@ -82,7 +82,7 @@ set nobackup
 set encoding=utf-8
 set completeopt=menu,menuone,preview,noinsert
 set fillchars=vert:\ ,fold:\ ,foldclose:▶,foldopen:▼,foldsep:│
-let g:listchars = 'set listchars=tab:▬▬►,trail:¤,leadmultispace:│'.repeat('\ ',&ts-1)
+let g:listchars = 'set listchars=tab:▬▬►,trail:¤,leadmultispace:│'..repeat('\ ',&ts-1)
 exe get(g:, 'listchars')
 syntax enable
 if (&omnifunc == '') | set omnifunc=syntaxcomplete#Complete | endif
@@ -191,7 +191,7 @@ function! GetLspProgressString()
   "'message': '1/6 (core)',
   if (pp != [])
     let p = pp[0]
-    let s .= '['.p.server.'] '.p.title.' '.p.message
+    let s .= '['..p..server..'] '..p..title..' '..p..message
   endif
   return s
 endfunction
@@ -203,10 +203,10 @@ function! GetLspStatusString()
   let status = lsp#collect_server_status()
   for key in keys(status)
     if (status[key].status == 'running')
-      let s .= (s == '' ? '' : ', ').key
+      let s .= (s == '' ? '' : ', ')..key
     endif
   endfor
-  return s != '' ? '['.s.']' : s
+  return s != '' ? '['..s..']' : s
 endfunction
 "}}}
 
@@ -223,20 +223,20 @@ endfunction
 function! GetLspDiagnosticsString(table, color)
   let s = ''
   if (a:table.information)
-    let s .= s == '' ? '' : a:color.' '
-    let s .= ''.g:sign_info.a:table.information
+    let s .= s == '' ? '' : a:color..' '
+    let s .= ''..g:sign_info..a:table.information
   endif
   if (a:table.hint)
-    let s .= s == '' ? '' : a:color.' '
-    let s .= ''.g:sign_hint.a:table.hint
+    let s .= s == '' ? '' : a:color..' '
+    let s .= ''..g:sign_hint..a:table.hint
   endif
   if (a:table.warning)
-    let s .= s == '' ? '' : a:color.' '
-    let s .= '%#Todo#'.g:sign_warning.a:table.warning
+    let s .= s == '' ? '' : a:color..' '
+    let s .= '%#Todo#'..g:sign_warning..a:table.warning
   endif
   if (a:table.error)
-    let s .= s == '' ? '' : a:color.' '
-    let s .= '%#Error#'.g:sign_error.a:table.error
+    let s .= s == '' ? '' : a:color..' '
+    let s .= '%#Error#'..g:sign_error..a:table.error
   endif
   return s
 endfunction
@@ -271,17 +271,17 @@ function! MyTabLine()
     let s .= color
 
     " Begin tab
-    let s .= '%' . n . 'T'
+    let s .= '%' .. n .. 'T'
 
     " Tab number
-    let s .= ' ' . n . '.'
+    let s .= ' ' .. n .. '.'
 
     " Filename
     let s .= filename == '' ?
-          \ ' [No Name] ' : ' '.pathshorten(fnamemodify(fullname, ':~:.')).' '
+          \ ' [No Name] ' : ' '..pathshorten(fnamemodify(fullname, ':~:.'))..' '
 
     " Diagnostics
-    let s .= diagnosticsstring . color . (diagnosticsstring == '' ? '' : ' ')
+    let s .= diagnosticsstring .. color .. (diagnosticsstring == '' ? '' : ' ')
 
     " Modified indicator
     let modified = 0
@@ -321,13 +321,13 @@ function! MyStatusLine()
   let d = get(g:, 'statusline_lsp_diagnostics', 0) ?
         \ GetLspDiagnosticsString(
         \GetLspDiagnostics(winbufnr(g:statusline_winid)), '') : ''
-  let s = "%(%{&paste ? '[PASTE] ' : ''}%)".
-        \'%f '.d."%*
+  let s = "%(%{&paste ? '[PASTE] ' : ''}%)"..
+        \'%f '..d.."%*
         \%h%m%r %=%<
         \%( %{&endofline ? '' : '[noeol] /'}%)
-        \%( %{&fenc != '' ? &fenc . ' /' : ''}%)
-        \%( %{%&ff != '' ? get({'unix':'U','dos':'D','mac':'M'}, &ff) . ' /' : ''%}%)
-        \%( %{&ft != '' ? &ft . ' /':''}%)
+        \%( %{&fenc != '' ? &fenc .. ' /' : ''}%)
+        \%( %{%&ff != '' ? get({'unix':'U','dos':'D','mac':'M'}, &ff) .. ' /' : ''%}%)..
+        \%( %{&ft != '' ? &ft .. ' /':''}%)
         \%(  %l:%c%V%)  %P"
   return s
 endfunction
@@ -348,8 +348,8 @@ function! CleanNoNameEmptyBuffers()
         \ && empty(bufname(v:val)) && empty(win_findbuf(v:val))
         \ && (getbufline(v:val, 1, '$') == [''])')
   if !empty(buffers)
-    exe 'bd ' . join(buffers, ' ')
-    echo len(buffers) . ' buffer' . (len(buffers) != 1 ? 's' : '') . ' deleted'
+    exe 'bd ' .. join(buffers, ' ')
+    echo len(buffers) .. ' buffer' .. (len(buffers) != 1 ? 's' : '') .. ' deleted'
   else
     echo 'No buffer deleted'
   endif
@@ -363,27 +363,27 @@ function! CppSwitchSourceHeader(force)
 
   " CPP
   if (extension == 'cpp')
-    if (filereadable(fullpath.'.hpp'))
-      exe 'edit '.fullpath.'.hpp'
-    elseif (filereadable(fullpath.'.h') || a:force)
-      exe 'edit '.fullpath.'.h'
+    if (filereadable(fullpath..'.hpp'))
+      exe 'edit '..fullpath..'.hpp'
+    elseif (filereadable(fullpath..'.h') || a:force)
+      exe 'edit '..fullpath..'.h'
     endif
   " C
   elseif (extension == 'c')
-    if (filereadable(fullpath.'.h') || a:force)
-      exe 'edit '.fullpath.'.h'
+    if (filereadable(fullpath..'.h') || a:force)
+      exe 'edit '..fullpath..'.h'
     endif
   " H
   elseif (extension == 'h')
-    if (filereadable(fullpath.'.c'))
-      exe 'edit '.fullpath.'.c'
-    elseif (filereadable(fullpath.'.cpp') || a:force) " assume cpp file
-      exe 'edit '.fullpath.'.cpp'
+    if (filereadable(fullpath..'.c'))
+      exe 'edit '..fullpath..'.c'
+    elseif (filereadable(fullpath..'.cpp') || a:force) " assume cpp file
+      exe 'edit '..fullpath..'.cpp'
     endif
   " HPP
   elseif (extension == 'hpp')
-    if (filereadable(fullpath.'.cpp') || a:force)
-      exe 'edit '.fullpath.'.cpp'
+    if (filereadable(fullpath..'.cpp') || a:force)
+      exe 'edit '..fullpath..'.cpp'
     endif
   else
     echo "Can not switch source/header: not a source/header file."
@@ -482,13 +482,13 @@ nnoremap <leader><Tab> <C-^>
 
 " Options toggle {{{
 nnoremap <leader>s <Nop>
-nnoremap <silent> <leader>ss :setlocal spell!<CR>:echo 'Spellcheck '..(&spell ? 'ON' : 'OFF')<CR>
+nnoremap <silent> <leader>ss :setlocal spell!<CR>:echo 'Spellcheck '..(&spell?'ON':'OFF')<CR>
 nnoremap <silent> <leader>sf :let &foldcolumn=&foldcolumn?0:4<CR>
 nnoremap <leader>sb :let &bg=&bg=='dark'?'light':'dark'<CR>
 nnoremap <leader>sc :let &t_Co=&t_Co==256?16:256<CR>:echo 'Terminal colors: '..&t_Co<CR>
-nnoremap <leader>sp :set paste!<CR>:echo 'Paste: '..(&paste ? 'ON' : 'OFF')<CR>
-nnoremap <leader>sa :let g:autocomplete_enable=g:autocomplete_enable==0?1:0<CR>
-      \:echo 'Autocomplete: '..(g:autocomplete_enable ? 'ON' : 'OFF')<CR>
+nnoremap <leader>sp :set paste!<CR>:echo 'Paste: '..(&paste?'ON':'OFF')<CR>
+nnoremap <leader>sa :let g:autocomplete_enable=!g:autocomplete_enable<CR>
+      \:echo 'Autocomplete: '..(g:autocomplete_enable?'ON':'OFF')<CR>
 "}}}
 
 " Finding {{{
@@ -719,7 +719,7 @@ aug end
 aug retoggle_file_complete
   au!
   au CompleteDonePre *
-        \ if complete_info()['mode']=='files' && v:completed_item != {}
+        \ if complete_info()['mode'] == 'files' && v:completed_item != {}
         \ | call feedkeys("\<C-x>\<C-f>")
         \ | endif
 aug end
@@ -751,13 +751,13 @@ let g:vim_markdown_folding_disabled = 1
 "}}}
 " markdown-preview {{{
 let g:mkdp_auto_close = 0
-let g:mkdp_markdown_css = fnamemodify(expand('$MYVIMRC'), ':p:h').'/markdown.css'
+let g:mkdp_markdown_css = fnamemodify(expand('$MYVIMRC'), ':p:h') .. '/markdown.css'
 "}}}
 " FZF {{{
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 , 'border': 'sharp'} }
 "}}}
 " vim-vsnip {{{
-let g:vsnip_snippet_dir = fnamemodify(expand('$MYVIMRC'), ':p:h').'/snippets'
+let g:vsnip_snippet_dir = fnamemodify(expand('$MYVIMRC'), ':p:h') .. '/snippets'
 let g:vsnip_filetypes = {
       \   'c': ['cpp']
       \ }
@@ -846,8 +846,8 @@ function! s:register_lsp_servers()
 endfunction
 
 function! LspHighlightFix()
-  if (filereadable(fnamemodify(expand('$MYVIMRC'), ':p:h').'/lsp_highlight.vim'))
-    exe 'so '.fnamemodify(expand('$MYVIMRC'), ':p:h').'/lsp_highlight.vim'
+  if (filereadable(fnamemodify(expand('$MYVIMRC'), ':p:h') .. '/lsp_highlight.vim'))
+    exe 'so ' .. fnamemodify(expand('$MYVIMRC'), ':p:h') .. '/lsp_highlight.vim'
   endif
 endfunction
 call LspHighlightFix()
