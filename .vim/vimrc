@@ -757,7 +757,10 @@ let g:mkdp_markdown_css = fnamemodify(expand('$MYVIMRC'), ':p:h') .. '/markdown.
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 , 'border': 'sharp'} }
 "}}}
 " vim-vsnip {{{
-let g:vsnip_snippet_dir = fnamemodify(expand('$MYVIMRC'), ':p:h') .. '/snippets'
+let g:vsnip_snippet_dirs = [
+      \ fnamemodify(expand('$MYVIMRC'), ':p:h') .. '/snippets',
+      \ expand('$HOME') .. '/.vim/snippets',
+      \ ]
 let g:vsnip_filetypes = {
       \   'c': ['cpp']
       \ }
