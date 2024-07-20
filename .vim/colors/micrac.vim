@@ -85,8 +85,7 @@ hi!       MatchParen       term=reverse cterm=NONE ctermbg=DarkCyan guibg=DarkCy
 hi!       ToolbarLine      term=reverse   cterm=NONE ctermfg=NONE  ctermbg=DarkGray gui=NONE guifg=NONE  guibg=DarkGray
 hi!       ToolbarButton    term=underline cterm=bold ctermfg=Black ctermbg=Gray     gui=bold guifg=Black guibg=Grey
 
-" Language
-
+" Language {{{
 hi!       Added            term=reverse cterm=NONE ctermfg=Green ctermbg=NONE gui=NONE guifg=Green guibg=NONE
 hi!       Changed          term=reverse cterm=NONE ctermfg=Magenta  ctermbg=NONE gui=NONE guifg=LightMagenta guibg=NONE
 hi!       Removed          term=reverse cterm=NONE ctermfg=Red   ctermbg=NONE gui=NONE guifg=Red guibg=NONE
@@ -132,3 +131,10 @@ hi!       Type             term=bold cterm=bold ctermfg=Green ctermbg=NONE gui=b
 hi! link  StorageClass     Type
 hi! link  Structure        Type
 hi! link  Typedef          Type
+"}}}
+
+" termdebug {{{
+hi!       debugPC                 term=reverse cterm=NONE ctermfg=NONE ctermbg=DarkBlue gui=NONE guifg=NONE guibg=DarkBlue
+hi!       debugBreakpoint         term=reverse cterm=NONE ctermfg=NONE ctermbg=Red      gui=NONE guifg=NONE guibg=Red
+hi!       debugBreakpointDisabled term=reverse cterm=NONE ctermfg=NONE ctermbg=Gray     gui=NONE guifg=NONE guibg=Gray
+"}}}
