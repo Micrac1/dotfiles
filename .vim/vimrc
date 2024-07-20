@@ -674,8 +674,15 @@ if (!has('nvim'))
 aug session_save
   au!
   au VimLeave *
-        \ if (exists('v:this_session') && v:this_session != '')
-        \ |   exe 'mksession! '.v:this_session
+        \ if (get(g:, 'termdebug_is_running', 0))
+        \ |   call TermDebugSendCommand('set confirm off')
+        \ |   call TermDebugSendCommand('quit')
+        \ |   while (get(g:, 'termdebug_is_running', 0))
+        \ |     sleep 1m
+        \ |   endwhile
+        \ | endif
+        \ | if (exists('v:this_session') && v:this_session != '')
+        \ |   exe 'mksession! '..v:this_session
         \ | endif
 aug end
 endif
