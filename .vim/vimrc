@@ -326,7 +326,7 @@ function! MyStatusLine()
         \%h%m%r %=%<
         \%( %{&endofline ? '' : '[noeol] /'}%)
         \%( %{&fenc != '' ? &fenc .. ' /' : ''}%)
-        \%( %{%&ff != '' ? get({'unix':'U','dos':'D','mac':'M'}, &ff) .. ' /' : ''%}%)..
+        \%( %{%&ff != '' ? get({'unix':'U','dos':'D','mac':'M'}, &ff) .. ' /' : ''%}%)
         \%( %{&ft != '' ? &ft .. ' /':''}%)
         \%(  %l:%c%V%)  %P"
   return s
