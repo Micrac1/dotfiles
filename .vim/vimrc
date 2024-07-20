@@ -904,7 +904,58 @@ aug lsp_install
 aug end
 "}}}
 " Termdebug {{{
-"let g:termdebug_config = {'sign': '>>'}
+aug termdebug
+  au!
+  au User TermdebugStartPost wincmd r
+        \| call TermDebugSendCommand('set debuginfo enabled off')
+        \| nnoremap <leader>dr :Run<CR>
+        \| nnoremap <leader>db :Break<CR>
+        \| nnoremap <leader>dc :Clear<CR>
+        \| nnoremap <F3>  :call TermDebugSendCommand('kill')<CR>
+        \| nnoremap <F4>  :Run<CR>
+        \| nnoremap <F5>  :Continue<CR>
+        \| nnoremap <F6>  :Stop<CR>
+        \| nnoremap <F8>  :Clear<CR>
+        \| nnoremap <F9>  :Break<CR>
+        \| nnoremap <F10> :Over<CR>
+        \| nnoremap <F11> :Step<CR>
+        \| nnoremap <F12> :Finish<CR>
+        \| tnoremap <F3>  <C-w>:call TermDebugSendCommand('kill')<CR>
+        \| tnoremap <F4>  <C-w>:Run<CR>
+        \| tnoremap <F5>  <C-w>:Continue<CR>
+        \| tnoremap <F6>  <C-w>:Stop<CR>
+        \| tnoremap <F8>  <C-w>:Clear<CR>
+        \| tnoremap <F9>  <C-w>:Break<CR>
+        \| tnoremap <F10> <C-w>:Over<CR>
+        \| tnoremap <F11> <C-w>:Step<CR>
+        \| tnoremap <F12> <C-w>:Finish<CR>
+  au User TermdebugStopPost
+        \  nunmap <leader>dr
+        \| nunmap <leader>db
+        \| nunmap <leader>dc
+        \| nunmap <F3>
+        \| nunmap <F4>
+        \| nunmap <F5>
+        \| nunmap <F6>
+        \| nunmap <F10>
+        \| nunmap <F11>
+        \| nunmap <F12>
+        \| tunmap <F3>
+        \| tunmap <F4>
+        \| tunmap <F5>
+        \| tunmap <F6>
+        \| tunmap <F8>
+        \| tunmap <F9>
+        \| tunmap <F10>
+        \| tunmap <F11>
+        \| tunmap <F12>
+aug END
+
+let g:termdebug_config = {
+      \ 'wide': 1,
+      \ 'variables_window': 1,
+      \ 'variables_window_height': 15,
+      \ }
 "}}}
 " vim-ai {{{
 let initial_prompt =<< trim END
