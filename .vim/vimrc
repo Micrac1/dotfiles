@@ -487,6 +487,7 @@ nnoremap <silent> <leader>sf :let &foldcolumn=&foldcolumn?0:4<CR>
 nnoremap <leader>sb :let &bg=&bg=='dark'?'light':'dark'<CR>
 nnoremap <leader>sc :let &t_Co=&t_Co==256?16:256<CR>:echo 'Terminal colors: '..&t_Co<CR>
 nnoremap <leader>sp :set paste!<CR>:echo 'Paste: '..(&paste?'ON':'OFF')<CR>
+nnoremap <leader>sn :set nu!\|let &rnu=&nu<CR>:echo 'Numbers: '..(&nu?'ON':'OFF')<CR>
 nnoremap <leader>sa :let g:autocomplete_enable=!g:autocomplete_enable<CR>
       \:echo 'Autocomplete: '..(g:autocomplete_enable?'ON':'OFF')<CR>
 "}}}
