@@ -808,11 +808,13 @@ function! s:register_lsp_servers()
   let servers = [
         \ { 'name': 'clangd',
         \   'allowlist': ['c', 'cpp', 'objc', 'objcpp'],
-        \   'cmd': {server_info->['clangd', '--header-insertion=never']},
+        \   'executable': 'clangd',
+        \   'cmd': {server_info->[&shell, &shellcmdflag, 'clangd --header-insertion=never']},
         \ },
         \ { 'name': 'phpactor',
         \   'allowlist': ['php'],
-        \   'cmd': {server_info->['phpactor', 'language-server']},
+        \   'executable': 'phpactor',
+        \   'cmd': {server_info->[&shell, &shellcmdflag, 'phpactor language-server']},
         \   'initialization_options': {
         \     'language_server_phpstan.enabled': v:true,
         \     'language_server_psalm.enabled': v:true
@@ -820,7 +822,8 @@ function! s:register_lsp_servers()
         \ },
         \ { 'name': 'rust-analyzer',
         \   'allowlist': ['rust'],
-        \   'cmd': {server_info->['rust-analyzer']},
+        \   'executable': 'rust-analyzer',
+        \   'cmd': {server_info->[&shell, &shellcmdflag, 'rust-analyzer']},
         \   'initialization_options': {
         \     'diagnostics': {
         \       'enable': v:true,
@@ -831,26 +834,30 @@ function! s:register_lsp_servers()
         \ },
         \ { 'name': 'html-vscode',
         \   'allowlist': ['html'],
-        \   'cmd': {server_info->['vscode-html-language-server', '--stdio']},
+        \   'executable': 'vscode-html-language-server',
+        \   'cmd': {server_info->[&shell, &shellcmdflag, 'vscode-html-language-server --stdio']},
         \   'initialization_options': {
         \     'provideFormatter':v:true
         \   }
         \ },
         \ { 'name': 'css-vscode',
         \   'allowlist': ['css'],
-        \   'cmd': {server_info->['vscode-css-language-server', '--stdio']},
+        \   'executable': 'vscode-css-language-server',
+        \   'cmd': {server_info->[&shell, &shellcmdflag, 'vscode-css-language-server --stdio']},
         \ },
         \ { 'name': 'tsserver',
         \   'allowlist': ['javascript', 'typescript'],
-        \   'cmd': {server_info->['typescript-language-server', '--stdio']},
+        \   'executable': 'typescript-language-server',
+        \   'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
         \ },
         \ { 'name': 'omnisharp',
         \   'allowlist': ['cs'],
-        \   'cmd': {server_info->['omnisharp', '-lsp']},
+        \   'executable': 'omnisharp',
+        \   'cmd': {server_info->[&shell, &shellcmdflag, 'omnisharp', '-lsp']},
         \ },
         \ ]
   for s in servers
-    if executable(s.cmd(0)[0])
+    if executable(get(s, 'executable', '0'))
       call lsp#register_server(s)
     endif
   endfor
