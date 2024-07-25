@@ -96,6 +96,10 @@ set foldtext=MyFoldText()
 let &t_SI = "\e[6 q"
 let &t_SR = "\e[4 q"
 let &t_EI = "\e[2 q"
+set guicursor=
+      \n-v-ve-o-c-sm:block-Cursor/lCursor-blinkon0,
+      \i-ci:ver25-Cursor/lCursor-blinkon0,
+      \r-cr:hor20-Cursor/lCursor-blinkon0
 " Ps = 0  -> blinking block.
 " Ps = 1  -> blinking block (default).
 " Ps = 2  -> steady block.
