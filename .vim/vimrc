@@ -855,6 +855,11 @@ function! s:register_lsp_servers()
         \   'executable': 'omnisharp',
         \   'cmd': {server_info->[&shell, &shellcmdflag, 'omnisharp', '-lsp']},
         \ },
+        \ { 'name': 'pylsp',
+        \   'allowlist': ['python'],
+        \   'executable': 'pylsp',
+        \   'cmd': {server_info->[&shell, &shellcmdflag, 'pylsp']},
+        \ },
         \ ]
   for s in servers
     if executable(get(s, 'executable', '0'))
