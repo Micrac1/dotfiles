@@ -123,13 +123,11 @@ function! SurroundWithStrings(left_string = '<==', right_string = '==>', type = 
   try
     " TODO line and block
     " TODO dont run normal!
-    " TODO teleport to second position, dont do <right>
+    let left_len = len(a:left_string)
     if a:type == 'char'
-      let left_len = len(a:left_string)
-      execute 'silent noautocmd keepjumps normal! `ai'..a:left_string.."\<Esc>`b"..
-            \ (save_mark[0][1] == save_mark[1][1] && left_len != 0 ? 
-            \ (left_len .. "\<right>") : '') ..
-            \ 'a'..a:right_string.."\<Esc>"
+      execute 'silent noautocmd keepjumps normal! `ai'..a:left_string..
+            \ "\<Esc>`b"..(save_mark[1][2] + (save_mark[0][1] == save_mark[1][1]
+            \ && left_len != 0 ? left_len : 0))..'|a'..a:right_string.."\<Esc>"
     endif
   finally
     call setcharpos("'[", save_mark[0])
