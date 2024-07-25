@@ -39,7 +39,7 @@ set viminfofile=$HOME/.vim/viminfo
 endif
 
 set guioptions=!cdfi
-set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
+set guifont=Bitstream\ Vera\ Sans\ Mono\ 10,Consolas:h11
 
 colorscheme micrac
 
