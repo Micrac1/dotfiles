@@ -629,6 +629,11 @@ noremap <expr> <leader>} SurroundWithStrings('{', '}')
 ounmap <leader>}
 "}}}
 
+" Jump to next help tag {{{
+nnoremap ]j :call search('\|.*\|', 's')<CR>
+nnoremap [j :call search('\|.*\|', 'bs')<CR>
+"}}}
+
 " Other (misc.) {{{
 " Evaluate command from buffer and paste there
 nnoremap <leader><C-e> <Nop>
