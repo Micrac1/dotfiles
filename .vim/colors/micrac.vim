@@ -141,8 +141,8 @@ hi!       debugBreakpointDisabled term=reverse cterm=NONE ctermfg=NONE ctermbg=G
 
 " vim-lsp {{{
 hi! link  lspReference                                                                       CursorColumn
-hi!       LspErrorHighlight                                                                  ctermfg=Red cterm=underline
-hi!       LspWarningHighlight                                                                ctermfg=Yellow cterm=underline
+hi!       LspErrorHighlight                                                                  cterm=underline ctermfg=Red ctermbg=NONE gui=underline guifg=Red guibg=NONE
+hi!       LspWarningHighlight                                                                cterm=underline ctermfg=Yellow ctermbg=NONE gui=underline guifg=Red guibg=NONE
 hi! link  LspInformationHighlight                                                            Normal
 hi! link  LspHintHighlight                                                                   Normal
 hi! link  LspErrorText                                                                       Error
