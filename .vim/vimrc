@@ -344,9 +344,9 @@ endfunction
 " Close empty nameless buffers {{{
 function! CleanNoNameEmptyBuffers()
   " TODO make it so this does not close them on other tabs
-  let buffers = filter(range(1, bufnr('$')), 'buflisted(v:val)
+  let buffers = filter(range(1, bufnr('$')), "buflisted(v:val)
         \ && empty(bufname(v:val)) && empty(win_findbuf(v:val))
-        \ && (getbufline(v:val, 1, '$') == [''])')
+        \ && (getbufline(v:val, 1, '$') == [''])")
   if !empty(buffers)
     exe 'bd ' .. join(buffers, ' ')
     echo len(buffers) .. ' buffer' .. (len(buffers) != 1 ? 's' : '') .. ' deleted'
