@@ -78,8 +78,8 @@ hi!       StatusLineTermNC term=reverse      cterm=NONE ctermfg=Black ctermbg=Da
 
 hi! link  QuickFixLine     Search
 hi! clear MsgArea
-hi!       Cursor           guifg=bg guibg=fg
-hi!       lCursor          guifg=bg guibg=fg
+hi!       Cursor           guifg=bg guibg=#00aaff
+hi! link  lCursor          Cursor
 hi!       MatchParen       term=reverse cterm=NONE ctermbg=DarkCyan guibg=DarkCyan
 
 hi!       ToolbarLine      term=reverse   cterm=NONE ctermfg=NONE  ctermbg=DarkGray gui=NONE guifg=NONE  guibg=DarkGray
