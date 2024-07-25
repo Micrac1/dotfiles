@@ -117,9 +117,9 @@ function! SurroundWithStrings(left_string = '<==', right_string = '==>', type = 
     return 'g@'
   endif
 
-  let save_mark = [getpos("'["), getpos("']"), getpos("'a"), getpos("'b")]
-  call setpos("'a", save_mark[0])
-  call setpos("'b", save_mark[1])
+  let save_mark = [getcharpos("'["), getcharpos("']"), getcharpos("'a"), getcharpos("'b")]
+  call setcharpos("'a", save_mark[0])
+  call setcharpos("'b", save_mark[1])
   try
     " TODO line and block
     " TODO dont run normal!
@@ -132,10 +132,10 @@ function! SurroundWithStrings(left_string = '<==', right_string = '==>', type = 
             \ 'a'..a:right_string.."\<Esc>"
     endif
   finally
-    call setpos("'[", save_mark[0])
-    call setpos("']", save_mark[1])
-    call setpos("'a", save_mark[2])
-    call setpos("'b", save_mark[3])
+    call setcharpos("'[", save_mark[0])
+    call setcharpos("']", save_mark[1])
+    call setcharpos("'a", save_mark[2])
+    call setcharpos("'b", save_mark[3])
   endtry
 endfunction
 "}}}
