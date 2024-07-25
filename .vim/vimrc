@@ -38,7 +38,7 @@ if (!has('nvim'))
 set viminfofile=$HOME/.vim/viminfo
 endif
 
-set guioptions=cdfi
+set guioptions=!cdfi
 set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
 
 colorscheme micrac
