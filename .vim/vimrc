@@ -1021,6 +1021,7 @@ let g:vim_ai_complete = g:vim_ai_edit
 
 " Builtin plugins {{{
 runtime ftplugin/man.vim
+packadd! editorconfig
 packadd! matchit
 packadd! comment
 packadd! termdebug
