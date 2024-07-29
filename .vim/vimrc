@@ -454,6 +454,10 @@ nnoremap <A-h> <C-w>h
 nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
+nnoremap <A-Left> <C-w>h
+nnoremap <A-Down> <C-w>j
+nnoremap <A-Up> <C-w>k
+nnoremap <A-Right> <C-w>l
 
 tnoremap <C-\> <C-w>
 tnoremap <C-\><C-\> <C-w><C-w>
@@ -461,6 +465,10 @@ tnoremap <A-h> <C-w>h
 tnoremap <A-j> <C-w>j
 tnoremap <A-k> <C-w>k
 tnoremap <A-l> <C-w>l
+tnoremap <A-Left> <C-w>h
+tnoremap <A-Down> <C-w>j
+tnoremap <A-Up> <C-w>k
+tnoremap <A-Right> <C-w>l
 "}}}
 
 " Window resize {{{
@@ -557,11 +565,19 @@ nnoremap <C-h> <<
 nnoremap <C-j> :m .+1<cr>
 nnoremap <C-k> :m .-2<cr>
 nnoremap <C-l> >>
+nnoremap <C-Left> <<
+nnoremap <C-Down> :m .+1<cr>
+nnoremap <C-Up> :m .-2<cr>
+nnoremap <C-Right> >>
 
 vnoremap <C-h> <gv
 vnoremap <C-j> :m '>+1<cr>gv
 vnoremap <C-k> :m '<-2<cr>gv
 vnoremap <C-l> >gv
+vnoremap <C-Left> <gv
+vnoremap <C-Down> :m '>+1<cr>gv
+vnoremap <C-Up> :m '<-2<cr>gv
+vnoremap <C-Right> >gv
 "}}}
 
 " Autocomplete {{{
