@@ -4,7 +4,7 @@
 
 " Some global variables
 let g:sign_error = 'E'
-let g:sign_warning = '‼'
+let g:sign_warning = 'W'
 let g:sign_hint = 'H'
 let g:sign_info = 'i'
 
