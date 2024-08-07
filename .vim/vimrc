@@ -749,6 +749,11 @@ aug vimrc_ft
         \ inoremap <buffer> > ><C-x><C-o>
   "}}}
 
+  " Quickfix {{{
+  au FileType qf
+        \ nnoremap <buffer> p <CR>:copen<CR>
+  "}}}
+
 aug end
 "}}}
 
