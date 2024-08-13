@@ -71,6 +71,28 @@ ${_GIT_PS1}${_C_DBUS}${_PROMPT}${_RES} "
 
 unset _COLOR _PROMPT _RES _GIT_PS1 _C_DBUS
 
+declare -A BASHMARKS
+BASHMARKS["mato"]="/media/blue/projects/doucovanie/Mato/python/python_assignments"
+BASHMARKS["mc"]="/media/blue/mc_servers"
+BASHMARKS["projects"]="/media/blue/projects"
+BASHMARKS["sources"]="/media/blue/sources"
+
+# Bookmarks
+alias Bmato="cd /media/blue/projects/doucovanie/Mato/python/python_assignments"
+alias Bmc="cd /media/blue/mc_servers"
+
+g(){
+  TMP="${BASHMARKS[${1- }]}"
+  if [ -z "${1}" ]; then
+    echo "Current bookmarks:"
+    echo "${!BASHMARKS[@]}"
+  elif [ -z "${TMP}" ]; then
+    echo "Bashmark '${1}' does not exist"
+  else
+    cd $TMP
+  fi
+}
+
 # Aliases
 alias sway="sway --unsupported-gpu"
 alias ncdu="ncdu --color dark"
