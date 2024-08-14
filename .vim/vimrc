@@ -87,6 +87,7 @@ exe get(g:, 'listchars')
 syntax enable
 if (&omnifunc == '') | set omnifunc=syntaxcomplete#Complete | endif
 set dictionary=/usr/share/dict/words
+set tags+=~/.vim/systags
 
 set laststatus=2 " Statusline
 
