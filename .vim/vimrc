@@ -479,11 +479,13 @@ nnoremap <silent> <A-a> :vertical resize -2<CR>
 nnoremap <silent> <A-s> :vertical resize +2<CR>
 nnoremap <A-f> <C-w>_<C-w><Bar>
 nnoremap <A-e> <C-w>=
+nnoremap <expr> <A-d> execute('vert resize ' .. &columns * 2 / 3)
 
 tnoremap <silent> <A-s> <C-w>:vertical resize +2<CR>
 tnoremap <silent> <A-v> <C-w>:resize +2 <CR>
 tnoremap <A-f> <C-w>_<C-w><Bar>
 tnoremap <A-e> <C-w>=
+tnoremap <expr> <A-d> execute('vert resize ' .. &columns * 2 / 3)
 "}}}
 
 " Buffers {{{
