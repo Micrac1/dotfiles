@@ -604,6 +604,7 @@ inoremap <expr> <C-w> complete_info()['mode']=='files' ? '<C-w><C-x><C-f>' : '<C
 " Matching pairs {{{
 if (!has('nvim')) " nvim has plugin for this
 inoremap <S-Tab> <nop>
+
 inoremap " ""<C-G>U<left>
 inoremap "<Esc> "<Esc>
 inoremap <S-Tab>" "
@@ -613,6 +614,11 @@ inoremap ' ''<C-G>U<left>
 inoremap '<Esc> '<Esc>
 inoremap <S-Tab>' '
 inoremap '' ''
+
+inoremap ` ``<C-G>U<left>
+inoremap `<Esc> `<Esc>
+inoremap <S-Tab>` `
+inoremap `` ``
 
 inoremap ( ()<C-G>U<left>
 inoremap (<Esc> (<Esc>
