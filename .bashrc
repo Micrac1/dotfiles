@@ -132,9 +132,6 @@ _TMP="$(complete -p pacman)" && eval "${_TMP% *} sp"
 
 . "${HOME}/.dfs/init.sh"
 
-# DONT RUN UNDER ROOT
-[ "$(whoami)" = "root" ] && return
-
 # limits recursive functions, see 'man bash'
 [ -z "$FUNCNEST" ] && export FUNCNEST=100
 
