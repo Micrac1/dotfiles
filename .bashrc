@@ -77,10 +77,6 @@ BASHMARKS["mc"]="/media/blue/mc_servers"
 BASHMARKS["projects"]="/media/blue/projects"
 BASHMARKS["sources"]="/media/blue/sources"
 
-# Bookmarks
-alias Bmato="cd /media/blue/projects/doucovanie/Mato/python/python_assignments"
-alias Bmc="cd /media/blue/mc_servers"
-
 g(){
   TMP="${BASHMARKS[${1- }]}"
   if [ -z "${1}" ]; then
