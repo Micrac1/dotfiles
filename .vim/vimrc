@@ -667,6 +667,10 @@ noremap <expr> <leader>{ SurroundWithStrings('{', '}')
 ounmap <leader>{
 noremap <expr> <leader>} SurroundWithStrings('{', '}')
 ounmap <leader>}
+
+" Used for bash and javascript
+noremap <expr> <leader>$ SurroundWithStrings('${', '}')
+ounmap <leader>$
 "}}}
 
 " Jump to next help tag {{{
