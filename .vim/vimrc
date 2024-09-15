@@ -673,6 +673,11 @@ noremap <expr> <leader>$ SurroundWithStrings('${', '}')
 ounmap <leader>$
 "}}}
 
+" System clipboard manipulation {{{
+nnoremap ? "+
+vnoremap ? "+
+"}}}
+
 " Jump to next help tag {{{
 nnoremap ]j :call search('\|.*\|', 's')<CR>
 nnoremap [j :call search('\|.*\|', 'bs')<CR>
