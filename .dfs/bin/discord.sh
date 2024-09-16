@@ -12,8 +12,8 @@ if [ -n "$1" ]; then
     ;;
   esac
 else
-  firefox --new-window "https://discord.com/app"
+  # firefox --new-window "https://discord.com/app"
   #chromium --app=https://discord.com/app
   #discord
-  #discord-canary
+  discord-canary
 fi
