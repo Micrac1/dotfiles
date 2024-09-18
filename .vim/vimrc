@@ -855,6 +855,7 @@ let g:lsp_async_completion = 1
 
 let g:lsp_document_highlight_enabled = 0
 let g:lsp_document_code_action_signs_enabled = 0
+let g:lsp_document_symbol_detail = 0
 let g:lsp_diagnostics_highlights_enabled = 1
 let g:lsp_diagnostics_highlights_delay = 50
 let g:lsp_diagnostics_signs_enabled = 1
