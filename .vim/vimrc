@@ -506,6 +506,7 @@ nnoremap <leader><Tab> <C-^>
 " Options toggle {{{
 nnoremap <leader>s <Nop>
 nnoremap <silent> <leader>sa :let g:autocomplete_enable=!g:autocomplete_enable<CR>
+      \:echo 'Autocomplete: '..(g:autocomplete_enable?'ON':'OFF')<CR>
 nnoremap <silent> <leader>sb :let &bg=&bg=='dark'?'light':'dark'<CR>
 nnoremap <silent> <leader>sc :let &t_Co=&t_Co==256?16:256<CR>:echo 'Terminal colors: '..&t_Co<CR>
 nnoremap <silent> <leader>sf :let &foldcolumn=&foldcolumn?0:4<CR>
@@ -513,7 +514,6 @@ nnoremap <silent> <leader>sl :set list!<CR>:echo 'List '..(&list?'ON':'OFF')<CR>
 nnoremap <silent> <leader>sn :set nu!\|let &rnu=&nu<CR>:echo 'Numbers: '..(&nu?'ON':'OFF')<CR>
 nnoremap <silent> <leader>sp :set paste!<CR>:echo 'Paste: '..(&paste?'ON':'OFF')<CR>
 nnoremap <silent> <leader>ss :setlocal spell!<CR>:echo 'Spellcheck '..(&spell?'ON':'OFF')<CR>
-      \:echo 'Autocomplete: '..(g:autocomplete_enable?'ON':'OFF')<CR>
 "}}}
 
 " Finding {{{
