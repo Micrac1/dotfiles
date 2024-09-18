@@ -514,6 +514,7 @@ nnoremap <silent> <leader>sl :set list!<CR>:echo 'List '..(&list?'ON':'OFF')<CR>
 nnoremap <silent> <leader>sn :set nu!\|let &rnu=&nu<CR>:echo 'Numbers: '..(&nu?'ON':'OFF')<CR>
 nnoremap <silent> <leader>sp :set paste!<CR>:echo 'Paste: '..(&paste?'ON':'OFF')<CR>
 nnoremap <silent> <leader>ss :setlocal spell!<CR>:echo 'Spellcheck '..(&spell?'ON':'OFF')<CR>
+nnoremap <silent> <leader>s<bar> :let &colorcolumn=&colorcolumn==''?'+1':''<CR>
 "}}}
 
 " Finding {{{
