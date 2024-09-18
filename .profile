@@ -1,5 +1,6 @@
 export PATH="${PATH}:${HOME}/.local/bin"
 export QT_QPA_PLATFORMTHEME=qt5ct
+# export SDL_GAMECONTROLLERCONFIG="0300f2005e040000a102000014010000,Xbox 360 Wireless Receiver (XBOX),a:b0,b:b1,back:b6,dpdown:b14,dpleft:b11,dpright:b12,dpup:b13,guide:b8,leftshoulder:b4,leftstick:b9,lefttrigger:a2,leftx:a0,lefty:a1,rightshoulder:b5,rightstick:b10,righttrigger:a5,rightx:a3,righty:a4,start:b7,x:b2,y:b3,platform:Linux"
 
 # Avoid cluttering $HOME
 export XDG_DATA_HOME="${HOME}/.local/share"
