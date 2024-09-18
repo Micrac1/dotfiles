@@ -11,8 +11,8 @@ let g:sign_hint = 'H'
 let g:sign_info = 'i'
 
 " Leaders
-let mapleader=" "
-let maplocalleader=","
+let mapleader="\<Space>"
+let maplocalleader="\<Space>\<Space>"
 
 let g:autocomplete_enable = 1
 
@@ -437,8 +437,13 @@ nnoremap <localleader>v  :echo '[NO LOCAL MAPPING] v'<CR>
 "}}}
 
 " CSI fuckery {{{
-" (needs to be rebound to avoid waiting for timeout on <Esc>)
 if (!has('nvim'))
+" fix terminal mode <C-Space>
+map <C-@> <C-Space>
+imap <C-@> <C-Space>
+tmap <C-@> <C-Space>
+
+" (needs to be rebound to avoid waiting for timeout on <Esc>)
 for c in range(char2nr('a'), char2nr('z')) + range(char2nr('0'), char2nr('9'))
   execute 'set <A-'..nr2char(c)..">=\<Esc>"..nr2char(c)
 endfor
@@ -603,7 +608,6 @@ vnoremap <C-Right> >gv
 " Autocomplete {{{
 if (!has('nvim'))
 inoremap <silent> <C-Space> <C-r>=AutoComplete(v:null, 0)<CR>
-imap <C-@> <C-Space>
 endif
 
 inoremap <expr> / complete_info()['mode']=='files' ? '/<C-x><C-f>' : '/'
