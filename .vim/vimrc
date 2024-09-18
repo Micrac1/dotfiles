@@ -1065,9 +1065,12 @@ let g:vim_ai_complete = g:vim_ai_edit
 
 " Builtin plugins {{{
 runtime ftplugin/man.vim
+if (!has('nvim'))
 packadd! editorconfig
-packadd! matchit
 packadd! comment
+endif
+
+packadd! matchit
 packadd! termdebug
 "}}}
 
