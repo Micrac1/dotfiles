@@ -1,4 +1,5 @@
 " VIMRC
+let $MYVIMRC = expand('<script>')
 
 "> VARIABLES {{{1
 
