@@ -55,6 +55,7 @@ set winminwidth=0
 set number
 set relativenumber
 set ruler
+set nojoinspaces
 set wildmenu
 set wildmode=lastused:full
 set wildoptions=pum " Vertical wild menu in cmdline
