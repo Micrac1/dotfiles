@@ -431,6 +431,7 @@ nnoremap <localleader>d  :echo '[NO LOCAL MAPPING] d'<CR>
 nnoremap <localleader>e  :echo '[NO LOCAL MAPPING] e'<CR>
 nnoremap <localleader>f  :echo '[NO LOCAL MAPPING] f'<CR>
 nnoremap <localleader>fm :echo '[NO LOCAL MAPPING] fm'<CR>
+nnoremap <localleader>p  :echo '[NO LOCAL MAPPING] p'<CR>
 nnoremap <localleader>s  :echo '[NO LOCAL MAPPING] s'<CR>
 nnoremap <localleader>t  :echo '[NO LOCAL MAPPING] t'<CR>
 nnoremap <localleader>v  :echo '[NO LOCAL MAPPING] v'<CR>
