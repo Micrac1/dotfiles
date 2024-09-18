@@ -36,6 +36,11 @@ if (has('win32'))
   language en_US.utf8
 endif
 
+if (has('nvim'))
+  set runtimepath+=$VIMCONFIGROOT
+  set runtimepath+=$VIMCONFIGROOT/after
+endif
+
 if (!has('nvim'))
 set viminfofile=$VIMCONFIGROOT/viminfo
 endif
