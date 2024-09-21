@@ -228,6 +228,18 @@ function! GetLspStatusString()
 endfunction
 "}}}
 
+" Get LSP breadcrumbs string {{{
+function! GetLspBreadcrumbsString(window)
+  let symbols = getwinvar(a:window, 'lsp_breadcrumbs', v:null)
+  if (symbols == v:null) | return '' | endif
+  let s = ''
+  for symbol in symbols
+    let s .= '> '..symbol..' '
+  endfor
+  return s
+endfunction
+"}}}
+
 " Get LSP diagnostics {{{
 function! GetLspDiagnostics(id)
   if (exists('*lsp#internal#diagnostics#state#_get_diagnostics_count_for_buffer'))
@@ -257,6 +269,99 @@ function! GetLspDiagnosticsString(table, color = '')
     let s .= '%#Error#'..g:sign_error..a:table.error
   endif
   return s
+endfunction
+"}}}
+
+" Update document symbols {{{
+function! UpdateLspDocumentSymbols(buffer)
+  " For perfomance reasons this function should only be ran when the document
+  " structure changes, not when the cursor moves.
+  let servers = filter(lsp#get_allowed_servers(), 'lsp#capabilities#has_document_symbol_provider(v:val)')
+  if (len(servers) == 0)
+    " We can't remove the variable, since there is no function alternative for
+    " unlet
+    call setbufvar(a:buffer, 'lsp_symbols', [])
+    return 1
+  endif
+
+  call lsp#send_request(servers[0], {
+        \   'method': 'textDocument/documentSymbol',
+        \   'params': {
+        \     'textDocument': lsp#get_text_document_identifier(),
+        \   },
+        \   'on_notification': function('s:handle_symbols', [servers[0], lsp#_new_command(), a:buffer]),
+        \ })
+endfunction
+
+function! s:handle_symbols(server, last_command_id, buffer, data)
+  if a:last_command_id != lsp#_last_command() | return | endif
+  " I hope to god this is never needed. Use in case the LSP server does NOT
+  " return sorted symbols
+
+  " call setbufvar(a:buffer, 'lsp_symbols',
+  "       \ sort(a:data['response']['result'], {a, b ->
+  "       \   get(a, 'location', a)['range']['start']['line']
+  "       \   == get(b, 'location', b)['range']['start']['line']
+  "       \     ? (get(a, 'location', a)['range']['start']['character']
+  "       \        - get(b, 'location', b)['range']['start']['character'])
+  "       \   : get(a, 'location', a)['range']['start']['line']
+  "       \     > get(b, 'location', b)['range']['start']['line']
+  "       \       ? 1 : -1
+  "       \}))
+  call setbufvar(a:buffer, 'lsp_symbols', a:data['response']['result'])
+
+  " Update visible status lines
+  for window in win_findbuf(a:buffer)
+    call UpdateLspDocumentBreadcrumbs(win_id2win(window))
+  endfor
+
+  redrawstatus!
+endfunction
+"}}}
+
+" Update LSP breadcrumbs {{{
+function! UpdateLspDocumentBreadcrumbs(window)
+  if (a:window == 0) | return 1 | endif
+  let win_id = win_getid(a:window)
+  let current = getbufvar(winbufnr(a:window), 'lsp_symbols', v:null)
+
+  " TODO support symbol types somehow (directly output string?)
+
+  " supports both hierarchicalDocumentSymbolSupport true and false
+  let bc = []
+  if (current != v:null)
+    let has_children = v:true
+    while (has_children)
+      let has_children = v:false
+      let max_start = [0,0]
+      let min_end = [line('$', win_id) - 1, col('$', win_id) - 1]
+      for symbol in current
+        let pos = [line('.', win_id) - 1, col('.', win_id) - 1]
+
+        let range = has_key(symbol, 'location') ? symbol['location']['range'] : symbol['range']
+        let start = [range['start']['line'], range['start']['character']]
+        let end = [range['end']['line'], range['end']['character']]
+        echom symbol['name']..': '..string(start)..'..'string(end)
+
+        " optimization, no need to check further symbols
+        if (start[0] < max_start[0] || end[0] > min_end[0]) | break | endif
+
+        if ((pos[0] > start[0] || (pos[0] == start[0] && pos[1] >= start[1]))
+              \&& (pos[0] < end[0] || (pos[0] == end[0] && pos[1] < end[1])))
+          call add(bc, symbol['name'])
+          let max_start = start
+          let min_end = end
+          if (has_key(symbol, 'children'))
+            let current = symbol['children']
+            let has_children = v:true
+            break
+          endif
+        endif
+      endfor
+    endwhile
+  endif
+
+  call setwinvar(a:window, 'lsp_breadcrumbs', bc)
 endfunction
 "}}}
 
@@ -336,17 +441,23 @@ endfunction
 
 " Statusline {{{
 function! MyStatusLine()
-  let d = get(g:, 'statusline_lsp_diagnostics', 0) ?
+  let d = get(g:, 'statusline_lsp_diagnostics', v:false) ?
         \ GetLspDiagnosticsString(
         \ GetLspDiagnostics(winbufnr(g:statusline_winid))) : ''
-  let s = "%(%{&paste ? '[PASTE] ' : ''}%)"..
-        \'%f '..d.."%*
-        \%h%m%r %=%<
-        \%( %{&endofline ? '' : '[noeol] /'}%)
-        \%( %{&fenc != '' ? &fenc .. ' /' : ''}%)
-        \%( %{%&ff != '' ? get({'unix':'U','dos':'D','mac':'M'}, &ff) .. ' /' : ''%}%)
-        \%( %{&ft != '' ? &ft .. ' /':''}%)
-        \%(  %l:%c%V%)  %P"
+  let b = get(g:, 'statusline_lsp_breadcrumbs', v:false) ?
+        \ GetLspBreadcrumbsString(win_id2win(g:statusline_winid)) : ''
+  let s = "
+        \%(%#NonText#%{%&paste ? '[PASTE]' : ''%}%* %)
+        \%(%f%)
+        \%( %{%'"..d.."'%}%)%*
+        \%( %h%w%m%r%)%<
+        \%( %{%'"..b.."'%}%)%=
+        \%( %{&endofline ? '' : '[noeol]'} /%)
+        \%( %{&fenc} /%)
+        \%( %{%get({'unix':'U','dos':'D','mac':'M'}, &ff, '')%} /%)
+        \%( %{&ft} /%)
+        \%( [%l:%c%V] / %L%)
+        \"
   return s
 endfunction
 "}}}
@@ -807,6 +918,14 @@ aug retoggle_file_complete
 aug end
 "}}}
 
+" Update breadcrumbs {{{
+  aug lsp_update_breadcrumbs
+    au!
+    au CursorMoved * call UpdateLspDocumentBreadcrumbs(winnr())
+    au WinEnter * call UpdateLspDocumentBreadcrumbs(winnr())
+  aug end
+"}}}
+
 " Tabstop option change {{{
 aug update_listchars_on_tabstop
   au!
@@ -952,6 +1071,7 @@ function! s:on_lsp_buffer_enabled() abort
   let g:tabline_lsp_progress = 1
   let g:tabline_lsp_status = 1
   let g:statusline_lsp_diagnostics = 1
+  let g:statusline_lsp_breadcrumbs = 1
   let g:statusline_lsp_progress = 1 " unused
   let g:statusline_lsp_status = 1 " unused
   setlocal signcolumn=yes
@@ -981,6 +1101,14 @@ function! s:on_lsp_buffer_enabled() abort
         \ lsp#document_hover_preview_winid() ? lsp#scroll(+4):'<C-d>'
   nnoremap <buffer> <expr><C-u>
         \ lsp#document_hover_preview_winid() ? lsp#scroll(-4):'<C-u>'
+
+  aug lsp_update_symbols
+    au! * <buffer>
+    au TextChanged <buffer> call UpdateLspDocumentSymbols(bufnr())
+    au InsertLeave <buffer> call UpdateLspDocumentSymbols(bufnr())
+  aug end
+
+  call UpdateLspDocumentSymbols(bufnr())
 endfunction
 
 aug lsp_install
