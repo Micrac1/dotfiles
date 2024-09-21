@@ -238,7 +238,7 @@ endfunction
 "}}}
 
 " Get LSP diagnostics string {{{
-function! GetLspDiagnosticsString(table, color)
+function! GetLspDiagnosticsString(table, color = '')
   let s = ''
   if (a:table.information)
     let s .= s == '' ? '' : a:color..' '
@@ -338,7 +338,7 @@ endfunction
 function! MyStatusLine()
   let d = get(g:, 'statusline_lsp_diagnostics', 0) ?
         \ GetLspDiagnosticsString(
-        \GetLspDiagnostics(winbufnr(g:statusline_winid)), '') : ''
+        \ GetLspDiagnostics(winbufnr(g:statusline_winid))) : ''
   let s = "%(%{&paste ? '[PASTE] ' : ''}%)"..
         \'%f '..d.."%*
         \%h%m%r %=%<
