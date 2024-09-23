@@ -341,7 +341,6 @@ function! UpdateLspDocumentBreadcrumbs(window)
         let range = has_key(symbol, 'location') ? symbol['location']['range'] : symbol['range']
         let start = [range['start']['line'], range['start']['character']]
         let end = [range['end']['line'], range['end']['character']]
-        echom symbol['name']..': '..string(start)..'..'string(end)
 
         " optimization, no need to check further symbols
         if (start[0] < max_start[0] || end[0] > min_end[0]) | break | endif
