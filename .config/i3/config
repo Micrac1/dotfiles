@@ -353,12 +353,6 @@ bindsym Control+Mod1+t exec $i "$terminal"
 bindsym $mod+t exec $i "$compositor_on"
 bindsym $mod+Shift+t exec $i "$compositor_off"
 
-# Nvidia force composition pipeline
-bindsym $mod+g exec $i "nvidia-settings -a \
-  CurrentMetaMode='nvidia-auto-select +1280+0 {ForceFullCompositionPipeline=On}'"
-bindsym $mod+Shift+g exec $i "nvidia-settings -a \
-  CurrentMetaMode='nvidia-auto-select +1280+0 {ForceFullCompositionPipeline=Off}'"
-
 # dmenu
 bindsym $mod+r exec $i "dmenu_run -b -i"
 
