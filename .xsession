@@ -25,10 +25,10 @@ if [ "${HOSTNAME}" = "clamp" ]; then
 
   # Touchpad gestures
   /bin/pgrep -f -- "/bin/touchegg --client" || /bin/touchegg --client &
-
-  # Bluetooth manager
-  /bin/blueman-applet &
 fi
+
+# Bluetooth manager
+/bin/blueman-applet &
 
 # Gnome polkit
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
