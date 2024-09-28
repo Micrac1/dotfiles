@@ -231,11 +231,8 @@ endfunction
 " Get LSP breadcrumbs string {{{
 function! GetLspBreadcrumbsString(window)
   let symbols = getwinvar(a:window, 'lsp_breadcrumbs', v:null)
-  if (symbols == v:null) | return '' | endif
-  let s = ''
-  for symbol in symbols
-    let s .= '> '..symbol..' '
-  endfor
+  if (symbols == v:null || len(symbols) == 0) | return '' | endif
+  let s = '> '..join(symbols, ' > ')
   return s
 endfunction
 "}}}
