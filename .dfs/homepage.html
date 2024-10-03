@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Homepage</title>
+  <style>
+    
+  </style>
+</head>
+
+<body>
+  <h1>Homepage</h1>
+  <dl>
+    <dt>Date</dt>
+    <dd id="date"></dd>
+    <dt>Links</dt>
+    <dd>
+      <ul>
+        <li>
+          <a href="http://localhost:8384">Syncthing</a>
+        </li>
+        <li>
+          <a href="http://localhost:631">CUPS</a>
+        </li>
+      </ul>
+    </dd>
+  </dl>
+</body>
+<script>
+  document.getElementById("date").innerHTML = 
+    new Date().toISOString().slice(0, 10);
+    // TODO time
+</script>
+
+</html>
