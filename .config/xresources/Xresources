@@ -153,5 +153,5 @@ xterm*scrollbar.translations: #override \n\
 ! Clamp specific configuration
 #ifdef SRVR_clamp
 Xft.dpi: 120
-Xcursor.size: 32
+Xcursor.size: 30
 #endif
