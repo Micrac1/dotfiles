@@ -42,7 +42,7 @@ click_left(){
   update_state
   if [ "${_GOVERNOR}" = "performance" ]; then
     echo "${LABEL_PROGRESS}"
-    cpupower-gui profile "Powersave" > /dev/null 2>&1
+    cpupower-gui profile "Balanced" > /dev/null 2>&1
   elif [ "${_GOVERNOR}" = "powersave" ]; then
     echo "${LABEL_PROGRESS}"
     cpupower-gui profile "Performance" > /dev/null 2>&1
