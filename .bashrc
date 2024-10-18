@@ -76,6 +76,7 @@ BASHMARKS["mato"]="/media/blue/projects/doucovanie/Mato/python/python_assignment
 BASHMARKS["mc"]="/media/blue/mc_servers"
 BASHMARKS["projects"]="/media/blue/projects"
 BASHMARKS["sources"]="/media/blue/sources"
+BASHMARKS["stu"]="/media/blue/stu"
 
 g(){
   TMP="${BASHMARKS[${1- }]}"
