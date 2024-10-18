@@ -10,10 +10,13 @@ if [ -n "$1" ]; then
   "discord" | "-d")
     discord
     ;;
+  "vesktop" | "-v")
+    vesktop
+    ;;
   esac
 else
   # firefox --new-window "https://discord.com/app"
   #chromium --app=https://discord.com/app
   #discord
-  discord-canary
+  which vesktop && vesktop || discord-canary
 fi

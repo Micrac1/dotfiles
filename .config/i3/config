@@ -462,6 +462,7 @@ for_window [all] border pixel $border
 assign [instance="^obs$"] workspace number $ws9
 assign [instance="discord.com__app"] workspace number $ws0
 assign [instance="discord"] workspace number $ws0
+assign [instance="vesktop"] workspace number $ws0
 assign [class="net-minecraft-server-Main"] workspace number $ws8
 #assign [class="^(?!firefox$)"] output primary
 
