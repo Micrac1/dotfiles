@@ -679,13 +679,13 @@ tnoremap <A-9> <C-w>9gt
 nnoremap <leader>tm <Nop>
 nnoremap <silent> <leader>tm1 :tabmove 0<CR>
 nnoremap <silent> <leader>tm2 :tabmove 2<CR>:tabmove 1<CR>
-nnoremap <silent> <leader>tm3 :tabmove 3<CR>
-nnoremap <silent> <leader>tm4 :tabmove 4<CR>
-nnoremap <silent> <leader>tm5 :tabmove 5<CR>
-nnoremap <silent> <leader>tm6 :tabmove 6<CR>
-nnoremap <silent> <leader>tm7 :tabmove 7<CR>
-nnoremap <silent> <leader>tm8 :tabmove 8<CR>
-nnoremap <silent> <leader>tm9 :tabmove 9<CR>
+nnoremap <silent> <leader>tm3 :tabmove 3<CR>:tabmove 2<CR>
+nnoremap <silent> <leader>tm4 :tabmove 4<CR>:tabmove 3<CR>
+nnoremap <silent> <leader>tm5 :tabmove 5<CR>:tabmove 4<CR>
+nnoremap <silent> <leader>tm6 :tabmove 6<CR>:tabmove 5<CR>
+nnoremap <silent> <leader>tm7 :tabmove 7<CR>:tabmove 6<CR>
+nnoremap <silent> <leader>tm8 :tabmove 8<CR>:tabmove 7<CR>
+nnoremap <silent> <leader>tm9 :tabmove 9<CR>:tabmove 8<CR>
 "}}}
 
 " Movement in insert mode {{{
