@@ -1120,7 +1120,6 @@ aug end
 aug termdebug
   au!
   au User TermdebugStartPost wincmd r
-        \| call TermDebugSendCommand('set debuginfo enabled off')
         \| nnoremap <leader>dr :Run<CR>
         \| nnoremap <leader>db :Break<CR>
         \| nnoremap <leader>dc :Clear<CR>
