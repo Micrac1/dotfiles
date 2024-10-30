@@ -1166,7 +1166,7 @@ aug END
 
 let g:termdebug_config = {
       \ 'wide': 1,
-      \ 'variables_window': 1,
+      \ 'variables_window': v:true,
       \ 'variables_window_height': 15,
       \ }
 "}}}
