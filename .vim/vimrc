@@ -1123,6 +1123,7 @@ aug termdebug
         \| nnoremap <leader>dr :Run<CR>
         \| nnoremap <leader>db :Break<CR>
         \| nnoremap <leader>dc :Clear<CR>
+        \| nnoremap <leader>ds :Stop<CR>
         \| nnoremap <F3>  :call TermDebugSendCommand('kill')<CR>
         \| nnoremap <F4>  :Run<CR>
         \| nnoremap <F5>  :Continue<CR>
@@ -1145,6 +1146,7 @@ aug termdebug
         \  nunmap <leader>dr
         \| nunmap <leader>db
         \| nunmap <leader>dc
+        \| nunmap <leader>ds
         \| nunmap <F3>
         \| nunmap <F4>
         \| nunmap <F5>
