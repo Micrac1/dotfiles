@@ -43,6 +43,10 @@
 !/.config/picom/
 !/.config/picom/**
 
+# GDB
+!/.config/gdb/
+!/.config/gdb/gdbinit
+
 # Vim
 !/.vim/
 !/.vim/vimrc
