@@ -13,6 +13,9 @@ if [ "${HOSTNAME}" = "ende" ]; then
 
   # Discord
   #"${HOME}/bin/discord.sh" &
+
+  # Picom
+  /bin/picom &
 fi
 
 # clamp
@@ -59,9 +62,6 @@ if [ -x "${HOME}/.fehbg" ]; then "${HOME}/.fehbg"; fi
 
 # Screen locker
 "${HOME}/.dfs/session/locker.sh"
-
-# Picom
-#/bin/picom &
 
 # Welcome
 "${HOME}/.dfs/session/welcome.sh && ${SHELL}" &
