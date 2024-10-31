@@ -1242,6 +1242,7 @@ Plug 'prabirshrestha/vim-lsp', VimOnly() " LSP support
 Plug 'hrsh7th/vim-vsnip' " Snippets
 Plug 'hrsh7th/vim-vsnip-integ' " LSP snippet support
 Plug 'aklt/plantuml-syntax' " PlantUML syntax
+Plug 'godlygeek/tabular'
 if (has('python3'))
   Plug 'madox2/vim-ai'
 endif
