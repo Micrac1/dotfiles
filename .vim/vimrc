@@ -1249,13 +1249,8 @@ Plug 'lifepillar/vim-colortemplate'
 call plug#end()
 "}}}
 
-" Plugin enter {{{
-aug PluginEnter
-  au!
-  au VimEnter * call PluginEnter()
-aug end
-
 " TODO this does not work when lazy loading plugins
+" Plugin enter {{{
 function! PluginEnter()
   " vsnip {{{
   if (exists('*vsnip#get_context'))
@@ -1308,4 +1303,16 @@ function! PluginEnter()
   "}}}
 endfunction
 "}}}
+
+" Callbacks after loading {{{
+if v:vim_did_enter
+  call PluginEnter()
+else
+  aug PluginEnter
+    au!
+    au VimEnter * call PluginEnter()
+  aug end
+endif
+"}}}
+
 " ---------- }}}1
