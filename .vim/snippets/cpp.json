@@ -94,7 +94,7 @@
     "prefix": "for",
     "description": "For loop using indices",
     "body": [
-      "for (size_t ${1:i} = 0; $1 < ${2:length}; $1++){",
+      "for (size_t ${1:i} = 0; $1 < ${2:length}; ++$1){",
       "  $0",
       "}"
     ]
@@ -112,7 +112,7 @@
     "prefix": "forv",
     "description": "For loop using iterators",
     "body": [
-      "for (auto ${1:it} = ${2:vec}.begin(); $1 != $2.end(); $1++){",
+      "for (auto ${1:it} = ${2:vec}.begin(); $1 != $2.end(); ++$1){",
       "  $0",
       "}"
     ]
