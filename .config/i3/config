@@ -480,6 +480,7 @@ for_window [instance="pavucontrol"] floating enable
 for_window [instance="nm-connection-editor"] floating enable
 for_window [instance="qt5ct"] floating enable
 for_window [instance="yad"] floating enable
+for_window [class="chatty-Chatty" title="^Chatty starting"] floating enable
 for_window [class="floating"] floating enable
 for_window [window_role="floating"] floating enable
 
