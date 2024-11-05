@@ -78,6 +78,7 @@ set ttimeoutlen=0
 set mouse=a
 set belloff=all
 set hidden
+set updatetime=0
 set foldmethod=marker
 filetype plugin indent on
 set history=1000
