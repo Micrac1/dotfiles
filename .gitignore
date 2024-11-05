@@ -47,6 +47,10 @@
 !/.config/gdb/
 !/.config/gdb/gdbinit
 
+# Clangd
+!/.config/clangd/
+!/.config/clangd/config.yaml
+
 # Vim
 !/.vim/
 !/.vim/vimrc
