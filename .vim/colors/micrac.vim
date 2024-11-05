@@ -159,6 +159,8 @@ hi! link  LspInformationVirtualText                                             
 hi! link  LspHintVirtualText                                                                 LspHintText
 hi! link  LspCodeActionText                                                                  Normal
 hi! clear LspCodeActionLine
+hi! link  lspInlayHintsType                                                                  Type
+hi! link  lspInlayHintsParameter                                                             SpecialKey
 hi! link  LspSemanticMacro                                                                   Macro
 hi! link  LspSemanticGlobalScopeMacro                                                        LspSemanticMacro
 hi! link  LspSemanticClass                                                                   Type
