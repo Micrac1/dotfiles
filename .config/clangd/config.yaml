@@ -3,6 +3,6 @@ Hover:
 Diagnostics:
   UnusedIncludes: Strict
   ClangTidy:
-    Add: [cppcoreguidelines*]
+    Add: [ cppcoreguidelines*, performance*, portability* ]
 CompileFlags:
-  Add: [-Wall, -Wextra, -pedantic, -Wshadow, -Wsign-compare]
+  Add: [ -Wall, -Wextra, -pedantic, -Wshadow, -Wsign-compare ]
