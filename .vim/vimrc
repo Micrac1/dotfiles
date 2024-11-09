@@ -212,7 +212,7 @@ function! GetLspProgressString()
   "'message': '1/6 (core)',
   if (pp != [])
     let p = pp[0]
-    let s .= '['..p..server..'] '..p..title..' '..p..message
+    let s .= '['..p.server..'] '..p.title..' '..p.message
   endif
   return s
 endfunction
