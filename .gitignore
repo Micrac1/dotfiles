@@ -102,6 +102,10 @@
 !/.config/tmux/
 !/.config/tmux/tmux.conf
 
+# Templates
+!/Templates/
+!/Templates/**
+
 # touchegg
 !/.config/touchegg/
 !/.config/touchegg/touchegg.conf
