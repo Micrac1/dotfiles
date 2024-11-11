@@ -1,0 +1,5 @@
+BasedOnStyle: Google
+
+DerivePointerAlignment: False
+AlignEscapedNewlines: Right
+BreakAfterAttributes: Always
