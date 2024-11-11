@@ -1,0 +1,17 @@
+# Find all available checks:
+# clang-tidy --checks=* --list-checks
+Checks: [
+  clang-diagnostic-*,
+  clang-analyzer-*,
+  cppcoreguidelines-*,
+  portability-*,
+  modernize-*,
+  -modernize-use-trailing-return-type,
+  -modernize-use-nodiscard,
+  -clang-diagnostic-ignored-gch,
+  -cppcoreguidelines-avoid-magic-numbers,
+  -cppcoreguidelines-avoid-non-const-global-variables,
+  -cppcoreguidelines-macro-usage,
+]
+
+SystemHeaders: False

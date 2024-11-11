@@ -2,7 +2,5 @@ Hover:
   ShowAKA: Yes
 Diagnostics:
   UnusedIncludes: Strict
-  ClangTidy:
-    Add: [ cppcoreguidelines*, performance*, portability* ]
 CompileFlags:
   Add: [ -Wall, -Wextra, -pedantic, -Wshadow, -Wsign-compare ]
