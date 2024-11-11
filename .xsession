@@ -45,6 +45,9 @@ fi
 # NetworkManager applet
 /bin/nm-applet &
 
+# NetworkManager applet
+/bin/nextcloud &
+
 # Clipboard manager (add --no-icon to disable system tray)
 /bin/parcellite &
 
@@ -62,4 +65,3 @@ if [ -x "${HOME}/.fehbg" ]; then "${HOME}/.fehbg"; fi
 
 # Screen locker
 "${HOME}/.dfs/session/locker.sh"
-
