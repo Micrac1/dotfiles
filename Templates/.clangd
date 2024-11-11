@@ -1,0 +1,14 @@
+Diagnostics:
+  UnusedIncludes: Strict
+
+CompileFlags:
+  # location of compile_commands.json
+  CompilationDatabase: ./build
+  Compiler: g++
+  Add: [
+    -Wall,
+    -Wextra,
+    -Wpedantic,
+    -Wshadow,
+    -Wsign-compare,
+  ]
