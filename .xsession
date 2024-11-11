@@ -63,5 +63,3 @@ if [ -x "${HOME}/.fehbg" ]; then "${HOME}/.fehbg"; fi
 # Screen locker
 "${HOME}/.dfs/session/locker.sh"
 
-# Welcome
-"${HOME}/.dfs/session/welcome.sh && ${SHELL}" &
