@@ -943,6 +943,7 @@ aug end
 "> PLUGINS {{{1
 " Plugin options {{{
 " markdown {{{
+let g:markdown_recommended_style = 0
 let g:markdown_folding = 1
 let g:markdown_syntax_conceal = 1
 let g:markdown_fenced_languages = ['sh', 'cpp', 'c', 'vim', 'html', 'python', 'bash=sh']

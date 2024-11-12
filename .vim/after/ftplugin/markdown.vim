@@ -1,5 +1,6 @@
 " Options {{{
 setl foldlevel=1
+setl expandtab tabstop=3 softtabstop=-1 shiftwidth=0
 "}}}
 
 " Functions {{{
