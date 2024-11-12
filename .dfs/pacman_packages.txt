@@ -3,18 +3,32 @@ chromium
 firefox
 lynx
 
+# Cloud sync
+syncthing
+nextcloud
+
+# System
+firewalld
+cups
+cpupower
+#cpupower-gui
+
 # Desktop
+arandr
+tigervnc
+thunar
+xfce4-terminal
 blueman
 brightnessctl
 dunst
-i3
+i3-wm
 picom
 polybar
 scrot
 xsecurelock
 xss-lock
 touchegg
-inotify-tools 
+inotify-tools
 pavucontrol
 pasystray
 parcellite
@@ -26,24 +40,40 @@ mpv
 jdk-openjdk
 #qpdfview
 feh
+picard
+okular
+strawberry
 
 # Media creation
+audacity
 gimp
 krita
 kdenlive
 inkscape
 
 # Development tools
-gvim
-valgrind
-ctags
-gdb
-lldb
-glxinfo
 blender
-code
 bless
+clang
+cmake
+code
+ctags
+doxygen
+gcc
+gdb
+glxinfo
+gvim
+lldb
+make
+markdownlint
 nodejs
+renderdoc
+valgrind
+
+# Language servers
+lua-language-server
+typescript-language-server
+python-lsp-server
 
 # Dependencies
 ttf-dejavu
@@ -60,36 +90,44 @@ sdl2
 
 # Games
 gamemode
-#minecraft-launcher
+prismlauncher
 steam
 
 # CLI tools
-qrencode
+jq
+bc
+fzf
+htop
 ncdu
+nvtop
+powertop
+qrencode
+ranger
+tmux
 tree
 yt-dlp
-powertop
-htop
-nvtop
-ranger
-fzf
+
+# Utilities
+gpick
+gromit-mpx
 
 # X utils
+slop
 xclip
 xdotool
 xorg-xev
 xorg-xkill
-xorg-xset
-xorg-xrdb
 xorg-xrandr
+xorg-xrdb
+xorg-xset
 xprintidle
-slop
 
 # Other
 font-manager
 qalculate-gtk
 gnuplot
 qt5ct
+qt6ct
 #xfce4-goodies
 #teams
 python-pip
