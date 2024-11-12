@@ -77,6 +77,7 @@ BASHMARKS["mc"]="/media/blue/mc_servers"
 BASHMARKS["projects"]="/media/blue/projects"
 BASHMARKS["sources"]="/media/blue/sources"
 BASHMARKS["stu"]="/media/blue/stu"
+BASHMARKS["vm"]="/media/blue/vm"
 
 g(){
   TMP="${BASHMARKS[${1- }]}"
