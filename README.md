@@ -56,7 +56,7 @@ Make sure that there is no `$HOME/.dfs` directory, otherwise this will not run.
 
 ```sh
 [ ! -d "${HOME}/.dfs" ] && \
-git clone --no-checkout http://github.com/Micrac1/dotfiles -- "${HOME}/.dfs" && \
+git clone --no-checkout https://github.com/Micrac1/dotfiles -- "${HOME}/.dfs" && \
 git --git-dir="${HOME}/.dfs/.git" --work-tree="${HOME}" reset >/dev/null && \
 git --git-dir="${HOME}/.dfs/.git" --work-tree="${HOME}" checkout -- .dfs && \
 "${HOME}/.dfs/scripts/dfs_first_setup.sh"
