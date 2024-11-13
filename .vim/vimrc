@@ -698,8 +698,6 @@ nnoremap <silent> <leader>tm9 :tabmove 9<CR>:tabmove 8<CR>
 
 " Movement in insert mode {{{
 inoremap <C-h> <left>
-inoremap <C-j> <down>
-inoremap <C-k> <up>
 inoremap <C-l> <right>
 "}}}
 
