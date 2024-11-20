@@ -78,7 +78,7 @@ BASHMARKS["projects"]="/media/blue/projects"
 BASHMARKS["sources"]="/media/blue/sources"
 BASHMARKS["stu"]="/media/blue/stu"
 BASHMARKS["vm"]="/media/blue/vm"
-BASHMARKS["artemis"]="/media/blue/projects/cpp/artemis"
+BASHMARKS["artemis"]="/media/blue/projects/artemis"
 
 g(){
   TMP="${BASHMARKS[${1- }]}"
