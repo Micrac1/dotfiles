@@ -406,6 +406,14 @@ bindsym XF86AudioStop exec $i "playerctl pause"
 bindsym XF86AudioPrev exec $i "playerctl previous"
 bindsym XF86AudioNext exec $i "playerctl next"
 
+# Other
+bindsym XF86Calculator exec $i "qalculate-gtk"
+bindsym XF86Mail exec $i "thunderbird"
+bindsym XF86Explorer exec $i "thunar"
+bindsym XF86HomePage exec $i "firefox"
+# bindsym XF86Tools exec $i ""
+# bindsym Menu exec $i ""
+
 # Power button
 bindsym XF86PowerOff exec $i \
 "\
