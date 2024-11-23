@@ -16,26 +16,33 @@ My very own dotfiles. Feel free to right-click and save.
 ## Configs
 
 ### Xresources
+
 [Xresources](.config/xresources/Xresources)
 
 #### xresources.sh
 
 ### i3
+
 **[config](.config/i3/config)** | (also see [Xresources](#xresources))
 
 ### Polybar
+
 **[config.ini](.config/polybar/config.ini)** (also see [Xresources](#xresources))
 
 ### Vim
+
 **[vimrc](.vim/vimrc)**
+
 - Plugin manager: [vim-plug](https://github.com/junegunn/vim-plug)
 
 #### Plugins
 
 ### xfce4-terminal
+
 see [xresources.sh](#xresources.sh)
 
 ### Bash
+
 **[bashrc](.vim/vimrc)** | **[profile](.profile)**
 
 ### Scripts
@@ -45,6 +52,7 @@ see [xresources.sh](#xresources.sh)
 ---
 
 ## Prerequisites
+
 - Arch based distro (for package install)
 - Directory/file `$HOME/.dfs` should not exist (`rm -rf "${HOME}/.dfs"`)
 - Internet connection (repo clone + package install + some app install)
@@ -63,10 +71,23 @@ git --git-dir="${HOME}/.dfs/.git" --work-tree="${HOME}" checkout -- .dfs && \
 ```
 
 Explanation:
+
 - Clone the repo without overwriting any files inside `$HOME` (except `.dfs`)
 - Set state to master (actually creates the files)
 - Source helper functions/aliases
 
+### System configs
+
+#### udev remapping caps to escape
+
+[.dfs/system/etc/udev/hwdb.d/90-keyboard.hwdb](.dfs/system/etc/udev/hwdb.d/90-keyboard.hwdb)
+
+Regenerate the database:
+
+```sh
+sudo systemd-hwdb update && sudo udevadm trigger
+```
 
 ## Screenshots
+
 ### TODO
