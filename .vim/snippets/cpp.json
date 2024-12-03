@@ -71,7 +71,7 @@
     "prefix": "guard",
     "description": "Include guard",
     "body": [
-      "#ifdef ${1:${TM_FILENAME_BASE/(.*)/${1:/upcase}/}_H}",
+      "#ifndef ${1:${TM_FILENAME_BASE/(.*)/${1:/upcase}/}_H}",
       "#define $1",
       "",
       "$0",
