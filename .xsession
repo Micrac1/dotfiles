@@ -33,6 +33,9 @@ fi
 # Bluetooth manager
 /bin/blueman-applet &
 
+# Playerctl daemon
+/bin/playerctld &
+
 # Gnome polkit
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
