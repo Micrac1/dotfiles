@@ -81,8 +81,8 @@ force_display_urgency_hint 500 ms
 # Borders and title bars
 title_align center
 for_window [all] title_window_icon yes
-default_border pixel $border 
-default_floating_border pixel $border 
+default_border pixel $border
+default_floating_border pixel $border
 hide_edge_borders none
 floating_modifier $mod
 popup_during_fullscreen smart
