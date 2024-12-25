@@ -21,7 +21,8 @@ fi
 # clamp
 if [ "${HOSTNAME}" = "clamp" ]; then
   # Natural touchpad scrolling
-  /bin/xinput set-prop "ELAN0662:00 04F3:30BC Touchpad" "libinput Natural Scrolling Enabled" 1
+
+  "${HOME}/.dfs/session/touchpad.sh"
 
   # Power manager
   #/bin/xfce4-power-manager &
