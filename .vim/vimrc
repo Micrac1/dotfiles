@@ -731,6 +731,11 @@ inoremap <silent> <C-f> <C-x><C-f>
 inoremap <expr> <C-w> complete_info()['mode']=='files' ? '<C-w><C-x><C-f>' : '<C-w>'
 "}}}
 
+" Insert mode inserts {{{
+inoremap <C-a>D <C-r>=strftime('%Y-%m-%dT%H:%M:%S')<CR>
+inoremap <C-a>d <C-r>=strftime('%Y-%m-%d')<CR>
+"}}}
+
 " Matching pairs {{{
 if (!has('nvim')) " nvim has plugin for this
 inoremap <S-Tab> <nop>
