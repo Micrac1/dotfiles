@@ -85,6 +85,8 @@ default_border pixel $border
 default_floating_border pixel $border
 hide_edge_borders none
 floating_modifier $mod
+tiling_drag modifier titlebar
+tiling_drag swap_modifier Shift
 popup_during_fullscreen smart
 show_marks yes
 
