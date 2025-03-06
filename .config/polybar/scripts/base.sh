@@ -47,6 +47,10 @@ _timer_loop(){
   if ! sleep "${INTERVAL}"; then
     echo "INVALID INTERVAL: ${INTERVAL}"
   fi
+  refresh
+}
+
+refresh(){
   kill -USR1 "${_PID}"
 }
 
