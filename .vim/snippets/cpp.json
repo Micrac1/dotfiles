@@ -99,9 +99,9 @@
       "}"
     ]
   },
-  "forr": {
-    "prefix": "forr",
-    "description": "For loop using range",
+  "foreach": {
+    "prefix": "foreach",
+    "description": "For each loop",
     "body": [
       "for (auto & ${1:it} : ${2:iterable}) {",
       "\t$0",
