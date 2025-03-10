@@ -72,6 +72,7 @@ set switchbuf=uselast
 set shortmess-=S " show match count
 set lazyredraw " don't update during macros
 set scrolloff=4
+set foldlevelstart=3
 set timeout
 set timeoutlen=5000
 set ttimeout
