@@ -1126,6 +1126,14 @@ function! s:on_lsp_buffer_enabled() abort
         \ lsp#document_hover_preview_winid() ? lsp#scroll(+4):'<C-d>'
   nnoremap <buffer> <expr><C-u>
         \ lsp#document_hover_preview_winid() ? lsp#scroll(-4):'<C-u>'
+  inoremap <buffer> <expr><C-e>
+        \ lsp#document_hover_preview_winid() ? lsp#scroll(+1):'<C-e>'
+  inoremap <buffer> <expr><C-y>
+        \ lsp#document_hover_preview_winid() ? lsp#scroll(-1):'<C-y>'
+  nnoremap <buffer> <expr><C-e>
+        \ lsp#document_hover_preview_winid() ? lsp#scroll(+1):'<C-e>'
+  nnoremap <buffer> <expr><C-y>
+        \ lsp#document_hover_preview_winid() ? lsp#scroll(-1):'<C-y>'
 
   aug lsp_update_symbols
     au! * <buffer>
