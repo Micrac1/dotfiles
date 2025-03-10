@@ -95,7 +95,10 @@ set noundofile
 set noswapfile
 set nobackup
 set encoding=utf-8
-set completeopt=menu,menuone,preview,noinsert,fuzzy
+set completeopt=menu,menuone,preview,noinsert
+if (has('patch-9.1.0463'))
+  set completeopt+=fuzzy
+endif
 set fillchars=vert:\ ,fold:\ ,foldclose:▶,foldopen:▼,foldsep:│
 let g:listchars = 'set listchars=tab:▬▬►,trail:¤,leadmultispace:│'..repeat('\ ',&ts-1)
 exe get(g:, 'listchars')
