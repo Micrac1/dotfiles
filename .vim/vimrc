@@ -1101,6 +1101,11 @@ function! s:on_lsp_buffer_enabled() abort
   let g:statusline_lsp_status = 1 " unused
   setlocal signcolumn=yes
   setlocal omnifunc=lsp#complete
+  " Enabling folding causes them to not restore and throw errors when
+  " loading a session
+  " set foldmethod=expr
+  " set foldexpr=lsp#ui#vim#folding#foldexpr()
+  " set foldtext=lsp#ui#vim#folding#foldtext()
   if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
   nnoremap <buffer> gd <plug>(lsp-definition)
   nnoremap <buffer> gD <plug>(lsp-declaration)
