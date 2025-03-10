@@ -63,7 +63,7 @@ set ruler
 set nojoinspaces
 set wildmenu
 set wildmode=lastused:full
-set wildoptions=pum " Vertical wild menu in cmdline
+set wildoptions=pum,fuzzy " Vertical wild menu in cmdline
 set wildignore=*/.git/*,*/.vscode/*,*.o
 set fileformats=unix,dos,mac
 set showcmd
@@ -94,7 +94,7 @@ set noundofile
 set noswapfile
 set nobackup
 set encoding=utf-8
-set completeopt=menu,menuone,preview,noinsert
+set completeopt=menu,menuone,preview,noinsert,fuzzy
 set fillchars=vert:\ ,fold:\ ,foldclose:▶,foldopen:▼,foldsep:│
 let g:listchars = 'set listchars=tab:▬▬►,trail:¤,leadmultispace:│'..repeat('\ ',&ts-1)
 exe get(g:, 'listchars')
