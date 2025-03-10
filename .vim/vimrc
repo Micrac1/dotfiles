@@ -899,7 +899,7 @@ aug vimrc_ft
   au FileType qf nnoremap <buffer> <silent> Q :lclose<CR>
   "}}}
 
-  " C/CPP {{{
+  " c/cpp {{{
   au FileType c,cpp,objc,objcpp
         \ setl foldmethod=syntax|
         \ nnoremap <buffer> <silent> <localleader>s :call CppSwitchSourceHeader(0)<CR>|
