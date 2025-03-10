@@ -907,6 +907,11 @@ aug vimrc_ft
         \ command! -buffer -bang CppSwitchSourceHeader call CppSwitchSourceHeader(<bang>0)|
   "}}}
 
+  " Java {{{
+  au FileType java
+        \ setl foldmethod=syntax|
+  "}}}
+
   " HTML {{{
   au FileType html
         \ inoremap <buffer> > ><C-x><C-o>
