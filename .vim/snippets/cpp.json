@@ -17,7 +17,7 @@
     "prefix": "class",
     "description": "Class declaration",
     "body": [
-      "class ${1:ClassName} {",
+      "class ${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}} {",
       " public:",
       "\t$1();",
       "\t$1(const $1 &);",
@@ -35,7 +35,7 @@
     "prefix": "struct",
     "description": "Struct declaration",
     "body": [
-      "struct ${1:StructName} {",
+      "struct ${1:MyStruct} {",
       "\t$0",
       "}; /* struct $1 */"
     ]
@@ -44,7 +44,7 @@
     "prefix": "structc",
     "description": "C Struct declaration",
     "body": [
-      "typedef struct ${1:StructName} {",
+      "typedef struct ${1:MyStruct} {",
       "\t$0",
       "} $1;"
     ]
@@ -53,7 +53,7 @@
     "prefix": "enum",
     "description": "Enumerator declaration",
     "body": [
-      "enum ${1:EnumName}{",
+      "enum ${1:MyEnum}{",
       "\t$0",
       "};"
     ]
@@ -62,7 +62,7 @@
     "prefix": "enumc",
     "description": "Enumerator class declaration",
     "body": [
-      "enum class ${1:EnumName}{",
+      "enum class ${1:MyEnum}{",
       "\t$0",
       "};"
     ]
@@ -83,18 +83,18 @@
   "inc": {
     "prefix": "inc",
     "description": "Include system header",
-    "body": [ "#include <$1>$0" ]
+    "body": [ "#include <${1:system_header.h}>$0" ]
   },
   "incc": {
     "prefix": "incc",
     "description": "Include local header",
-    "body": [ "#include \"$1\"$0" ]
+    "body": [ "#include \"${1:my_header.h}\"$0" ]
   },
   "for": {
     "prefix": "for",
     "description": "For loop using indices",
     "body": [
-      "for (size_t ${1:i} = 0; $1 < ${2:length}; ++$1){",
+      "for (size_t ${1:i} = 0; $1 < ${2:n}; ++$1) {",
       "\t$0",
       "}"
     ]
@@ -103,7 +103,7 @@
     "prefix": "forr",
     "description": "For loop using range",
     "body": [
-      "for (auto & ${1:it} : ${2:vec}){",
+      "for (auto & ${1:it} : ${2:iterable}) {",
       "\t$0",
       "}"
     ]
@@ -112,7 +112,7 @@
     "prefix": "forv",
     "description": "For loop using iterators",
     "body": [
-      "for (auto ${1:it} = ${2:vec}.begin(); $1 != $2.end(); ++$1){",
+      "for (auto ${1:it} = ${2:iterable}.begin(); $1 != $2.end(); ++$1) {",
       "\t$0",
       "}"
     ]
@@ -121,7 +121,7 @@
     "prefix": "while",
     "description": "While loop",
     "body": [
-      "while (${1:true}){",
+      "while (${1:true}) {",
       "\t$0",
       "}"
     ]
@@ -130,7 +130,7 @@
     "prefix": "if",
     "description": "If statement",
     "body": [
-      "if (${1:true}){",
+      "if (${1:true}) {",
       "\t$0",
       "}"
     ]
@@ -139,7 +139,7 @@
     "prefix": "elif",
     "description": "Else if statement",
     "body": [
-      "else if (${1:true}){",
+      "else if (${1:true}) {",
       "\t$0",
       "}"
     ]
@@ -148,7 +148,7 @@
     "prefix": "switch",
     "description": "Switch statement",
     "body": [
-      "switch (${1:var}){",
+      "switch (${1:my_variable}) {",
       "\tcase ${2:first_case}:",
       "\t\t$0",
       "\t\tbreak;",
@@ -161,7 +161,7 @@
     "prefix": "def",
     "description": "#define declaration",
     "body": [
-      "#define $1 $0"
+      "#define ${1:MY_DEFINE} $0"
     ]
   },
   "ifdef": {
@@ -186,7 +186,7 @@
     "prefix": "ns",
     "description": "#ifdef declaration",
     "body": [
-      "namespace ${1:space}{",
+      "namespace ${1:MyNamespace} {",
       "",
       "$0",
       "",
@@ -197,7 +197,7 @@
     "prefix": "main",
     "description": "Main function",
     "body": [
-      "int main(int argc, char * argv[]){",
+      "int main(int argc, char * argv[]) {",
       "\t$0",
       "",
       "\treturn 0;",
