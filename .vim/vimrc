@@ -67,6 +67,7 @@ set wildoptions=pum " Vertical wild menu in cmdline
 set wildignore=*/.git/*,*/.vscode/*,*.o
 set fileformats=unix,dos,mac
 set showcmd
+set virtualedit=block
 set switchbuf=uselast
 set shortmess-=S " show match count
 set lazyredraw " don't update during macros
