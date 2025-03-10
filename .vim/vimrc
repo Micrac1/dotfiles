@@ -89,6 +89,7 @@ set shiftwidth=0
 set softtabstop=-1
 set expandtab
 set shiftround
+set completeslash=slash
 set incsearch
 set hlsearch
 set noundofile
