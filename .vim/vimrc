@@ -1030,7 +1030,10 @@ function! s:register_lsp_servers()
         \ { 'name': 'clangd',
         \   'allowlist': ['c', 'cpp', 'objc', 'objcpp'],
         \   'executable': 'clangd',
-        \   'cmd': {server_info->[&shell, &shellcmdflag, 'clangd --header-insertion=never']},
+        \   'cmd': {server_info->[&shell, &shellcmdflag,
+        \     'clangd --header-insertion=never --completion-style=detailed']
+        \   },
+        \ },
         \ { 'name': 'jdtls',
         \   'allowlist': ['java'],
         \   'executable': 'jdtls',
