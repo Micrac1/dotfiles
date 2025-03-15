@@ -35,7 +35,7 @@ print_module(){
 update_state(){
   _IDLE_TIME=$(xprintidle)
   if [ -n "${_IDLE_TIME}" ]; then
-    _IDLE_TIME=$(( ${_IDLE_TIME} / 1000 ))
+    _IDLE_TIME=$(( _IDLE_TIME / 1000 ))
   fi
 
   _XSET_OUT=$(xset q)
