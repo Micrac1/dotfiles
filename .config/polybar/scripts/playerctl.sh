@@ -77,9 +77,9 @@ make_bar(){
 }
 
 FORMAT=\
-'{{default(status,X)}}|{{default(artist,"<unknown>")}}|{{default(title, "<unknown>")}}|'\
-'{{default(duration(position), 0)}}|{{default(duration(mpris:length), 0)}}|'\
-'{{default(position, 0)}}|{{default(mpris:length, 0)}}|{{shuffle}}|{{volume}}'
+'{{default(status,"X")}}|{{default(artist,"<unknown>")}}|{{default(title, "<unknown>")}}|'\
+'{{default(duration(position), "0")}}|{{default(duration(mpris:length), "0")}}|'\
+'{{default(position, "0")}}|{{default(mpris:length, "0")}}|{{shuffle}}|{{volume}}'
 
 poke_function(){
   TIMESTAMP="$(( $(date +'%s%N') / 1000000 ))"
