@@ -8,6 +8,8 @@ fi
 
 # ============================================================================
 # Environmental variables
+: "${MAX_ARTIST_LENGTH=20}"
+: "${MAX_TITLE_LENGTH=20}"
 : "${MAX_INTERVAL=50}"
 : "${BUTTON_PLAY= ▶ }"
 : "${BUTTON_PAUSE= ∐ }"
@@ -84,6 +86,10 @@ poke_function(){
       continue
     fi
     LAST_TIMESTAMP="${TIMESTAMP}"
+    # TITLE="${TITLE:0:${MAX_TITLE_LENGTH}}"
+    TITLE="$(echo "${TITLE}" | cut -c 1-"${MAX_TITLE_LENGTH}")"
+    # ARTIST="${ARTIST:0:${MAX_ARTIST_LENGTH}}"
+    ARTIST="$(echo "${ARTIST}" | cut -c 1-"${MAX_ARTIST_LENGTH}")"
     case "${STATUS}" in
       "Playing") BUTTON_MIDDLE="${BUTTON_PAUSE}" ;;
       "Paused") BUTTON_MIDDLE="${BUTTON_PLAY}" ;;
