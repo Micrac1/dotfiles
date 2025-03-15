@@ -13,7 +13,7 @@
 # ============================================================================
 # Environmental variables:
 # Interval between updates in seconds. Whole integer.
-INTERVAL="${INTERVAL:-30}"
+: "${INTERVAL=30}"
 
 # Path to a pipe THAT WILL BE CREATED to communicate with
 # the module. The path will have the script pid appended.

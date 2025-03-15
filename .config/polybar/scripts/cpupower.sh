@@ -6,11 +6,11 @@ fi
 
 # ============================================================================
 # Environmental variables
-LABEL_PROGRESS="${LABEL_PROGRESS:-*}"
-LABEL_PERFORMANCE="${LABEL_PERFORMANCE:-P}"
-LABEL_POWERSAVE="${LABEL_POWERSAVE:-S}"
-LABEL_SCHEDUTIL="${LABEL_SCHEDUTIL:-s}"
-LABEL_UNKNOWN="${LABEL_UNKNOWN:-?}"
+: "${LABEL_PROGRESS=*}"
+: "${LABEL_PERFORMANCE=P}"
+: "${LABEL_POWERSAVE=S}"
+: "${LABEL_SCHEDUTIL=s}"
+: "${LABEL_UNKNOWN=?}"
 # ============================================================================
 
 

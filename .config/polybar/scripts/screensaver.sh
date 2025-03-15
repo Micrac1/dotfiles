@@ -7,8 +7,8 @@ fi
 # ============================================================================
 #PREVENT_IDLE="yes"
 # Countdown to timeout if unset, countdown to timeout + cycle when set
-COUNTDOWN_TO_CYCLE="yes"
-LOCK_STRING="${LOCK_STRING:-LCK}"
+# COUNTDOWN_TO_CYCLE="true"
+: "${LOCK_STRING=LCK}"
 # ============================================================================
 # TODO:
 # env for reverse (count up, not down)
