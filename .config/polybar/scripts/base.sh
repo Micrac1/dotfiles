@@ -40,6 +40,8 @@ event_handler(){ :; } # any other piped command gets handled by this
 
 export PIPE="${PIPE_DIR}/polybar_module_${MODULE_NAME}_${$}"
 
+export SEP='%{-u} %{+u}'
+
 export _PID="${$}"
 
 _cleanup(){

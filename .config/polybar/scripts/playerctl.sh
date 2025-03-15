@@ -31,6 +31,11 @@ fi
 : "${BAR_6=▊}"
 : "${BAR_7=▉}"
 : "${BAR_FILL=█}"
+DEFAULT_FORMAT=\
+'%{T2}${CONTROLS}%{T-}${SEP}'\
+'${POSITION}${SEP}%{T2}${BAR}%{T-}${SEP}${LENGTH}${SEP}'\
+'${ARTIST} - ${TITLE}'
+: "${MODULE_FORMAT=${DEFAULT_FORMAT}}"
 # ============================================================================
 
 if [ "${ENABLE_CONTROLS}" = true ]; then
@@ -54,7 +59,7 @@ make_bar(){
   i=0
   RET=""
   while [ "${i}" -lt "${LEFT}" ]; do
-    RET="${RET}$(make_position_button "${BAR_FILL}" ${i} $2)"
+    RET="${RET}$(make_position_button "${BAR_FILL}" "${i}" "$2")"
     i="$(( i + 1 ))"
   done
 
@@ -64,11 +69,11 @@ make_bar(){
   RIGHT=$(( BAR_WIDTH - 1 - LEFT ))
   i=0
   while [ "${i}" -lt "${RIGHT}" ]; do
-    RET="${RET}$(make_position_button "${BAR_EMPTY}" $((i + LEFT + 1)) $2)"
+    RET="${RET}$(make_position_button "${BAR_EMPTY}" "$((i + LEFT + 1))" "$2")"
     i="$(( i + 1))"
   done
 
-  echo "%{T2}${RET}%{T-}"
+  echo "${RET}"
 }
 
 FORMAT=\
@@ -97,20 +102,18 @@ poke_function(){
       *) BUTTON_MIDDLE=" ? ";;
     esac
     RAW_LENGTH="${RAW_LENGTH%.*}"
-    CONTROLS="%{T2}${BUTTON_PREV}${BUTTON_MIDDLE}${BUTTON_NEXT}%{T-}"
     if [ "${RAW_LENGTH##.}" -gt 0 ]; then
       PERCENT=$(( RAW_POSITION * 100 / RAW_LENGTH ))
     else
       PERCENT=0
     fi
     if [ "${ENABLE_BAR}" = true ]; then
-      BAR="$(make_bar ${PERCENT} ${RAW_LENGTH})"
+      BAR="$(make_bar "${PERCENT}" "${RAW_LENGTH}")"
       # BAR="$(make_bar $(cat ~/sandbox/number) ${RAW_LENGTH})"
     fi
 
-    echo "${CONTROLS}%{-u} %{+u}%{T2}$BAR%{T-}%{-u}"\
-      "%{+u}${ARTIST} - ${TITLE}%{-u}"\
-      "%{+u}(%{T2} ${POSITION} / ${LENGTH} %{T-})"
+    CONTROLS="${BUTTON_PREV}${BUTTON_MIDDLE}${BUTTON_NEXT}"
+    eval "echo \"${MODULE_FORMAT}\""
   done
 }
 
