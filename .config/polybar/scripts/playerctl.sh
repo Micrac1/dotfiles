@@ -1,4 +1,5 @@
 #!/bin/sh
+# shellcheck disable=SC2086,SC2016,SC2034
 
 MODULE_NAME="playerctl"
 . "$(dirname "${0}")/base.sh"
