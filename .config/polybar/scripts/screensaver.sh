@@ -1,4 +1,6 @@
 #!/bin/sh
+
+MODULE_NAME="screensaver"
 . "$(dirname "${0}")/base.sh"
 if [ -z "${BASE_SH_SUCCESS}" ]; then
   echo "Failed to initalize base.sh"; exit 101

@@ -15,10 +15,12 @@
 # Interval between updates in seconds. Whole integer.
 : "${INTERVAL=30}"
 
+# Name of the module
+: "${MODULE_NAME=default}"
+
 # Path to a pipe THAT WILL BE CREATED to communicate with
 # the module. The path will have the script pid appended.
-PIPE="${PIPE:-/tmp/polybar_module_}${$}"
-
+: "${PIPE_DIR=/tmp}"
 
 # Functions
 print_module(){ :; } # overwrite to actually print something
@@ -35,6 +37,8 @@ double_click_middle(){ :; }
 double_click_right(){ :; }
 event_handler(){ :; } # any other piped command gets handled by this
 # ============================================================================
+
+export PIPE="${PIPE_DIR}/polybar_module_${MODULE_NAME}_${$}"
 
 export _PID="${$}"
 
