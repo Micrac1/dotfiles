@@ -1,4 +1,5 @@
 #!/bin/sh
+# shellcheck disable=SC2086,SC2016,SC2034
 
 # Copy this to a new file to create a new module:
 # ============================================================================
