@@ -99,7 +99,7 @@ poke_function(){
       "Playing") BUTTON_MIDDLE="${BUTTON_PAUSE}" ;;
       "Paused") BUTTON_MIDDLE="${BUTTON_PLAY}" ;;
       "Stopped") BUTTON_MIDDLE="${BUTTON_PLAY}" ;;
-      *) BUTTON_MIDDLE=" ? ";;
+      *) echo "" && continue;;
     esac
     RAW_LENGTH="${RAW_LENGTH%.*}"
     if [ "${RAW_LENGTH##.}" -gt 0 ]; then
