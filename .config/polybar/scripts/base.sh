@@ -10,8 +10,23 @@
 # ============================================================================
 
 
+# Copy this to create a new instance
 # ============================================================================
-# Environmental variables:
+# [module/cool_script]
+# type = custom/script
+# exec = "${XDG_CONFIG_HOME:-${HOME}/.config}/polybar/scripts/my_module.sh"
+# tail = true
+# click-left = echo 'click-left' > /tmp/polybar_module_cool_script_%pid%
+# click-right = echo 'click-right' > /tmp/polybar_module_cool_script_%pid%
+#
+# env-MODULE_NAME = cool_script
+# ============================================================================
+
+
+# = MODULE CONFIGURATION =====================================================
+
+# Environmental variables: (can be set per module or per script)
+
 # Interval between updates in seconds. Whole integer.
 : "${INTERVAL=30}"
 
