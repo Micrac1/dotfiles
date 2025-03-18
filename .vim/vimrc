@@ -913,7 +913,7 @@ aug vimrc_ft
 
   " Java {{{
   au FileType java
-        \ setl foldmethod=syntax|
+        \ setl foldmethod=marker|
   "}}}
 
   " HTML {{{
