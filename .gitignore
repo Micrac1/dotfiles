@@ -16,6 +16,9 @@
 !/.bashrc
 !/.bash_profile
 
+# Readline
+!/.inputrc
+
 # Shell
 !/.profile
 

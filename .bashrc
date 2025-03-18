@@ -142,3 +142,4 @@ _TMP="$(complete -p pacman)" && eval "${_TMP% *} sp"
 ## (you can write some initial letters of the command first).
 bind '"\e[A":history-search-backward'
 bind '"\e[B":history-search-forward'
+bind '"\C-w":vi-unix-word-rubout'
