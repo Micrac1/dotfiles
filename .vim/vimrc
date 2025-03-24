@@ -479,6 +479,42 @@ function! MyFoldText()
 endfunction
 "}}}
 
+" Rename {{{
+function! Rename(original_file="") abort
+  " TODO git integration (git mv)
+  " TODO allow argument to specify which file to rename
+  call inputsave()
+  let new_name = input('New name: ', expand('%'))
+  call inputrestore()
+
+  let old_absolute = expand('%:p')
+  " Check if new name is the same as the old one
+  if old_absolute == fnamemodify(new_name, ':p')
+    echo ' Aborting rename, new_name == old_name'
+    return ''
+  endif
+
+  " Attempt to save
+  try
+    execute 'saveas ' .. new_name
+  catch
+    echo ' Could not save to ' .. new_name
+    return ''
+  endtry
+
+  " Remove the old buffer
+  execute 'bd ' .. old_absolute
+
+  " Delete the old file
+  try
+    call delete(old_absolute)
+  catch
+    echo ' Could not delete old file ' .. old_absolute
+  endtry
+  return ''
+endfunction
+"}}}
+
 " Close empty nameless buffers {{{
 function! CleanNoNameEmptyBuffers()
   " TODO make it so this does not close them on other tabs
@@ -532,6 +568,7 @@ endfunction
 
 " Expose some of the functions
 command! CleanNoNameEmptyBuffers call CleanNoNameEmptyBuffers()
+command! -nargs=? -complete=file Rename call Rename("<args>")
 " ---------- }}}1
 
 "> MAPPINGS {{{1
