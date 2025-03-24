@@ -15,12 +15,14 @@ fi
 # TODO:
 # env for reverse (count up, not down)
 # env for enabling counter in minutes, not seconds
-# use xrdb for screen timeout
 
 # Toggle between timeout and always on
 click_left(){
   update_state
+
   if [ "${_TIMEOUT}" = '0' ]; then
+    _RESTORE_TIMEOUT="$(xrdb -get dfs.screenTimeout)"
+    : "${_RESTORE_TIMEOUT:=0}"
     xset s "${_RESTORE_TIMEOUT}" >/dev/null 2>&1
   else
     xset s 0 >/dev/null 2>&1
@@ -38,9 +40,7 @@ update_state(){
     _IDLE_TIME=$(( _IDLE_TIME / 1000 ))
   fi
 
-  _XSET_OUT=$(xset q)
-  _TIMEOUT="$(echo "${_XSET_OUT}" | grep -o -P 'timeout: *\K[0-9]+')"
-  _CYCLE="$(echo "${_XSET_OUT}" | grep -o -P 'cycle: *\K[0-9]+')"
+  _TIMEOUT="$(echo "$(xset q)" | grep -o -P 'timeout: *\K[0-9]+')"
 }
 
 print_state(){
@@ -54,9 +54,5 @@ print_state(){
 }
 
 x_prevent_idle(){ xdotool key VoidSymbol; }
-
-_XSET_OUT=$(xset q)
-_RESTORE_TIMEOUT="$(echo "${_XSET_OUT}" | grep -o -P 'timeout: *\K[0-9]+')"
-_RESTORE_CYCLE="$(echo "${_XSET_OUT}" | grep -o -P 'cycle: *\K[0-9]+')"
 
 start_loop

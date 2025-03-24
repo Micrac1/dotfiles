@@ -77,6 +77,10 @@
 *.color7:       #_7_
 *.color15:      #_15_
 
+! DFS
+dfs.screenTimeout: 295
+dfs.screenDimDuration: 5
+
 ! Xterm settings
 xterm.termName: xterm-256color
 xterm*utf8: true
