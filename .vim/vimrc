@@ -656,7 +656,7 @@ nnoremap <silent> <leader>s<bar> :let &colorcolumn=&colorcolumn==''?'+1':''<CR>
 "}}}
 
 " Finding {{{
-nnoremap <leader>f :f ./**/*
+nnoremap <leader>f :e ./**/*
 "}}}
 
 " Tabs {{{
