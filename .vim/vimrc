@@ -571,7 +571,7 @@ command! -nargs=? -complete=file Rename call Rename("<args>")
 " ---------- }}}1
 
 "> MAPPINGS {{{1
-" Funny stuff {{{
+" Dummy mappings {{{
 map Q :<C-u>echo 'Have a nice day :)'<CR>
 nnoremap <silent> <Esc> :silent noh<CR>
 nnoremap <leader> <Nop>
@@ -579,18 +579,12 @@ vnoremap <leader> <Nop>
 nnoremap <localleader> <Nop>
 vnoremap <localleader> <Nop>
 
-" also reset file specific binds to prevent accidents from muscle memory
-nnoremap <localleader>a  :echo '[NO LOCAL MAPPING] a'<CR>
-nnoremap <localleader>b  :echo '[NO LOCAL MAPPING] b'<CR>
-nnoremap <localleader>c  :echo '[NO LOCAL MAPPING] c'<CR>
-nnoremap <localleader>d  :echo '[NO LOCAL MAPPING] d'<CR>
-nnoremap <localleader>e  :echo '[NO LOCAL MAPPING] e'<CR>
-nnoremap <localleader>f  :echo '[NO LOCAL MAPPING] f'<CR>
-nnoremap <localleader>fm :echo '[NO LOCAL MAPPING] fm'<CR>
-nnoremap <localleader>p  :echo '[NO LOCAL MAPPING] p'<CR>
-nnoremap <localleader>s  :echo '[NO LOCAL MAPPING] s'<CR>
-nnoremap <localleader>t  :echo '[NO LOCAL MAPPING] t'<CR>
-nnoremap <localleader>v  :echo '[NO LOCAL MAPPING] v'<CR>
+" <localleader>
+for c in range(char2nr('a'), char2nr('z')) + range(char2nr('0'), char2nr('9'))
+  execute "nnoremap <localleader>"..nr2char(c)
+        \.." :echo '[NO LOCAL MAPPING] "..nr2char(c).."'<CR>"
+endfor
+"}}}
 
 " LSP {{{
 for c in range(char2nr('a'), char2nr('z')) + range(char2nr('0'), char2nr('9'))
