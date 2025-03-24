@@ -563,7 +563,6 @@ function! CppSwitchSourceHeader(force)
     echo "Can not switch source/header: not a source/header file."
   endif
 endfunction
-"map <F4> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 "}}}
 
 " Expose some of the functions
