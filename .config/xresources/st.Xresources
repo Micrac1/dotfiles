@@ -1,0 +1,6 @@
+/* st settings */
+st.alpha: 0.8
+st.alphaUnfocused: 0.8
+st.font: DejaVu Sans Mono:size=10:
+st.scrollKey: true
+st.scrollTtyOutput: false

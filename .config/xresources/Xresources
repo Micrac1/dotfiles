@@ -78,6 +78,7 @@ dfs.screenTimeout: 295
 dfs.screenDimDuration: 5
 
 #include "xterm.Xresources"
+#include "st.Xresources"
 
 ! Clamp specific configuration
 #ifdef SRVR_clamp
