@@ -91,6 +91,10 @@ nnoremap <buffer> <silent> Q :MarkdownTOC<CR>
 nnoremap <buffer> <localleader>v :call MarkdownMode(1)<CR>:echo "View mode"<CR>
 nnoremap <buffer> <localleader>e :call MarkdownMode(0)<CR>:echo "Edit mode"<CR>
 nnoremap <buffer> <localleader>p :MarkdownPreviewToggle<CR>:echo "Toggled preview"<CR>
+
+inoremap <buffer> <C-a>i __<C-G>U<left>
+inoremap <buffer> <C-a>b ****<C-G>U<left><C-G>U<left>
+inoremap <buffer> <C-a>s ~~~~<C-G>U<left><C-G>U<left>
 "}}}
 
 " Commands {{{
@@ -112,6 +116,7 @@ let b:undo_ftplugin.='|setlocal foldlevel< nu< rnu< conceallevel<|'.
       \ 'nunmap <buffer> <localleader>b|vunmap <buffer> <localleader>b|'.
       \ 'nunmap <buffer> <localleader>i|vunmap <buffer> <localleader>i|'.
       \ 'nunmap <buffer> <localleader>s|vunmap <buffer> <localleader>s|'.
+      \ 'iunmap <buffer> <C-a>b|iunmap <buffer> <C-a>i|iunmap <buffer> <C-a>s|'.
       \ 'nunmap <buffer> Q|nunmap <buffer> <localleader>v|nunmap <buffer> <localleader>e|'.
       \ 'nunmap <buffer> <localleader>p|'.
       \ 'aug ftplugin_markdown|execute "au! * <buffer>"|aug end'
