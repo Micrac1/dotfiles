@@ -66,6 +66,7 @@ set wildmenu
 set wildmode=lastused:full
 set wildoptions=pum,fuzzy " Vertical wild menu in cmdline
 set wildignore=*/.git/*,*/.vscode/*,*.o,*.class,*.so
+set wildignorecase
 set fileformats=unix,dos,mac
 set showcmd
 set virtualedit=block
