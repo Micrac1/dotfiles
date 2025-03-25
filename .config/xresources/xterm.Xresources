@@ -1,0 +1,78 @@
+! TODO fix this for emails and other stuff
+#define _url_regex_ "regex (https?|ftp|file)://[a-zA-Z0-9.]{2,256}(/[a-zA-Z0-9]*)*"
+! (\b(https?|ftp|file)://)?[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]
+! Xterm settings
+
+xterm.termName: xterm-256color
+xterm*utf8: true
+xterm*faceName: xft:DejaVu Sans Mono:style=book:antialias=false:
+
+/* Font sizes */
+xterm*faceSize1: 6
+xterm*faceSize2: 7
+xterm*faceSize3: 8
+xterm*faceSize: 10
+xterm*faceSize4: 12
+xterm*faceSize5: 14
+xterm*faceSize6: 17
+xterm*faceSize7: 21
+
+/* Options */
+xterm*bellIsUrgent: true
+xterm*metaSendsEscape: true
+
+xterm*alternateScroll: true
+xterm*scrollTtyOutput: false
+xterm*autoScrollLock: true
+xterm*scrollKey: true
+
+xterm*pointerMode: 0
+xterm*toolBar: false // not compiled in the arch version
+! xterm.vt100.backarrowKey: false
+! xterm.ttyModes: erase ^?
+
+/* Disable some default keybinds */
+xterm.omitTranslation: scroll-lock,reset,popup-menu
+xterm*translations: #override \n\
+  /* Change font size */\
+  Ctrl Shift <Key>=: larger-vt-font() \n\
+  Ctrl <Key>0: set-vt-font(d) \n\
+  Ctrl <Key>-: smaller-vt-font() \n\
+  /* Copy and paste selection */\
+  Ctrl Shift <Key>c: copy-selection(CLIPBOARD) \n\
+  Ctrl Shift <Key>v: insert-selection(CLIPBOARD) \n\
+  /* Mouse scrolling */\
+  Shift <Btn4Down>: scroll-back(5,line,m) \n\
+  Shift <Btn5Down>: scroll-forw(5,line,m) \n\
+  <Btn4Down>: scroll-back(2,line,m) \n\
+  <Btn5Down>: scroll-forw(2,line,m) \n\
+  /* New terminal */\
+  Meta <Key>Return: spawn-new-terminal()  \n\
+  /* URL clicking */\
+  Ctrl <Btn1Up>: \
+    exec-selectable("xdg-open '%s'", _url_regex_) \
+    select-end() \n\
+  /* Toggle menu bar */\
+  Ctrl Meta <Key>m: set-toolbar(toggle) \n\
+
+/* */
+//xterm.vt100.normalKeymap.translations: #override \n\
+//  <Key>a: keymap(None) \n\
+//  <Key>v: select-cursor-start() select-cursor-end() \n\
+
+/* Cursor theme */
+xterm*cursorTheme: Adwaita
+//xterm*pointerShape: left_ptr
+
+/* Scrollbar */
+/*
+xterm*scrollBar: true
+xterm*rightScrollBar: true
+xterm*scrollbar.width: 10
+xterm*scrollbar.translations: #override \n\
+  <Btn1Down>: StartScroll(Continous) MoveThumb() NotifyThumb() \n\
+  <Btn1Motion>: MoveThumb() NotifyThumb() \n\
+  <Btn1Up>: NotifyScroll(Proportional) EndScroll() \n\
+ */
+
+! vim: ft=xdefaults
