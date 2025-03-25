@@ -589,7 +589,7 @@ endfor
 
 " LSP {{{
 for c in range(char2nr('a'), char2nr('z')) + range(char2nr('0'), char2nr('9'))
-  execute "nnoremap <localleader>l"..nr2char(c)
+  execute "nnoremap <leader>l"..nr2char(c)
         \.." :echo '[LSP MISSING] l"..nr2char(c).."'<CR>"
 endfor
 nnoremap <localleader>[g ":echo '[LSP MISSING] [g'<CR>"
