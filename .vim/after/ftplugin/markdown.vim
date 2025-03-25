@@ -83,6 +83,10 @@ endfunction
 " Mappings {{{
 nnoremap <buffer> <expr> <localleader>b SurroundWithStrings("**", "**")
 vnoremap <buffer> <expr> <localleader>b SurroundWithStrings("**", "**")
+nnoremap <buffer> <expr> <localleader>i SurroundWithStrings("_", "_")
+vnoremap <buffer> <expr> <localleader>i SurroundWithStrings("_", "_")
+nnoremap <buffer> <expr> <localleader>s SurroundWithStrings("~~", "~~")
+vnoremap <buffer> <expr> <localleader>s SurroundWithStrings("~~", "~~")
 nnoremap <buffer> <silent> Q :MarkdownTOC<CR>
 nnoremap <buffer> <localleader>v :call MarkdownMode(1)<CR>:echo "View mode"<CR>
 nnoremap <buffer> <localleader>e :call MarkdownMode(0)<CR>:echo "Edit mode"<CR>
@@ -106,6 +110,8 @@ aug end
 if !exists('b:undo_ftplugin')|let b:undo_ftplugin=''|endif
 let b:undo_ftplugin.='|setlocal foldlevel< nu< rnu< conceallevel<|'.
       \ 'nunmap <buffer> <localleader>b|vunmap <buffer> <localleader>b|'.
+      \ 'nunmap <buffer> <localleader>i|vunmap <buffer> <localleader>i|'.
+      \ 'nunmap <buffer> <localleader>s|vunmap <buffer> <localleader>s|'.
       \ 'nunmap <buffer> Q|nunmap <buffer> <localleader>v|nunmap <buffer> <localleader>e|'.
       \ 'nunmap <buffer> <localleader>p|'.
       \ 'aug ftplugin_markdown|execute "au! * <buffer>"|aug end'
