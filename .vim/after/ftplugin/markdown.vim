@@ -95,6 +95,15 @@ nnoremap <buffer> <localleader>p :MarkdownPreviewToggle<CR>:echo "Toggled previe
 inoremap <buffer> <C-a>i __<C-G>U<left>
 inoremap <buffer> <C-a>b ****<C-G>U<left><C-G>U<left>
 inoremap <buffer> <C-a>s ~~~~<C-G>U<left><C-G>U<left>
+
+nnoremap <buffer> <silent> <localleader>c :keeppatterns s/^\s*\zs\(- \(\[[X ]\] \)\?\\|[0-9]\+\. \)\?\ze[^$]//<CR>
+vnoremap <buffer> <silent> <localleader>c :keeppatterns s/^\s*\zs\(- \(\[[X ]\] \)\?\\|[0-9]\+\. \)\?\ze[^$]//<CR>
+nnoremap <buffer> <silent> <localleader>t :keeppatterns s/^\s*\zs\(- \(\[[X ]\] \)\?\\|[0-9]\+\. \)\?\ze[^$]/- [X] /<CR>
+vnoremap <buffer> <silent> <localleader>t :keeppatterns s/^\s*\zs\(- \(\[[X ]\] \)\?\\|[0-9]\+\. \)\?\ze[^$]/- [X] /<CR>
+nnoremap <buffer> <silent> <localleader>l :keeppatterns s/^\s*\zs\(- \(\[[X ]\] \)\?\\|[0-9]\+\. \)\?\ze[^$]/- /<CR>
+vnoremap <buffer> <silent> <localleader>l :keeppatterns s/^\s*\zs\(- \(\[[X ]\] \)\?\\|[0-9]\+\. \)\?\ze[^$]/- /<CR>
+nnoremap <buffer> <silent> <localleader>n :keeppatterns s/^\s*\zs\(- \(\[[X ]\] \)\?\\|[0-9]\+\. \)\?\ze[^$]/1. /<CR>
+vnoremap <buffer> <silent> <localleader>n :keeppatterns s/^\s*\zs\(- \(\[[X ]\] \)\?\\|[0-9]\+\. \)\?\ze[^$]/1. /<CR>
 "}}}
 
 " Commands {{{
@@ -116,6 +125,10 @@ let b:undo_ftplugin.='|setlocal foldlevel< nu< rnu< conceallevel<|'.
       \ 'nunmap <buffer> <localleader>b|vunmap <buffer> <localleader>b|'.
       \ 'nunmap <buffer> <localleader>i|vunmap <buffer> <localleader>i|'.
       \ 'nunmap <buffer> <localleader>s|vunmap <buffer> <localleader>s|'.
+      \ 'nunmap <buffer> <localleader>c|vunmap <buffer> <localleader>c|'.
+      \ 'nunmap <buffer> <localleader>t|vunmap <buffer> <localleader>t|'.
+      \ 'nunmap <buffer> <localleader>l|vunmap <buffer> <localleader>l|'.
+      \ 'nunmap <buffer> <localleader>n|vunmap <buffer> <localleader>n|'.
       \ 'iunmap <buffer> <C-a>b|iunmap <buffer> <C-a>i|iunmap <buffer> <C-a>s|'.
       \ 'nunmap <buffer> Q|nunmap <buffer> <localleader>v|nunmap <buffer> <localleader>e|'.
       \ 'nunmap <buffer> <localleader>p|'.
