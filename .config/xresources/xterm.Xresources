@@ -24,6 +24,7 @@ xterm*metaSendsEscape: true
 xterm*alternateScroll: true
 xterm*scrollTtyOutput: false
 xterm*autoScrollLock: true
+xterm*reverseWrap: true
 xterm*scrollKey: true
 
 xterm*pointerMode: 0
@@ -52,6 +53,13 @@ xterm*translations: #override \n\
   Ctrl <Btn1Up>: \
     exec-selectable("xdg-open '%s'", _url_regex_) \
     select-end() \n\
+  /* Menu */\
+  Meta <Btn1Down>: \
+    popup-menu(mainMenu) \n\
+  Meta <Btn2Down>: \
+    popup-menu(vtMenu) \n\
+  Meta <Btn3Down>: \
+    popup-menu(fontMenu) \n\
   /* Toggle menu bar */\
   Ctrl Meta <Key>m: set-toolbar(toggle) \n\
 
