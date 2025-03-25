@@ -456,7 +456,7 @@ function! MyStatusLine()
   let b = get(g:, 'statusline_lsp_breadcrumbs', v:false) ? substitute(
         \   GetLspBreadcrumbsString(win_id2win(g:statusline_winid)), "'", "''", 'g'
         \ ) : ''
-  let s = "
+  return "
         \%(%#NonText#%{%&paste ? '[PASTE]' : ''%}%* %)
         \%(%f%)
         \%( %{%'"..d.."'%}%)%*
@@ -468,7 +468,6 @@ function! MyStatusLine()
         \%( %{&ft} /%)
         \%( [%l:%c%V] / %L%)
         \"
-  return s
 endfunction
 "}}}
 
