@@ -679,7 +679,7 @@ nnoremap <leader>n :bnext<CR>
 nnoremap <leader>p :bprev<CR>
 nnoremap <leader>x :bd<CR>
 nnoremap <leader>X :bd!<CR>
-nnoremap <leader>e :enew<CR>
+nnoremap <leader>e :30Lex!<CR>
 nnoremap <leader><Tab> <C-^>
 "}}}
 
