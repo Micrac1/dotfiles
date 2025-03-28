@@ -567,7 +567,7 @@ endfunction
 
 " Expose some of the functions
 command! CleanNoNameEmptyBuffers call CleanNoNameEmptyBuffers()
-command! -nargs=? -complete=file Rename call Rename("<args>")
+command! -nargs=? -complete=file Rename call Rename(<q-args>)
 " ---------- }}}1
 
 "> MAPPINGS {{{1
