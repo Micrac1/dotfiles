@@ -678,7 +678,9 @@ nnoremap <leader>n :bnext<CR>
 nnoremap <leader>p :bprev<CR>
 nnoremap <leader>x :bd<CR>
 nnoremap <leader>X :bd!<CR>
-nnoremap <leader>e :30Lex!<CR>
+" nnoremap <leader>e :30Lex!<CR>
+nnoremap <leader>1 :DBrowserOpen<CR>
+nnoremap <leader>2 :DBrowserOpenNoSync<CR>
 nnoremap <leader><Tab> <C-^>
 "}}}
 
@@ -1012,7 +1014,6 @@ let g:netrw_altv = 1
 let g:netrw_browse_split = 4
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
-
 "}}}
 " vim-markdown {{{
 let g:vim_markdown_new_list_item_indent = 0
@@ -1270,6 +1271,10 @@ endif
 
 packadd! matchit
 packadd! termdebug
+"}}}
+
+" Local plugins {{{
+packadd! dbrowser
 "}}}
 
 " Plug init {{{

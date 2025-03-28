@@ -68,6 +68,9 @@
 !/.vim/snippets/*
 !/.vim/colors/
 !/.vim/colors/*
+!/.vim/pack/
+!/.vim/pack/synced/
+!/.vim/pack/synced/**
 
 # Bin
 !/bin/
