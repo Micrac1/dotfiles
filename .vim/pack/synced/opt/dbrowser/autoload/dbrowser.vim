@@ -84,8 +84,12 @@ function! dbrowser#node_shrink() abort
 
   " Attempt to close the parent
   let dir = substitute(dir, '[^/]\+/\?$', '', '')
-  let dir = substitute(dir, '\\', '\\\\', 'g')
-  call searchpos('\V\^' .. dir .. '\$', 'b')
+  let save = getcurpos()
+  call searchpos('\V\^' .. substitute(dir, '\\', '\\\\', 'g') .. '\$', 'b')
+  if (line('.') == 1)
+    call setpos('.', save)
+    return 0
+  endif
 
   return dbrowser#node_close()
 endfunction
@@ -106,13 +110,13 @@ endfunction
 " Returns number of deleted nodes
 function! dbrowser#node_close() abort
   if (!dbrowser#is_db_buffer(bufnr())) | echo 'Not a dbrowser buffer!' | return 0 | endif
+  if (getpos('.')[1] == 1) | echo 'Cannot close root.' | return 0 | endif
 
   let dir = getline('.')
 
   let save = getcurpos()
   call cursor('$', 999999)
-  let dir = substitute(dir, '\\', '\\\\', 'g')
-  let targets = searchpos('\V\^' .. dir .. '\.\+\$', 'bn')
+  let targets = searchpos('\V\^' .. substitute(dir, '\\', '\\\\', 'g') .. '\.\+\$', 'bn')
   call setpos('.', save)
   if (targets[0] > 0)
     let from = line('.') + 1
@@ -210,7 +214,6 @@ function! dbrowser#refresh(mode = 0, keep_expanded = v:true) abort
     call setline(1, dir_abs)
     call deletebufline(bufnr(), 2, '$')
     let &l:modifiable = mod
-    echom expanded
 
     call dbrowser#read_dir(mode)
 
@@ -284,7 +287,10 @@ function! dbrowser#enter_file() abort
     return v:false
   endif
 
-  let filename_escaped = fnamemodify(fnameescape(bufname() .. filename), ':p:.')
+  if (dbrowser#get_mode() == 1)
+    let filename = getline(1) .. filename
+  endif
+  let filename_escaped = fnameescape(fnamemodify(filename, ':p:.'))
 
   " Open the file in previous window
   if (tabpagewinnr(tabpagenr(), '$') > 1)
