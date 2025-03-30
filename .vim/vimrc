@@ -33,6 +33,7 @@ if (&compatible) | set nocompatible | endif
 if (has('win32'))
   set runtimepath+=$VIMCONFIGROOT
   set runtimepath+=$VIMCONFIGROOT/after
+  set packpath+=$VIMCONFIGROOT
   language en_US.utf8
 endif
 
