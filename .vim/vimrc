@@ -479,6 +479,12 @@ function! MyFoldText()
 endfunction
 "}}}
 
+" Delete {{{
+function! Delete(new_name="") abort
+  " TODO
+endfunction
+"}}}"
+
 " Rename {{{
 function! Rename(original_file="") abort
   " TODO git integration (git mv)
