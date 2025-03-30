@@ -3,6 +3,16 @@ if exists('g:loaded_dbrowser') || &cp || v:version < 700 || &cpo =~# 'C'
 endif
 let g:loaded_dbrowser = 1
 
+if (get(g:, 'dbrowser_replace_netrw', 1))
+  aug DBrowserReplaceNetrw
+    au!
+    au VimEnter * sil! au! FileExplorer *
+      " au BufEnter * if (isdirectory(expand('%')))
+      "       \| call DBrowserOpen(expand('%'))
+      "       \| endif
+  aug END
+endif
+
 " Commands {{{
 command! -nargs=? -complete=dir -bang DBrowserOpen call dbrowser#open(<q-args>)
 command! -nargs=? -complete=dir -bang DBrowserOpenNoSync call dbrowser#open_no_sync(<q-args>)
