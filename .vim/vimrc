@@ -1309,6 +1309,8 @@ endif
 " Plugin list {{{
 call plug#begin('~/.vim/plugged')
 " Plug 'girishji/devdocs.vim'
+" Plug 'justinmk/vim-dirvish'
+" Plug 'preservim/nerdtree'
 Plug 'junegunn/fzf.vim'
 Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
