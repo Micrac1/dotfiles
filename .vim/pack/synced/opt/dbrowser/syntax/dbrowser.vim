@@ -2,26 +2,36 @@ if 'dbrowser' !=# get(b:, 'current_syntax', 'dbrowser')
   finish
 endif
 
-" let s:sep = exists('+shellslash') && !&shellslash ? '\\' : '/'
+let s:sep = exists('+shellslash') && !&l:shellslash ? '\\' : '/'
 " let s:escape = 'substitute(escape(v:val, ".$~"), "*", ".*", "g")'
 
 " Define once (per buffer).
 if !exists('b:current_syntax')
-  syntax match DBrowserTreePath =^.*/\ze.\+/\?$=
-  syntax match DBrowserTreePathSep =\zs/\ze[^/]\+/[^/]\+=
-        \ contained containedin=DBrowserTreePath conceal cchar= 
-  syntax match DBrowserTreePathSepLast =/\ze[^/]\+/\?$=
-        \ contained containedin=DBrowserTreePath conceal cchar=─
-  syntax match DBrowserTreePathPart =[^/]\+\ze/[^/]\+/[^/]\+=
-        \ contained containedin=DBrowserTreePath conceal cchar=│
-  syntax match DBrowserTreePathPartLast =[^/]\+\ze/[^/]\+/\?$=
-        \ contained containedin=DBrowserTreePath conceal cchar=├
+  execute 'syntax match DBrowserTreePath =^\..*'..s:sep..'\ze.\+'..s:sep..'\?$='
+  execute 'syntax match DBrowserTreePathSep =\zs'..s:sep..'\ze'
+        \..'[^'..s:sep..']\+'..s:sep..'[^'..s:sep..']\+='
+        \..' contained containedin=DBrowserTreePath conceal cchar= '
 
-  syntax match DBrowserFlatPath =^/.*/\ze.\+/\?$= conceal
-  syntax match DBrowserHeader =\%^.*$= contains=DBrowserPathDirectory
+  execute 'syntax match DBrowserTreePathSepLast ='..s:sep..'\ze'
+        \..'[^'..s:sep..']\+'..s:sep..'\?$='
+        \..' contained containedin=DBrowserTreePath conceal cchar=─'
 
-  syntax match DBrowserPathDirectory =[^/]\+/$=
-  syntax match DBrowserPathFile =[^/]\+$=
+  execute 'syntax match DBrowserTreePathPart =[^'..s:sep..']\+\ze'
+        \..s:sep..'[^'..s:sep..']\+'..s:sep..'[^'..s:sep..']\+='
+        \..' contained containedin=DBrowserTreePath conceal cchar=│'
+
+  execute 'syntax match DBrowserTreePathPartLast =[^'..s:sep..']\+\ze'
+        \..s:sep..'[^'..s:sep..']\+'..s:sep..'\?$='
+        \..' contained containedin=DBrowserTreePath conceal cchar=├'
+
+
+  execute 'syntax match DBrowserFlatPath =^[^\.].*'..s:sep..'\ze'
+        \..'.\+'..s:sep..'\?$= conceal'
+
+  execute 'syntax match DBrowserHeader =\%^.*$= contains=DBrowserPathDirectory'
+
+  execute 'syntax match DBrowserPathDirectory =[^'..s:sep..']\+'..s:sep..'$='
+  execute 'syntax match DBrowserPathFile =[^'..s:sep..']\+$='
 endif
 
 highlight default link DBrowserHeader CursorLine
