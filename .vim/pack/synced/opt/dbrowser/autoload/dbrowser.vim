@@ -21,7 +21,7 @@ endfunction
 
 " Get system path separator
 function! s:sep(escape = v:false)
-  return has('+shellslash') && !&l:shellslash ? (escape ? '\\' : '\') : '/'
+  return exists('+shellslash') && !&l:shellslash ? (a:escape ? '\\' : '\') : '/'
 endfunction
 
 " Is node expanded {{{
@@ -261,9 +261,13 @@ function! dbrowser#mode_set(mode = 0) abort
   let mod = &l:modifiable | setl modifiable
   let save = getcurpos()
   if (mode == 1) " Relative
-    execute 'keepjumps 2,$s:\V\^'..substitute(getline(1), ':', '\:', 'g')..':.'..s:sep(v:true)..':'
+    execute 'keepjumps 2,$s:\V'
+          \..'\^'..substitute(substitute(getline(1), '\\', '\\\\', 'g'), ':', '\\:', 'g')
+          \..':.'..s:sep(v:true)..':'
   elseif (mode == 2) " Absolute
-    execute 'keepjumps 2,$s:\V\^.'..s:sep(v:true)..':'..substitute(getline(1), ':', '\:', 'g')..':'
+    execute 'keepjumps 2,$s:\V'
+          \..'\^.'..s:sep(v:true)
+          \..':'..substitute(substitute(getline(1), '\\', '\\\\', 'g'), ':', '\\:', 'g')..':'
   endif
   call setpos('.', save)
   let &l:modifiable = mod
