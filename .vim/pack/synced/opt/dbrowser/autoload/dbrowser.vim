@@ -1,7 +1,7 @@
 " Helpers {{{1
 " Is directory {{{
 function! dbrowser#is_directory(dir) abort
-  return a:dir[-1:] == '/'
+  return a:dir[-1:] == s:sep()
 endfunction
 "}}}
 
@@ -19,11 +19,17 @@ function! dbrowser#get_mode() abort
 endfunction
 "}}}
 
+" Get system path separator
+function! s:sep(escape = v:false)
+  return has('+shellslash') && !&l:shellslash ? (escape ? '\\' : '\') : '/'
+endfunction
+
 " Is node expanded {{{
-function! dbrowser#is_expanded(line = 0) abort
-  let line = a:line == 0 ? line('.') : a:line
-  return line < line('$')
-        \ && getline(line + 1) =~# '^\V' .. substitute(getline(line), '\\', '\\\\', 'g') .. '\.\+\$'
+function! dbrowser#is_expanded(linenr = 0) abort
+  let linenr = a:linenr == 0 ? line('.') : a:linenr
+  if (!dbrowser#is_directory(getline(linenr))) | return v:false | endif
+  return linenr < line('$')
+        \ && getline(linenr + 1) =~# '^\V' .. substitute(getline(linenr), '\\', '\\\\', 'g') .. '\.\+\$'
 endfunction
 "}}}
 
@@ -62,7 +68,7 @@ function! dbrowser#node_expand() abort
 
   if (dbrowser#is_expanded())
     " TODO what to do if already expanded?
-    echo 'Directory already expanded!'
+    echo 'Directory '..getline('.')..' is already expanded!'
     return 0
   endif
 
@@ -83,7 +89,7 @@ function! dbrowser#node_shrink() abort
   endif
 
   " Attempt to close the parent
-  let dir = substitute(dir, '[^/]\+/\?$', '', '')
+  let dir = substitute(dir, '[^'..s:sep(v:true)..']\+'..s:sep(v:true)..'\?$', '', '')
   let save = getcurpos()
   call searchpos('\V\^' .. substitute(dir, '\\', '\\\\', 'g') .. '\$', 'b')
   if (line('.') == 1)
@@ -155,16 +161,13 @@ function! dbrowser#read_dir(mode = 0) abort
 
   " TODO handle default mode
   if (a:mode == 1)
-    let dir = './'
+    let dir = '.' .. s:sep()
   endif
-  " if (getpos('.')[1] == 1)
-  "   let dir = './'
-  " endif
 
   let i = 0
   while i < len(files)
     if isdirectory(dir_abs .. files[i])
-      let files[i] .= '/'
+      let files[i] .= s:sep()
     endif
 
     let files[i] = dir .. files[i]
@@ -243,26 +246,28 @@ function! dbrowser#mode_set(mode = 0) abort
   if (!dbrowser#is_db_buffer(bufnr())) | echo 'Not a dbrowser buffer!' | return v:false | endif
   let mode = a:mode
   if (mode == 0) " Toggle
+
     " Check the first item inside if present
     let line = getline(2)
-    if (line[0] ==# '.')
-      let mode = 2
-    elseif (line[0] ==# '/')
-      let mode = 1
-    else
+    if (line ==# '')
       return v:true
+    elseif (line[0] ==# '.')
+      let mode = 2
+    else
+      let mode = 1
     endif
   endif
 
   let mod = &l:modifiable | setl modifiable
   let save = getcurpos()
   if (mode == 1) " Relative
-    execute 'keepjumps 2,$s:\V\^' .. substitute(getline(1), ':', '\:', 'g') .. ':./:'
+    execute 'keepjumps 2,$s:\V\^'..substitute(getline(1), ':', '\:', 'g')..':.'..s:sep(v:true)..':'
   elseif (mode == 2) " Absolute
-    execute 'keepjumps 2,$s:\V\^./:' .. substitute(getline(1), ':', '\:', 'g') .. ':'
+    execute 'keepjumps 2,$s:\V\^.'..s:sep(v:true)..':'..substitute(getline(1), ':', '\:', 'g')..':'
   endif
   call setpos('.', save)
   let &l:modifiable = mod
+  return v:true
 endfunction
 "}}}
 
@@ -340,7 +345,7 @@ endfunction
 function! dbrowser#open_no_sync(dir = '', mode = 0) abort
   if (!dbrowser#is_db_buffer(bufnr())) | echo 'Not a dbrowser buffer!' | return v:false | endif
   let dir = a:dir != '' ? a:dir : '.'
-  if (dir[-1:] !=# '/') | let dir .= '/' | endif
+  if (dir[-1:] !=# s:sep()) | let dir .= s:sep() | endif
 
   let mod = &l:modifiable | setl modifiable
   call setline(1, fnamemodify(dir, ':p'))
@@ -353,7 +358,7 @@ endfunction
 " Open DBbrowser {{{
 function! dbrowser#open(dir = '', mode = 0, force = v:false) abort
   let dir = a:dir != '' ? a:dir : '.'
-  if (dir[-1:] !=# '/') | let dir .= '/' | endif
+  if (dir[-1:] !=# s:sep()) | let dir .= s:sep() | endif
 
   let dir_abs = fnamemodify(dir, ':p')
   if (!isdirectory(dir_abs))
