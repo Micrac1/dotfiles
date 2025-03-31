@@ -19,6 +19,12 @@ function! dbrowser#get_mode() abort
 endfunction
 "}}}
 
+" Get absolute path {{{
+function! dbrowser#get_abs_path(dir) abort
+  return a:dir[0] == '.' ? getline(1) .. a:dir : fnamemodify(a:dir,':p')
+endfunction
+"}}}
+
 " Get system path separator
 function! s:sep(escape = v:false)
   return exists('+shellslash') && !&l:shellslash ? (a:escape ? '\\' : '\') : '/'
@@ -149,7 +155,7 @@ function! dbrowser#read_dir(mode = 0) abort
   if (!dbrowser#is_db_buffer(bufnr())) | echo 'Not a dbrowser buffer!' | return 0 | endif
 
   let dir = getline('.')
-  let dir_abs = dir[0] == '.' ? getline(1) .. dir : fnamemodify(dir,' :p')
+  let dir_abs = dbrowser#get_abs_path(dir)
 
   if (!isdirectory(dir_abs)) | echo 'Not a directory.' | return 0 | endif
 
@@ -326,8 +332,7 @@ endfunction
 function! dbrowser#enter_dir(dir = '', mode = 0) abort
   if (!dbrowser#is_db_buffer(bufnr())) | echo 'Not a dbrowser buffer!' | return v:false | endif
   let dir = a:dir != '' ? a:dir : getline('.')
-  let dir = dir[0] == '.' ? getline(1) .. dir : dir
-  let dir_abs = fnamemodify(dir, ':p')
+  let dir_abs = dbrowser#get_abs_path(dir)
 
   let mode = a:mode
   if (dbrowser#is_synced(bufnr())) " Only do this when 'synced'
