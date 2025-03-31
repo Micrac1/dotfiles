@@ -333,6 +333,7 @@ function! dbrowser#enter_dir(dir = '', mode = 0) abort
   if (!dbrowser#is_db_buffer(bufnr())) | echo 'Not a dbrowser buffer!' | return v:false | endif
   let dir = a:dir != '' ? a:dir : getline('.')
   let dir_abs = dbrowser#get_abs_path(dir)
+  if (!dbrowser#is_directory(dir_abs)) | echo 'Not a directory.' | return v:false | endif
 
   let mode = a:mode
   if (dbrowser#is_synced(bufnr())) " Only do this when 'synced'
