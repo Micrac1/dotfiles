@@ -1,4 +1,6 @@
 " VIMRC
+if (&compatible) | set nocompatible | endif
+
 let $MYVIMRC = expand('<script>')
 let $VIMCONFIGROOT = fnamemodify(expand('$MYVIMRC'), ':p:h')
 
@@ -25,10 +27,6 @@ let g:autocomplete_enable = 1
 " ---------- }}}1
 
 "> SETTINGS {{{1
-
-" Check this because reloading would automatically load nocompatible options
-" and overwrite any filetype settings alrady set
-if (&compatible) | set nocompatible | endif
 
 if (has('win32'))
   set runtimepath+=$VIMCONFIGROOT
