@@ -28,96 +28,74 @@ let g:autocomplete_enable = 1
 
 "> SETTINGS {{{1
 
+" Global
+filetype plugin indent on
+syntax enable
+colorscheme micrac
+
 if (has('win32'))
-  set runtimepath+=$VIMCONFIGROOT
-  set runtimepath+=$VIMCONFIGROOT/after
-  set packpath+=$VIMCONFIGROOT
+  setg runtimepath+=$VIMCONFIGROOT
+  setg runtimepath+=$VIMCONFIGROOT/after
+  setg packpath+=$VIMCONFIGROOT
   language en_US.utf8
 endif
 
 if (has('nvim'))
-  set runtimepath+=$VIMCONFIGROOT
-  set runtimepath+=$VIMCONFIGROOT/after
+  setg runtimepath+=$VIMCONFIGROOT
+  setg runtimepath+=$VIMCONFIGROOT/after
 endif
 
 if (!has('nvim'))
-set viminfofile=$VIMCONFIGROOT/viminfo
+setg viminfofile=$VIMCONFIGROOT/viminfo
 endif
 
-set guioptions=!cdfi
-set guifont=Bitstream\ Vera\ Sans\ Mono\ 10,Consolas:h11
-
-colorscheme micrac
-
-set sessionoptions=blank,buffers,sesdir,folds,help,tabpages,winpos,winsize,
+setg guioptions=!cdfi
+setg guifont=Bitstream\ Vera\ Sans\ Mono\ 10,Consolas:h11
+setg sessionoptions=blank,buffers,sesdir,folds,help,tabpages,winpos,winsize,
       \resize,terminal,skiprtp
-set viewoptions=""
-set notermguicolors
-set splitbelow
-set splitright
-set winminheight=0
-set winminwidth=0
-set number
-set relativenumber
-set ruler
-set nojoinspaces
-set wildmenu
-set wildmode=lastused:full
-set wildoptions=pum,fuzzy " Vertical wild menu in cmdline
-set wildignore=*/.git/*,*/.vscode/*,*.o,*.class,*.so
-set wildignorecase
-set fileformats=unix,dos,mac
-set showcmd
-set virtualedit=block
-set switchbuf=uselast
-set shortmess-=S " show match count
-set lazyredraw " don't update during macros
-set scrolloff=4
-set foldlevelstart=3
-set timeout
-set timeoutlen=5000
-set ttimeout
-set ttimeoutlen=0
-set mouse=a
-set belloff=all
-set hidden
-set updatetime=0
-set foldmethod=marker
-filetype plugin indent on
-set history=1000
-set tabstop=2
-set shiftwidth=0
-set softtabstop=-1
-set expandtab
-set shiftround
-set completeslash=slash
-set incsearch
-set hlsearch
-set noundofile
-set noswapfile
-set nobackup
-set encoding=utf-8
-set completeopt=menu,menuone,preview,noinsert
-if (has('patch-9.1.0463'))
-  set completeopt+=fuzzy
-endif
-set fillchars=vert:\ ,fold:\ ,foldclose:▶,foldopen:▼,foldsep:│
-let g:listchars = 'set listchars=tab:▬▬►,trail:¤,leadmultispace:│'..repeat('\ ',&ts-1)
+setg viewoptions=""
+setg notermguicolors
+setg splitbelow splitright
+setg winminheight=0
+setg winminwidth=0
+setg ruler
+setg nojoinspaces
+setg wildmenu
+setg wildmode=lastused:full
+setg wildoptions=pum,fuzzy " Vertical wild menu in cmdline
+setg wildignore=*/.git/*,*/.vscode/*,*.o,*.class,*.so
+setg wildignorecase
+setg fileformats=unix,dos,mac
+setg encoding=utf-8
+setg showcmd
+setg virtualedit=block
+setg switchbuf=uselast
+setg shortmess-=S " show match count
+setg lazyredraw " don't update during macros
+setg foldlevelstart=3
+setg timeout
+setg timeoutlen=5000
+setg ttimeout
+setg ttimeoutlen=0
+setg mouse=a
+setg belloff=all
+setg hidden
+setg updatetime=0
+setg history=1000
+setg shiftround
+setg incsearch
+setg hlsearch
+setg nobackup
+setg fillchars=vert:\ ,fold:\ ,foldclose:▶,foldopen:▼,foldsep:│
+let g:listchars = 'setg listchars=tab:▬▬►,trail:¤,leadmultispace:│'..repeat('\ ',&ts-1)
 exe get(g:, 'listchars')
-syntax enable
 if (&omnifunc == '') | set omnifunc=syntaxcomplete#Complete | endif
-set dictionary=/usr/share/dict/words
-set tags+=~/.vim/systags
-
-set laststatus=2 " Statusline
-
-set statusline=%!MyStatusLine()
-set tabline=%!MyTabLine()
-set foldtext=MyFoldText()
+setg laststatus=2 " Statusline
+setg tabline=%!MyTabLine()
 let &t_SI = "\e[6 q"
 let &t_SR = "\e[4 q"
 let &t_EI = "\e[2 q"
-set guicursor=
+setg guicursor=
       \n-v-ve-o-c-sm:block-Cursor/lCursor-blinkon0,
       \i-ci:ver25-Cursor/lCursor-blinkon0,
       \r-cr:hor20-Cursor/lCursor-blinkon0
@@ -128,6 +106,31 @@ set guicursor=
 " Ps = 4  -> steady underline.
 " Ps = 5  -> blinking bar (xterm).
 " Ps = 6  -> steady bar (xterm).
+
+" Global-local
+setg tags+=~/.vim/systags
+setg statusline=%!MyStatusLine()
+setg scrolloff=4
+setg dictionary=/usr/share/dict/words
+setg completeopt=menu,menuone,preview,noinsert
+if (has('patch-9.1.0463'))
+  setg completeopt+=fuzzy
+endif
+
+" Local to buffer
+set tabstop=2
+set shiftwidth=0
+set softtabstop=-1
+set expandtab
+set completeslash=slash
+set noundofile
+set noswapfile
+
+" Local to window
+set number
+set relativenumber
+set foldmethod=marker
+set foldtext=MyFoldText()
 " ---------- }}}1
 
 "> FUNCTIONS {{{1
@@ -569,9 +572,10 @@ function! CppSwitchSourceHeader(force)
   endif
 endfunction
 "}}}
+" ---------- }}}1
 
-" Expose some of the functions
-command! CleanNoNameEmptyBuffers call CleanNoNameEmptyBuffers()
+"> COMMANDS {{{1
+command! -nargs=0 CleanNoNameEmptyBuffers call CleanNoNameEmptyBuffers()
 command! -nargs=? -complete=file Rename call Rename(<q-args>)
 " ---------- }}}1
 
@@ -612,7 +616,7 @@ tmap <C-@> <C-Space>
 
 " (needs to be rebound to avoid waiting for timeout on <Esc>)
 for c in range(char2nr('a'), char2nr('z')) + range(char2nr('0'), char2nr('9'))
-  execute 'set <A-'..nr2char(c)..">=\<Esc>"..nr2char(c)
+  execute 'setg <A-'..nr2char(c)..">=\<Esc>"..nr2char(c)
 endfor
 endif
 "}}}
@@ -696,10 +700,10 @@ nnoremap <silent> <leader>sa :let g:autocomplete_enable=!g:autocomplete_enable<C
 nnoremap <silent> <leader>sb :let &bg=&bg=='dark'?'light':'dark'<CR>
 nnoremap <silent> <leader>sc :let &t_Co=&t_Co==256?16:256<CR>:echo 'Terminal colors: '..&t_Co<CR>
 nnoremap <silent> <leader>sf :let &foldcolumn=&foldcolumn?0:4<CR>
-nnoremap <silent> <leader>sl :set list!<CR>:echo 'List '..(&list?'ON':'OFF')<CR>
-nnoremap <silent> <leader>sn :set nu!\|let &rnu=&nu<CR>:echo 'Numbers: '..(&nu?'ON':'OFF')<CR>
-nnoremap <silent> <leader>sp :set paste!<CR>:echo 'Paste: '..(&paste?'ON':'OFF')<CR>
-nnoremap <silent> <leader>ss :setl spell!<CR>:echo 'Spellcheck '..(&spell?'ON':'OFF')<CR>
+nnoremap <silent> <leader>sl :setl list!<CR>:echo 'List '..(&l:list?'ON':'OFF')<CR>
+nnoremap <silent> <leader>sn :setl nu!\|let &l:rnu=&l:nu<CR>:echo 'Numbers: '..(&l:nu?'ON':'OFF')<CR>
+nnoremap <silent> <leader>sp :setg paste!<CR>:echo 'Paste: '..(&g:paste?'ON':'OFF')<CR>
+nnoremap <silent> <leader>ss :setl spell!<CR>:echo 'Spellcheck '..(&l:spell?'ON':'OFF')<CR>
 nnoremap <silent> <leader>s<bar> :let &colorcolumn=&colorcolumn==''?'+1':''<CR>
 "}}}
 
