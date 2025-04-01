@@ -950,8 +950,15 @@ aug end
 aug vimrc_ft
   au!
 
+  " Everything {{{
+  au FileType * if (!exists('b:undo_ftplugin'))|let b:undo_ftplugin='echo'|endif
+  "}}}
+
   " Quickfix {{{
-  au FileType qf nnoremap <buffer> <silent> Q :lclose<CR>
+  au FileType qf
+        \ nnoremap <buffer> <silent> Q :lclose<CR>|
+        \ nnoremap <buffer> p <CR>:copen<CR>|
+        \ let b:undo_ftplugin.='|mapclear <buffer>'
   "}}}
 
   " c/cpp {{{
@@ -959,24 +966,21 @@ aug vimrc_ft
         \ setl foldmethod=syntax|
         \ nnoremap <buffer> <silent> <localleader>s :call CppSwitchSourceHeader(0)<CR>|
         \ nnoremap <buffer> <silent> <localleader>S :call CppSwitchSourceHeader(1)<CR>|
-        \ command! -buffer -bang CppSwitchSourceHeader call CppSwitchSourceHeader(<bang>0)|
+        \ exe 'com! -buffer -bang CppSwitchSourceHeader call CppSwitchSourceHeader(<bang>0)'|
+        \ let b:undo_ftplugin.='|mapclear <buffer>|setl foldmethod<'
   "}}}
 
   " Java {{{
   au FileType java
         \ setl foldmethod=marker|
+        \ let b:undo_ftplugin.='|mapclear <buffer>|setl foldmethod<'
   "}}}
 
   " HTML {{{
   au FileType html
-        \ inoremap <buffer> > ><C-x><C-o>
+        \ inoremap <buffer> > ><C-x><C-o>|
+        \ let b:undo_ftplugin.='|mapclear <buffer>'
   "}}}
-
-  " Quickfix {{{
-  au FileType qf
-        \ nnoremap <buffer> p <CR>:copen<CR>
-  "}}}
-
 aug end
 "}}}
 
