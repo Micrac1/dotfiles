@@ -89,7 +89,6 @@ setg nobackup
 setg fillchars=vert:\ ,fold:\ ,foldclose:▶,foldopen:▼,foldsep:│
 let g:listchars = 'setg listchars=tab:▬▬►,trail:¤,leadmultispace:│'..repeat('\ ',&ts-1)
 exe get(g:, 'listchars')
-if (&omnifunc == '') | set omnifunc=syntaxcomplete#Complete | endif
 setg laststatus=2 " Statusline
 setg tabline=%!MyTabLine()
 let &t_SI = "\e[6 q"
@@ -577,6 +576,8 @@ endfunction
 "> COMMANDS {{{1
 command! -nargs=0 CleanNoNameEmptyBuffers call CleanNoNameEmptyBuffers()
 command! -nargs=? -complete=file Rename call Rename(<q-args>)
+command! -nargs=0 -bang SyntaxComplete
+      \ if (<bang>0|| &l:omnifunc=='')|setl omnifunc=syntaxcomplete#Complete|endif
 " ---------- }}}1
 
 "> MAPPINGS {{{1
