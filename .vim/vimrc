@@ -701,7 +701,7 @@ nnoremap <silent> <leader>sf :let &foldcolumn=&foldcolumn?0:4<CR>
 nnoremap <silent> <leader>sl :set list!<CR>:echo 'List '..(&list?'ON':'OFF')<CR>
 nnoremap <silent> <leader>sn :set nu!\|let &rnu=&nu<CR>:echo 'Numbers: '..(&nu?'ON':'OFF')<CR>
 nnoremap <silent> <leader>sp :set paste!<CR>:echo 'Paste: '..(&paste?'ON':'OFF')<CR>
-nnoremap <silent> <leader>ss :setlocal spell!<CR>:echo 'Spellcheck '..(&spell?'ON':'OFF')<CR>
+nnoremap <silent> <leader>ss :setl spell!<CR>:echo 'Spellcheck '..(&spell?'ON':'OFF')<CR>
 nnoremap <silent> <leader>s<bar> :let &colorcolumn=&colorcolumn==''?'+1':''<CR>
 "}}}
 
@@ -899,9 +899,9 @@ onoremap <silent> in :<C-u>normal! v`[o`]<CR>
 aug terminal_open
   au!
   if (has('nvim'))
-    au TermOpen * setlocal nonu | setlocal nornu | setlocal scrolloff=0
+    au TermOpen * setl nonu nornu scrolloff=0
   else
-    au TerminalWinOpen * setlocal nonu | setlocal nornu | setlocal scrolloff=0
+    au TerminalWinOpen * setl nonu nornu scrolloff=0
   endif
 aug end
 "}}}
@@ -1159,14 +1159,14 @@ function! s:on_lsp_buffer_enabled() abort
   let g:statusline_lsp_breadcrumbs = 1
   let g:statusline_lsp_progress = 1 " unused
   let g:statusline_lsp_status = 1 " unused
-  setlocal signcolumn=yes
-  setlocal omnifunc=lsp#complete
+  setl signcolumn=yes
+  setl omnifunc=lsp#complete
   " Enabling folding causes them to not restore and throw errors when
   " loading a session
   " set foldmethod=expr
   " set foldexpr=lsp#ui#vim#folding#foldexpr()
   " set foldtext=lsp#ui#vim#folding#foldtext()
-  if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+  if exists('+tagfunc') | setl tagfunc=lsp#tagfunc | endif
   nnoremap <buffer> gd <plug>(lsp-definition)
   nnoremap <buffer> gD <plug>(lsp-declaration)
   nnoremap <buffer> gr <plug>(lsp-references)
