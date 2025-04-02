@@ -1281,6 +1281,7 @@ runtime ftplugin/man.vim
 if (!has('nvim'))
 packadd! editorconfig
 packadd! comment
+packadd! helptoc
 endif
 
 packadd! matchit
