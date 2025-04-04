@@ -7,10 +7,48 @@ let $VIMCONFIGROOT = fnamemodify(expand('$MYVIMRC'), ':p:h')
 "> VARIABLES {{{1
 
 " Some global variables
-let g:sign_error = 'E'
-let g:sign_warning = 'W'
-let g:sign_hint = 'H'
-let g:sign_info = 'i'
+let g:icons_default = {
+      \   'sign_error': 'E',
+      \   'sign_warning': 'W',
+      \   'sign_hint': 'H',
+      \   'sign_info': 'i',
+      \   'fold_open': '▼',
+      \   'fold_close': '▶',
+      \   'fold_sep': '│',
+      \   'fold_dot': '∙',
+      \   'trail': '¤',
+      \   'indent': '│',
+      \   'ff_unix': 'U',
+      \   'ff_dos': 'D',
+      \   'ff_mac': 'M',
+      \   'diagnostics_prefix': '■',
+      \ }
+
+let g:icons_nerd = {
+      \   'sign_error': ' ',
+      \   'sign_warning': ' ',
+      \   'sign_hint': ' ',
+      \   'sign_info': ' ',
+      \   'ff_unix': ' ',
+      \   'ff_dos': ' ',
+      \   'ff_mac': ' ',
+      \   'ft_markdown': ' ',
+      \   'ft_java': ' ',
+      \   'ft_javascript': ' ',
+      \   'ft_typescript': ' ',
+      \   'ft_json': ' ',
+      \   'ft_css': ' ',
+      \   'ft_html': ' ',
+      \   'ft_lua': ' ',
+      \   'ft_php': ' ',
+      \   'ft_vim': ' ',
+      \   'ft_sh': ' ',
+      \   'ft_bash': ' ',
+      \   'ft_python': ' ',
+      \   'ft_c': ' ',
+      \   'ft_cpp': ' ',
+      \   'ft_rust': ' ',
+      \ }
 
 " Leaders
 let mapleader="\<Space>"
@@ -26,113 +64,58 @@ let g:autocomplete_enable = 1
 
 " ---------- }}}1
 
-"> SETTINGS {{{1
-
-" Global
-filetype plugin indent on
-syntax enable
-colorscheme micrac
-
-if (has('win32'))
-  setg runtimepath+=$VIMCONFIGROOT
-  setg runtimepath+=$VIMCONFIGROOT/after
-  setg packpath+=$VIMCONFIGROOT
-  language en_US.utf8
-endif
-
-if (has('nvim'))
-  setg runtimepath+=$VIMCONFIGROOT
-  setg runtimepath+=$VIMCONFIGROOT/after
-endif
-
-if (!has('nvim'))
-setg viminfofile=$VIMCONFIGROOT/viminfo
-endif
-
-setg guioptions=!cdfi
-setg guifont=Bitstream\ Vera\ Sans\ Mono\ 10,Consolas:h11
-setg sessionoptions=blank,buffers,sesdir,folds,help,tabpages,winpos,winsize,
-      \resize,terminal,skiprtp
-setg viewoptions=""
-setg notermguicolors
-setg splitbelow splitright
-setg winminheight=0
-setg winminwidth=0
-setg ruler
-setg nojoinspaces
-setg wildmenu
-setg wildmode=lastused:full
-setg wildoptions=pum,fuzzy " Vertical wild menu in cmdline
-setg wildignore=*/.git/*,*/.vscode/*,*.o,*.class,*.so
-setg wildignorecase
-setg fileformats=unix,dos,mac
-setg encoding=utf-8
-setg showcmd
-setg virtualedit=block
-setg switchbuf=uselast
-setg shortmess-=S " show match count
-setg lazyredraw " don't update during macros
-setg foldlevelstart=3
-setg timeout
-setg timeoutlen=5000
-setg ttimeout
-setg ttimeoutlen=0
-setg mouse=a
-setg belloff=all
-setg hidden
-setg updatetime=0
-setg history=1000
-setg shiftround
-setg incsearch
-setg hlsearch
-setg nobackup
-setg fillchars=vert:\ ,fold:\ ,foldclose:▶,foldopen:▼,foldsep:│
-let g:listchars = 'setg listchars=tab:▬▬►,trail:¤,leadmultispace:│'..repeat('\ ',&ts-1)
-exe get(g:, 'listchars')
-setg laststatus=2 " Statusline
-setg tabline=%!MyTabLine()
-let &t_SI = "\e[6 q"
-let &t_SR = "\e[4 q"
-let &t_EI = "\e[2 q"
-setg guicursor=
-      \n-v-ve-o-c-sm:block-Cursor/lCursor-blinkon0,
-      \i-ci:ver25-Cursor/lCursor-blinkon0,
-      \r-cr:hor20-Cursor/lCursor-blinkon0
-" Ps = 0  -> blinking block.
-" Ps = 1  -> blinking block (default).
-" Ps = 2  -> steady block.
-" Ps = 3  -> blinking underline.
-" Ps = 4  -> steady underline.
-" Ps = 5  -> blinking bar (xterm).
-" Ps = 6  -> steady bar (xterm).
-
-" Global-local
-setg tags+=~/.vim/systags
-setg statusline=%!MyStatusLine()
-setg scrolloff=4
-setg dictionary=/usr/share/dict/words
-setg completeopt=menu,menuone,preview,noinsert
-if (has('patch-9.1.0463'))
-  setg completeopt+=fuzzy
-endif
-
-" Local to buffer
-set tabstop=2
-set shiftwidth=0
-set softtabstop=-1
-set expandtab
-set completeslash=slash
-set noundofile
-set noswapfile
-
-" Local to window
-set number
-set relativenumber
-set foldmethod=marker
-set foldtext=MyFoldText()
-" ---------- }}}1
-
 "> FUNCTIONS {{{1
+
+" Set icons {{{
+" 0 - replace, 1 - merge, 2 - add new only
+function! SetIcons(theme = 'default', mode = 0)
+  " Make sure g:icons exists
+  if (type(get(g:, 'icons', -1)) != 4) | let g:icons = {} | endif
+
+  if (a:mode == 0)
+    let g:icons = get(g:, 'icons_'..a:theme, {})
+  elseif (a:mode == 1)
+    call extend(g:icons, get(g:, 'icons_'..a:theme, {}))
+  elseif (a:mode == 2)
+    call extend(get(g:, 'icons', {}), get(g:, 'icons_'..a:theme, {}), 'keep')
+  endif
+
+  for [icon, value] in items(g:icons)
+    let g:icons[icon..'_short'] = strcharpart(value, 0, 1)
+  endfor
+
+  " vim
+  let g:fillchars = 'exe "set fillchars=vert:\\ ,fold:\\ ,'
+        \..'foldclose:"..GetIcon(''fold_close_short'', ''\ '')..",'
+        \..'foldopen:"..GetIcon(''fold_open_short'', ''\ '')..",'
+        \..'foldsep:"..GetIcon(''fold_sep_short'', ''\ '')'
+  let g:listchars = 'exe "setl listchars=tab:▬▬►,'
+        \..'trail:"..GetIcon(''trail'', ''\ '')..",'
+        \..'leadmultispace:"..GetIcon(''indent'')..repeat(''\ '',&l:ts-1)'
+  let g:fileformats = {
+        \   'unix':GetIcon('ff_unix_short'),
+        \   'dos':GetIcon('ff_dos_short'),
+        \   'mac':GetIcon('ff_mac_short')
+        \ }
+  exe g:fillchars
+  exe g:listchars
+
+  " vim-lsp
+  let g:lsp_diagnostics_signs_hint = {'text': GetIcon('sign_hint', ' ')}
+  let g:lsp_diagnostics_signs_information = {'text': GetIcon('sign_info', ' ')}
+  let g:lsp_diagnostics_signs_warning = {'text': GetIcon('sign_warning', ' ')}
+  let g:lsp_diagnostics_signs_error = {'text': GetIcon('sign_error', ' ')}
+  let g:lsp_diagnostics_virtual_text_prefix =
+        \ ' '..GetIcon('diagnostics_prefix_short', ' ')..' '
+endfunction
+"}}}
+
+" Get icon {{{
+function! GetIcon(icon, default = '')
+  return get(get(g:, 'icons', {}), a:icon, a:default)
+endfunction
+"}}}
+
 " Surround visual selection (or motion) with strings {{{
 function! SurroundWithStrings(left_string = '<==', right_string = '==>', type = '') abort
   if a:type == ''
@@ -264,19 +247,19 @@ function! GetLspDiagnosticsString(table, color = '')
   let s = ''
   if (a:table.information)
     let s .= s == '' ? '' : a:color..' '
-    let s .= ''..g:sign_info..a:table.information
+    let s .= ''..GetIcon('sign_info')..a:table.information
   endif
   if (a:table.hint)
     let s .= s == '' ? '' : a:color..' '
-    let s .= ''..g:sign_hint..a:table.hint
+    let s .= ''..GetIcon('sign_hint')..a:table.hint
   endif
   if (a:table.warning)
     let s .= s == '' ? '' : a:color..' '
-    let s .= '%#Todo#'..g:sign_warning..a:table.warning
+    let s .= '%#Todo#'..GetIcon('sign_warning')..a:table.warning
   endif
   if (a:table.error)
     let s .= s == '' ? '' : a:color..' '
-    let s .= '%#Error#'..g:sign_error..a:table.error
+    let s .= '%#Error#'..GetIcon('sign_error')..a:table.error
   endif
   return s
 endfunction
@@ -408,6 +391,12 @@ function! MyTabLine()
     " Tab number
     let s .= ' ' .. n .. '.'
 
+    " Icon
+    let icon = GetIcon('ft_'
+          \..getbufvar(buflist[tabpagewinnr(n) - 1], '&filetype')
+          \..'_short')
+    let s .= icon !=# '' ? ' '..icon : ''
+
     " Filename
     let s .= filename == '' ?
           \ ' [No Name] ' : ' '..pathshorten(fnamemodify(fullname, ':~:.'))..' '
@@ -465,7 +454,8 @@ function! MyStatusLine()
         \%( %{%'"..b.."'%}%)%*%=
         \%( %{&endofline ? '' : '[noeol]'} /%)
         \%( %{&fenc ==# 'utf-8' ? '' : &fenc} /%)
-        \%( %{%get({'unix':'U','dos':'D','mac':'M'}, &ff, '')%} /%)
+        \%( %{%get(get(g:, 'fileformats', {}), &ff, '')%} /%)
+        \%( %#FileIcon#%{GetIcon('ft_'..&ft..'_short')}%*% %)
         \%( %{&ft} /%)
         \%( [%l:%c%V] / %L%)
         \"
@@ -474,8 +464,8 @@ endfunction
 
 " Foldtext {{{
 function! MyFoldText()
-  return (&foldcolumn?'':v:folddashes[1:]..'▶')..
-        \ printf(' %3s ∙ ',v:foldend-v:foldstart)..
+  return (&foldcolumn?'':v:folddashes[1:]..GetIcon('fold_close'))..
+        \ printf(' %3s '..GetIcon('fold_dot')..' ',v:foldend-v:foldstart)..
         \ substitute(foldtext(),'^+-*\s*\d\+ lines: ','','')
 endfunction
 "}}}
@@ -571,6 +561,7 @@ function! CppSwitchSourceHeader(force)
   endif
 endfunction
 "}}}
+
 " ---------- }}}1
 
 "> COMMANDS {{{1
@@ -578,6 +569,116 @@ command! -nargs=0 CleanNoNameEmptyBuffers call CleanNoNameEmptyBuffers()
 command! -nargs=? -complete=file Rename call Rename(<q-args>)
 command! -nargs=0 -bang SyntaxComplete
       \ if (<bang>0|| &l:omnifunc=='')|setl omnifunc=syntaxcomplete#Complete|endif
+" ---------- }}}1
+
+"> SETTINGS {{{1
+
+" Global
+filetype plugin indent on
+syntax enable
+colorscheme micrac
+
+if (has('win32'))
+  setg runtimepath+=$VIMCONFIGROOT
+  setg runtimepath+=$VIMCONFIGROOT/after
+  setg packpath+=$VIMCONFIGROOT
+  language en_US.utf8
+endif
+
+if (has('nvim'))
+  setg runtimepath+=$VIMCONFIGROOT
+  setg runtimepath+=$VIMCONFIGROOT/after
+endif
+
+if (!has('nvim'))
+setg viminfofile=$VIMCONFIGROOT/viminfo
+endif
+
+setg guioptions=!cdfi
+setg guifont=Bitstream\ Vera\ Sans\ Mono\ 10,Consolas:h11
+setg sessionoptions=blank,buffers,sesdir,folds,help,tabpages,winpos,winsize,
+      \resize,terminal,skiprtp
+setg viewoptions=""
+setg notermguicolors
+setg splitbelow splitright
+setg winminheight=0
+setg winminwidth=0
+setg ruler
+setg nojoinspaces
+setg wildmenu
+setg wildmode=lastused:full
+setg wildoptions=pum,fuzzy " Vertical wild menu in cmdline
+setg wildignore=*/.git/*,*/.vscode/*,*.o,*.class,*.so
+setg wildignorecase
+setg fileformats=unix,dos,mac
+setg encoding=utf-8
+setg showcmd
+setg virtualedit=block
+setg switchbuf=uselast
+setg shortmess-=S " show match count
+setg lazyredraw " don't update during macros
+setg foldlevelstart=3
+setg timeout
+setg timeoutlen=5000
+setg ttimeout
+setg ttimeoutlen=0
+setg mouse=a
+setg belloff=all
+setg hidden
+setg updatetime=0
+setg history=1000
+setg shiftround
+setg incsearch
+setg hlsearch
+setg nobackup
+setg laststatus=2 " Statusline
+setg tabline=%!MyTabLine()
+let &t_SI = "\e[6 q"
+let &t_SR = "\e[4 q"
+let &t_EI = "\e[2 q"
+setg guicursor=
+      \n-v-ve-o-c-sm:block-Cursor/lCursor-blinkon0,
+      \i-ci:ver25-Cursor/lCursor-blinkon0,
+      \r-cr:hor20-Cursor/lCursor-blinkon0
+" Ps = 0  -> blinking block.
+" Ps = 1  -> blinking block (default).
+" Ps = 2  -> steady block.
+" Ps = 3  -> blinking underline.
+" Ps = 4  -> steady underline.
+" Ps = 5  -> blinking bar (xterm).
+" Ps = 6  -> steady bar (xterm).
+
+" Global-local
+setg tags+=~/.vim/systags
+setg statusline=%!MyStatusLine()
+setg scrolloff=4
+setg dictionary=/usr/share/dict/words
+setg completeopt=menu,menuone,preview,noinsert
+if (has('patch-9.1.0463'))
+  setg completeopt+=fuzzy
+endif
+
+" Local to buffer
+set tabstop=2
+set shiftwidth=0
+set softtabstop=-1
+set expandtab
+set completeslash=slash
+set noundofile
+set noswapfile
+
+" Local to window
+set number
+set relativenumber
+set foldmethod=marker
+set foldtext=MyFoldText()
+
+" Call some functions
+call SetIcons("default")
+" call SetIcons('nerd')
+if (!has('win32'))
+  call SetIcons('nerd', 1)
+endif
 " ---------- }}}1
 
 "> MAPPINGS {{{1
@@ -1070,12 +1171,6 @@ let g:lsp_diagnostics_virtual_text_padding_left = 2
 let g:lsp_diagnostics_float_cursor = 1
 let g:lsp_diagnostics_float_delay = 200
 let g:lsp_diagnostics_float_insert_mode_enabled = 0
-
-let g:lsp_diagnostics_signs_hint = {'text': g:sign_hint}
-let g:lsp_diagnostics_signs_information = {'text': g:sign_info}
-let g:lsp_diagnostics_signs_warning = {'text': g:sign_warning}
-let g:lsp_diagnostics_signs_error = {'text': g:sign_error}
-let g:lsp_diagnostics_virtual_text_prefix = ' ■ '
 
 aug register_lsp_servers
   au!
