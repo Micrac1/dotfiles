@@ -452,7 +452,7 @@ endfunction
 function! MyStatusLine()
   let d = get(g:, 'statusline_lsp_diagnostics', v:false) ?
         \ GetLspDiagnosticsString(
-        \   GetLspDiagnostics(winbufnr(g:statusline_winid))
+        \   GetLspDiagnostics(winbufnr(g:statusline_winid)), '%*'
         \ ) : ''
   let b = get(g:, 'statusline_lsp_breadcrumbs', v:false) ? substitute(
         \   GetLspBreadcrumbsString(win_id2win(g:statusline_winid)), "'", "''", 'g'
