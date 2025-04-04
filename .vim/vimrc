@@ -130,12 +130,12 @@ function! SurroundWithStrings(left_string = '<==', right_string = '==>', type = 
     " TODO dont run normal!
     let left_len = len(a:left_string)
     if a:type == 'char'
-      execute 'silent noautocmd keepjumps normal! `ai'..a:left_string..
-            \ "\<Esc>`b"..(save_mark[1][2] + (save_mark[0][1] == save_mark[1][1]
+      execute 'silent noautocmd keepjumps normal! `ai'..a:left_string
+            \ .. "\<Esc>`b"..(save_mark[1][2] + (save_mark[0][1] == save_mark[1][1]
             \ && left_len != 0 ? left_len : 0))..'|a'..a:right_string.."\<Esc>"
     elseif a:type == 'line'
-      execute 'silent noautocmd keepjumps normal! `a^i'..a:left_string..
-            \ "\<Esc>`b$a"..a:right_string.."\<Esc>"
+      execute 'silent noautocmd keepjumps normal! `a^i'..a:left_string
+            \ .. "\<Esc>`b$a"..a:right_string.."\<Esc>"
     elseif a:type == 'block'
       execute 'silent noautocmd keepjumps normal! gvI'..a:left_string.."\<Esc>"
             \ 'gv'..(save_mark[1][2]+left_len)..'|A'..a:right_string.."\<Esc>"
@@ -464,9 +464,9 @@ endfunction
 
 " Foldtext {{{
 function! MyFoldText()
-  return (&foldcolumn?'':v:folddashes[1:]..GetIcon('fold_close'))..
-        \ printf(' %3s '..GetIcon('fold_dot')..' ',v:foldend-v:foldstart)..
-        \ substitute(foldtext(),'^+-*\s*\d\+ lines: ','','')
+  return (&foldcolumn?'':v:folddashes[1:]..GetIcon('fold_close'))
+        \ ..printf(' %3s '..GetIcon('fold_dot')..' ',v:foldend-v:foldstart)
+        \..substitute(foldtext(),'^+-*\s*\d\+ lines: ','','')
 endfunction
 "}}}
 
