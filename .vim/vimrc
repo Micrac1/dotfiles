@@ -464,7 +464,7 @@ function! MyStatusLine()
         \%( %h%w%m%r%)%<
         \%( %{%'"..b.."'%}%)%*%=
         \%( %{&endofline ? '' : '[noeol]'} /%)
-        \%( %{&fenc} /%)
+        \%( %{&fenc ==# 'utf-8' ? '' : &fenc} /%)
         \%( %{%get({'unix':'U','dos':'D','mac':'M'}, &ff, '')%} /%)
         \%( %{&ft} /%)
         \%( [%l:%c%V] / %L%)
