@@ -23,6 +23,7 @@ endif
 "> VARIABLES {{{1
 
 " Some global variables
+" Icons {{{
 let g:icons_default = {
       \   'sign_error': 'E',
       \   'sign_warning': 'W',
@@ -49,10 +50,16 @@ let g:icons_nerd = {
       \   'ff_dos': ' ',
       \   'ff_mac': ' ',
       \   'ft_markdown': ' ',
+      \   'ft_tex': ' ',
+      \   'ft_plantuml': ' ',
+      \   'ft_json': ' ',
+      \   'ft_conf': ' ',
+      \   'ft_config': ' ',
+      \   'ft_confini': ' ',
+      \   'ft_dockerfile': ' ',
       \   'ft_java': ' ',
       \   'ft_javascript': ' ',
       \   'ft_typescript': ' ',
-      \   'ft_json': ' ',
       \   'ft_css': ' ',
       \   'ft_html': ' ',
       \   'ft_lua': ' ',
@@ -61,10 +68,19 @@ let g:icons_nerd = {
       \   'ft_sh': ' ',
       \   'ft_bash': ' ',
       \   'ft_python': ' ',
+      \   'ft_gdscript': ' ',
       \   'ft_c': ' ',
       \   'ft_cpp': ' ',
+      \   'ft_cs': ' ',
       \   'ft_rust': ' ',
+      \   'ft_glsl': ' ',
+      \   'ft_go': ' ',
+      \   'ft_git': ' ',
+      \   'ft_gitcommit': ' ',
+      \   'ft_gitignore': ' ',
+      \   'ft_gitrebase': ' ',
       \ }
+"}}}
 
 " Leaders
 let mapleader="\<Space>"
