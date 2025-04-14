@@ -612,7 +612,9 @@ syntax enable
 colorscheme micrac
 
 setg guioptions=!cdfi
-setg guifont=Bitstream\ Vera\ Sans\ Mono\ 10,Consolas:h11
+setg guifont=DejaVuSansM\ Nerd\ Font\ Mono\ 10,
+      \Bitstream\ Vera\ Sans\ Mono\ 10,
+      \Consolas:h11
 setg sessionoptions=blank,buffers,sesdir,folds,help,tabpages,winpos,winsize,
       \resize,terminal,skiprtp
 setg viewoptions=""
