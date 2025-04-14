@@ -1376,7 +1376,7 @@ runtime ftplugin/man.vim
 if (!has('nvim'))
 packadd! editorconfig
 packadd! comment
-packadd! helptoc
+if (has('patch-9.1.0831')) | packadd! helptoc | endif
 endif
 
 packadd! matchit
