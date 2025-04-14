@@ -1432,7 +1432,7 @@ call plug#begin('~/.vim/plugged')
 " Plug 'girishji/devdocs.vim'
 " Plug 'justinmk/vim-dirvish'
 " Plug 'preservim/nerdtree'
-Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf.vim', (executable('fzf') ? {} : {'on': []})
 Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'prabirshrestha/vim-lsp', VimOnly() " LSP support
@@ -1494,7 +1494,7 @@ function! PluginEnter()
   "}}}
 
   " fzf {{{
-  if (exists(':FZF'))
+  if (get(g:, 'loaded_fzf_vim', 0))
     nmap <leader>F :Files<CR>
     nmap <leader>G :GFiles<CR>
     nmap <leader>B :Buffers<CR>
