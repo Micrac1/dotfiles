@@ -722,11 +722,11 @@ for c in range(char2nr('a'), char2nr('z')) + range(char2nr('0'), char2nr('9'))
   execute "nnoremap <leader>l"..nr2char(c)
         \.." :echo '[LSP MISSING] l"..nr2char(c).."'<CR>"
 endfor
-nnoremap <localleader>[g ":echo '[LSP MISSING] [g'<CR>"
-nnoremap <localleader>]g ":echo '[LSP MISSING] ]g'<CR>"
-nnoremap <localleader>[d ":echo '[LSP MISSING] [d'<CR>"
-nnoremap <localleader>]d ":echo '[LSP MISSING] ]d'<CR>"
-inoremap <buffer> <C-s> <C-o><plug>(lsp-signature-help)
+nnoremap [g :echo '[LSP MISSING] [g'<CR>
+nnoremap ]g :echo '[LSP MISSING] ]g'<CR>
+nnoremap [w :echo '[LSP MISSING] [w'<CR>
+nnoremap ]w :echo '[LSP MISSING] ]w'<CR>
+inoremap <C-s> <Nop>
 "}}}
 
 " CSI fuckery {{{
@@ -1295,6 +1295,29 @@ function! s:on_lsp_buffer_enabled() abort
   nnoremap <buffer> gi <plug>(lsp-implementation)
   nnoremap <buffer> K <plug>(lsp-hover-float)
 
+  nnoremap <buffer> [g <plug>(lsp-previous-error)
+  nnoremap <buffer> ]g <plug>(lsp-next-error)
+  nnoremap <buffer> [w <plug>(lsp-previous-diagnostic)
+  nnoremap <buffer> ]w <plug>(lsp-next-diagnostic)
+  inoremap <buffer> <C-s> <C-o><plug>(lsp-signature-help)
+
+  inoremap <buffer> <expr><C-d>
+        \ lsp#document_hover_preview_winid() ? lsp#scroll(+4):'<C-d>'
+  inoremap <buffer> <expr><C-u>
+        \ lsp#document_hover_preview_winid() ? lsp#scroll(-4):'<C-u>'
+  nnoremap <buffer> <expr><C-d>
+        \ lsp#document_hover_preview_winid() ? lsp#scroll(+4):'<C-d>'
+  nnoremap <buffer> <expr><C-u>
+        \ lsp#document_hover_preview_winid() ? lsp#scroll(-4):'<C-u>'
+  inoremap <buffer> <expr><C-e>
+        \ lsp#document_hover_preview_winid() ? lsp#scroll(+1):'<C-e>'
+  inoremap <buffer> <expr><C-y>
+        \ lsp#document_hover_preview_winid() ? lsp#scroll(-1):'<C-y>'
+  nnoremap <buffer> <expr><C-e>
+        \ lsp#document_hover_preview_winid() ? lsp#scroll(+1):'<C-e>'
+  nnoremap <buffer> <expr><C-y>
+        \ lsp#document_hover_preview_winid() ? lsp#scroll(-1):'<C-y>'
+
   aug lsp_update_symbols
     au! * <buffer>
     au TextChanged <buffer> call UpdateLspDocumentSymbols(bufnr())
@@ -1517,29 +1540,6 @@ function! PluginEnter()
     nnoremap <leader>ll <plug>(lsp-code-lens)
     nnoremap <leader>lf <plug>(lsp-document-format)
     vnoremap <leader>lf <plug>(lsp-document-range-format)
-
-    nnoremap <buffer> [g <plug>(lsp-previous-error)
-    nnoremap <buffer> ]g <plug>(lsp-next-error)
-    nnoremap <buffer> [d <plug>(lsp-previous-diagnostic)
-    nnoremap <buffer> ]d <plug>(lsp-next-diagnostic)
-    inoremap <C-s> <C-o><plug>(lsp-signature-help)
-
-    inoremap <buffer> <expr><C-d>
-          \ lsp#document_hover_preview_winid() ? lsp#scroll(+4):'<C-d>'
-    inoremap <buffer> <expr><C-u>
-          \ lsp#document_hover_preview_winid() ? lsp#scroll(-4):'<C-u>'
-    nnoremap <buffer> <expr><C-d>
-          \ lsp#document_hover_preview_winid() ? lsp#scroll(+4):'<C-d>'
-    nnoremap <buffer> <expr><C-u>
-          \ lsp#document_hover_preview_winid() ? lsp#scroll(-4):'<C-u>'
-    inoremap <buffer> <expr><C-e>
-          \ lsp#document_hover_preview_winid() ? lsp#scroll(+1):'<C-e>'
-    inoremap <buffer> <expr><C-y>
-          \ lsp#document_hover_preview_winid() ? lsp#scroll(-1):'<C-y>'
-    nnoremap <buffer> <expr><C-e>
-          \ lsp#document_hover_preview_winid() ? lsp#scroll(+1):'<C-e>'
-    nnoremap <buffer> <expr><C-y>
-          \ lsp#document_hover_preview_winid() ? lsp#scroll(-1):'<C-y>'
   endif
   "}}}
 endfunction
