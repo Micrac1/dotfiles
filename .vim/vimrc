@@ -696,8 +696,7 @@ set foldtext=MyFoldText()
 
 " Call some functions
 call SetIcons("default")
-" call SetIcons('nerd')
-if (!has('win32'))
+if (!has('win32') || get(g:, 'use_nerd_icons', 1))
   call SetIcons('nerd', 1)
 endif
 " ---------- }}}1
