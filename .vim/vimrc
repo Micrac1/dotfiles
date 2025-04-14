@@ -585,6 +585,7 @@ command! -nargs=0 CleanNoNameEmptyBuffers call CleanNoNameEmptyBuffers()
 command! -nargs=? -complete=file Rename call Rename(<q-args>)
 command! -nargs=0 -bang SyntaxComplete
       \ if (<bang>0|| &l:omnifunc=='')|setl omnifunc=syntaxcomplete#Complete|endif
+command! -nargs=* -bang W call mkdir(expand('%:p:h'), 'p') | w<bang> <args>
 " ---------- }}}1
 
 "> SETTINGS {{{1
