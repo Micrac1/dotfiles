@@ -614,6 +614,7 @@ colorscheme micrac
 setg guioptions=!cdfi
 setg guifont=DejaVuSansM\ Nerd\ Font\ Mono\ 10,
       \Bitstream\ Vera\ Sans\ Mono\ 10,
+      \DejaVuSansM_Nerd_Font_Mono:h10,
       \Consolas:h11
 setg sessionoptions=blank,buffers,sesdir,folds,help,tabpages,winpos,winsize,
       \resize,terminal,skiprtp
