@@ -4,6 +4,22 @@ if (&compatible) | set nocompatible | endif
 let $MYVIMRC = expand('<script>')
 let $VIMCONFIGROOT = fnamemodify(expand('$MYVIMRC'), ':p:h')
 
+if (has('win32'))
+  setg runtimepath+=$VIMCONFIGROOT
+  setg runtimepath+=$VIMCONFIGROOT/after
+  setg packpath+=$VIMCONFIGROOT
+  language en_US.utf8
+endif
+
+if (has('nvim'))
+  setg runtimepath+=$VIMCONFIGROOT
+  setg runtimepath+=$VIMCONFIGROOT/after
+endif
+
+if (!has('nvim'))
+  setg viminfofile=$VIMCONFIGROOT/viminfo
+endif
+
 "> VARIABLES {{{1
 
 " Some global variables
@@ -577,22 +593,6 @@ command! -nargs=0 -bang SyntaxComplete
 filetype plugin indent on
 syntax enable
 colorscheme micrac
-
-if (has('win32'))
-  setg runtimepath+=$VIMCONFIGROOT
-  setg runtimepath+=$VIMCONFIGROOT/after
-  setg packpath+=$VIMCONFIGROOT
-  language en_US.utf8
-endif
-
-if (has('nvim'))
-  setg runtimepath+=$VIMCONFIGROOT
-  setg runtimepath+=$VIMCONFIGROOT/after
-endif
-
-if (!has('nvim'))
-setg viminfofile=$VIMCONFIGROOT/viminfo
-endif
 
 setg guioptions=!cdfi
 setg guifont=Bitstream\ Vera\ Sans\ Mono\ 10,Consolas:h11
