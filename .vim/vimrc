@@ -104,17 +104,18 @@ function! SetIcons(theme = 'default', mode = 0)
   " Make sure g:icons exists
   if (type(get(g:, 'icons', -1)) != 4) | let g:icons = {} | endif
 
-  if (a:mode == 0)
-    let g:icons = get(g:, 'icons_'..a:theme, {})
-  elseif (a:mode == 1)
-    call extend(g:icons, get(g:, 'icons_'..a:theme, {}))
-  elseif (a:mode == 2)
-    call extend(get(g:, 'icons', {}), get(g:, 'icons_'..a:theme, {}), 'keep')
-  endif
-
-  for [icon, value] in items(g:icons)
-    let g:icons[icon..'_short'] = strcharpart(value, 0, 1)
+  let new_icons = deepcopy(get(g:, 'icons_'..a:theme, {}))
+  for [icon, value] in items(new_icons)
+    let new_icons[icon..'_short'] = strcharpart(value, 0, 1)
   endfor
+
+  if (a:mode == 0)
+    let g:icons = deepcopy(new_icons)
+  elseif (a:mode == 1)
+    call extend(g:icons, new_icons)
+  elseif (a:mode == 2)
+    call extend(g:icons, new_icons, 'keep')
+  endif
 
   " vim
   let g:fillchars = 'exe "set fillchars=vert:\\ ,fold:\\ ,'
