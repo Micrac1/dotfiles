@@ -1084,11 +1084,11 @@ aug vimrc_ft
 
   " c/cpp {{{
   au FileType c,cpp,objc,objcpp
-        \ setl foldmethod=syntax|
+        \ setl foldmethod=syntax omnifunc=|
         \ nnoremap <buffer> <silent> <localleader>s :call CppSwitchSourceHeader(0)<CR>|
         \ nnoremap <buffer> <silent> <localleader>S :call CppSwitchSourceHeader(1)<CR>|
         \ exe 'com! -buffer -bang CppSwitchSourceHeader call CppSwitchSourceHeader(<bang>0)'|
-        \ let b:undo_ftplugin.='|mapclear <buffer>|setl foldmethod<'
+        \ let b:undo_ftplugin.='|mapclear <buffer>|setl foldmethod< omnifunc<'
   "}}}
 
   " Java {{{
