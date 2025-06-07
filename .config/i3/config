@@ -391,18 +391,18 @@ bindsym Shift+XF86MonBrightnessDown exec $i "brightnessctl set 5%-"
 bindsym XF86MonBrightnessUp exec $i "brightnessctl -n200 set 5%+"
 
 # Volume adjust
-bindsym XF86AudioRaiseVolume exec $i "pactl set-sink-volume 0 +5%"
-bindsym XF86AudioLowerVolume exec $i "pactl set-sink-volume 0 -5%"
+bindsym XF86AudioRaiseVolume exec $i "pactl set-sink-volume @DEFAULT_SINK@ +5%"
+bindsym XF86AudioLowerVolume exec $i "pactl set-sink-volume @DEFAULT_SINK@ -5%"
 
 # Volume adjust granular
-bindsym Shift+XF86AudioRaiseVolume exec $i "pactl set-sink-volume 0 +1%"
-bindsym Shift+XF86AudioLowerVolume exec $i "pactl set-sink-volume 0 -1%"
+bindsym Shift+XF86AudioRaiseVolume exec $i "pactl set-sink-volume @DEFAULT_SINK@ +1%"
+bindsym Shift+XF86AudioLowerVolume exec $i "pactl set-sink-volume @DEFAULT_SINK@ -1%"
 
 # Microphone mute toggle
 bindsym Scroll_Lock exec $i "~/.dfs/bin/mute.sh"
 
 # Media controls
-bindsym XF86AudioMute exec $i "pactl set-sink-mute 0 toggle"
+bindsym XF86AudioMute exec $i "pactl set-sink-mute @DEFAULT_SINK@ toggle"
 bindsym XF86AudioPlay exec $i "playerctl play-pause"
 bindsym XF86AudioStop exec $i "playerctl pause"
 bindsym XF86AudioPrev exec $i "playerctl previous"
