@@ -528,3 +528,7 @@ exec $i "${HOME}/.config/polybar/launch_polybar.sh"
 # }
 
 # ---------- }}}1
+
+# Includes {{{1
+include ./`hostname`
+# }}}1
