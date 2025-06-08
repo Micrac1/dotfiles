@@ -560,6 +560,11 @@ function! CleanNoNameEmptyBuffers()
 endfunction
 "}}}
 
+function! TrimTrailingWhitespace()
+  %s/\s\+$//e
+  norm! ``
+endfunction
+
 " C/CPP switch source and header files {{{
 function! CppSwitchSourceHeader(force)
   let extension = expand('%:e')
