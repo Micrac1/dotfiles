@@ -1108,7 +1108,7 @@ aug vimrc_ft
   " HTML {{{
   au FileType html
         \ inoremap <buffer> > ><C-x><C-o>|
-        \ let b:undo_ftplugin.='|mapclear <buffer>'
+        \ let b:undo_ftplugin.='|imapclear <buffer>'
   "}}}
 aug end
 "}}}
