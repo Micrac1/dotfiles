@@ -692,6 +692,7 @@ set expandtab
 set completeslash=slash
 set noundofile
 set noswapfile
+set formatoptions+=/j
 
 " Local to window
 set number
