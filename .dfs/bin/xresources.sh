@@ -77,22 +77,6 @@ _apply_xfce() {
   done
 }
 
-# Generate the xmlstarlet command
-#_XMLSTARLET_COMMAND="xmlstarlet ed -L"
-#for (( i=0; i<${#_SETTINGS[@]}; i+=3 )); do
-#  _NAME="${_SETTINGS[${i}]}"
-#  _TYPE="${_SETTINGS[${i} + 1]}"
-#  _VALUE="${_SETTINGS[${i} + 2]}"
-#  _XMLSTARLET_COMMAND+="
-#    -u '//channel/property[@name=\"${_NAME}\"]/@value' -v '${_VALUE}'
-#    -s '//channel[not(property/@name=\"${_NAME}\")]' -t elem -n property
-#    -i '//channel/property[not(@name)]' -t attr -n 'name' -v '${_NAME}'
-#    -i '//channel/property[not(@type)]' -t attr -n 'type' -v '${_TYPE}'
-#    -i '//channel/property[not(@value)]' -t attr -n 'value' -v '${_VALUE}'
-#  "
-#done
-#_XMLSTARLET_COMMAND+=" ${_XFCE_TERMINAL_CONFIG_FILE}"
-
 _apply_i3(){
   i3-msg -q reload
 }
@@ -125,35 +109,7 @@ _apply (){
   done
 }
 
-
-#output_app {
-#  case ${1} in
-#    xfce4-terminal)
-#      TMP=$(mktemp)
-#      if [ ! -f "${TMP}" ]; then
-#        echo "Error: could not create temporary file. Skipping..."
-#        return 1
-#      fi
-#      echo "[Scheme]" >> "${TMP}"
-#      echo "Name=Xresources" >> "${TMP}"
-#
-#      xfcecolors "${TMP}"
-#
-#      # commit tmpfile
-#      mv "${TMP}" "${OUTPUTDIR}/${XFCEOUTPUTNAME}"
-#
-#      if [ -f "${TMP}" ]; then
-#        rm "${TMP}"
-#      fi
-#      ;;
-#
-#    *)
-#      echo "Warn: Unsupported output ${1}. Skipping..." >&2
-#      ;;
-#  esac
-#}
-
-_usage (){
+_usage(){
   printf "Usage: xresources.sh [OPTIONS]... [FILE]\n\n"
   printf "TODO write this shit properly\n\n"
   printf "OPTIONS:\n"
