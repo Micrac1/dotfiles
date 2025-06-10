@@ -2,6 +2,7 @@ clear Lock
 keycode 66 = Escape NoSymbol Escape
 
 keycode 105 = Pointer_Button3 Pointer_Button3
+keycode  94 = Pointer_Button2 Pointer_Button2
 keycode 108 = Multi_key Multi_key
 
 keycode 191 = F13
