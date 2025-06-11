@@ -72,13 +72,22 @@ ${_GIT_PS1}${_C_DBUS}${_PROMPT}${_RES} "
 unset _COLOR _PROMPT _RES _GIT_PS1 _C_DBUS
 
 declare -A BASHMARKS
-BASHMARKS["mato"]="/media/blue/projects/doucovanie/Mato/python/python_assignments"
-BASHMARKS["mc"]="/media/blue/mc_servers"
-BASHMARKS["projects"]="/media/blue/projects"
-BASHMARKS["sources"]="/media/blue/sources"
-BASHMARKS["stu"]="/media/blue/stu"
-BASHMARKS["vm"]="/media/blue/vm"
-BASHMARKS["artemis"]="/media/blue/projects/artemis"
+case "$(hostname)" in
+  "ende")
+    BASHMARKS["mato"]="/media/blue/projects/doucovanie/Mato/python/python_assignments"
+    BASHMARKS["mc"]="/media/blue/mc_servers"
+    BASHMARKS["projects"]="/media/blue/projects"
+    BASHMARKS["sources"]="/media/blue/sources"
+    BASHMARKS["vm"]="/media/blue/vm"
+    BASHMARKS["artemis"]="/media/blue/projects/artemis"
+    ;;
+  "clamp")
+    BASHMARKS["projects"]="${HOME}/projects"
+    BASHMARKS["sources"]="${HOME}/sources"
+    BASHMARKS["vm"]="${HOME}/vm"
+    BASHMARKS["artemis"]="${HOME}/projects/artemis"
+    ;;
+esac
 
 g(){
   TMP="${BASHMARKS[${1- }]}"
