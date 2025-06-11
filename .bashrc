@@ -21,6 +21,7 @@ esac
 
 # Reset character
 _RES='\[\e[0m\]'
+_RED='\[\e[01;31m\]'
 
 # GIT PROMPT SUPPORT
 GIT_PS1="1"
@@ -30,7 +31,7 @@ if [ -f "/usr/share/git/completion/git-prompt.sh" ]; then
   _GIT_PS1='$( [ "${GIT_PS1}" = "1" ] \
     && ! findmnt . 2>/dev/null >/dev/null \
     && [ ! "${HOME}" = "$(git rev-parse --show-toplevel 2>/dev/null)" ] \
-    && __git_ps1 " (\001\e[01;33m\002%s'"${_RES}"')" \
+    && __git_ps1 " (\[\e[01;33m\]%s'"${_RES}"')" \
   )'
   export GIT_PS1_SHOWDIRTYSTATE=1
   export GIT_PS1_SHOWSTASHSTATE=1
@@ -43,33 +44,38 @@ fi
 # Shell prompt (color and character)
 if [ "$(id -gn)" = "nointernet" ]; then
 	_PROMPT='!'
-	_COLOR="\001\e[01;33m\002"
+	_COLOR="${_RED}"
 else
 	_PROMPT='\$'
-	_COLOR="\001\e[01;32m\002"
+	_COLOR="\[\e[01;32m\]"
 fi
 
 # DBUS status color
 if [ -z "${DBUS_SESSION_BUS_ADDRESS}" ]; then
-	_C_DBUS="\001\e[01;97m\002" 
+	_C_DBUS="\[\e[01;97m\]"
 else
   _C_DBUS="${_COLOR}"
 fi
 
 # Login shell indicator
 if shopt -q login_shell; then
-  _LOGIN="\001\e[01;36m\002"
+  _LOGIN="\[\e[01;36m\]"
 else
   _LOGIN="${_COLOR}"
 fi
 
-PS1=\
+PROMPT_COMMAND=\
+'EC=$?;'\
+'PS1="'\
 "${_RES}${_COLOR}[${_LOGIN}\u"\
-'$([ "$?" -eq 0 ] && echo "\001\e[01;32m\002" || echo "\001\e[01;31m\002")'"@\
-${_COLOR}\h${_RES} \W${_COLOR}]${_RES}\
-${_GIT_PS1}${_C_DBUS}${_PROMPT}${_RES} "
+'$([ "${EC}" -eq 0 ] || echo "'${_RED}'")@'\
+"${_COLOR}\h${_RES} \W${_COLOR}]${_RES}"\
+"${_GIT_PS1}"\
+'$([ "${EC}" -eq 0 ] || echo " '${_RED}'(${EC})${_RES}")'\
+"${_C_DBUS}${_PROMPT}${_RES} "\
+'"'
 
-unset _COLOR _PROMPT _RES _GIT_PS1 _C_DBUS
+unset _COLOR _PROMPT _RES _GIT_PS1 _C_DBUS _RED
 
 declare -A BASHMARKS
 case "$(hostname)" in
