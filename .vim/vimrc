@@ -1209,6 +1209,13 @@ aug end
 
 function! s:register_lsp_servers()
   let servers = [
+        \ { 'name': 'tinymist',
+        \   'allowlist': ['typst'],
+        \   'executable': 'tinymist',
+        \   'cmd': {server_info->[&shell, &shellcmdflag,
+        \     'tinymist']
+        \   },
+        \ },
         \ { 'name': 'clangd',
         \   'allowlist': ['c', 'cpp', 'objc', 'objcpp'],
         \   'executable': 'clangd',
