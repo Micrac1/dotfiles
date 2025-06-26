@@ -1220,7 +1220,7 @@ function! s:register_lsp_servers()
         \   'allowlist': ['java'],
         \   'executable': 'jdtls',
         \   'env': {'JAVA_HOME': '/usr/lib/jvm/java-21-openjdk'},
-        \   'cmd': {server_info->[&shell, &shellcmdflag, 'jdtls']},
+        \   'cmd': {server_info->[&shell, &shellcmdflag, 'jdtls']}
         \ },
         \ { 'name': 'phpactor',
         \   'allowlist': ['php'],
@@ -1467,6 +1467,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/fzf.vim', (executable('fzf') ? {} : {'on': []})
 Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
+Plug 'lervag/vimtex'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'prabirshrestha/vim-lsp', VimOnly() " LSP support
 "Plug 'mattn/vim-lsp-settings'
