@@ -991,9 +991,25 @@ ounmap <leader>{
 noremap <expr> <leader>} SurroundWithStrings('{', '}')
 ounmap <leader>}
 
-" Used for bash and javascript
 noremap <expr> <leader>$ SurroundWithStrings('${', '}')
 ounmap <leader>$
+
+" Unsurround
+nnoremap <leader>d< q8q"8di<va<"8P
+nnoremap <leader>d> q8q"8di>va>"8P
+
+nnoremap <leader>d" q8q"8di"va""8P
+nnoremap <leader>d' q8q"8di'va'"8P
+nnoremap <leader>d` q8q"8di`va`"8P
+
+nnoremap <leader>d( q8q"8di(va("8P
+nnoremap <leader>d) q8q"8di)va)"8P
+
+nnoremap <leader>d[ q8q"8di[va["8P
+nnoremap <leader>d] q8q"8di]va]"8P
+
+nnoremap <leader>d{ q8q"8di{va{"8P
+nnoremap <leader>d} q8q"8di}va}"8P
 "}}}
 
 " System clipboard manipulation {{{
