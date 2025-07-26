@@ -78,15 +78,15 @@ make_bar(){
 }
 
 FORMAT=\
-'{{default(status,"X")}}|{{default(artist,"<unknown>")}}|{{default(title, "<unknown>")}}|'\
-'{{default(duration(position), "0")}}|{{default(duration(mpris:length), "0")}}|'\
-'{{default(position, "0")}}|{{default(mpris:length, "0")}}|{{shuffle}}|{{volume}}'
+'{{default(status,"X")}}ÿ{{default(artist,"<?>")}}ÿ{{default(title, "<?>")}}ÿ'\
+'{{default(duration(position), "0")}}ÿ{{default(duration(mpris:length), "0")}}ÿ'\
+'{{default(position, "0")}}ÿ{{default(mpris:length, "0")}}ÿ{{shuffle}}ÿ{{volume}}'
 
 poke_function(){
   TIMESTAMP="$(( $(date +'%s%N') / 1000000 ))"
 
   playerctl ${PLAYERCTL_FLAGS} -F metadata --format "${FORMAT}" |\
-  while IFS='|' read -r STATUS ARTIST TITLE POSITION LENGTH RAW_POSITION RAW_LENGTH REST; do
+  while IFS='ÿ' read -r STATUS ARTIST TITLE POSITION LENGTH RAW_POSITION RAW_LENGTH REST; do
     TIMESTAMP="$(( $(date +'%s%N') / 1000000 ))" # TODO optimize this somehow
     if [ $(( TIMESTAMP - LAST_TIMESTAMP )) -lt "${MAX_INTERVAL}" ]; then
       continue
