@@ -1442,6 +1442,9 @@ let g:termdebug_config = {
       \ 'variables_window_height': 15,
       \ }
 "}}}
+" Rust {{{
+let g:rust_fold = 2
+" }}}
 " vim-ai {{{
 let initial_prompt =<< trim END
 >>> system
