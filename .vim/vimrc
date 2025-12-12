@@ -560,6 +560,26 @@ function! CleanNoNameEmptyBuffers()
 endfunction
 "}}}
 
+" Start termdebug with rust-gdb {{{
+function! TermdebugRust()
+  let g:termdebug_config = g:termdebug_config ?? {}
+
+  let old_cmd = g:termdebug_config->get('command', v:null)
+  " let g:termdebug_config['command'] = ['rust-gdb']
+  let g:termdebug_config['command'] = ['rust-lldb']
+
+  Termdebug
+
+  if (old_cmd == v:null)
+    call remove(g:termdebug_config, 'command')
+  else
+    let g:termdebug_config['command'] = old_cmd
+  endif
+  return ''
+endfunction
+
+" }}}
+
 function! TrimTrailingWhitespace()
   %s/\s\+$//e
   norm! ``
@@ -1576,6 +1596,12 @@ function! PluginEnter()
     nnoremap <leader>lf <plug>(lsp-document-format)
     vnoremap <leader>lf <plug>(lsp-document-range-format)
   endif
+  "}}}
+
+  " termdebug {{{
+  " if (get(g:, 'loaded_termdebug', 0))
+  command! -nargs=0 TermdebugRust call TermdebugRust()
+  " endif
   "}}}
 endfunction
 "}}}
