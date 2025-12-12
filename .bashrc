@@ -6,6 +6,7 @@
 export HISTFILESIZE=-1
 export HISTSIZE=-1
 export HISTFILE="${HOME}/.bashhistory"
+export EDITOR=vim
 
 # If not running interactively, don't do anything
 [ ${-#*i} != ${-} ] || return
