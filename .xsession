@@ -16,6 +16,7 @@ if [ "${HOSTNAME}" = "endos" ]; then
 
   # Picom
   /bin/picom &
+  xset s 0
 fi
 
 # clamp
