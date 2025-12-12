@@ -13,7 +13,7 @@ fi
 
 # Check what computer are we on
 case "${HOSTNAME}" in 
-  "ende"|"clamp")
+  "endos"|"clamp")
     CONFIG="_${HOSTNAME}"
     ;;
   *)

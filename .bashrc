@@ -79,7 +79,7 @@ unset _COLOR _PROMPT _RES _GIT_PS1 _C_DBUS _RED
 
 declare -A BASHMARKS
 case "$(hostname)" in
-  "ende")
+  "endos")
     BASHMARKS["mato"]="/media/blue/projects/doucovanie/Mato/python/python_assignments"
     BASHMARKS["mc"]="/media/blue/mc_servers"
     BASHMARKS["projects"]="/media/blue/projects"

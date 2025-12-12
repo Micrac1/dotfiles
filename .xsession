@@ -3,8 +3,8 @@
 # XRDB
 /bin/xrdb -merge "${HOME}/.config/xresources/Xresources"
 
-# ende
-if [ "${HOSTNAME}" = "ende" ]; then
+# endos
+if [ "${HOSTNAME}" = "endos" ]; then
   # Monitor layout
   "${HOME}/.config/screenlayout/triple.sh"
 
