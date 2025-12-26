@@ -51,7 +51,7 @@ fi
 /bin/nm-applet &
 
 # NetworkManager applet
-/bin/nextcloud &
+# /bin/nextcloud &
 
 # Clipboard manager (add --no-icon to disable system tray)
 /bin/parcellite &
