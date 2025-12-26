@@ -1,6 +1,6 @@
 #!/bin/bash
 # xinput list
-device_name='GAOMON Gaomon Tablet Pen stylus'
+device_name='GAOMON Gaomon Tablet stylus'
 id=$(xinput list --id-only "${device_name}")
 
 echo "Applied settings for ${device_name} (id ${id})"
