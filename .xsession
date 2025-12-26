@@ -16,7 +16,6 @@ if [ "${HOSTNAME}" = "endos" ]; then
 
   # Picom
   /bin/picom &
-  xset s 0
 fi
 
 # clamp
@@ -70,3 +69,7 @@ if [ -x "${HOME}/.fehbg" ]; then "${HOME}/.fehbg"; fi
 
 # Screen locker
 "${HOME}/.dfs/session/locker.sh"
+
+if [ "${HOSTNAME}" = "endos" ]; then
+  xset s 0
+fi
