@@ -39,6 +39,10 @@
 !/.config/i3/
 !/.config/i3/**
 
+# wezterm
+!/.config/wezterm/
+!/.config/wezterm/**
+
 # Polybar
 !/.config/polybar/
 !/.config/polybar/**

@@ -1,0 +1,40 @@
+[colors]
+ansi = [
+  "#272727",
+  "#b30808",
+  "#008800",
+  "#a0a00d",
+  "#5522ff",
+  "#c155c1",
+  "#008b8b",
+  "#aaaaaa",
+]
+
+brights = [
+  "#606060",
+  "#ff0000",
+  "#00ff00",
+  "#ffff7f",
+  "#00aaff",
+  "#ffaaff",
+  "#44cccc",
+  "#ffffff",
+]
+cursor_border = "#a5a2a2"
+# cursor_fg = "#a5a2a2"
+cursor_bg = "#00aaff"
+# selection_fg = "#a5a2a2"
+# selection_bg = "#ffffff"
+foreground = "#ffffff"
+background = "#101020"
+
+[colors.indexed]
+
+[metadata]
+aliases = [
+  "micrac",
+]
+author = "Micrac"
+name = "Micrac"
+# origin_url = "https://github.com/mbadolato/iTerm2-Color-Schemes"
+wezterm_version = "Always"
