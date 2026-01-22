@@ -1,2 +1,195 @@
 set confirm no
 add-auto-load-safe-path .
+
+define init_windows
+python
+import gdb
+class Window:
+  name = None
+  title = None
+  header = None
+  err = False
+  auto_register = True
+  hoffset = 0
+  hoffset_max = 0
+  voffset = 0
+  voffset_max = 0
+
+  def __init__(self, window):
+    if self.name is None or self.title is None:
+      raise TypeError("Missing child parameter")
+    self._window = window
+    self.clear_lines()
+    self._window.title = self.title
+    gdb.events.before_prompt.connect(self.update)
+
+  def __init_subclass__(cls):
+    if cls.auto_register:
+      gdb.register_window_type(cls.name, cls)
+      gdb.execute(f"tui new-layout {cls.name} {cls.name} 1 status 1 cmd 1")
+
+  def close(self):
+    gdb.events.before_prompt.disconnect(self.update)
+
+  def offset_click_position(self, x, y):
+    return (x + self.hoffset, y + self.voffset - (1 if not self.header is None else 0))
+
+  def click(self, x, y, button):
+    (x, y) = self.offset_click_position(x,y)
+    lines = self.get_lines()
+    if self.err or button != 1 or x < 0 or y < 0 or len(lines) <= y or len(lines[y]) <= x:
+      return
+    self.on_click(x, y)
+
+  def on_click(self, x, y):
+    pass
+
+  def get_lines(self):
+    if self._lines is None:
+      return []
+    return self._lines
+
+  def set_lines(self, lines):
+    # Doing it this way because we calculate offsets in add_line
+    self.clear_lines()
+    for line in lines:
+      self.add_line(line)
+
+  def add_line(self, line):
+    self.hoffset_max = max(self.hoffset_max, max(len(line) - 1, 0))
+    self.voffset_max = max(0, len(self.get_lines()) - 0)
+    self.clamp_offsets()
+    self._lines += [line]
+
+  def clear_lines(self):
+    self._lines = []
+    self.hoffset_max = 0
+    self.voffset_max = 0
+    self.clamp_offsets()
+
+  def update(self):
+    self.clear_lines()
+    self.err = False
+    try:
+      self.on_update()
+    except Exception as e:
+      self.err = True
+      self.set_lines(str(e).splitlines())
+    self.render()
+
+  def on_update():
+    pass
+
+  def render(self):
+    if not self._window.is_valid():
+      return
+    has_header = not self.header is None
+    s = (self.header + "\n") if has_header else ""
+    height = max(0, self._window.height - (1 if has_header else 0))
+    width = self._window.width - 1
+    for line in self.get_lines()[self.voffset:self.voffset + height]:
+      s += line[self.hoffset:self.hoffset + width]
+      s += "\n"
+    self._window.write(s, True)
+
+  def clamp_offsets(self):
+    self.hoffset = min(max(self.hoffset, 0), self.hoffset_max)
+    self.voffset = min(max(self.voffset, 0), self.voffset_max)
+
+  def hscroll(self, num):
+    self.hoffset = self.hoffset + num
+    self.clamp_offsets()
+    self.render()
+
+  def vscroll(self, num):
+    self.voffset = self.voffset + num
+    self.clamp_offsets()
+    self.render()
+
+class CommandWindow(Window):
+  command = None
+  auto_register = False
+
+  def __init_subclass__(cls):
+    cls.auto_register = True
+    super().__init_subclass__()
+
+  def on_update(self):
+    self.set_lines(gdb.execute(self.command, to_string=True).splitlines())
+
+class LocalsWindow(Window):
+  name = "locals"
+  title = "Locals"
+
+  def on_update(self):
+    decorator = gdb.FrameDecorator.FrameDecorator(gdb.selected_frame())
+    for var in decorator.frame_locals() or []:
+      symbol = var.symbol()
+      # type = symbol.type
+      value = symbol.value(gdb.selected_frame())
+
+      symbol_str = str(symbol)
+      value_str = value.format_string()
+      # type_str = gdb.execute(f"whatis {symbol_str}", to_string = True, styling = False).splitlines()[0].split(" = ")[1]
+
+      self.add_line(f"{symbol_str:<9} = {value_str}")
+
+class BacktraceWindow(Window):
+  name = "backtrace"
+  title = "Backtrace"
+  header = f"{"N":>2} C Frame"
+
+  # This does not work because refresh does not work here
+  # def on_click(self, x, y):
+  #   gdb.execute(f"frame {y}")
+  #   gdb.execute(f"tui refresh")
+  #   gdb.execute(f"refresh")
+
+  def on_update(self):
+    frame = gdb.newest_frame()
+
+    while frame is not None and frame.is_valid():
+      frame_selected = "*" if gdb.selected_frame().level() == frame.level() else " "
+      self.add_line(f"{frame.level():>2} {frame_selected} {frame.function()}")
+      frame = frame.older()
+
+class BreakpointsWindow(Window):
+  name = "breakpoints"
+  title = "Breakpoints"
+  header = f"{"N":>2} ET  Location"
+
+  def on_click(self, x, y):
+    bp = gdb.breakpoints()[y]
+    bp.enabled = not bp.enabled
+    self.update()
+
+  def update(self):
+    self.clear_lines()
+    for bp in gdb.breakpoints():
+      enabled = "*" if bp.enabled else " "
+      match bp.type:
+        case gdb.BP_BREAKPOINT | gdb.BP_HARDWARE_BREAKPOINT:
+          type = "b"
+        case gdb.BP_WATCHPOINT | gdb.BP_HARDWARE_WATCHPOINT | gdb.BP_READ_WATCHPOINT | gdb.BP_ACCESS_WATCHPOINT:
+          type = "w"
+        case _:
+          type = "?"
+      self.add_line(f"{bp.number:>2} {enabled}{type}  {bp.location}")
+    self.render()
+
+gdb.execute(" ".join([
+  "tui new-layout full",
+  "{-horizontal src 3 {locals 1 breakpoints 1} 2} 2",
+  "status 0",
+  "{-horizontal backtrace 1 cmd 3} 1"
+]))
+gdb.execute(" ".join([
+  "tui new-layout vim",
+  "locals 1 breakpoints 1 backtrace 1",
+  "status 0 cmd 1"
+]))
+windows_registered = True
+end
+end
+
+init_windows

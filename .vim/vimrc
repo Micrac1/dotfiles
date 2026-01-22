@@ -1390,7 +1390,8 @@ aug end
 " Termdebug {{{
 aug termdebug
   au!
-  au User TermdebugStartPost wincmd r
+  au User TermdebugStartPost wincmd r | wincmd L
+        \| call TermDebugSendCommand("layout vim")
         \| nnoremap <leader>dr :Run<CR>
         \| nnoremap <leader>db :Break<CR>
         \| nnoremap <leader>dc :Clear<CR>
@@ -1437,8 +1438,8 @@ aug termdebug
 aug END
 
 let g:termdebug_config = {
-      \ 'wide': 1,
-      \ 'variables_window': v:true,
+      \ 'wide': 0,
+      \ 'variables_window': v:false,
       \ 'variables_window_height': 15,
       \ }
 "}}}
